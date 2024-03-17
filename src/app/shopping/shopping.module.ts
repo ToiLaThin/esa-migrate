@@ -14,10 +14,12 @@ import { ProductListComponent } from "./top-pages/product-list/product-list.comp
 import { ProductFilterByComponent } from "./components/product/product-list-filter-by/product-filter-by.component";
 import { ProductListCardComponent } from "./share-components/product-list-card.component";
 import { BreadCrumbComponent } from "./share-components/breadcrumb.component";
+import { CommonModule } from "@angular/common";
 
 @NgModule({
     imports: [
-        RouterModule.forChild(shoppingRoutes)
+        RouterModule.forChild(shoppingRoutes),
+        CommonModule, //to have async pipe
     ],
     declarations: [
         ShoppingComponent,
