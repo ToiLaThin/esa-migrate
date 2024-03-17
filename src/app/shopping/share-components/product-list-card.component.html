@@ -1,0 +1,58 @@
+<style>
+    :host {
+        word-spacing: -2;
+        letter-spacing: -.5;
+    }
+</style>
+<div class="border-b border-solid border-gray-50 clear-fix">
+    <div class="overflow-hidden relative group w-1/5 float-left">
+        <!-- Style child base on parent state with group -->
+        <img src="/assets/images/today-is-a-good-day-framed-poster.jpg" 
+             class="fluid-img">
+        <div class="absolute top-4 left-2 z-10 ">
+            <p class="inline-block bg-[red] text-white text-sm px-2 py-[2px] rounded">- 8%</p>
+        </div>
+        <div class="absolute top-12 -left-12 z-10 group-hover:left-2 transition-all">
+            <p class="inline-block bg-[#4cbb6c] text-white text-sm px-2 py-[2px] rounded">New</p>
+        </div>
+        <div class="absolute -top-48 right-2 z-10 group-hover:top-4 transition-all">
+            <div class="flex flex-col gap-2">
+                <p class="border border-solid border-gray-50 rounded-full w-10 h-10 flex justify-center items-center">
+                    <i class="far fa-heart text-xl"></i>
+                </p>
+                <p class="border border-solid border-gray-50 rounded-full w-10 h-10 flex justify-center items-center">
+                    <i class="fas fa-expand text-xl"></i>
+                </p>
+                <p class="border border-solid border-gray-50 rounded-full w-10 h-10 flex justify-center items-center">
+                    <i class="fas fa-link text-xl"></i>
+                </p>
+                <p class="border border-solid border-gray-50 rounded-full w-10 h-10 flex justify-center items-center">
+                    <i class="far fa-heart text-xl"></i>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="float-left p-8 w-4/5 flex flex-col gap-2">
+        <p class="text-gray-400 text-sm">Pro Tech Gear</p>
+        <p class="">Cropped Satin Bomber Jacket</p>
+        <div class="star-container">
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+            <div class="star"></div>
+        </div>
+        <div>
+            <span class="text-secondary line-through mr-2">$97.00</span>
+            <span class="font-bold text-red-600">$94.00</span>
+        </div>
+        <p class="text-gray-500 text-sm font-thin">We denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms of pleasure of the moment, so blinded by desire that they cannot.</p>
+        <div class="flex flex-row items-center gap-1">
+            <span class="inline-block rounded-full w-5 h-5 bg-[red] border border-solid border-gray-50"></span>
+            <span class="inline-block rounded-full w-5 h-5 bg-[black] border border-solid border-gray-50"></span>
+            <span class="inline-block rounded-full w-5 h-5 bg-[gray] border border-solid border-gray-50"></span>
+            <span class="inline-block border border-solid border-[#4cbb6c] text-[#4cbb6c] px-2 bg-[#e9f9ee]">In Stock</span>
+        </div>
+        <div class="btn-primary uppercase self-start">Options</div>
+    </div>
+</div>
