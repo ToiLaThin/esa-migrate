@@ -1,4 +1,6 @@
 import { Component } from "@angular/core";
+import { Store } from "@ngrx/store";
+import { productActions } from "../../state/product/product.actions";
 
 @Component({
     selector: 'esa-product-list',
@@ -6,6 +8,10 @@ import { Component } from "@angular/core";
 })
 export class ProductListComponent {
     productCardView: boolean = true;
+
+    constructor(private _store: Store) {
+        this._store.dispatch(productActions.reloadProducts())
+    }
 
     toggleViewMode() {
         this.productCardView = !this.productCardView;
