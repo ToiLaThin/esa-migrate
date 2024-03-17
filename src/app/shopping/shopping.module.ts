@@ -10,6 +10,10 @@ import { CatalogCardComponent } from "./components/index/catalog-card/catalog-ca
 import { ProductCardComponent } from "./share-components/product-card.component";
 import { TestimonialCardComponent } from "./components/index/testimonial-card/testimonial-card.component";
 import { FeatureCardComponent } from "./components/index/feature-card/feature-card.component";
+import { ProductListComponent } from "./top-pages/product-list/product-list.component";
+import { ProductFilterByComponent } from "./components/product/product-list-filter-by/product-filter-by.component";
+import { ProductListCardComponent } from "./share-components/product-list-card.component";
+import { BreadCrumbComponent } from "./share-components/breadcrumb.component";
 
 @NgModule({
     imports: [
@@ -23,8 +27,13 @@ import { FeatureCardComponent } from "./components/index/feature-card/feature-ca
         BannerComponent,
         CatalogCardComponent,
         ProductCardComponent,
+        ProductListCardComponent,
+        BreadCrumbComponent,
         TestimonialCardComponent,
-        FeatureCardComponent
+        FeatureCardComponent,
+
+        ProductListComponent,
+        ProductFilterByComponent
     ],
     exports: [],
 })

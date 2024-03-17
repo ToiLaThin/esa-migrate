@@ -1,0 +1,70 @@
+<esa-breadcrumb></esa-breadcrumb>
+<div class="my-container my-10 flex flex-row items-baseline gap-4">
+    <!-- align baseline la gi: no giup cac flex item ko can width nhu nhau -->
+    <div class="w-[20%] bg-white border border-solid border-gray-50 rounded">
+        <esa-product-filter-by></esa-product-filter-by>
+    </div>
+    <div class="w-[80%] bg-white">
+        <h2 class="text-2xl font-semibold">Catalog Name</h2>
+        <p class="py-4 border-b-gray-50-solid-1px">Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their.</p>
+        <div class="mt-6 pb-6 border-b-gray-50-solid-1px">
+            <div class="flex flex-row justify-between">
+                <div class="flex flex-row items-center">
+                    <i class="fas fa-list mr-3 text-2xl" 
+                       (click)="toggleViewMode()">
+                    </i>
+                    <i class="far fa-square mr-6 text-2xl"
+                       (click)="toggleViewMode()">
+                    </i>
+                    <span>There are 18 products.</span>
+                </div>
+                <div class="flex flex-row items-center">
+                    <p>Sort By: </p>
+                    <select class="mx-2 border border-solid border-gray-50 rounded p-3">
+                        <option value="1">Relevance</option>
+                        <option value="2">Sales: Highest to Lowest</option>
+                        <option value="2">Name, A to Z</option>
+                        <option value="2">Name, Z to A</option>
+                        <option value="2">Price, low to high</option>
+                        <option value="2">Price, high to low</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="flex flex-wrap mb-6 border-collapse border border-solid border-gray-50 rounded">
+            <!-- Todo xem lai border -->
+            @if (this.productCardView === true) {
+                <esa-product-card class="w-1/4"></esa-product-card>
+                <esa-product-card class="w-1/4"></esa-product-card>
+                <esa-product-card class="w-1/4"></esa-product-card>
+                <esa-product-card class="w-1/4"></esa-product-card>
+                <esa-product-card class="w-1/4"></esa-product-card>
+                <esa-product-card class="w-1/4"></esa-product-card>
+                <esa-product-card class="w-1/4"></esa-product-card>
+                <esa-product-card class="w-1/4"></esa-product-card>
+                <esa-product-card class="w-1/4"></esa-product-card>
+                <esa-product-card class="w-1/4"></esa-product-card>
+                <esa-product-card class="w-1/4"></esa-product-card>
+            }
+            @else {
+                <esa-product-list-card class="w-full"></esa-product-list-card>
+                <esa-product-list-card class="w-full"></esa-product-list-card>
+                <esa-product-list-card class="w-full"></esa-product-list-card>
+                <esa-product-list-card class="w-full"></esa-product-list-card>
+                <esa-product-list-card class="w-full"></esa-product-list-card>
+                <esa-product-list-card class="w-full"></esa-product-list-card>
+                <esa-product-list-card class="w-full"></esa-product-list-card>
+                <esa-product-list-card class="w-full"></esa-product-list-card>
+                <esa-product-list-card class="w-full"></esa-product-list-card>
+                <esa-product-list-card class="w-full"></esa-product-list-card>
+                <esa-product-list-card class="w-full"></esa-product-list-card>
+            }
+        </div>
+        <div class="flex flex-row justify-between items-center">
+            <span class="text-subheading">Showing 1-18 of 18 item(s)</span>
+            <div class="pagination">
+                <div class="btn-primary">1</div>
+            </div>
+        </div>
+    </div>
+</div>
