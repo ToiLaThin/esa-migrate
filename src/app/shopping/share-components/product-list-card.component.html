@@ -7,7 +7,7 @@
 <div class="border-b border-solid border-gray-50 clear-fix">
     <div class="overflow-hidden relative group w-1/5 float-left">
         <!-- Style child base on parent state with group -->
-        <img src="/assets/images/today-is-a-good-day-framed-poster.jpg" 
+        <img src="{{product.productCoverImage}}" 
              class="fluid-img">
         <div class="absolute top-4 left-2 z-10 ">
             <p class="inline-block bg-[red] text-white text-sm px-2 py-[2px] rounded">- 8%</p>
@@ -37,8 +37,8 @@
         </div>
     </div>
     <div class="float-left p-8 w-4/5 flex flex-col gap-2">
-        <p class="text-gray-400 text-sm">Pro Tech Gear</p>
-        <p class="">Cropped Satin Bomber Jacket</p>
+        <p class="text-gray-400 text-sm">{{product.subCatalogName}}</p>
+        <p class="">{{product.productName}}</p>
         <div class="star-container">
             <div class="star"></div>
             <div class="star"></div>
@@ -47,10 +47,14 @@
             <div class="star"></div>
         </div>
         <div>
-            <span class="text-secondary line-through mr-2">$97.00</span>
-            <span class="font-bold text-red-600">$94.00</span>
+            @if (product.isOnSale) {
+            <span class="text-secondary line-through mr-2">${{[product.productModels[0].price]}}</span>
+            <span class="font-bold text-red-600">${{product.productModels[0].priceOnSaleModel}}</span>
+            } @else {
+            <span class="text-secondary">${{[product.productModels[0].price]}}</span>
+            }
         </div>
-        <p class="text-gray-500 text-sm font-thin">We denounce with righteous indignation and dislike men who are so beguiled and demoralized by the charms of pleasure of the moment, so blinded by desire that they cannot.</p>
+        <p class="text-gray-500 text-sm font-thin">{{product.productInfo?.productDescription}}</p>
         <div class="flex flex-row items-center gap-1">
             <span class="inline-block rounded-full w-5 h-5 bg-[red]
                          border border-solid border-gray-50">

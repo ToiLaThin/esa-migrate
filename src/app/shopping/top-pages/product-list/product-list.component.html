@@ -33,31 +33,15 @@
         </div>
         <div class="flex flex-wrap mb-6 border-collapse border border-solid border-gray-50 rounded">
             <!-- Todo xem lai border -->
-            @if (this.productCardView === true) {
-                <esa-product-card class="w-1/4"></esa-product-card>
-                <esa-product-card class="w-1/4"></esa-product-card>
-                <esa-product-card class="w-1/4"></esa-product-card>
-                <esa-product-card class="w-1/4"></esa-product-card>
-                <esa-product-card class="w-1/4"></esa-product-card>
-                <esa-product-card class="w-1/4"></esa-product-card>
-                <esa-product-card class="w-1/4"></esa-product-card>
-                <esa-product-card class="w-1/4"></esa-product-card>
-                <esa-product-card class="w-1/4"></esa-product-card>
-                <esa-product-card class="w-1/4"></esa-product-card>
-                <esa-product-card class="w-1/4"></esa-product-card>
-            }
-            @else {
-                <esa-product-list-card class="w-full"></esa-product-list-card>
-                <esa-product-list-card class="w-full"></esa-product-list-card>
-                <esa-product-list-card class="w-full"></esa-product-list-card>
-                <esa-product-list-card class="w-full"></esa-product-list-card>
-                <esa-product-list-card class="w-full"></esa-product-list-card>
-                <esa-product-list-card class="w-full"></esa-product-list-card>
-                <esa-product-list-card class="w-full"></esa-product-list-card>
-                <esa-product-list-card class="w-full"></esa-product-list-card>
-                <esa-product-list-card class="w-full"></esa-product-list-card>
-                <esa-product-list-card class="w-full"></esa-product-list-card>
-                <esa-product-list-card class="w-full"></esa-product-list-card>
+            @for (product of (paginatedProducts$ | async)?.products; track paginatedProducts$) {
+                @if (this.productCardView === true) {
+                <esa-product-card class="w-1/4" [product]="product">
+                </esa-product-card>
+                }
+                @else {
+                <esa-product-list-card class="w-full" [product]="product">
+                </esa-product-list-card>
+                }
             }
         </div>
         <div class="flex flex-row justify-between items-center">

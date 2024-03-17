@@ -8,3 +8,8 @@ export const selectorProductLazyLoadRequest = createSelector(
     selectorProductFeature,
     (productState) => productState.productLazyLoadRequest
 )
+
+export const selectorPaginatedProducts = createSelector(
+    selectorProductFeature,
+    (productState) => productState.paginatedProducts
+)
