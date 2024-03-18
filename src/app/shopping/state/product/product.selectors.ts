@@ -9,7 +9,15 @@ export const selectorProductLazyLoadRequest = createSelector(
     (productState) => productState.productLazyLoadRequest
 )
 
-export const selectorPaginatedProducts = createSelector(
+export const selectorDisplayingProducts = createSelector(
     selectorProductFeature,
-    (productState) => productState.paginatedProducts
+    (productState) => productState.paginatedProducts.products
+)
+export const selectorPageCount = createSelector(
+    selectorProductFeature,
+    (productState) => productState.paginatedProducts.pageCount
+)
+export const selectorDisplayingProductCount = createSelector(
+    selectorProductFeature,
+    (productState) => productState.paginatedProducts.products.length
 )
