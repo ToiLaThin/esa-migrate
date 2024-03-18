@@ -21,3 +21,12 @@ export const selectorDisplayingProductCount = createSelector(
     selectorProductFeature,
     (productState) => productState.paginatedProducts.products.length
 )
+
+export const selectorAllCatalogs = createSelector(
+    selectorProductFeature,
+    (productState) => productState.allCatalogs
+)
+export const selectorSelectedSubCatalogs = createSelector(
+    selectorProductFeature,
+    (productState) => productState.subCatalogsOfSelectedCatalog
+)

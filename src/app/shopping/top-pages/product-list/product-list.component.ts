@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { productActions } from '../../state/product/product.actions';
 import {
-    IPaginatedProduct,
     IProduct,
     OrderType,
     ProductPerPage,
@@ -25,12 +24,10 @@ import {
 export class ProductListComponent implements OnInit {
     productCardView: boolean = true;
     displayingProducts$!: Observable<IProduct[]>;
-    displayingProductsCount$!: Observable<number>;
+    displayingProductsCount$!: Observable<number>;    
     totalPage$!: Observable<number>;
     totalPageAsArray$!: Observable<number[]>;
-
-    fromPrice: number = 0;
-    toPrice: number = 10000000;
+    
     numProductPerPageEnums = Object.keys(ProductPerPage)
         .filter((k) => !isNaN(parseInt(k)))
         .map((k) => ({
@@ -51,7 +48,7 @@ export class ProductListComponent implements OnInit {
         }));
 
     constructor(private _store: Store) {
-        this._store.dispatch(productActions.reloadProducts());
+        this._store.dispatch(productActions.reloadProducts());        
     }
 
     ngOnInit(): void {
