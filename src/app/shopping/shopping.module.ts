@@ -15,11 +15,14 @@ import { ProductFilterByComponent } from "./components/product/product-list-filt
 import { ProductListCardComponent } from "./share-components/product-list-card.component";
 import { BreadCrumbComponent } from "./share-components/breadcrumb.component";
 import { CommonModule } from "@angular/common";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 @NgModule({
     imports: [
         RouterModule.forChild(shoppingRoutes),
         CommonModule, //to have async pipe
+        FormsModule, //have ngModel
+        ReactiveFormsModule
     ],
     declarations: [
         ShoppingComponent,
