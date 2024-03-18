@@ -9,7 +9,7 @@ import { selectorProductLazyLoadRequest } from './product.selectors';
 import { IProductLazyLoadRequest } from '../../../core/models/product.interface';
 import { Injectable } from '@angular/core';
 
-@Injectable({providedIn: 'root'})
+@Injectable({ providedIn: 'root' })
 export class ProductEffects {
     constructor(
         private actions$: Actions,
@@ -52,4 +52,9 @@ export class ProductEffects {
             })
         )
     );
+
+    filterProductEffect = createEffect(() => this.actions$.pipe(
+        ofType(productActions.numProductsPerPageChanged, productActions.productsOrderTypeChanged, productActions.sortProductsByChanged, productActions.pageChanged),
+        switchMap(() => of(productActions.reloadProducts()))
+    ));
 }

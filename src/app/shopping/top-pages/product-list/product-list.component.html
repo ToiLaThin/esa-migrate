@@ -16,24 +16,47 @@
                     <i class="far fa-square mr-6 text-2xl"
                        (click)="toggleViewMode()">
                     </i>
-                    <span>There are 18 products.</span>
+                    <span>There are {{displayingProductsCount$ | async}} products.</span>
                 </div>
                 <div class="flex flex-row items-center">
-                    <p>Sort By: </p>
-                    <select class="mx-2 border border-solid border-gray-50 rounded p-3">
-                        <option value="1">Relevance</option>
-                        <option value="2">Sales: Highest to Lowest</option>
-                        <option value="2">Name, A to Z</option>
-                        <option value="2">Name, Z to A</option>
-                        <option value="2">Price, low to high</option>
-                        <option value="2">Price, high to low</option>
+                    <label for="productPerPage">Product per page:</label>
+                    <select class="mx-2 border border-solid border-gray-50 rounded p-3" 
+                            name="productPerPage" 
+                            id="productPerPage" 
+                            (change)="changeProductPerPage($event.target)">
+                        <option value="16" selected>16</option>
+                        @for(numProductPerPage of numProductPerPageEnums | slice:1; track numProductPerPage) {
+                        <option value="{{numProductPerPage.key}}">{{numProductPerPage.value}}</option>
+                        }
+                    </select>
+                    <!-- Het 1 select -->
+                    <label for="sortBy">Sort By:</label>
+                    <select class="mx-2 border border-solid border-gray-50 rounded p-3" 
+                            name="sortBy" 
+                            id="sortBy" 
+                            (change)="changeSortBy($event.target)">
+                        <option value="0" selected></option>
+                        @for(sortBy of sortByEnums | slice:1; track sortBy) {
+                        <option value="{{sortBy.key}}">{{sortBy.value}}</option>
+                        }
+                    </select>
+                    <!-- Het 1 select -->
+                    <label for="orderType">Order Type:</label>
+                    <select class="mx-2 border border-solid border-gray-50 rounded p-3" 
+                            name="orderType" 
+                            id="orderType" 
+                            (change)="changeOrderType($event.target)">
+                        <option value="0" selected>Ascending</option>
+                        @for (orderType of orderTypeEnums | slice:1; track orderType) {
+                        <option value="{{orderType.key}}">{{orderType.value}}</option>
+                        }
                     </select>
                 </div>
             </div>
         </div>
         <div class="flex flex-wrap mb-6 border-collapse border border-solid border-gray-50 rounded">
             <!-- Todo xem lai border -->
-            @for (product of (paginatedProducts$ | async)?.products; track paginatedProducts$) {
+            @for (product of (displayingProducts$ | async); track displayingProducts$) {
                 @if (this.productCardView === true) {
                 <esa-product-card class="w-1/4" [product]="product">
                 </esa-product-card>
@@ -45,9 +68,14 @@
             }
         </div>
         <div class="flex flex-row justify-between items-center">
-            <span class="text-subheading">Showing 1-18 of 18 item(s)</span>
+            <span class="text-subheading">Showing 1-18 of {{displayingProductsCount$ | async}} item(s)</span>
             <div class="pagination">
-                <div class="btn-primary">1</div>
+                @for (pageNum of totalPageAsArray$ | async; track pageNum) {
+                <div class="btn-primary"
+                     (click)="changePage(pageNum)">
+                    {{pageNum}}
+                </div>
+                }
             </div>
         </div>
     </div>
