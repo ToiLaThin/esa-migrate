@@ -42,9 +42,15 @@
     
         <div class="flex flex-row justify-between items-center gap-2">
             <div class="border-r-2 border-solid border-gray-300 px-4 py-2 xl:block lg:block sm:hidden md:hidden">
-                <a href="#" class="text-black">Login / Register</a>
-                <i class="fa fa-user xl:hidden lg:hidden sm:block md:block"></i>
+                <a class="text-black" (click)="login()">Login / Register</a>
             </div>
+            <div class="border-r-2 border-solid border-gray-300 px-4 py-2 xl:block lg:block sm:hidden md:hidden">
+                <a class="text-black" (click)="logout()">Logout</a>
+            </div>
+            @if ((this.authStatus$ | async) === AuthStatus.Anonymous) {
+            } @else {
+            }
+            <i class="fa fa-user xl:hidden lg:hidden sm:block md:block"></i>
             <div class="px-2">
                 <a href="#" class="text-black"><i class="fa fa-repeat flex items-center justify-center text-black xl:text-[32px] md:text-[20px]"></i></a>
             </div>

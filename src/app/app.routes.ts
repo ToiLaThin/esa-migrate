@@ -10,4 +10,8 @@ export const appRoutes: Routes = [
         path: 'shopping',
         loadChildren: () => import('./shopping/shopping.module').then(m => m.ShoppingModule)
     },
+    {
+        path: 'auth',
+        loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)
+    }
 ];
