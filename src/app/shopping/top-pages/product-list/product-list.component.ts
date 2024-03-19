@@ -15,6 +15,7 @@ import {
     selectorDisplayingProducts,
     selectorPageCount
 } from '../../state/product/product.selectors';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
 
 @Component({
     selector: 'esa-product-list',
@@ -47,7 +48,7 @@ export class ProductListComponent implements OnInit {
             value: OrderType[k as any]
         }));
 
-    constructor(private _store: Store) {
+    constructor(private _store: Store, private _notificationService: NzNotificationService) {
         this._store.dispatch(productActions.reloadProducts());        
     }
 
@@ -72,6 +73,11 @@ export class ProductListComponent implements OnInit {
 
     toggleViewMode() {
         this.productCardView = !this.productCardView;
+        this._notificationService.create(
+            'success',
+            'View Mode have changed',
+            ''
+        );
     }
 
     changeSortBy(target: EventTarget | null) {

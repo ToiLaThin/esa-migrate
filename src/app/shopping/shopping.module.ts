@@ -17,12 +17,15 @@ import { BreadCrumbComponent } from "./share-components/breadcrumb.component";
 import { CommonModule } from "@angular/common";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
+import { NzNotificationModule } from 'ng-zorro-antd/notification'
 @NgModule({
     imports: [
         RouterModule.forChild(shoppingRoutes),
         CommonModule, //to have async pipe
         FormsModule, //have ngModel
-        ReactiveFormsModule
+        ReactiveFormsModule,
+
+        NzNotificationModule
     ],
     declarations: [
         ShoppingComponent,
