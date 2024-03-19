@@ -1,4 +1,4 @@
 export enum AuthStatus {
-    Anonymouse = 0,
+    Anonymous = 0,
     Authenticated = 1,
 }
