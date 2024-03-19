@@ -15,6 +15,7 @@ import { en_US } from 'ng-zorro-antd/i18n';
 import en from '@angular/common/locales/en';
 import { FormsModule } from '@angular/forms';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { ShareComponentsModule } from "./share-components/share-components.module";
 
 registerLocaleData(en);
 
@@ -23,6 +24,7 @@ registerLocaleData(en);
         CommonModule,
         BrowserModule,
         HttpClientModule,
+        ShareComponentsModule,
         RouterModule.forRoot(appRoutes),
         StoreModule.forRoot({
             [productFeatureKey]: productReducer
