@@ -1,11 +1,27 @@
 <div class="absolute h-full w-full top-0 left-0 bg-black opacity-70 z-10">
 </div>
 <div class="fixed top-[5%] left-[10%] w-[80%] h-[90%] z-20 m-auto bg-white opacity-100 p-3 overflow-auto">
+    <div class="clear-fix mt-4">
+        <div class="float-end">
+            <button (click)="openProductDetail()"
+                    class="mr-2">
+                <svg-icon iconName="expand"
+                          [size]="24">
+                </svg-icon>
+            </button>
+            <button (click)="closeProductModal()">
+                <svg-icon iconName="times"
+                        [size]="24">
+                </svg-icon>
+            </button>
+        </div>
+    </div>
     <div class="flex flex-row justify-between gap-6 self-start">
         <div class="w-1/2 lg:flex flex-col gap-4 hidden">
             <div class=" border border-solid border-gray-50 rounded self-start 
                     bg-[url('/assets/images/today-is-a-good-day-framed-poster.jpg')] bg-no-repeat w-full h-[75%] lg:bg-center lg:bg-[length:80%_auto]"
             >
+                <img class="fluid-img" src="{{ (product$ | async)?.productCoverImage }}">
             </div>
             <div class="flex flex-row justify-between items-center gap-1">
                 <!-- chinh lai height khoi nay  -->
@@ -23,7 +39,8 @@
             </div>
         </div>
         <div class="w-full lg:w-1/2">
-            <esa-product-info></esa-product-info>
+            <esa-product-info [product]="(product$ | async)!">
+            </esa-product-info>
         </div>
     </div>
 </div>

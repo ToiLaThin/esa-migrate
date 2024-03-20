@@ -24,11 +24,12 @@ export const shoppingRoutes: Routes = [
                 component: ProductListComponent
             },
             {
-                path: 'product-detail',
-                component: ProductDetailComponent
+                path: 'product-detail/:productId',
+                component: ProductDetailComponent,
+                pathMatch: 'full'
             },
             {
-                path: 'product-quickview',
+                path: 'product-quickview/:productId',
                 component: ProductQuickviewComponent
             }
         ]

@@ -11,17 +11,16 @@
     </p>
 </div>
 <h2 class="text-2xl font-medium">
-    Cropped Satin Bomber Jacket
+    {{ product.productName }}
 </h2>
 <p class="mt-4 border-b-gray-50-solid-1px text-subheading">
-    Established fact that a reader will be distracted by the readable content of a page when looking at
-    its layout. The point of using Lorem Ipsum is that it has a more-or-less
+    {{ product.productInfo?.productDescription }}
 </p>
 
 <div class="clear-fix mt-5">
     <div class="float-left w-[70%]">
         <p class=>
-            <span class="font-semibold">Brand:</span> Pro Tech Gear
+            <span class="font-semibold">Brand:</span> {{ product.productInfo?.productBrand }}
         </p>
         <p class="mt-3"><span class="font-semibold">
             Condition:</span> Refurbished
@@ -65,7 +64,7 @@
             </div>
 
             <p class="mt-2 text-primary font-bold text-2xl">
-                $94.00
+                ${{ product.productModels[0].price }}
             </p>
             <p class="text-subheading">
                 Free Shipping (Est. Delivery Time 2-3 Days)
