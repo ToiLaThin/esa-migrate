@@ -5,31 +5,53 @@ import { HubConnection, HubConnectionBuilder, LogLevel } from '@microsoft/signal
 import * as signalR from '@microsoft/signalr';
 import { environment as env } from '../../../environments/environment.development';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
+import { Store } from '@ngrx/store';
+import { selectorAccessToken, selectorAuthStatus } from '../../auth/state/auth.selectors';
+import { Subscription } from 'rxjs';
+import { IAuthState } from '../../auth/state/authState.interface';
+import { authFeatureKey } from '../../auth/state/auth.reducers';
 
 @Injectable({ providedIn: 'root' })
 export class SignalrService {
     hubConnection!: HubConnection;
-    constructor(
-        private _authService: AuthService,
-        private _notificationService: NzNotificationService
-    ) {
+    authStatusSubscription!: Subscription;
+    acessTokenSubscription!: Subscription;
+
+    constructor(private _store: Store, private _notificationService: NzNotificationService) {
         this.initConnection();
     }
 
     public stopConnection() {
-        if (this.hubConnection)
-            //https://learn.microsoft.com/en-us/aspnet/signalr/overview/guide-to-the-api/handling-connection-lifetime-events#clientdisconnect
-            //this also called in browser event, and server will trigger OnDisconnected immediately
-            this.hubConnection.stop();
+        if (this.hubConnection) this.hubConnection.stop();
+        if (this.authStatusSubscription) {
+            this.authStatusSubscription.unsubscribe();
+        }
+        if (this.acessTokenSubscription) {
+            this.acessTokenSubscription.unsubscribe();
+        }
     }
+
     public initConnection() {
-        if (this._authService.authStatus === AuthStatus.Authenticated) {
+        let authStatus: AuthStatus | null = null;
+        let accessToken: string | null = null;
+        this.authStatusSubscription = this._store
+            .select((state) => selectorAuthStatus(state as { [authFeatureKey]: IAuthState }))
+            .subscribe((status) => {
+                authStatus = status;
+            });
+        this.acessTokenSubscription = this._store
+            .select((state) => selectorAccessToken(state as { [authFeatureKey]: IAuthState }))
+            .subscribe((token) => {
+                accessToken = token;
+            });
+
+        if (authStatus === AuthStatus.Authenticated) {
             this.hubConnection = new HubConnectionBuilder()
                 .withUrl(`${env.NOTIFICATIONHUBROOT}`, {
                     transport:
                         signalR.HttpTransportType.WebSockets |
                         signalR.HttpTransportType.ServerSentEvents,
-                    accessTokenFactory: () => this._authService.accessToken
+                    accessTokenFactory: () => accessToken as string
                 })
                 .configureLogging(LogLevel.Information)
                 .withAutomaticReconnect()

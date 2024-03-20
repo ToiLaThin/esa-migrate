@@ -12,7 +12,11 @@ export const authActions = createActionGroup({
         'Logout Attempted': emptyProps(),
         'Logout Waiting': emptyProps(),
         'Logout Redirected': emptyProps(),
-        'Logout Successfull': emptyProps()
+        'Logout Successfull': emptyProps(),
         
+        'Check Session': emptyProps(),
+        'Session Checking': emptyProps(),
+        'Session Valid': emptyProps(),
+        'User Updated': props<{updatedUser: User}>(),
     }
 })

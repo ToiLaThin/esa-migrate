@@ -24,5 +24,17 @@ export const authReducer = createReducer(
             user: null,
             authStatus: AuthStatus.Anonymous
         };
-    })
+    }),
+    on(authActions.userUpdated, (state, action) => {
+        return {
+            ...state,
+            user: action.updatedUser
+        };
+    }),
+    on(authActions.sessionValid, (state) => {
+        return {
+            ...state,
+            authStatus: AuthStatus.Authenticated
+        };
+    }),
 );
