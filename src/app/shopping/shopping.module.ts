@@ -18,14 +18,20 @@ import { CommonModule } from "@angular/common";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 import { NzNotificationModule } from 'ng-zorro-antd/notification'
+import { ProductDetailComponent } from "./top-pages/product-detail/product-detail.component";
+import { ProductQuickviewComponent } from "./top-pages/product-quickview/product-quickview.component";
+import { ProductInfoComponent } from "./components/product/product-info/product-info.component";
+import { ShareComponentsModule } from "../share-components/share-components.module";
+import { ProductPolicyComponent } from "./components/product/product-policy/product-policy.component";
 @NgModule({
     imports: [
         RouterModule.forChild(shoppingRoutes),
         CommonModule, //to have async pipe
         FormsModule, //have ngModel
         ReactiveFormsModule,
-
-        NzNotificationModule
+        
+        ShareComponentsModule,
+        NzNotificationModule,
     ],
     declarations: [
         ShoppingComponent,
@@ -41,7 +47,12 @@ import { NzNotificationModule } from 'ng-zorro-antd/notification'
         FeatureCardComponent,
 
         ProductListComponent,
-        ProductFilterByComponent
+        ProductFilterByComponent,
+
+        ProductDetailComponent,
+        ProductQuickviewComponent,
+        ProductInfoComponent,
+        ProductPolicyComponent
     ],
     exports: [],
 })
