@@ -24,7 +24,7 @@
 <div class=" border-b-gray-50-solid-1px pb-6 mt-6 my-container">
     <div class="flex flex-row justify-between items-center">
         <div class="bg-cover">
-            <a href="#">
+            <a>
                 <img src="https://demos.codezeel.com/prestashop/PRS21/PRS210502/img/logo-1691412328.jpg" 
                      style="min-width: 240px; width: 280px ;height: auto;">
             </a>
@@ -41,24 +41,24 @@
         </div>
     
         <div class="flex flex-row justify-between items-center gap-2">
+            @if ((this.authStatus$ | async) === AuthStatus.Anonymous) {
             <div class="border-r-2 border-solid border-gray-300 px-4 py-2 xl:block lg:block sm:hidden md:hidden">
                 <a class="text-black" (click)="login()">Login / Register</a>
             </div>
+            } @else {
             <div class="border-r-2 border-solid border-gray-300 px-4 py-2 xl:block lg:block sm:hidden md:hidden">
                 <a class="text-black" (click)="logout()">Logout</a>
             </div>
-            @if ((this.authStatus$ | async) === AuthStatus.Anonymous) {
-            } @else {
             }
             <i class="fa fa-user xl:hidden lg:hidden sm:block md:block"></i>
             <div class="px-2">
-                <a href="#" class="text-black"><i class="fa fa-repeat flex items-center justify-center text-black xl:text-[32px] md:text-[20px]"></i></a>
+                <a class="text-black"><i class="fa fa-repeat flex items-center justify-center text-black xl:text-[32px] md:text-[20px]"></i></a>
             </div>
             <div class="px-2">
-                <a href="#" class="text-black"><i class="far fa-heart flex items-center justify-center text-black xl:text-[32px] md:text-[20px] font-medium"></i></a>
+                <a class="text-black"><i class="far fa-heart flex items-center justify-center text-black xl:text-[32px] md:text-[20px] font-medium"></i></a>
             </div>
             <div class="px-2">
-                <a href="#" class="text-black"><i class="fa fa-cart-plus flex items-center justify-center text-black xl:text-[32px] md:text-[20px]"></i></a>
+                <a class="text-black"><i class="fa fa-cart-plus flex items-center justify-center text-black xl:text-[32px] md:text-[20px]"></i></a>
             </div>
         </div>
     </div>
