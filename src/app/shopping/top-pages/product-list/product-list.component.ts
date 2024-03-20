@@ -16,6 +16,7 @@ import {
     selectorPageCount
 } from '../../state/product/product.selectors';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'esa-product-list',
@@ -25,10 +26,10 @@ import { NzNotificationService } from 'ng-zorro-antd/notification';
 export class ProductListComponent implements OnInit {
     productCardView: boolean = true;
     displayingProducts$!: Observable<IProduct[]>;
-    displayingProductsCount$!: Observable<number>;    
+    displayingProductsCount$!: Observable<number>;
     totalPage$!: Observable<number>;
     totalPageAsArray$!: Observable<number[]>;
-    
+
     numProductPerPageEnums = Object.keys(ProductPerPage)
         .filter((k) => !isNaN(parseInt(k)))
         .map((k) => ({
@@ -48,8 +49,12 @@ export class ProductListComponent implements OnInit {
             value: OrderType[k as any]
         }));
 
-    constructor(private _store: Store, private _notificationService: NzNotificationService) {
-        this._store.dispatch(productActions.reloadProducts());        
+    constructor(
+        private _store: Store,
+        private _notificationService: NzNotificationService,
+        private _router: Router
+    ) {
+        this._store.dispatch(productActions.reloadProducts());
     }
 
     ngOnInit(): void {
@@ -73,11 +78,7 @@ export class ProductListComponent implements OnInit {
 
     toggleViewMode() {
         this.productCardView = !this.productCardView;
-        this._notificationService.create(
-            'success',
-            'View Mode have changed',
-            ''
-        );
+        this._notificationService.create('success', 'View Mode have changed', '');
     }
 
     changeSortBy(target: EventTarget | null) {
@@ -104,5 +105,9 @@ export class ProductListComponent implements OnInit {
 
     changePage(pageNum: number) {
         this._store.dispatch(productActions.pageChanged({ selectedPage: pageNum }));
+    }
+
+    viewProductQuickView(productId: string | undefined) {
+        this._router.navigate(['shopping', 'product-quickview', productId]);
     }
 }

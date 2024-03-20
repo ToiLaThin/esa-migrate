@@ -1,4 +1,5 @@
-import { Component } from "@angular/core";
+import { Component, Input } from "@angular/core";
+import { IProduct } from "../../../../core/models/product.interface";
 
 @Component({
     selector: 'esa-product-info',
@@ -6,5 +7,6 @@ import { Component } from "@angular/core";
     styleUrls: ['./product-info.component.scss']
 })
 export class ProductInfoComponent {
+    @Input() product!: IProduct;
 
 }

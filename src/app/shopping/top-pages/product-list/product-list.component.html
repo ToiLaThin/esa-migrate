@@ -58,11 +58,15 @@
             <!-- Todo xem lai border -->
             @for (product of (displayingProducts$ | async); track displayingProducts$) {
                 @if (this.productCardView === true) {
-                <esa-product-card class="w-1/4" [product]="product">
+                <esa-product-card class="w-1/4" 
+                                  [product]="product"
+                                  (click)="viewProductQuickView(product.productId)">
                 </esa-product-card>
                 }
                 @else {
-                <esa-product-list-card class="w-full" [product]="product">
+                <esa-product-list-card class="w-full" 
+                                       [product]="product"
+                                       (click)="viewProductQuickView(product.productId)">
                 </esa-product-list-card>
                 }
             }
