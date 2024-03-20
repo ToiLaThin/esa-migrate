@@ -16,10 +16,13 @@ import en from '@angular/common/locales/en';
 import { FormsModule } from '@angular/forms';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { ShareComponentsModule } from "./share-components/share-components.module";
+import { authFeatureKey, authReducer } from "./auth/state/auth.reducers";
+import { AuthEffects } from "./auth/state/auth.effects";
 
 registerLocaleData(en);
 
 @NgModule({
+    declarations: [AppComponent],
     imports: [
         CommonModule,
         BrowserModule,
@@ -27,10 +30,12 @@ registerLocaleData(en);
         ShareComponentsModule,
         RouterModule.forRoot(appRoutes),
         StoreModule.forRoot({
-            [productFeatureKey]: productReducer
+            [productFeatureKey]: productReducer,
+            [authFeatureKey]: authReducer
         }),
         EffectsModule.forRoot([
-            ProductEffects
+            ProductEffects,
+            AuthEffects
         ]),
         StoreDevtoolsModule.instrument({
             maxAge: 25,
@@ -40,7 +45,6 @@ registerLocaleData(en);
         }),
         FormsModule
     ],
-    declarations: [AppComponent],
     exports: [],
     bootstrap: [AppComponent],
     providers: [

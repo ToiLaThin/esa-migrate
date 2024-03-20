@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { AuthService } from '../../core/services/auth.service';
-import { SignalrService } from '../../core/services/signalr.service';
+import { Store } from '@ngrx/store';
+import { authActions } from '../state/auth.actions';
 
 @Component({
     //selector: 'esa-signout-redirect-callback',
@@ -9,16 +8,9 @@ import { SignalrService } from '../../core/services/signalr.service';
     styles: [``]
 })
 export class SignoutRedirectCallbackComponent implements OnInit {
-    constructor(
-        private _authService: AuthService,
-        private _router: Router,
-        private _signalrService: SignalrService
-    ) {}
+    constructor(private _store: Store) {}
 
     ngOnInit(): void {
-        this._authService.finishLogout().then(() => {
-            this._signalrService.stopConnection();
-            this._router.navigate(['/'], { replaceUrl: true });
-        });
+        this._store.dispatch(authActions.logoutRedirected());
     }
 }

@@ -1,26 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { AuthService } from '../../core/services/auth.service';
-import { SignalrService } from '../../core/services/signalr.service';
+import { Store } from '@ngrx/store';
+import { authActions } from '../state/auth.actions';
 
 @Component({
-  //selector: 'esa-signin-redirect-callback',
-  template: ``,
-  styles: []
+    //selector: 'esa-signin-redirect-callback',
+    template: ``,
+    styles: []
 })
 export class SigninRedirectCallbackComponent implements OnInit {
+    constructor(private _store: Store) {}
 
-  constructor(
-    private _authService: AuthService, 
-    private _router: Router, 
-    private _signalrService: SignalrService, 
-    ) { }
-
-  ngOnInit(): void {
-    this._authService.finishLogin().then(() => {
-      this._signalrService.initConnection();
-      this._router.navigate(['/'], { replaceUrl: true });
-    });
-  }
-
+    ngOnInit(): void {
+        this._store.dispatch(authActions.loginRedirected());
+    }
 }

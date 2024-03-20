@@ -6,6 +6,8 @@ import { JwtService } from './jwt.service';
 import { environment as env } from '../../../environments/environment.development';
 import { UserManager, User, UserManagerSettings, WebStorageStateStore } from 'oidc-client';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
+import { Store } from '@ngrx/store';
+import { authActions } from '../../auth/state/auth.actions';
 
 @Injectable({
   providedIn: 'root'
@@ -66,10 +68,11 @@ export class AuthService {
 
   constructor(
     private _jwtService: JwtService,
-    private _notificationService: NzNotificationService
+    private _notificationService: NzNotificationService,
+    private _store: Store
   ) {
     this._userManager = new UserManager(this.idpSettings);
-    // this.checkLoginStatus();
+    this.checkLoginStatus();
   }  
 
   private checkLoginStatus() : AuthStatus {
@@ -101,16 +104,8 @@ export class AuthService {
 
   finishLogin() : Promise<User> {
     return this._userManager.signinRedirectCallback().then((user: User) => {
-      this._user = user!;
-      this._notificationService.success('Login successfully', `This is the user: ${this._user}`);
-      //have Identity.Cookie =>delete it so that when user logout, login again we will have to login again
-      //if server set lifetime for cookie, we do not need to delete it
-      // console.log(window.document.cookie);
-      // window.document.cookie = "Identity.Cookie=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-
-      
-      this.authStatus = AuthStatus.Authenticated;
-      this.setUserEssentialInfo(this._user.id_token!);
+      this._notificationService.success('Login successfully', `This is the user: ${user}`);
+      this._store.dispatch(authActions.loginSuccessfull({returnedUser: user}));
       return user!;
     });
   }
@@ -123,9 +118,8 @@ export class AuthService {
 
   finishLogout() {
     return this._userManager.signoutRedirectCallback().then(() => {
-      this._user = null!;
-      this.authStatus = AuthStatus.Anonymous;
-      this.clearUserEssentialInfo();
+      this._notificationService.success('Logout successfully', '');
+      this._store.dispatch(authActions.logoutSuccessfull());
     });
   }
 
