@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
-import { IProduct } from '../../../core/models/product.interface';
+import { IProduct, IProductModel } from '../../../core/models/product.interface';
 import { Store } from '@ngrx/store';
 import { selectorProductSelected } from '../../state/product/product.selectors';
 import { productFeatureKey } from '../../state/product/product.reducers';
@@ -21,7 +21,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     productId!: string;
     product$!: Observable<IProduct>;
     authStatus$!: Observable<AuthStatus>;
-    
+
     constructor(private _route: ActivatedRoute, private _store: Store) {}
 
     ngOnDestroy(): void {
@@ -38,5 +38,5 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
         this.authStatus$ = this._store.select((state) =>
             selectorAuthStatus(state as { [authFeatureKey]: IAuthState })
         );
-    }
+    }    
 }

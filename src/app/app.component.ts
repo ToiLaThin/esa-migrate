@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import { environment as env } from '../environments/environment.development';
 import { Store } from '@ngrx/store';
-import { authActions } from './auth/state/auth.actions';
+import { cartActions } from './shopping/state/cart/cart.actions';
 
 @Component({
     selector: 'esa-root',
@@ -20,5 +19,6 @@ export class AppComponent {
         //     console.log('checking session');
         //     this._store.dispatch(authActions.checkSession());
         // }, env.loginCheckInterval);
+        this._store.dispatch(cartActions.loadCartItemsFromStorage());
     }
 }

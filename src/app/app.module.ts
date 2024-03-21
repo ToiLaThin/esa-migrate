@@ -18,6 +18,8 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { ShareComponentsModule } from "./share-components/share-components.module";
 import { authFeatureKey, authReducer } from "./auth/state/auth.reducers";
 import { AuthEffects } from "./auth/state/auth.effects";
+import { cartFeatureKey, cartReducer } from "./shopping/state/cart/cart.reducers";
+import { CartEffects } from "./shopping/state/cart/cart.effects";
 
 registerLocaleData(en);
 
@@ -31,11 +33,13 @@ registerLocaleData(en);
         RouterModule.forRoot(appRoutes),
         StoreModule.forRoot({
             [productFeatureKey]: productReducer,
-            [authFeatureKey]: authReducer
+            [authFeatureKey]: authReducer,
+            [cartFeatureKey]: cartReducer
         }),
         EffectsModule.forRoot([
             ProductEffects,
-            AuthEffects
+            AuthEffects,
+            CartEffects
         ]),
         StoreDevtoolsModule.instrument({
             maxAge: 25,

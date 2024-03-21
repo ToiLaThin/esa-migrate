@@ -11,6 +11,9 @@ import {
 import { authFeatureKey } from '../../auth/state/auth.reducers';
 import { IAuthState } from '../../auth/state/authState.interface';
 import { authActions } from '../../auth/state/auth.actions';
+import { selectorItemsInCartCount } from '../state/cart/cart.selectors';
+import { cartFeatureKey } from '../state/cart/cart.reducers';
+import { ICartState } from '../state/cart/cartState.interface';
 
 @Component({
     selector: 'esa-shopping-header-topbar',
@@ -20,6 +23,7 @@ export class HeaderTopbarComponent implements OnInit {
     userName$!: Observable<string>;
     userRole$!: Observable<string>;
     authStatus$!: Observable<AuthStatus>;
+    itemsInCartCount$!: Observable<number>;
     get AuthStatus() {
         return AuthStatus;
     } //for template to use enum
@@ -34,6 +38,9 @@ export class HeaderTopbarComponent implements OnInit {
         );
         this.authStatus$ = this._store.select((state) =>
             selectorAuthStatus(state as { [authFeatureKey]: IAuthState })
+        );
+        this.itemsInCartCount$ = this._store.select((state) =>
+            selectorItemsInCartCount(state as { [cartFeatureKey]: ICartState })
         );
     }
 

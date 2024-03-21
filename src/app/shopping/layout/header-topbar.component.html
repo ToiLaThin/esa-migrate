@@ -49,16 +49,20 @@
             <div class="border-r-2 border-solid border-gray-300 px-4 py-2 xl:block lg:block sm:hidden md:hidden">
                 <a class="text-black" (click)="logout()">Logout</a>
             </div>
-            }
             <i class="fa fa-user xl:hidden lg:hidden sm:block md:block"></i>
+            <a class="flex flex-row px-2"
+               [routerLink]="'/shopping/cart'">
+                <svg-icon [iconName]="'cart-outline'" 
+                          [size]="24">
+                </svg-icon>
+                <span>({{ itemsInCartCount$ | async }})</span>
+            </a>
+            }
             <div class="px-2">
                 <a class="text-black"><i class="fa fa-repeat flex items-center justify-center text-black xl:text-[32px] md:text-[20px]"></i></a>
             </div>
             <div class="px-2">
                 <a class="text-black"><i class="far fa-heart flex items-center justify-center text-black xl:text-[32px] md:text-[20px] font-medium"></i></a>
-            </div>
-            <div class="px-2">
-                <a class="text-black"><i class="fa fa-cart-plus flex items-center justify-center text-black xl:text-[32px] md:text-[20px]"></i></a>
             </div>
         </div>
     </div>
