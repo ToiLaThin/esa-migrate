@@ -4,6 +4,7 @@ import { IndexComponent } from "./top-pages/index/index.component";
 import { ProductListComponent } from "./top-pages/product-list/product-list.component";
 import { ProductDetailComponent } from "./top-pages/product-detail/product-detail.component";
 import { ProductQuickviewComponent } from "./top-pages/product-quickview/product-quickview.component";
+import { CartComponent } from "./top-pages/cart/cart.component";
 
 export const shoppingRoutes: Routes = [
     {
@@ -31,6 +32,10 @@ export const shoppingRoutes: Routes = [
             {
                 path: 'product-quickview/:productId',
                 component: ProductQuickviewComponent
+            },
+            {
+                path: 'cart',
+                component: CartComponent
             }
         ]
     }

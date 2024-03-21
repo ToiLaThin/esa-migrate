@@ -73,10 +73,14 @@
             <div class="mt-4 flex flex-row justify-between items-center gap-2">
                 <div>
                     <input type="number" 
+                           name="quantity"
                            placeholder="1" 
                            class="w-[80px] h-[60px] border border-solid border-gray-50 rounded pl-2">
+                    <button class="btn-primary w-[90%] uppercase"
+                            (click)="addModelToCart($event, product.productModels[0])">
+                            Add to Cart
+                    </button>
                 </div>
-                <button class="btn-primary w-[90%] uppercase">Add to Cart</button>
             </div>
         </div>   
         <div class="mt-4 text-subheading">

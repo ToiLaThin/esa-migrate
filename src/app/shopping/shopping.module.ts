@@ -23,6 +23,7 @@ import { ProductQuickviewComponent } from "./top-pages/product-quickview/product
 import { ProductInfoComponent } from "./components/product/product-info/product-info.component";
 import { ShareComponentsModule } from "../share-components/share-components.module";
 import { ProductPolicyComponent } from "./components/product/product-policy/product-policy.component";
+import { CartComponent } from "./top-pages/cart/cart.component";
 @NgModule({
     imports: [
         RouterModule.forChild(shoppingRoutes),
@@ -52,7 +53,9 @@ import { ProductPolicyComponent } from "./components/product/product-policy/prod
         ProductDetailComponent,
         ProductQuickviewComponent,
         ProductInfoComponent,
-        ProductPolicyComponent
+        ProductPolicyComponent,
+
+        CartComponent
     ],
     exports: [],
 })
