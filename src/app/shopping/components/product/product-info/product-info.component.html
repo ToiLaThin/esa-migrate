@@ -75,6 +75,8 @@
                     <input type="number" 
                            name="quantity"
                            placeholder="1" 
+                           min="1"
+                           value="1"
                            class="w-[80px] h-[60px] border border-solid border-gray-50 rounded pl-2">
                     <button class="btn-primary w-[90%] uppercase"
                             (click)="addModelToCart($event, product.productModels[0])">

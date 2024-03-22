@@ -7,8 +7,9 @@ export const cartActions = createActionGroup({
         'Load Cart Items From Storage': emptyProps(),
         'Load Cart Items From Storage Done': props<{loadedCartItems: ICartItem[]}>(),
         'Cart Item Upsert': props<{ upsertCartItem: ICartItem }>(),
-        'Cart Item Upsert Successful': emptyProps(),
+        'Remove Cart Item': props<{ idxItemInCart: number }>(),
+        'Change Cart Item Quantity': props<{ idxItemInCart: number, newQuantity: number }>(),
         'Cart Clear': emptyProps(),
-        'Cart Clear Done': emptyProps()
+        'Cart Item Upsert Remove Change Quantity Clear Successful': emptyProps(),
     }
 })

@@ -27,22 +27,22 @@ export class CartEffects {
         )
     ));
 
-    upsertCartItemEffect = createEffect(() =>
+    changeCartItemEffect = createEffect(() =>
         this.actions$.pipe(
-            ofType(cartActions.cartItemUpsert),
+            ofType(cartActions.cartItemUpsert, cartActions.removeCartItem, cartActions.changeCartItemQuantity),
             switchMap((_) => {
-                let afterUpsertItemsInCart: ICartItem[] | null = null;
-                let afterUpsertItemsInCartSubscription = this._store
+                let afterRemoveUpsertItemsInCart: ICartItem[] | null = null;
+                let afterRemoveUpsertItemsInCartSubscription = this._store
                     .select((state) =>
                         selectorItemsInCart(state as { [cartFeatureKey]: ICartState })
                     )
                     .pipe(tap((itemsInCart) => {
-                        afterUpsertItemsInCart = itemsInCart;
-                        this._cartService.updateCartItemsInStorage(afterUpsertItemsInCart);
+                        afterRemoveUpsertItemsInCart = itemsInCart;
+                        this._cartService.updateCartItemsInStorage(afterRemoveUpsertItemsInCart);
                     }))
                     .subscribe();
-                afterUpsertItemsInCartSubscription.unsubscribe();
-                return of(cartActions.cartItemUpsertSuccessful())
+                    afterRemoveUpsertItemsInCartSubscription.unsubscribe();                
+                return of(cartActions.cartItemUpsertRemoveChangeQuantityClearSuccessful())
             })
         )
     );
@@ -52,7 +52,7 @@ export class CartEffects {
             ofType(cartActions.cartClear),
             switchMap(_ => {
                 this._cartService.clearCartInStorage();
-                return of(cartActions.cartClearDone());
+                return of(cartActions.cartItemUpsertRemoveChangeQuantityClearSuccessful());
             }
         )
     ));

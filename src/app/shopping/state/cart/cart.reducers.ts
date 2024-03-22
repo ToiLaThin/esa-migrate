@@ -49,6 +49,32 @@ export const cartReducer = createReducer(
         return {
             ...state,
             itemsInCart: []
-        }
-    })
+        };
+    }),
+    on(cartActions.removeCartItem, (state, action) => {
+        return {
+            ...state,
+            itemsInCart: state.itemsInCart.filter((_, idx) => idx !== action.idxItemInCart)
+        };
+    }),
+    on(cartActions.changeCartItemQuantity, (state, action) => ({
+        //immutable way to change the quantity of an item in the cart
+        ...state,
+        itemsInCart: [
+            ...state.itemsInCart.map((item, idx) => {
+                if (idx !== action.idxItemInCart) {
+                    return item;
+                }
+                return {
+                    ...item,
+                    quantity: action.newQuantity,
+                    finalPrice: (item.finalPrice / item.quantity) * action.newQuantity,
+                    //divide by old quantity and multiply by new quantity
+                    finalAfterSalePrice: item.finalAfterSalePrice
+                        ? (item.finalAfterSalePrice / item.quantity) * action.newQuantity
+                        : undefined
+                };
+            })
+        ]
+    }))
 );
