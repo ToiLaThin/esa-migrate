@@ -34,5 +34,34 @@ export const selectorDiscountAmountSale = createSelector(
     (subItemsPrice, subItemsAfterSalePrice) => {
         return subItemsPrice - subItemsAfterSalePrice;
     }
-    
 );
+
+//coupon selectors
+export const selectorAllCoupons = createSelector(
+    selectorCartFeature,
+    (cartState) => cartState.allCoupons
+);
+
+export const selectorAllActiveCouponsNotUsedByUser = createSelector(
+    selectorCartFeature,
+    (cartState) => cartState.allActiveCouponsNotUsedByUser
+);
+
+export const selectorCouponApplied = createSelector(
+    selectorCartFeature,
+    (cartState) => cartState.couponApplied
+);
+
+export const selectorDiscountAmountCoupon = createSelector(
+    selectorCartFeature,
+    (cartState) => cartState.discountAmountByCoupon
+)
+
+export const selectorSubItemsAfterSaleThenCouponPrice = createSelector(
+    selectorSubItemsAfterSalePrice,
+    selectorDiscountAmountCoupon,
+    (subItemsAfterSalePrice, discountAmountCoupon) => {
+        return subItemsAfterSalePrice - discountAmountCoupon;
+    }
+)
+    

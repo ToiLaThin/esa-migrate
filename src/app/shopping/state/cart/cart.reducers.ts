@@ -4,8 +4,11 @@ import { cartActions } from './cart.actions';
 
 export const initialCartState: ICartState = {
     itemsInCart: [],
+    allCoupons: [],
+    allActiveCouponsNotUsedByUser: [],
     couponApplied: false,
-    discountAmountByCoupon: 0
+    discountAmountByCoupon: 0,
+    couponCodeApplied: ''
 };
 
 export const cartFeatureKey = 'cartFeature';
@@ -76,5 +79,33 @@ export const cartReducer = createReducer(
                 };
             })
         ]
+    })),
+
+    //coupon related reducers
+    on(cartActions.loadCouponsDone, (state, action) => {
+        return {
+            ...state,
+            allCoupons: action.coupons
+        };
+    }),
+    on(cartActions.loadActiveCouponsNotUsedByUserDone, (state, action) => {
+        return {
+            ...state,
+            allActiveCouponsNotUsedByUser: action.coupons
+        };
+    }),
+    on(cartActions.applyCoupon, (state, action) => (
+        {
+            ...state,
+            couponApplied: true,
+            discountAmountByCoupon: action.discountAmount,
+            couponCodeApplied: action.couponCode
+        }
+    )),
+    on(cartActions.removeCouponApplied, (state, action) => ({
+        ...state,
+        couponApplied: false,
+        discountAmountByCoupon: 0,
+        couponCodeApplied: ''
     }))
 );
