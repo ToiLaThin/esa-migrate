@@ -1,5 +1,5 @@
 <div class="my-container my-6">
-    @if((cartItems$ | async)?.length !== 0) {
+    @if((cartItems$ | async)?.length === 0) {
     <ng-container [ngTemplateOutlet]="addToCartTempl"></ng-container>
     } @else {
     <div class="flex flex-col justify-between gap-8 lg:flex-row" >
@@ -9,7 +9,7 @@
                     <p class="text-lg font-medium">Shopping Cart</p>
                 </div>            
                 <div class="flex flex-col cart-container gap-8 py-8">
-                    @for (cartItem of (cartItems$ | async); track cartItem) {
+                    @for (cartItem of (cartItems$ | async); track cartItem; let i = $index) {
                     <div class="flex flex-row justify-between">
                         <div class="border border-solid border-gray-50 rounded-md w-[150px] h-[150px] overflow-hidden">
                             <img src="/assets/images/today-is-a-good-day-framed-poster.jpg" alt="">
@@ -26,12 +26,35 @@
                             <p class="font-bold text-sm">Dimension: <span class="text-subheading">60x90cm</span></p>
                         </div>
                         <div>
-                            <input type="number" placeholder="1" class="w-[80px] h-[60px] border border-solid border-gray-50 rounded pl-2">
+                            <input class="w-[80px] h-[60px] border border-solid border-gray-50 rounded pl-2"
+                                   type="number" 
+                                   value="{{cartItem.quantity}}" 
+                                   min="1"
+                                   (change)="changeCartItemQuantity(i, $event)">
                         </div>
-                        <div class="text-primary font-semibold text-lg">${{cartItem.finalAfterSalePrice}}</div>
-                        <div class="fas fa-trash"></div>
+                        <div class="text-primary font-semibold text-lg">
+                            @if (cartItem.isOnSale) {
+                            <span class="line-through">
+                                {{ cartItem.unitPrice}}
+                            </span>
+                            ${{cartItem.unitAfterSalePrice}}
+                            } @else {
+                            ${{cartItem.unitPrice}}
+                            }
+
+                        </div>
+                        <div class="text-primary font-semibold text-lg">
+                            @if (cartItem.isOnSale) {
+                            <span class="line-through">
+                                {{ cartItem.unitPrice * cartItem.quantity }}
+                            </span>
+                            ${{cartItem.unitAfterSalePrice! * cartItem.quantity }}
+                            } @else {
+                            ${{cartItem.unitPrice * cartItem.quantity }}
+                            }
+                        </div>
                         <div class="fas fa-trash text-primary" 
-                                (click)="clearCart">
+                             (click)="removeCartItemFromCart(i)">
                         </div>
                     </div>
                     }
@@ -45,6 +68,12 @@
                     routerLink="/shopping/product-list">
                     Continue Shopping
                 </a>
+                <div class="text-center float-right">
+                    <button class="btn-primary uppercase text-md"
+                            (click)="clearCart()">
+                        Clear Cart
+                    </button>
+                </div>
             </div>
         </div>
         <div class="w-full lg:w-1/3">
@@ -52,28 +81,33 @@
                 <div class="border-b border-gray-50 mt-4">
                     <div class="mx-6 my-4 font-semibold">
                         <div class="clear-fix mt-4">
-                            <p class="float-left text-sm">1 item</p>
-                            <p class="float-right text-primary text-md">$56.95</p>                
+                            <p class="float-left text-sm">Sub total</p>
+                            <p class="float-right text-primary text-md">${{ subItemsPrice$ | async }}</p>
                         </div>
             
                         <div class="clear-fix mt-2">
-                            <p class="float-left text-sm">Shipping</p>
-                            <p class="float-right text-primary text-md">$7.00</p>
+                            <p class="float-left text-sm">Discount amount (by sale)</p>
+                            <p class="float-right text-primary text-md">${{ this.discountAmountSale$ | async }}</p>
+                        </div>
+
+                        <div class="clear-fix mt-2">
+                            <p class="float-left text-sm">Discount amount (by coupon)</p>
+                            <p class="float-right text-primary text-md">$63.95</p>
                         </div>
                     </div>
                 </div>
                 <div class="mx-6 my-4 font-semibold">
                     <div class="clear-fix mt-4">
-                        <p class="float-left text-sm">Total (tax excl.)</p>
-                        <p class="float-right text-primary text-md">$63.95</p>
+                        <p class="float-left text-sm">Grand total after sale</p>
+                        <p class="float-right text-primary text-md">${{ subItemsAfterSalePrice$ | async }}</p>                        
                     </div>
         
                     <div class="clear-fix mt-2">
-                        <p class="float-left text-sm">Total (tax incl.)</p>
+                        <p class="float-left text-sm">Grand total after coupon applied</p>
                         <p class="float-right text-primary text-md">$63.95</p>
                     </div>
                     <div class="clear-fix mt-2">
-                        <p class="float-left text-sm">Taxes:</p>
+                        <p class="float-left text-sm">Grand total</p>
                         <p class="float-right text-primary text-md">$0.00</p>
                     </div>
                 </div>
@@ -90,12 +124,7 @@
                         </button>
                     </div>
                 </div>
-                <div class="mt-12 text-center">
-                    <button class="btn-primary uppercase text-md"
-                            (click)="clearCart()">
-                        Clear Cart
-                    </button>
-                </div>
+                
                 <div class="mt-12 text-center">
                     <button class="btn-primary uppercase text-md">
                         Proceed To Checkout

@@ -13,4 +13,26 @@ export const selectorItemsInCart = createSelector(
 export const selectorItemsInCartCount = createSelector(
     selectorCartFeature,
     (cartState) => cartState.itemsInCart.length
-)
+);
+
+export const selectorSubItemsPrice = createSelector(selectorCartFeature, (cartState) =>
+    cartState.itemsInCart.reduce((acc, item) => acc + item.finalPrice, 0)
+);
+
+export const selectorSubItemsAfterSalePrice = createSelector(selectorCartFeature, (cartState) =>
+    cartState.itemsInCart.reduce((acc, item) => {
+        if (item.isOnSale) {
+            return acc + item.finalAfterSalePrice!;
+        }
+        return acc + item.finalPrice;
+    }, 0)
+);
+
+export const selectorDiscountAmountSale = createSelector(
+    selectorSubItemsPrice,
+    selectorSubItemsAfterSalePrice,
+    (subItemsPrice, subItemsAfterSalePrice) => {
+        return subItemsPrice - subItemsAfterSalePrice;
+    }
+    
+);
