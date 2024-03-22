@@ -2,19 +2,21 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { CartService } from '../../../core/services/cart.service';
 import { cartActions } from './cart.actions';
-import { of, switchMap, tap } from 'rxjs';
+import { map, of, switchMap, tap } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { ICartItem } from '../../../core/models/cart-item.interface';
 import { selectorItemsInCart } from './cart.selectors';
 import { cartFeatureKey } from './cart.reducers';
 import { ICartState } from './cartState.interface';
+import { CouponService } from '../../../core/services/coupon.service';
 
 @Injectable({ providedIn: 'root' })
 export class CartEffects {
     constructor(
         private actions$: Actions,
         private _store: Store,
-        private _cartService: CartService
+        private _cartService: CartService,
+        private _couponService: CouponService
     ) {}
 
     loadCartItemsFromStorage = createEffect(() => 
@@ -56,4 +58,18 @@ export class CartEffects {
             }
         )
     ));
+
+    loadAllCouponsEffect = createEffect(() => this.actions$.pipe(
+        ofType(cartActions.loadAllCoupons),
+        switchMap(_ => this._couponService.getAllCoupons().pipe(
+            map(allCoupons => cartActions.loadCouponsDone({ coupons: allCoupons}))
+        ))
+    ));
+
+    loadAllActiveCouponsNotUsedByUserEffect = createEffect(() => this.actions$.pipe(
+        ofType(cartActions.loadActiveCouponsNotUsedByUser),
+        switchMap(_ => this._couponService.getAllActiveCouponsNotUsedByUser().pipe(
+            map(allCoupons => cartActions.loadActiveCouponsNotUsedByUserDone({ coupons: allCoupons}))
+        ))
+    ))
 }
