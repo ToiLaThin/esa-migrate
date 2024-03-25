@@ -5,3 +5,5 @@
 
 @import 'app/core/styles/_resets.scss';
 @import 'app/core/styles/_component.scss';
+html, body { height: 100%; }
+// body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

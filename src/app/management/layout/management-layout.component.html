@@ -1,0 +1,39 @@
+<!-- custom event listener when click backdrop, can use disableClose on mat-sidenav to turn off toggle click backdrop behavior-->
+<mat-sidenav-container (backdropClick)="toggleSidebar()">
+    <mat-sidenav #sidenav 
+                 [mode]="'push'" 
+                 [opened]="this.sideBarToggled$ | async">
+        <div class="collapse-container px-5 py-4">
+            <div class="collapse-content flex flex-col">
+                <div>
+                    <button class="toggleBtn" 
+                            (click)="toggleSidebar()">
+                        <svg-icon [iconName]="'times'"
+                                  [size]="24"
+                                  [fillColor]="'#ddd'">
+                        </svg-icon>
+                    </button>
+                </div>
+                <div class="flex flex-row items-center mb-4">
+                    <svg-icon [iconName]="'angular'"
+                              [size]="48"
+                              class="mr-2">
+                    </svg-icon>
+                    <div>
+                        <h2 class="text-textDark text-xl">Admin Dashboard Eshop Analysis</h2>
+                        <p class="text-textLight text-xs">Created by ecommerce</p>
+                    </div>
+                </div>
+
+                <!-- Tab component will provide links to their component to load them on the sidebar content-->
+                <ng-content>                    
+                </ng-content>
+            </div>
+        </div>            
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <esa-management-header></esa-management-header>
+        <router-outlet>
+        </router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>
