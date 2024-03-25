@@ -1,8 +1,8 @@
 <!-- custom event listener when click backdrop, can use disableClose on mat-sidenav to turn off toggle click backdrop behavior-->
 <mat-sidenav-container (backdropClick)="toggleSidebar()">
     <mat-sidenav #sidenav 
-                 [mode]="'push'" 
-                 [opened]="this.sideBarToggled$ | async">
+                 [mode]="(this.sidebarMode$ | async)!" 
+                 [opened]="this.sidebarToggled$ | async">
         <div class="collapse-container px-5 py-4">
             <div class="collapse-content flex flex-col">
                 <div>

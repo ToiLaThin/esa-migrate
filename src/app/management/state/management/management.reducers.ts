@@ -1,15 +1,21 @@
-import { createReducer, on } from "@ngrx/store";
-import { IManagementState } from "./managementState.interface";
-import { managementActions } from "./management.actions";
+import { createReducer, on } from '@ngrx/store';
+import { IManagementState } from './managementState.interface';
+import { managementActions } from './management.actions';
+import { SidebarMode } from '../../../core/types/sidebar-mode.enum';
 
 export const managementFeatureKey = 'managementFeature';
 export const initialManagementState: IManagementState = {
-    sideBarToggled: false
-}
+    sidebarToggled: false,
+    sidebarMode: SidebarMode.PUSH
+};
 export const managementReducer = createReducer(
     initialManagementState,
     on(managementActions.toggleSidebar, (state, action) => ({
         ...state,
-        sideBarToggled: !state.sideBarToggled
-    })
-));
+        sidebarToggled: !state.sidebarToggled
+    })),
+    on(managementActions.switchModeSidebar, (state, action) => ({
+        ...state,
+        sidebarMode: action.newSidebarMode
+    }))
+);

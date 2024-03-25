@@ -1,3 +1,6 @@
+import { SidebarMode } from "../../../core/types/sidebar-mode.enum";
+
 export interface IManagementState {
-    sideBarToggled: boolean
+    sidebarToggled: boolean,
+    sidebarMode: SidebarMode
 }
