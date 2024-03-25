@@ -8,5 +8,10 @@ export const selectorManagementFeature = (state: { [managementFeatureKey]: IMana
 
 export const selectorSidebarToggled = createSelector(
     selectorManagementFeature,
-    (managementState) => managementState.sideBarToggled
-)
+    (managementState) => managementState.sidebarToggled
+);
+
+export const selectorSidebarMode = createSelector(
+    selectorManagementFeature,
+    (managementState) => managementState.sidebarMode
+);

@@ -16,3 +16,15 @@
 .brand {
     @apply mb-4;
 }
+
+.user-avatar-container {
+    width: 30px;
+    height: 30px;
+}
+
+.sidebar-mode-toggler-container {
+    svg-icon {
+        transition: all .2s linear;
+        cursor: pointer;
+    }
+}

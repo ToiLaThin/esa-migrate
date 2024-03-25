@@ -6,6 +6,10 @@
             </svg-icon>
         </div>
         <a [routerLink]="['/management',{outlets: {primary: 'product-catalog'}}]"
+           nz-tooltip
+           nzTooltipPlacement="right"
+           nzTooltipTitle="Product and catalog features"
+           nzTooltipTrigger="hover"
            (click)="toggleSideBar()">
             <svg-icon [iconName]="'cart'"
                       [fillColor]="'whitesmoke'"
@@ -30,5 +34,42 @@
                       [size]="24">
             </svg-icon>
         </a>
+    </div>
+    <div class="flex-auto">
+    </div>
+    <div class="flex flex-col items-center gap-4">
+        <div class="sidebar-mode-toggler-container">
+            @if ((sidebarMode$ | async) == SidebarMode.OVER) {
+                <ng-container [ngTemplateOutlet]="switchSidebarOverModeTempl">
+                </ng-container>
+            } @else if ((sidebarMode$ | async) == SidebarMode.PUSH) {
+                <ng-container [ngTemplateOutlet]="switchSidebarPushModeTempl">
+                </ng-container>
+            }
+            <ng-template #switchSidebarPushModeTempl>
+                <svg-icon [iconName]="'sidebar-push-right'"
+                          [size]="24"
+                          (click)="switchSidebarOver()"
+                          nz-tooltip
+                          nzTooltipPlacement="right"
+                          nzTooltipTitle="Switch to overlay sidebar"
+                          nzTooltipTrigger="hover">
+                </svg-icon>
+            </ng-template>
+            <ng-template #switchSidebarOverModeTempl>
+                <svg-icon [iconName]="'sidebar-overlay'"
+                          [size]="24"
+                          [fillColor]="'whitesmoke'"
+                          (click)="switchSidebarPush()"
+                          nz-tooltip
+                          nzTooltipPlacement="right"
+                          nzTooltipTitle="Switch to push sidebar"
+                          nzTooltipTrigger="hover">
+                </svg-icon>
+            </ng-template>
+        </div>
+        <div class="user-avatar-container">
+            <img src="../../../assets/images/user1.jpg" class="rounded-full fluid-img">
+        </div>
     </div>
 </aside>
