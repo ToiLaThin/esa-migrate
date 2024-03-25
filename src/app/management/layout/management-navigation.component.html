@@ -39,12 +39,12 @@
     </div>
     <div class="flex flex-col items-center gap-4">
         <div class="sidebar-mode-toggler-container">
-            @if ((sidebarMode$ | async) == SidebarMode.OVER) {
-                <ng-container [ngTemplateOutlet]="switchSidebarOverModeTempl">
-                </ng-container>
-            } @else if ((sidebarMode$ | async) == SidebarMode.PUSH) {
-                <ng-container [ngTemplateOutlet]="switchSidebarPushModeTempl">
-                </ng-container>
+            @if ((sidebarMode$ | async) === SidebarMode.OVER) {
+            <ng-container [ngTemplateOutlet]="switchSidebarOverModeTempl">
+            </ng-container>
+            } @else if ((sidebarMode$ | async) === SidebarMode.PUSH) {
+            <ng-container [ngTemplateOutlet]="switchSidebarPushModeTempl">
+            </ng-container>
             }
             <ng-template #switchSidebarPushModeTempl>
                 <svg-icon [iconName]="'sidebar-push-right'"
@@ -64,6 +64,37 @@
                           nz-tooltip
                           nzTooltipPlacement="right"
                           nzTooltipTitle="Switch to push sidebar"
+                          nzTooltipTrigger="hover">
+                </svg-icon>
+            </ng-template>
+        </div>
+
+        <div class="topbar-toggler-container">
+            @if ((topbarOpened$ | async) === true) {
+            <ng-container [ngTemplateOutlet]="topbarCloseTempl">
+            </ng-container>
+            } @else {
+            <ng-container [ngTemplateOutlet]="topbarOpenTempl">
+            </ng-container>
+            }
+            <ng-template #topbarCloseTempl>
+                <svg-icon [iconName]="'topbar'"
+                          [size]="24"
+                          (click)="toggleTopbar()"
+                          nz-tooltip
+                          nzTooltipPlacement="right"
+                          nzTooltipTitle="Close Topbar"
+                          nzTooltipTrigger="hover">
+                </svg-icon>
+            </ng-template>
+            <ng-template #topbarOpenTempl>
+                <svg-icon [iconName]="'topbar'"
+                          [size]="24"
+                          [fillColor]="'whitesmoke'"
+                          (click)="toggleTopbar()"
+                          nz-tooltip
+                          nzTooltipPlacement="right"
+                          nzTooltipTitle="Open Topbar"
                           nzTooltipTrigger="hover">
                 </svg-icon>
             </ng-template>

@@ -1,11 +1,13 @@
 <!-- custom event listener when click backdrop, can use disableClose on mat-sidenav to turn off toggle click backdrop behavior-->
-<mat-sidenav-container (backdropClick)="toggleSidebar()">
+<mat-sidenav-container (backdropClick)="toggleSidebar()"
+                       [hasBackdrop]="!(this.sidebarFixed$ | async)">
     <mat-sidenav #sidenav 
+                 [disableClose]="this.sidebarFixed$ | async"
                  [mode]="(this.sidebarMode$ | async)!" 
-                 [opened]="this.sidebarToggled$ | async">
+                 [opened]="this.sidebarOpened$ | async">
         <div class="collapse-container px-5 py-4">
             <div class="collapse-content flex flex-col">
-                <div>
+                <div [hidden]="(this.sidebarFixed$ | async)">
                     <button class="toggleBtn" 
                             (click)="toggleSidebar()">
                         <svg-icon [iconName]="'times'"
@@ -31,8 +33,7 @@
             </div>
         </div>            
     </mat-sidenav>
-    <mat-sidenav-content>
-        <esa-management-header></esa-management-header>
+    <mat-sidenav-content>        
         <router-outlet>
         </router-outlet>
     </mat-sidenav-content>

@@ -3,7 +3,10 @@ import { Store } from '@ngrx/store';
 import { managementActions } from '../state/management/management.actions';
 import { SidebarMode } from '../../core/types/sidebar-mode.enum';
 import { Observable } from 'rxjs';
-import { selectorSidebarMode } from '../state/management/management.selectors';
+import {
+    selectorSidebarMode,
+    selectorTopbarOpened
+} from '../state/management/management.selectors';
 import { IManagementState } from '../state/management/managementState.interface';
 import { managementFeatureKey } from '../state/management/management.reducers';
 
@@ -17,10 +20,19 @@ export class ManagementNavigationComponent {
     get SidebarMode() {
         return SidebarMode;
     }
+    topbarOpened$!: Observable<boolean>;
+
     constructor(private _store: Store) {
         this.sidebarMode$ = this._store.select((state) =>
             selectorSidebarMode(state as { [managementFeatureKey]: IManagementState })
         );
+        this.topbarOpened$ = this._store.select((state) =>
+            selectorTopbarOpened(state as { [managementFeatureKey]: IManagementState })
+        );
+    }
+
+    toggleTopbar() {
+        this._store.dispatch(managementActions.toggleTopbar());
     }
 
     toggleSideBar() {
