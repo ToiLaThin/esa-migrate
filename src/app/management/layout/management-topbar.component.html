@@ -1,0 +1,14 @@
+<nav class="h-navigation flex flex-row bg-secondary">
+    <svg-icon [iconName]="'angular'"
+              [size]="32">
+    </svg-icon>
+    <svg-icon [iconName]="'sidebar-not-fixed'"
+              [size]="32"
+              [fillColor]="'none'"
+              (click)="toggleSidebarFixed()">
+    </svg-icon>
+    <svg-icon [iconName]="'sidebar-fixed'"
+              [size]="32"
+              (click)="toggleNavigationLeft()">
+    </svg-icon>
+</nav>

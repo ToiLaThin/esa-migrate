@@ -5,6 +5,9 @@ export const managementActions = createActionGroup({
     source: 'Management Events in Management Module',
     events: {
         'Toggle Sidebar': emptyProps(),
-        'Switch mode Sidebar': props<{ newSidebarMode: SidebarMode}>()
+        'Toggle Topbar': emptyProps(),
+        'Toggle Sidebar Fixed Position': emptyProps(),
+        'Switch mode Sidebar': props<{ newSidebarMode: SidebarMode}>(),
+        'Toggle Navigation Left': emptyProps(),
     }
 })

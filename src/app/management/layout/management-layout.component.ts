@@ -4,8 +4,9 @@ import { Observable } from 'rxjs';
 import { managementFeatureKey } from '../state/management/management.reducers';
 import { IManagementState } from '../state/management/managementState.interface';
 import {
+    selectorSidebarFixed,
     selectorSidebarMode,
-    selectorSidebarToggled
+    selectorSidebarOpened
 } from '../state/management/management.selectors';
 import { managementActions } from '../state/management/management.actions';
 import { SidebarMode } from '../../core/types/sidebar-mode.enum';
@@ -16,16 +17,21 @@ import { SidebarMode } from '../../core/types/sidebar-mode.enum';
     styleUrls: ['./management-layout.component.scss']
 })
 export class ManagementLayoutComponent implements OnInit {
-    sidebarToggled$!: Observable<boolean>;
+    sidebarOpened$!: Observable<boolean>;
     sidebarMode$!: Observable<SidebarMode>;
+    sidebarFixed$!: Observable<boolean>;
+
     constructor(private _store: Store) {}
 
     ngOnInit(): void {
-        this.sidebarToggled$ = this._store.select((state) =>
-            selectorSidebarToggled(state as { [managementFeatureKey]: IManagementState })
+        this.sidebarOpened$ = this._store.select((state) =>
+        selectorSidebarOpened(state as { [managementFeatureKey]: IManagementState })
         );
         this.sidebarMode$ = this._store.select((state) =>
             selectorSidebarMode(state as { [managementFeatureKey]: IManagementState })
+        );
+        this.sidebarFixed$ = this._store.select((state) =>
+            selectorSidebarFixed(state as { [managementFeatureKey]: IManagementState })
         );
     }
 

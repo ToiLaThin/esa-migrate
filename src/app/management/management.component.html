@@ -1,5 +1,17 @@
+@if ((this.topbarOpened$ | async) === true) {
+<esa-management-topbar>
+</esa-management-topbar>
+} @else {
+<ng-container [ngTemplateOutlet]="topbarHoverRevealerTempl"></ng-container>
+<ng-template #topbarHoverRevealerTempl>
+    <div class="topbar-revealer absolute top-0 left-0 z-10 w-full h-[40px]" 
+         (mouseenter)="toggleTopbar()"
+         (mouseleave)="interruptToggleTopvar()">
+    </div>
+</ng-template>
+}
 <div class="flex flex-row">
-    <esa-management-navigation>        
+    <esa-management-navigation [hidden]="!(this.navigationLeftOpened$ | async)">
     </esa-management-navigation>
 
     <!-- Tabs components goes into here, they will have the layout component with header -->
