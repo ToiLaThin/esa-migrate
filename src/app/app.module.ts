@@ -1,6 +1,7 @@
 import { CommonModule, registerLocaleData } from "@angular/common";
 import { NgModule, isDevMode } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { AppComponent } from "./app.component";
 import { RouterModule } from "@angular/router";
 import { appRoutes } from "./app.routes";
@@ -20,6 +21,7 @@ import { authFeatureKey, authReducer } from "./auth/state/auth.reducers";
 import { AuthEffects } from "./auth/state/auth.effects";
 import { cartFeatureKey, cartReducer } from "./shopping/state/cart/cart.reducers";
 import { CartEffects } from "./shopping/state/cart/cart.effects";
+import { managementFeatureKey, managementReducer } from "./management/state/management/management.reducers";
 
 registerLocaleData(en);
 
@@ -34,7 +36,8 @@ registerLocaleData(en);
         StoreModule.forRoot({
             [productFeatureKey]: productReducer,
             [authFeatureKey]: authReducer,
-            [cartFeatureKey]: cartReducer
+            [cartFeatureKey]: cartReducer,
+            [managementFeatureKey]: managementReducer
         }),
         EffectsModule.forRoot([
             ProductEffects,
@@ -47,14 +50,16 @@ registerLocaleData(en);
             autoPause: true,
             traceLimit: 25
         }),
-        FormsModule
+        FormsModule,
+        BrowserAnimationsModule
     ],
     exports: [],
     bootstrap: [AppComponent],
     providers: [
       { provide: NZ_I18N, useValue: en_US },
       provideAnimationsAsync(),
-      provideHttpClient()
+      provideHttpClient(),
+      provideAnimationsAsync('noop')
     ]
 })
 export class AppModule {

@@ -1,0 +1,34 @@
+<aside class="sidenav">
+    <div class="icon-container">
+        <div class="brand">
+            <svg-icon [iconName]="'angular'"
+                      [size]="32">
+            </svg-icon>
+        </div>
+        <a [routerLink]="['/management',{outlets: {primary: 'product-catalog'}}]"
+           (click)="toggleSideBar()">
+            <svg-icon [iconName]="'cart'"
+                      [fillColor]="'whitesmoke'"
+                      [size]="24">
+            </svg-icon>
+        </a>
+        <a [routerLink]="['/management',{outlets: {primary: 'provider-stock'}}]">
+            <svg-icon [iconName]="'cube'"
+                      [fillColor]="'whitesmoke'"
+                      [size]="24">
+            </svg-icon>
+        </a>
+        <a [routerLink]="['/management',{outlets: {primary: 'sale-coupon'}}]">
+            <svg-icon [iconName]="'discount'"
+                      [fillColor]="'whitesmoke'"
+                      [size]="24">
+            </svg-icon>
+        </a>
+        <a [routerLink]="['/management',{outlets: {primary: 'order'}}]">
+            <svg-icon [iconName]="'clipboard'"
+                      [fillColor]="'whitesmoke'"
+                      [size]="24">
+            </svg-icon>
+        </a>
+    </div>
+</aside>

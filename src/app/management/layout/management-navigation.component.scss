@@ -1,0 +1,18 @@
+.sidenav {
+    @apply h-screen w-iconSidebar pt-6 pb-5 flex flex-col bg-primary flex-shrink-0;
+}
+
+.icon-container {
+    @apply relative pb-2 flex flex-col items-center justify-center gap-4;
+
+    a {
+        @apply block p-2 rounded-full;
+        &:hover {
+            @apply bg-backgroundLightPrimary;
+        }
+    }
+}
+
+.brand {
+    @apply mb-4;
+}

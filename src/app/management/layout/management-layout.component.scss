@@ -1,0 +1,30 @@
+mat-sidenav-container {
+    @apply h-full;
+
+    mat-sidenav {
+        width: 250px;
+    }
+}
+
+.collapse-container {
+    @apply h-full relative bg-backgroundLightest;
+    
+    .toggleBtn {
+        float: right;
+        &::after {
+            display: table;
+            content: '';
+            clear: both;
+        }
+    }
+}
+
+.collapse-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    overflow-y: auto;
+    min-width: 240px;
+}
