@@ -1,6 +1,6 @@
 <esa-management-layout>
     <a [routerLink]="['product-list']"
-       class="flex flex-row items-center">
+       class="flex flex-row items-center mt-2">
         <span class="mr-2">
             <svg-icon iconName="pricetags"
                       [size]="24"
@@ -8,5 +8,25 @@
             </svg-icon>
         </span>
         All products
+    </a>
+    <a [routerLink]="['catalog-list']"
+       class="flex flex-row items-center mt-4">
+        <span class="mr-2">
+            <svg-icon iconName="catalog-list"
+                      [size]="24"
+                      fillColor="#ddd">
+            </svg-icon>
+        </span>
+        All catalogs
+    </a>
+    <a [routerLink]="['catalog-add']"
+       class="flex flex-row items-center mt-4">
+        <span class="mr-2">
+            <svg-icon iconName="add-outline"
+                      [size]="24"
+                      fillColor="#ddd">
+            </svg-icon>
+        </span>
+        Add new catalog
     </a>
 </esa-management-layout>

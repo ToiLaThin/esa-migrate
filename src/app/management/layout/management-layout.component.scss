@@ -20,11 +20,8 @@ mat-sidenav-container {
 }
 
 .collapse-content {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
+    @apply absolute top-0 left-0 h-full w-full;
     overflow-y: auto;
     min-width: 240px;
+    padding: 8px 4px;
 }
