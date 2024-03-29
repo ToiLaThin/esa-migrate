@@ -1,0 +1,81 @@
+$primary: #0052cc;
+$success: #0b875b;
+$danger: #e13c3c;
+$warning: #f89c1c;
+$info: #0fb9b1;
+$secondary: #f4f5f7;
+$jira-bg: rgb(222, 235, 255);
+
+.btn {
+    font-size: 14.5px;
+    @apply inline-flex items-center justify-center px-3 rounded-sm h-8 align-middle leading-none whitespace-nowrap transition-all duration-100 appearance-none;
+}
+
+@mixin buttonBackground($btn-variant, $background) {
+    $background-dark: darken($background, 10%);
+    $background-light: lighten($background, 10%);
+
+    .btn-#{$btn-variant} {
+        //important
+        font-weight: 500;
+        color: white;
+        background: $background;
+
+        &:hover { background: $background-light; }
+        &:active { background: $background-dark; }
+        // &:disabled {
+        //     cursor: not-allowed;
+        //     background-color: lighten($background, 30%);
+        // }
+
+        // &:not(:disabled) {
+        //     &:hover { background: $background-light; }
+        //     &:active { background: $background-dark; }
+        // }
+    }
+}
+
+//we will have 2 class .btn-primary & .btn-secondary
+@include buttonBackground(primary, $primary);
+@include buttonBackground(secondary, $secondary);
+
+/* override color from above mixin since it is not contrast */
+.btn-secondary {
+    background: $secondary;
+    @apply text-textDark font-normal;
+}
+
+.btn-empty {
+    outline: none;
+    background: white;
+    @apply text-textDark;
+    
+    &:focus,
+    &:active {
+        outline: none;
+    }
+    
+    &:not(:disabled) {
+        &:hover {
+            @apply bg-backgroundLight;
+        }
+        
+        &:active {
+            color: $primary;
+            @apply bg-backgroundLightPrimary;
+        }
+        
+        &.is-active {
+            background-color: $jira-bg;
+            @apply text-textDark;
+        }
+    }
+}
+
+.padding-2-icon {
+    @apply pl-2; //have padding from content to icon
+}
+
+.is-active {
+    @apply text-textLink bg-backgroundLightPrimary;
+}

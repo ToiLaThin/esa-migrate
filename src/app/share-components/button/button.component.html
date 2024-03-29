@@ -1,0 +1,12 @@
+<button [type]="type"
+        [ngClass]="['btn', className, isActive ? 'is-active': '']">
+    <svg-icon *ngIf="iconName"
+              [iconName]="iconName"
+              [size]="iconSize">
+    </svg-icon>
+    <span #content 
+          [class.padding-2-icon]="iconName">
+        <ng-content>
+        </ng-content>
+    </span>
+</button>

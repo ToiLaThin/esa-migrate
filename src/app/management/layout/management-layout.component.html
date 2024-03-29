@@ -6,7 +6,7 @@
                  [mode]="(this.sidebarMode$ | async)!" 
                  [opened]="this.sidebarOpened$ | async">
         <div class="collapse-container px-5 py-4">
-            <div class="collapse-content flex flex-col">
+            <div class="collapse-content flex flex-col mx-auto">
                 <div [hidden]="(this.sidebarFixed$ | async)">
                     <button class="toggleBtn" 
                             (click)="toggleSidebar()">
@@ -16,7 +16,7 @@
                         </svg-icon>
                     </button>
                 </div>
-                <div class="flex flex-row items-center mb-4">
+                <div class="w-[92%] mx-auto flex flex-row items-center justify-center mb-4">
                     <svg-icon [iconName]="'angular'"
                               [size]="48"
                               class="mr-2">
@@ -28,8 +28,10 @@
                 </div>
 
                 <!-- Tab component will provide links to their component to load them on the sidebar content-->
-                <ng-content>                    
-                </ng-content>
+                <div class="w-[92%] mx-auto pl-2">
+                    <ng-content>                    
+                    </ng-content>
+                </div>
             </div>
         </div>            
     </mat-sidenav>

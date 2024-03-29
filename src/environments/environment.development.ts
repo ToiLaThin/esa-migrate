@@ -5,5 +5,5 @@ export const environment = {
     IDPAUTHORITY: 'http://localhost:7001/Auth/IdentityServer/',
     CLIENTID: 'client_id',
     NOTIFICATIONHUBROOT: 'http://localhost:7008/NotificationHub',
-    loginCheckInterval: 10000,
+    loginCheckInterval: 1000000,
 };

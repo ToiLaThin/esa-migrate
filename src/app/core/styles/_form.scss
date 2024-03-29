@@ -1,0 +1,44 @@
+$background: #f4f5f7;
+$blue-border: #4c9aff;
+
+form {
+    .label {
+        display: block;
+        padding-bottom: .5rem;
+        font-weight: 600;
+        font-size: .8125rem;
+        color: #5e6c84;
+    }
+
+    .form-input {
+        height: 100%;
+        width: 100%;
+        padding: .325rem .75rem;
+
+        border-radius: 3px;
+        border: 1px solid #ddd;
+        font-size: 15px;
+        color: #172b4d;
+        transition: background .1s;
+
+        &:hover {
+            background: $background;
+        }
+
+        &:focus {
+            background: #fff;
+            border: 1px solid $blue-border;
+            box-shadow: 0 0 0 1px $blue-border;
+            outline: none;
+        }
+
+        &::placeholder {
+            font-size: 14px;
+        }
+    }
+
+    input:not(:disabled),
+    textarea:not(:disabled) {
+        cursor: text;
+    }
+}
