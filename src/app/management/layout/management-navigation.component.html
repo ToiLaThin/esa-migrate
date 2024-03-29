@@ -25,7 +25,12 @@
         <a [routerLink]="['/management',{outlets: {primary: 'sale-coupon'}}]">
             <svg-icon [iconName]="'discount'"
                       [fillColor]="'whitesmoke'"
-                      [size]="24">
+                      [size]="24"
+                      nz-tooltip
+                      nzTooltipPlacement="right"
+                      nzTooltipTitle="Sale and coupons features"
+                      nzTooltipTrigger="hover"
+                      (click)="toggleSideBar()">
             </svg-icon>
         </a>
         <a [routerLink]="['/management',{outlets: {primary: 'order'}}]">
