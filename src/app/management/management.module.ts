@@ -19,13 +19,16 @@ import { CouponListManagementComponent } from './components/sale-coupon/coupon-l
 import { SaleListManagementComponent } from './components/sale-coupon/sale-list/sale-list.component';
 import { NzModalModule } from 'ng-zorro-antd/modal'
 import { CouponAddModalComponent } from './components/sale-coupon/coupon-add-modal/coupon-add-modal.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
     imports: [
         RouterModule.forChild(managementRoutes),
         ShareComponentsModule,
         CommonModule,
-
+        FormsModule,
+        ReactiveFormsModule,
+        
         MatSidenavModule,
         NzToolTipModule,
         NzModalModule,
