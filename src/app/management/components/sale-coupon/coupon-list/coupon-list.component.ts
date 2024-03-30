@@ -13,9 +13,10 @@ export class CouponListManagementComponent {
     openAddNewCouponModal() {
         this._modalService.create({
             nzContent: CouponAddModalComponent,
-            nzClosable: false,
+            nzClosable: true,
             nzFooter: null,
-            nzWidth: 700
+            nzWidth: 700,
+            nzNoAnimation: false
         })
     }
 }

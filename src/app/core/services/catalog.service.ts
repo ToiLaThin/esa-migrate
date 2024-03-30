@@ -23,4 +23,21 @@ export class CatalogService {
             { headers: httpHeaders }
         );
     }
+
+    public addCatalog(catalog: ICatalog) {
+        return this.http.post<ICatalog>(
+            `${env.BASEURL}/api/ProductCatalog/CatalogAPI/CreateCatalog`,
+            catalog
+        );
+    }
+
+    public addSubCatalog(subCatalog: ISubCatalog, catalogId: string) {
+        let httpHeaders = new HttpHeaders();
+        httpHeaders = httpHeaders.append('catalogId', catalogId);
+        return this.http.post<string>(
+            `${env.BASEURL}/api/ProductCatalog/CatalogAPI/CreateSubCatalog`,
+            subCatalog,
+            { headers: httpHeaders }
+        ).pipe();
+    }
 }

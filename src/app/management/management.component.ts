@@ -5,6 +5,7 @@ import { selectorNavigationLeftOpened, selectorTopbarOpened } from './state/mana
 import { managementFeatureKey } from './state/management/management.reducers';
 import { IManagementState } from './state/management/managementState.interface';
 import { managementActions } from './state/management/management.actions';
+import { productCatalogManagementActions } from './state/product-catalog-management/product-catalog-management.actions';
 
 @Component({
     selector: 'esa-management',
@@ -18,6 +19,7 @@ export class ManagementComponent implements OnInit {
     constructor(private _store: Store) {}
 
     ngOnInit(): void {
+        this._store.dispatch(productCatalogManagementActions.loadAllCatalogs());
         this.navigationLeftOpened$ = this._store.select((state) =>
             selectorNavigationLeftOpened(state as { [managementFeatureKey]: IManagementState })
         );
