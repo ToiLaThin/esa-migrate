@@ -1,1 +1,80 @@
-Hehe
+<ng-template #catalogListTable>
+<div class="table-container">
+    <table class="table">
+        <tr class="head-row">
+            <th>Id</th>
+            <th>Catalog name</th>
+            <th>Catalog image</th>
+            <th>Catalog description</th>
+            <th>Action</th>
+        </tr>
+        @for (catalog of allCatalogs$ | async; track catalog) {        
+        <tr class="data-row">
+            <td>{{catalog.catalogId| slice:0:8 | uppercase}}</td>
+            <td class="flex flex-row items-center justify-start">
+                <div class="overflow-hidden mr-3 object-cover" style="width: 30px; height: 30px;">
+                    @if (catalog.catalogImage !== null && catalog.catalogImage !== undefined && catalog.catalogImage !== '') {
+                    <img src="{{catalog.catalogImage}}" class="w-full h-auto object-cover">
+                    } @else {
+                    <img src="../../../../../assets/images/no-image.png" class="w-full h-auto object-cover">
+                    }
+                </div>
+                {{catalog.catalogName | titlecase}}
+            </td>
+            <td> 
+                <div class="overflow-hidden object-cover m-auto" style="width: 80px; height: 60px;">
+                    @if (catalog.catalogImage !== null && catalog.catalogImage !== undefined && catalog.catalogImage !== '') {
+                    <img src="{{catalog.catalogImage}}" class="w-full h-auto object-cover">
+                    } @else {
+                    <img src="../../../../../assets/images/no-image.png" class="w-full h-auto object-cover">
+                    }
+                </div>
+            </td>
+            <td>
+                @if (catalog.catalogImage !== null && catalog.catalogImage !== undefined && catalog.catalogImage !== '') {
+                {{catalog.catalogDescription}}
+                } @else {
+                <p>No description available</p>
+                }
+            </td>
+            <td class="flex flex-row justify-around items-center">
+                <svg-icon [iconName]="'trash-outline'" 
+                            [strokeColor]="'purple'"
+                            [size]="24"
+                            nz-tooltip
+                            nzTooltipPlacement="top"
+                            nzTooltipTitle="Delete catalog">
+                </svg-icon>
+                <svg-icon [iconName]="'edit-outline'" 
+                            [strokeColor]="'tomato'"
+                            [size]="24"
+                            nz-tooltip
+                            nzTooltipPlacement="top"
+                            nzTooltipTitle="Edit catalog">
+                </svg-icon>
+                <svg-icon [iconName]="'eye-outline'" 
+                            [strokeColor]="'green'"
+                            [size]="24"
+                            nz-tooltip
+                            nzTooltipPlacement="top"
+                            nzTooltipTitle="View Subcatalogs"
+                            (click)="viewCatalogSubCatalogs(catalog)">
+                </svg-icon>
+            </td>
+        </tr>
+        }
+    </table>
+</div>
+</ng-template>
+
+<div class="flex flex-row">
+    <ng-container [ngTemplateOutlet]="catalogListTable">
+    </ng-container>
+    <esa-management-catalog-subcatalog-list #subcatalogList
+        [subCatalogs]="[]"
+        [catalogId]="''"
+        [ngClass]="[showSubCatalogs ? 'w-auto': 'w-0', 'overflow-hidden']"
+        class="ml-4 mt-4"
+        (closedSubCatalogsList)="closeSubCatalogsList()">
+    </esa-management-catalog-subcatalog-list>
+</div>

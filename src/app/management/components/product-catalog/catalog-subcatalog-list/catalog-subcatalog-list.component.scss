@@ -1,0 +1,41 @@
+$bgColor: #333A73;
+$textColor: #F0F3FF;
+.subcatalog-list-container {
+   background-color: $bgColor;
+   color: $textColor;
+   padding: 2px 4px;
+   border-radius: 12px;
+}
+.header {
+   background-color: #6962AD;
+   border-radius: 12px;
+}
+.add-subcatalog-section {
+   @apply flex flex-row items-center justify-start rounded-md;
+   background-color: #6962AD;
+   cursor: pointer;
+
+}
+.body {
+   background-color: #6962AD;
+   border-radius: 12px;
+   .subcatalog-item  {
+      // @extend .flex;
+      // @extend .flex-row;
+      // @extend .items-center;
+      // @extend .justify-between;
+      // @extend .px-3;
+      // @extend .py-2;
+      @apply flex flex-row items-center justify-between py-2;
+      cursor : pointer;
+   }
+}
+
+.subcatalog-details:hover .subcatalog-actions{
+   @apply h-full;
+}
+.subcatalog-actions {
+   @apply flex flex-row items-center justify-center;
+   @apply top-0 left-0 z-10 w-full h-0 overflow-hidden bg-[#6962AD] rounded-lg;
+   transition: height 0.3s ease-in-out;
+}

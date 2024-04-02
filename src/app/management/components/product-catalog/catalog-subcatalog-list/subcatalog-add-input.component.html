@@ -14,9 +14,15 @@
                     class="form-input"
                     formControlName="selectedCatalogId">                    
                 @for (catalog of this.allCatalogs$ | async; track catalog) {
-                <option [value]="catalog.catalogId">
-                    {{catalog.catalogName}}
-                </option>
+                    @if (inputCatalogId !== null && inputCatalogId != undefined && inputCatalogId === catalog.catalogId) {
+                    <option [value]="catalog.catalogId" [selected]="true">
+                        {{catalog.catalogName}}
+                    </option>
+                    } @else {
+                    <option [value]="catalog.catalogId">
+                        {{catalog.catalogName}}
+                    </option>
+                    }
                 }
             </select>
         </div>
