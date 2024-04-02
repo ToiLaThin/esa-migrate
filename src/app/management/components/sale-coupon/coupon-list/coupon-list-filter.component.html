@@ -1,0 +1,86 @@
+<div class="flex flex-row items-center justify-start flex-wrap mt-5 mb-5 gap-2 lg:gap-4">    
+    <div class="flex flex-row gap-4 flex-grow justify-evenly">
+        <button nz-button 
+            nz-dropdown
+            [nzDropdownMenu]="menu1"
+            nzTrigger="click"
+            class="w-1/2">
+        Discount Type
+        <span nz-icon nzType="down"></span>
+        </button>
+        <nz-dropdown-menu #menu1="nzDropdownMenu">
+            <ul nz-menu>
+                <li nz-menu-item>
+                    <span nz-icon nzType="percentage" nzTheme="outline"></span> Percent
+                </li>
+                <li nz-menu-item>
+                    <span nz-icon nzType="money-collect" nzTheme="outline"></span> Money
+                </li>
+            </ul>
+        </nz-dropdown-menu>
+        <nz-button-group class="w-1/2">
+            <button nz-button class="w-full">Money</button>
+            <button nz-button nz-dropdown [nzDropdownMenu]="menu3" nzPlacement="bottomRight">
+                <span nz-icon nzType="ellipsis"></span>
+            </button>
+        </nz-button-group>
+        <nz-dropdown-menu #menu3="nzDropdownMenu">
+            <ul nz-menu>
+                <li nz-menu-item>
+                    <span nz-icon nzType="money-collect" nzTheme="outline"></span>
+                    Dollar
+                </li>
+                <li nz-menu-item>
+                    <span nz-icon nzType="ellipsis"></span>
+                    menu item
+                </li>
+                <li nz-menu-item>
+                    <span nz-icon nzType="ellipsis"></span>
+                    menu item
+                </li>
+            </ul>
+        </nz-dropdown-menu>
+    </div>
+    
+
+    <div class="flex flex-row gap-4 flex-grow justify-around">
+        <div class="w-1/2">
+            <nz-date-picker [nzMode]="'date'" 
+                            class="w-full" 
+                            [nzPlaceHolder]="'From Date'">
+            </nz-date-picker>
+        </div>
+        <div class="w-1/2">
+            <nz-date-picker [nzMode]="'date'" 
+                            class="w-full" 
+                            [nzPlaceHolder]="'To Date'">
+            </nz-date-picker>
+        </div>
+    </div>
+
+    <div class="flex flex-row flex-grow">
+        <div class="search-container">
+            <div class="icon-container"
+                [style.width.px]="16*2">
+                <svg-icon [iconName]="'search-outline'"
+                          [size]="16"
+                          [strokeColor]="'#121212'">
+                </svg-icon>
+            </div>
+    
+            <input type="text"
+                   placeholder="Search for code">
+        </div>
+        <app-button nz-dropdown [nzDropdownMenu]="menu4">
+            <span nz-icon [nzType]="'setting'" [nzTheme]="'fill'"></span>
+        </app-button>
+        <nz-dropdown-menu #menu4="nzDropdownMenu">
+            <ul nz-menu>
+                <li nz-menu-item class="flex flex-row items-center">
+                    <input type="checkbox" name="showAdvancedFilter" id="showAdvancedFilter" [(ngModel)]="showAdvanceFilter" (change)="checkOpenAdvanceFilter()">
+                    <label for="showAdvancedFilter" class="ml-2">Show advance filter</label>
+                </li>
+            </ul>
+        </nz-dropdown-menu>
+    </div>
+</div>

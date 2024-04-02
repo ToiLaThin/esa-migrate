@@ -24,7 +24,28 @@ import { SaleListManagementProductChipComponent } from './components/sale-coupon
 import { SaleListPaginationComponent } from './components/sale-coupon/sale-list/sale-list-pagination.component';
 import { SaleListFilterTopManagementComponent } from './components/sale-coupon/sale-list/sale-list-filter-top.component';
 import { SaleListTableComponent } from './components/sale-coupon/sale-list-table/sale-list-table.component';
+import { CouponListAdvanceFilterComponent } from './components/sale-coupon/coupon-list/coupon-list-advance-filter.component';
+import { CouponListFilterComponent } from './components/sale-coupon/coupon-list/coupon-list-filter.component';
 
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
+import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
+import { NzSliderModule } from 'ng-zorro-antd/slider';
+import { NzLayoutModule } from 'ng-zorro-antd/layout';
+import { CouponListCouponPlaceholderComponent } from './components/sale-coupon/coupon-list-coupon-placeholder/coupon-placeholder.component';
+import { CouponListCouponComponent } from './components/sale-coupon/coupon-list-coupon/coupon.component';
+const importNzModules = [
+    NzButtonModule,
+    NzDropDownModule,
+    NzIconModule,
+    NzDatePickerModule,
+    NzCheckboxModule,
+    NzModalModule,
+    NzSliderModule,
+    NzLayoutModule
+]
 @NgModule({
     imports: [
         RouterModule.forChild(managementRoutes),
@@ -36,6 +57,7 @@ import { SaleListTableComponent } from './components/sale-coupon/sale-list-table
         MatSidenavModule,
         NzToolTipModule,
         NzModalModule,
+        importNzModules
     ],
     declarations: [
         ManagementComponent,
@@ -57,6 +79,10 @@ import { SaleListTableComponent } from './components/sale-coupon/sale-list-table
         SaleListTableComponent,
         
         CouponListManagementComponent,
+        CouponListCouponComponent,
+        CouponListCouponPlaceholderComponent,
+        CouponListAdvanceFilterComponent,
+        CouponListFilterComponent,
         CouponAddModalComponent,
 
     ],

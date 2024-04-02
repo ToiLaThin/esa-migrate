@@ -1,0 +1,57 @@
+<h2 class="font-semibold uppercase flex items-center">
+    Sort By 
+    <span nz-icon nzType="question" nzTheme="outline" class="ml-4"></span></h2>
+<div class="flex flex-row items-center gap-4 mt-3">
+    <div class="border border-tailwick-gray-text rounded-sm py-3 px-1">
+        <span nz-icon nzType="money-collect" nzTheme="outline"></span>
+        Discount Value
+    </div>
+    <div class="border border-tailwick-gray-text rounded-sm py-3 px-1">
+        <span nz-icon nzType="calendar" nzTheme="outline"></span>
+        Date Created
+    </div>
+</div>
+
+<h2 class="font-semibold uppercase mt-8 flex items-center">
+    Sort Order
+    <span nz-icon nzType="sort-ascending" nzTheme="outline"></span>
+</h2>
+<div class="flex flex-row items-center gap-4 mt-3">
+    <div class="border border-tailwick-gray-text rounded-sm py-3 px-1">
+        <span nz-icon nzType="sort-ascending" nzTheme="outline"></span>
+        Ascending
+    </div>
+    <div class="border border-tailwick-gray-text rounded-sm py-3 px-1">
+        <span nz-icon nzType="sort-descending" nzTheme="outline"></span>
+            Descending
+    </div>
+</div>
+
+<h2 class="font-semibold uppercase mt-8 flex items-center">
+    Price Range
+    <span nz-icon nzType="transaction" nzTheme="outline" class="mr-2"></span>
+</h2>
+<div class="flex flex-row items-center gap-4 mt-3">
+    <div class="w-4/5">
+        <nz-slider nzRange
+                   [(ngModel)]="priceRange"
+                   [nzMin]="minPrice" 
+                   [nzMax]="maxPrice" [nzDisabled]="false"
+                   [nzStep]="step"
+                   (nzOnAfterChange)="logPriceRange()">
+        </nz-slider>
+    </div>
+</div>
+<div class="flex flex-row items-center justify-center gap-4 mt-3">
+    <app-button>
+        Apply
+    </app-button>
+    <app-button className="btn-secondary"
+                (click)="closeAdvanceFilter()">
+        Close
+    </app-button>
+    <app-button className="btn-secondary"
+                (click)="clearAdvanceFilter()">
+        Clear
+    </app-button>
+</div>
