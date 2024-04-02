@@ -38,4 +38,26 @@ export class SaleCouponManagementEffects {
             )
         )
     );
+
+
+    loadAllCouponsEffect = createEffect(() =>
+        this.actions$.pipe(
+            ofType(saleCouponManagementActions.loadAllCoupons),
+            switchMap((action) =>
+                this._couponService.getAllCoupons().pipe(
+                    map((coupons) =>
+                        saleCouponManagementActions.loadAllCouponsSuccess({
+                            loadedCoupons: coupons,
+                            total: coupons.length
+                        })
+                    ),
+                    tap(() => this._notificationService.create('success', 'All coupons loaded successfully', '')),
+                    catchError((err) => {
+                        this._notificationService.create('error', `Error: ${err.title}`, '');
+                        return of(saleCouponManagementActions.loadAllCouponsFailed({ error: err }));
+                    })
+                )
+            )
+        )
+    );
 }

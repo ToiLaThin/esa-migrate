@@ -1,0 +1,107 @@
+:host {
+    --bgCoupon: gold;
+    --textCouponHeading: gold;
+    --textCoupon: black;
+    font-family: serif;
+}
+
+.coupon {
+    @apply relative flex flex-row items-stretch; //row flex 3 div
+    text-transform: uppercase;
+    border-radius: 10px;
+    &:hover {
+        filter: drop-shadow(0 3px 5px rgba( 0, 0, 0, 0.5) ); //shadow ,can add overflow-hidden
+        transform: rotateZ(-5deg);
+    }
+
+    &.sm-size {        
+        @apply w-[200px] h-[100px] text-[6px];
+    }
+    
+    &.md-size {        
+        @apply w-[300px] h-[150px] text-[10px];
+    }
+    
+    &.lg-size {
+        @apply w-[400px] h-[200px] text-[16px];
+    }
+
+    &.normal-discount {
+        --bgCoupon: green;
+        --textCouponHeading: green;
+        --textCoupon: whitesmoke;
+    }
+
+    &.ultra-discount {
+    --bgCoupon: red;
+    --textCouponHeading: red;
+    --textCoupon: whitesmoke;
+    }
+}
+
+.coupon {
+    &::before, &::after {
+        @apply absolute -z-10 top-0;
+        @apply w-1/2 h-full;
+        content: "";
+    }
+    &::before {
+        left: 0;
+        background-image: radial-gradient(circle at 0 50%, transparent 25px, var(--bgCoupon) 26px);
+    }
+    &::after {
+        right: 0;
+        background-image: radial-gradient(circle at 100% 50%, transparent 25px, var(--bgCoupon) 26px);
+    }
+}
+
+.coupon > div { 
+    @apply flex items-center justify-center; /* child selector to center both 3 div*/
+}
+
+.left {
+    width: 25%;
+    border-right: 2px dashed rgba(0, 0, 0, 0.13);
+    & div {
+        color: var(--textCoupon);;
+        margin-left: 20px;
+        font-weight: bold;
+        transform: rotate(-90deg);
+        white-space: nowrap;
+    }
+}
+
+
+.center {
+    flex-grow: 1; //take up all the space remaining in flex
+    text-align: center;
+    & h2 {
+        font-size: 1.5rem;
+        padding: 0 10px;
+        white-space: nowrap;
+        color: var(--textCouponHeading);
+        background: #000;
+    }
+    
+    & small {
+        color: var(--textCoupon);
+        font-size: 0.625rem;
+        font-weight: 600;
+        letter-spacing: 2px;
+    }
+}
+
+.right {
+    width: 33.33%;
+    background-image: radial-gradient(circle at 100% 50%, transparent 25px, #fff 26px);
+
+    & div {
+        margin-right: 12px;
+        font-family: "Libre Barcode 128 Text", cursive, system-ui;
+        font-size: 16px;
+        font-weight: 400;
+        transform: rotate(-90deg);
+    }
+}
+
+

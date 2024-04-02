@@ -1,0 +1,52 @@
+:host {
+    --bgCoupon: #FFA447;
+    --textCouponHeading: #FFA447;
+}
+
+.coupon {
+    @apply relative flex flex-row items-stretch; //row flex 3 div
+    @apply w-[200px] h-[100px] text-[6px] uppercase;
+    border: 2px dashed var(--bgCoupon);
+    border-radius: 10px;
+    filter: drop-shadow(0 3px 5px rgba( 0, 0, 0, 0.5) ); //shadow ,can add overflow-hidden
+    cursor: grabbing;
+    &:hover {
+        transform: translateX(20px) scale(1.1);
+    }
+
+    &:hover .right {
+        opacity: 1;
+    }
+
+    &.type-delete {
+        --bgCoupon: #FF004D;
+        --textCouponHeading: #FF004D;
+    }
+
+    &.type-add {
+        --bgCoupon: #9ADE7B;
+        --textCouponHeading: #9ADE7B;
+    }
+}
+
+.coupon > div { 
+    @apply flex items-center justify-center; /* child selector to center both 3 div*/
+}
+
+.left {
+    width: 25%;
+    border-right: 2px dashed var(--bgCoupon);
+    color: var(--textCouponHeading);
+}
+
+
+.right {
+    flex-grow: 1; //take up all the space remaining in flex
+    white-space: nowrap;
+    text-align: center;
+    font-size: 10px;
+    color: var(--textCouponHeading);
+    opacity: 0;
+}
+
+

@@ -1,0 +1,33 @@
+<div class="coupon" [ngClass]="[
+    type === 'delete' ? 'type-delete' : 
+    type === 'add' ? 'type-add' : 
+    'type-edit']">
+    <div class="left">
+        @if (type === 'delete') {
+            <svg-icon [iconName]="'trash-outline'"
+                      [size]="32">
+            </svg-icon>
+        } 
+        @if (type === 'edit') {
+            <svg-icon [iconName]="'edit-outline'"
+                      [size]="32">
+            </svg-icon>
+        } 
+        @if (type === 'add') {
+            <svg-icon [iconName]="'add-outline'"
+                      [size]="32">
+            </svg-icon>
+        } 
+    </div>
+    <div class="right">
+        @if (type === 'delete') {
+            Drag To Delete
+        } 
+        @if (type === 'edit') {
+            Drag To Edit 
+        } 
+        @if (type === 'add') {
+            Clic To Add New Coupon
+        } 
+    </div>
+  </div>

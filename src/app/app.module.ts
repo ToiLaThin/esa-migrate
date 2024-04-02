@@ -26,6 +26,7 @@ import { SaleCouponManagementEffects } from "./management/state/sale-coupon-mana
 import { ProductCatalogManagementEffects } from "./management/state/product-catalog-management/product-catalog-management.effects";
 import { productCatalogManagementFeatureKey, productCatalogManagementReducer } from "./management/state/product-catalog-management/product-catalog-management.reducers";
 import { ProductCatalogManagementShareEffects } from "./management/state/management/product-catalog-share-management.effect";
+import { saleCouponManagementFeatureKey, saleCouponManagementReducer } from "./management/state/sale-coupon-management/sale-coupon-management.reducers";
 
 registerLocaleData(en);
 
@@ -42,7 +43,8 @@ registerLocaleData(en);
             [authFeatureKey]: authReducer,
             [cartFeatureKey]: cartReducer,
             [managementFeatureKey]: managementReducer,
-            [productCatalogManagementFeatureKey]: productCatalogManagementReducer
+            [productCatalogManagementFeatureKey]: productCatalogManagementReducer,
+            [saleCouponManagementFeatureKey]: saleCouponManagementReducer
         }),
         EffectsModule.forRoot([
             ProductEffects,
