@@ -1,1 +1,48 @@
-Sale list component works, later will have button to add sale modal
+<div class="px-4 py-2">
+    <esa-management-sale-list-filter-top 
+        [currentViewModeTable]="currentViewModeTable" 
+        [collapsed]="collapsed"
+        (openRightPart)="openRightPart()">
+        <!-- event emmited and handler -->
+    </esa-management-sale-list-filter-top>
+</div>
+<div class="flex flex-row">
+    <div class="left flex-grow">
+        @if(!this.currentViewModeTable) {
+            @for (product of displayingProducts$ | async; track product) {
+            <esa-sale-list-management-product-chip [product]="product">
+            </esa-sale-list-management-product-chip>
+            }
+        }
+        @else {
+        <esa-sale-list-table class="flex-grow" 
+                             [displayingProducts$]="displayingProducts$">
+        </esa-sale-list-table>
+        }
+    </div>
+    <div class="right flex flex-col" #rightCol>
+        <div class="right-header my-4 flex flex-row gap-8 justify-between">
+            <div class="flex flex-row">
+                <svg-icon [strokeColor]="'#fff'" [iconName]="'times'" [size]="24" (click)="closeRightPart()"
+                    class="mr-4">
+                </svg-icon>
+                @if (this.currentViewModeTable) {
+                <svg-icon [strokeColor]="'#fff'" [iconName]="'list-view-mode'" [size]="24" (click)="toggleViewMode()">
+                </svg-icon>
+                } @else if (this.currentViewModeTable === false) {
+                <svg-icon [strokeColor]="'#fff'" [iconName]="'table-view-mode'" [size]="24" (click)="toggleViewMode()">
+                </svg-icon>
+                }
+            </div>
+            <div class="actions">
+                <app-button>
+                    <svg-icon [fillColor]="'#fff'" [iconName]="'add-outline'" [size]="24" (click)="addNewSaleModal()">
+                    </svg-icon>
+                </app-button>
+            </div>
+        </div>
+    </div>
+</div>
+<esa-sale-list-pagination [totalPageAsArray$]="totalPageAsArray$"
+                          (pageChanged)="changePage($event)">
+</esa-sale-list-pagination>

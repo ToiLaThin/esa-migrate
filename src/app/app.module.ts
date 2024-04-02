@@ -25,6 +25,7 @@ import { managementFeatureKey, managementReducer } from "./management/state/mana
 import { SaleCouponManagementEffects } from "./management/state/sale-coupon-management/sale-coupon-management.effects";
 import { ProductCatalogManagementEffects } from "./management/state/product-catalog-management/product-catalog-management.effects";
 import { productCatalogManagementFeatureKey, productCatalogManagementReducer } from "./management/state/product-catalog-management/product-catalog-management.reducers";
+import { ProductCatalogManagementShareEffects } from "./management/state/management/product-catalog-share-management.effect";
 
 registerLocaleData(en);
 
@@ -48,7 +49,8 @@ registerLocaleData(en);
             AuthEffects,
             CartEffects,
             SaleCouponManagementEffects,
-            ProductCatalogManagementEffects
+            ProductCatalogManagementEffects,
+            ProductCatalogManagementShareEffects
         ]),
         StoreDevtoolsModule.instrument({
             maxAge: 25,

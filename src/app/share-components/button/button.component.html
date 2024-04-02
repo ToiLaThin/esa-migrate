@@ -5,7 +5,8 @@
               [size]="iconSize">
     </svg-icon>
     <span #content 
-          [class.padding-2-icon]="iconName">
+          [class.padding-2-icon]="iconName && (content.children.length > 0 || content.textContent != '')">
+          <!-- must also have content to have padding-2-icon class -->
         <ng-content>
         </ng-content>
     </span>

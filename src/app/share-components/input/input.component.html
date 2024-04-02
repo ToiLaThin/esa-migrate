@@ -1,0 +1,15 @@
+<div [ngClass]="['input-container', containerClassName]">
+    <div *ngIf="iconName" 
+         class="input-icon-container" 
+         [style.width.px]="iconContainerWidth">
+        <svg-icon [iconName]="iconName"
+                  [size]="iconSize"
+                  [strokeColor]="'#9E9E9E'">
+        </svg-icon>
+    </div>
+
+    <input [placeholder]="placeholder"
+           [formControl]="control"
+           [ngClass]="['input']"
+           [style.padding-left.px]="iconName ? iconContainerWidth : 0">
+</div>

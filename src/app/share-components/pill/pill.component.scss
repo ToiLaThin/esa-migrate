@@ -1,0 +1,23 @@
+$bgSuccess: #EBF9F1;
+$textSuccess: #1F9254;
+$bgWarning: #FEF2E5;
+$textWarning: #CD6200;
+$bgDanger: #FBE7E8;
+$textDanger: #A30D11;
+
+.pill-success {
+    color: $textSuccess;
+    background-color: $bgSuccess;
+}
+.pill-danger {
+    color: $textDanger;
+    background-color: $bgDanger;
+}
+.pill-warning {
+    color: $textWarning;
+    background-color: $bgWarning;
+}
+
+.pill-container {
+    @apply px-3 py-2 rounded-[20px] text-center;
+}

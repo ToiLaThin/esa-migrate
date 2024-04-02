@@ -20,6 +20,10 @@ import { SaleListManagementComponent } from './components/sale-coupon/sale-list/
 import { NzModalModule } from 'ng-zorro-antd/modal'
 import { CouponAddModalComponent } from './components/sale-coupon/coupon-add-modal/coupon-add-modal.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SaleListManagementProductChipComponent } from './components/sale-coupon/sale-list-product-chip/product-chip.component';
+import { SaleListPaginationComponent } from './components/sale-coupon/sale-list/sale-list-pagination.component';
+import { SaleListFilterTopManagementComponent } from './components/sale-coupon/sale-list/sale-list-filter-top.component';
+import { SaleListTableComponent } from './components/sale-coupon/sale-list-table/sale-list-table.component';
 
 @NgModule({
     imports: [
@@ -47,8 +51,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
         SaleCouponComponent,
         SaleListManagementComponent,
+        SaleListPaginationComponent,
+        SaleListManagementProductChipComponent,
+        SaleListFilterTopManagementComponent,
+        SaleListTableComponent,
+        
         CouponListManagementComponent,
-        CouponAddModalComponent
+        CouponAddModalComponent,
+
     ],
     exports: []
 })
