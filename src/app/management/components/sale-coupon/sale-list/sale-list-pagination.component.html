@@ -1,0 +1,18 @@
+<div class="w-4/5 mx-auto mt-4">
+    <div class="pagination-container">
+        <p class="hover:underline hover:opacity-80 cursor-pointer"
+           (click)="prevPageClicked()">
+            Previous
+        </p>
+        @for (pageNum of totalPageAsArray$ | async; track pageNum) {
+        <p class="page"
+           (click)="changePageEventEmit(pageNum, $event)">
+            {{pageNum}}
+        </p>
+        }   
+        <p class="hover:underline hover:opacity-80 cursor-pointer"
+           (click)="nextPageClicked()">
+            Next
+        </p>
+    </div>
+</div>

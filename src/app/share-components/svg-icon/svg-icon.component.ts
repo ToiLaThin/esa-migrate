@@ -9,8 +9,8 @@ export class SvgIconComponent {
     @Input() widthEqualHeight: boolean = true;
     @Input() hSize: number = 16;
     @Input() iconName!: string;
-    @Input() fillColor = 'currentColor' //inherit
-
+    @Input() fillColor = 'currentColor'; //inherit
+    @Input() strokeColor = 'currentColor';
     get iconUrl() {
         return `${window.location.href}#${this.iconName}`
     }

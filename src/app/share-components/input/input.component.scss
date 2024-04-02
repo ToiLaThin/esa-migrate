@@ -1,0 +1,23 @@
+$inputColor: #9E9E9E;
+
+.input-container {
+    position: relative;
+    display: flex;
+    height: 32px;
+    width: 100%;
+
+    .input {
+        color: $inputColor;
+        border: 2px solid $inputColor;
+        border-radius: 4px;
+        &::placeholder {
+            color: $inputColor;
+        }
+    }
+}
+
+.input-icon-container {
+    @apply absolute top-0 left-0 bottom-0;
+    height: 100%;
+    @apply flex items-center justify-center;
+}

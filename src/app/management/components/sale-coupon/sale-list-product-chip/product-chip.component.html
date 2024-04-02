@@ -1,0 +1,41 @@
+<div class="product-chip-container">
+    <div class="img-container mr-4">
+        <img src="{{product.productCoverImage}}"
+             class="w-full object-cover h-auto" style="border-radius: 50%;">
+    </div>
+
+    <div class="product-chip-content">
+        <p class="uppercase text-[#555] font-semibold">{{product.productName}}</p>
+        <p class="text-xs">
+            Price: 
+            @if (product.isOnSale) {
+            <span class="text-xs font-semibold text-[red]">
+                {{product.productModels[0].priceOnSaleModel | currency}}
+            </span>
+            } @else {
+            <span class="text-xs font-semibold text-[#121212]">
+                {{product.productModels[0].price | currency}}
+            </span>
+            }
+        </p>
+        <div class="flex flex-row gap-2">
+            <app-button [iconName]="'trash-outline'" 
+                        [className]="'btn-secondary mt-2'">
+            </app-button>
+            <app-button [iconName]="'edit-outline'" 
+                        [className]="'btn-secondary mt-2'">
+            </app-button>
+        </div>
+    </div>
+
+    @if (product.isOnSale) {
+    <span class="ribbon ml-5">On Sale
+        <span class="white-circle"></span>
+    </span>
+} @else {
+    <span class="ribbon ml-5" style="background-color: #121212 !important;">Not On Sale
+        <span class="white-circle"></span>
+    </span>
+
+    }
+</div>

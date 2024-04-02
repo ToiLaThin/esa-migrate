@@ -1,0 +1,77 @@
+<div class="flex flex-row justify-between">
+    <div class="flex flex-row items-center gap-4">
+        @if (collapsed && !this.currentViewModeTable) {
+        <svg-icon [strokeColor]="'#000'"
+                  [iconName]="'list-view-mode'"
+                  [size]="24"
+                  (click)="toggleViewMode()">
+        </svg-icon>
+        } @else if (collapsed && this.currentViewModeTable) {
+        <svg-icon [strokeColor]="'#000'"
+                  [iconName]="'table-view-mode'"
+                  [size]="24"
+                  (click)="toggleViewMode()">
+        </svg-icon>
+        }
+        <span>There are 20 products.</span>
+        <esa-input [iconName]="'search-outline'"
+                   [placeholder]="'Search...'">
+        </esa-input>
+    </div>
+    <div class="flex-auto">
+    </div>
+    <div class="flex flex-row items-center gap-4">
+        <div>
+            <label for="productPerPage">Product per page:</label>
+            <select class="mx-2 border border-solid border-gray-50 rounded p-3" 
+                    name="productPerPage" 
+                    id="productPerPage" 
+                    (change)="changeProductPerPage($event.target)">
+                <option value="16" selected>16</option>
+                @for(numProductPerPage of numProductPerPageEnums | slice:1; track numProductPerPage) {
+                <option value="{{numProductPerPage.key}}">{{numProductPerPage.value}}</option>
+                }
+            </select>
+        </div>
+        <!-- Het 1 group-->
+
+        <div>
+            <label for="sortBy">Sort By:</label>
+            <select class="mx-2 border border-solid border-gray-50 rounded p-3" 
+                    name="sortBy" 
+                    id="sortBy" 
+                    (change)="changeSortBy($event.target)">
+                <option value="0" selected></option>
+                @for(sortBy of sortByEnums | slice:1; track sortBy) {
+                <option value="{{sortBy.key}}">{{sortBy.value}}</option>
+                }
+            </select>
+        </div>
+        <!-- Het 1 group -->
+
+        <div>
+            <label for="orderType">Order Type:</label>
+            <select class="mx-2 border border-solid border-gray-50 rounded p-3" 
+                    name="orderType" 
+                    id="orderType" 
+                    (change)="changeOrderType($event.target)">
+                <option value="0" selected>Ascending</option>
+                @for (orderType of orderTypeEnums | slice:1; track orderType) {
+                <option value="{{orderType.key}}">{{orderType.value}}</option>
+                }
+            </select>
+        </div>
+        <!-- Het 1 group -->
+        <app-button [iconName]="'filter-xmark-outline'">
+            Open catalog filter
+        </app-button>
+
+        @if (collapsed) {
+        <svg-icon [strokeColor]="'#000'"
+                    [iconName]="'circle-right-arrow'"
+                    [size]="24"
+                    (click)="openRightPartEventEmit()">
+        </svg-icon>
+        }
+    </div>
+</div>

@@ -1,0 +1,47 @@
+<div class="table-container">
+    <table class="table">
+        <tr class="head-row">
+            <th>ID</th>
+            <th>Product</th>
+            <th>Subcatalog</th>
+            <th>Amount</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+        @for (product of displayingProducts$ | async; track product) {
+        <tr class="data-row">
+            <td>{{product.productId| slice:0:8}}</td>
+            <td class="flex flex-row">
+                <div class="overflow-hidden mr-3 object-cover" style="width: 30px; height: 30px;">
+                    <img src="{{product.productCoverImage}}" class="w-full h-auto object-cover">
+                </div>
+                {{product.productName}}
+            </td>
+            <td>{{product.subCatalogName}}</td>
+            <td>${{product.productModels[0].price}}</td>
+            <td>
+                @if (product.isOnSale === true) {
+                <app-pill [className]="PillType.DANGER"
+                            [content]="'On Sale'">
+                </app-pill>
+                } @else  {
+                <app-pill [className]="PillType.SUCCESS"
+                            [content]="'Not On Sale'">
+                </app-pill>
+                }
+            </td>
+            <td class="flex flex-row">
+                <svg-icon [iconName]="'trash-outline'" 
+                          [strokeColor]="'purple'"
+                          [size]="24"
+                          class="mr-3">
+                </svg-icon>
+                <svg-icon [iconName]="'edit-outline'" 
+                          [strokeColor]="'tomato'"
+                          [size]="24">
+                </svg-icon>
+            </td>
+        </tr>
+        }
+    </table>
+</div>
