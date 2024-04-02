@@ -4,7 +4,7 @@ import { ProductCatalogComponent } from "./tabs/product-catalog/product-catalog.
 import { CatalogManagementListComponent } from "./components/product-catalog/catalog-list/catalog-list.component";
 import { ProductManagementListComponent } from "./components/product-catalog/product-list/product-list.component";
 import { CatalogAddManagementComponent } from "./components/product-catalog/catalog-add/catalog-add.component";
-import { SubCatalogAddManagementComponent } from "./components/product-catalog/subcatalog-add/subcatalog-addcomponent";
+import { SubCatalogAddManagementComponent } from "./components/product-catalog/subcatalog-add/subcatalog-add.component";
 import { SaleCouponComponent } from "./tabs/sale-coupon/sale-coupon.component";
 import { CouponListManagementComponent } from "./components/sale-coupon/coupon-list/coupon-list.component";
 import { SaleListManagementComponent } from "./components/sale-coupon/sale-list/sale-list.component";

@@ -13,7 +13,7 @@ import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { CatalogManagementListComponent } from './components/product-catalog/catalog-list/catalog-list.component';
 import { ProductManagementListComponent } from './components/product-catalog/product-list/product-list.component';
 import { CatalogAddManagementComponent } from './components/product-catalog/catalog-add/catalog-add.component';
-import { SubCatalogAddManagementComponent } from './components/product-catalog/subcatalog-add/subcatalog-addcomponent';
+import { SubCatalogAddManagementComponent } from './components/product-catalog/subcatalog-add/subcatalog-add.component';
 import { SaleCouponComponent } from './tabs/sale-coupon/sale-coupon.component';
 import { CouponListManagementComponent } from './components/sale-coupon/coupon-list/coupon-list.component';
 import { SaleListManagementComponent } from './components/sale-coupon/sale-list/sale-list.component';
@@ -36,6 +36,8 @@ import { NzSliderModule } from 'ng-zorro-antd/slider';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { CouponListCouponPlaceholderComponent } from './components/sale-coupon/coupon-list-coupon-placeholder/coupon-placeholder.component';
 import { CouponListCouponComponent } from './components/sale-coupon/coupon-list-coupon/coupon.component';
+import { CatalogSubCatalogListManagementComponent } from './components/product-catalog/catalog-subcatalog-list/catalog-subcatalog-list.component';
+import { SubCatalogAddWithInputManagementComponent } from './components/product-catalog/catalog-subcatalog-list/subcatalog-add-input.component';
 const importNzModules = [
     NzButtonModule,
     NzDropDownModule,
@@ -67,9 +69,11 @@ const importNzModules = [
 
         ProductCatalogComponent,
         CatalogManagementListComponent,
-        ProductManagementListComponent,
-        CatalogAddManagementComponent,
+        CatalogSubCatalogListManagementComponent,
+        SubCatalogAddWithInputManagementComponent, //one with input and one without input (so one we go to from router, one we open from nz modal service)
         SubCatalogAddManagementComponent,
+        CatalogAddManagementComponent,
+        ProductManagementListComponent,
 
         SaleCouponComponent,
         SaleListManagementComponent,

@@ -1,0 +1,80 @@
+<div class="subcatalog-list-container sticky top-1">
+    <div class="header flex flex-row mt-2 py-2 px-3">
+        <div class="flex flex-row items-center">
+            <svg-icon [iconName]="'circle-right-arrow'"
+                      [size]="24"
+                      [strokeColor]="'#F0F3FF'"
+                      class="mr-3"
+                      (click)="emitCloseSubCatalogsList()">
+            </svg-icon>
+            <span>Back</span>
+        </div>
+        <div class="flex-auto"></div>
+        <div class="flex flex-row items-center">
+            <svg-icon [iconName]="'add-outline'"
+                      [size]="24"
+                      [strokeColor]="'#F0F3FF'"
+                      class="mr-3"
+                      nz-tooltip
+                      nzTooltipPlacement="top"
+                      nzTooltipTitle="Add new subcatalog">
+            </svg-icon>
+            <svg-icon [iconName]="'edit-outline'"
+                      [size]="24"
+                      [strokeColor]="'#F0F3FF'"
+                      nz-tooltip
+                      nzTooltipPlacement="top"
+                      nzTooltipTitle="Refresh subcatalog list">
+            </svg-icon>
+        </div>
+    </div>
+    <div class="add-subcatalog-section mt-2 px-3 py-2 hover:opacity-90"
+         (click)="openAddSubCatalogModal(catalogId)">
+        <div class="flex items-center justify-center bg-[#333A73] p-4 rounded-md">
+            <svg-icon [iconName]="'add-outline'"
+                      [size]="32"
+                      [strokeColor]="'#F0F3FF'">
+            </svg-icon>
+        </div>
+        <p class="ml-4">Add new subcatalog</p>
+    </div>
+    <div class="body flex flex-col justify-start mt-2 mb-2 py-2 px-3">
+        @for (subcatalog of subCatalogs; track subcatalog) {
+        <div class="clear-fix subcatalog-item">
+            <div class="subcatalog-image px-2">
+                <img src="../../../../../assets/images/no-image.png" alt="No image" 
+                     class="w-[70px] h-auto object-cover rounded-xl">
+            </div>
+            <div class="subcatalog-details pl-2 relative">
+                <div class="subcatalog-name font-semibold">{{subcatalog.subCatalogName | titlecase}}</div>
+                <div class="subcatalog-description text-sm font-extralight">
+                    @if (subcatalog.subCatalogDescription !== null && subcatalog.subCatalogDescription !== undefined && subcatalog.subCatalogDescription !== '') {
+                    {{subcatalog.subCatalogDescription}}
+                    } @else {
+                    No description available
+                    }
+                </div>
+                <div class="subcatalog-actions absolute">
+                    <svg-icon [iconName]="'trash-outline'"
+                            [size]="24"
+                            [strokeColor]="'#F0F3FF'"
+                            class="mr-3"
+                            nz-tooltip
+                            nzTooltipPlacement="top"
+                            nzTooltipTitle="Delete this">
+                    </svg-icon>
+                    <svg-icon [iconName]="'edit-outline'"
+                            [size]="24"
+                            [strokeColor]="'#F0F3FF'"
+                            nz-tooltip
+                            nzTooltipPlacement=""
+                            nzTooltipTitle="Edit this">
+                    </svg-icon>
+                </div>
+            </div>                
+        </div>
+        } @empty {
+        <p class="mt-2">No subcatalogs available</p>
+        }
+    </div>
+</div>

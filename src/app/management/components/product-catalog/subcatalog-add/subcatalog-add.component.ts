@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, Inject, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { ICatalog, ISubCatalog } from '../../../../core/models/catalog.interface';
@@ -7,6 +7,7 @@ import { productCatalogManagementActions } from '../../../state/product-catalog-
 import { selectorAllCatalogs } from '../../../state/product-catalog-management/product-catalog-management.selectors';
 import { productCatalogManagementFeatureKey } from '../../../state/product-catalog-management/product-catalog-management.reducers';
 import { IProductCatalogManagementState } from '../../../state/product-catalog-management/productCatalogManagementState.interface';
+import { NZ_MODAL_DATA, NzModalRef } from 'ng-zorro-antd/modal';
 
 @Component({
     selector: 'esa-subcatalog-add',
@@ -22,7 +23,7 @@ export class SubCatalogAddManagementComponent implements OnInit {
         subCatalogDescription: new FormControl(),
         subCatalogImage: new FormControl()
     });
-
+    @Input({required: false}) inputCatalogId!: string;
     constructor(private _store: Store) {}
 
     ngOnInit(): void {
