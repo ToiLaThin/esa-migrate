@@ -73,8 +73,9 @@
     <esa-management-catalog-subcatalog-list #subcatalogList
         [subCatalogs]="[]"
         [catalogId]="''"
-        [ngClass]="[showSubCatalogs ? 'w-auto': 'w-0', 'overflow-hidden']"
+        [ngClass]="[showSubCatalogs ? 'w-auto': 'w-0', 'overflow-clip']"
         class="ml-4 mt-4"
         (closedSubCatalogsList)="closeSubCatalogsList()">
+        <!-- overflow-hidden here will cause the position sticky not working -->
     </esa-management-catalog-subcatalog-list>
 </div>

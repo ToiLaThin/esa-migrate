@@ -16,21 +16,26 @@
                       [size]="24">
             </svg-icon>
         </a>
-        <a [routerLink]="['/management',{outlets: {primary: 'provider-stock'}}]">
+        <a [routerLink]="['/management',{outlets: {primary: 'provider-stock'}}]"
+           nz-tooltip
+           nzTooltipPlacement="right"
+           nzTooltipTitle="Provider and stock features"
+           nzTooltipTrigger="hover"
+           (click)="toggleSideBar()">
             <svg-icon [iconName]="'cube'"
                       [fillColor]="'whitesmoke'"
                       [size]="24">
             </svg-icon>
         </a>
-        <a [routerLink]="['/management',{outlets: {primary: 'sale-coupon'}}]">
+        <a [routerLink]="['/management',{outlets: {primary: 'sale-coupon'}}]"
+            nz-tooltip
+            nzTooltipPlacement="right"
+            nzTooltipTitle="Sale and coupons features"
+            nzTooltipTrigger="hover"
+           (click)="toggleSideBar()">
             <svg-icon [iconName]="'discount'"
                       [fillColor]="'whitesmoke'"
-                      [size]="24"
-                      nz-tooltip
-                      nzTooltipPlacement="right"
-                      nzTooltipTitle="Sale and coupons features"
-                      nzTooltipTrigger="hover"
-                      (click)="toggleSideBar()">
+                      [size]="24">
             </svg-icon>
         </a>
         <a [routerLink]="['/management',{outlets: {primary: 'order'}}]">

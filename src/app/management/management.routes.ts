@@ -8,6 +8,8 @@ import { SubCatalogAddManagementComponent } from "./components/product-catalog/s
 import { SaleCouponComponent } from "./tabs/sale-coupon/sale-coupon.component";
 import { CouponListManagementComponent } from "./components/sale-coupon/coupon-list/coupon-list.component";
 import { SaleListManagementComponent } from "./components/sale-coupon/sale-list/sale-list.component";
+import { ProviderStockComponent } from "./tabs/provider-stock/provider-stock.component";
+import { ProviderListManagementComponent } from "./components/provider-stock/provider-list/provider-list.component";
 
 export const managementRoutes: Routes = [
     {
@@ -66,6 +68,23 @@ export const managementRoutes: Routes = [
                         component: SaleListManagementComponent,
                         outlet: 'primary'
                     }
+                ]
+            },
+            {
+                path: 'provider-stock',
+                component: ProviderStockComponent,
+                outlet: 'primary',
+                children: [
+                    {
+                        path: '',
+                        redirectTo: 'provider-list',
+                        pathMatch: 'full'
+                    },
+                    {
+                        path: 'provider-list',
+                        component: ProviderListManagementComponent,
+                        outlet: 'primary'
+                    },
                 ]
             }
         ]

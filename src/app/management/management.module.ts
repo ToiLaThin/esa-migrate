@@ -38,6 +38,8 @@ import { CouponListCouponPlaceholderComponent } from './components/sale-coupon/c
 import { CouponListCouponComponent } from './components/sale-coupon/coupon-list-coupon/coupon.component';
 import { CatalogSubCatalogListManagementComponent } from './components/product-catalog/catalog-subcatalog-list/catalog-subcatalog-list.component';
 import { SubCatalogAddWithInputManagementComponent } from './components/product-catalog/catalog-subcatalog-list/subcatalog-add-input.component';
+import { ProviderStockComponent } from './tabs/provider-stock/provider-stock.component';
+import { ProviderListManagementComponent } from './components/provider-stock/provider-list/provider-list.component';
 const importNzModules = [
     NzButtonModule,
     NzDropDownModule,
@@ -89,6 +91,8 @@ const importNzModules = [
         CouponListFilterComponent,
         CouponAddModalComponent,
 
+        ProviderStockComponent,
+        ProviderListManagementComponent
     ],
     exports: []
 })
