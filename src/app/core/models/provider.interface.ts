@@ -1,3 +1,5 @@
+import { ICatalog } from "./catalog.interface";
+
 export interface IStockItemRequestMeta {
     productId: string;
     productModelId: string;
@@ -15,6 +17,11 @@ export interface IProviderRequirement {
     isUsed: boolean;
     availableStockItemRequestMetas: IStockItemRequestMeta[];
     availableProviderCatalogIds: string[]
+}
+
+export interface IProviderRequirementWithCatalogsAggregate {
+    providerRequirement: IProviderRequirement;
+    availableProviderCatalogs: ICatalog[];
 }
 
 export interface IProductModelInfoWithStockAggregate {

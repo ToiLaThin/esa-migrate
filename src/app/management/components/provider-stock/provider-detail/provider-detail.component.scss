@@ -1,0 +1,96 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Libre+Barcode+128+Text&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Oswald:wght@200..700&display=swap');
+
+:host {
+    font-family: Inter, sans-serif !important;
+}
+.input-here {       
+    @apply w-full px-4 py-5 mt-[5px] bg-[#fff];
+    border-radius: 5px;
+    color: #333;
+    transition: all 0.3s ease;
+    &:focus {
+        outline: #6420AA auto 1px; //these are outline
+    }
+    &::placeholder {
+        color: #999;
+        text-transform: uppercase;
+    }
+
+}
+
+select.input-here {
+    -webkit-appearance: none; //hide the arrow down in select
+    -moz-appearance: none;
+    appearance: none;
+    
+    //the stroke color of svg should be changed
+    background-image: url('../../../../../assets/images/chevron-down-outline.svg');
+    background-repeat: no-repeat;
+    background-position: right 0.8em top 50%;
+    background-size: 20px;
+
+}
+
+.search-container-input {
+    @apply w-full;
+    outline: none;
+    &:focus {
+    }
+    &::placeholder {
+        color: #999;
+        text-transform: uppercase;
+    }
+}
+
+.table-container {
+    @apply w-full px-4 py-5 mt-[5px] bg-[#fff];
+    overflow: auto;
+    border-radius: 5px;
+}
+
+table {
+    margin-top: 14px;
+    width: 100%;
+    min-width: 800px;
+    overflow: scroll;
+    font-size: 18px;
+
+    td:not(.left-align) {
+        text-align: left; //can change to center
+    }
+
+    .left-align, th {
+        text-align: left;
+    }
+
+    tr {
+        border-bottom: 1px solid #f0f0f0;
+    }
+
+    td, th {
+        padding: 22px 0;
+    }
+
+    .qty-container {        
+        @apply flex flex-row w-fit m-auto py-1 px-1;
+        @apply bg-[#ddd];
+    }
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+    }
+    input[type="number"] {
+        @apply w-[60px] bg-[#ddd] text-[#121212];
+        outline: none;
+        text-align: center;
+    }
+    .incr-btn, .desc-btn {
+        @apply font-bold text-lg px-3 text-[#fff] bg-[#6420AA] cursor-pointer;
+        @apply rounded-sm hover:bg-[#4c0f7e];
+    }
+}
+
+.confirm {
+    @apply w-full px-4 py-5 mt-[20px] bg-[#121212] text-[#fff] rounded-[8px];
+    @apply text-center text-lg cursor-pointer;
+}

@@ -10,6 +10,7 @@ import { CouponListManagementComponent } from "./components/sale-coupon/coupon-l
 import { SaleListManagementComponent } from "./components/sale-coupon/sale-list/sale-list.component";
 import { ProviderStockComponent } from "./tabs/provider-stock/provider-stock.component";
 import { ProviderListManagementComponent } from "./components/provider-stock/provider-list/provider-list.component";
+import { ProviderDetailManagementComponent } from "./components/provider-stock/provider-detail/provider-detail.component";
 
 export const managementRoutes: Routes = [
     {
@@ -83,6 +84,11 @@ export const managementRoutes: Routes = [
                     {
                         path: 'provider-list',
                         component: ProviderListManagementComponent,
+                        outlet: 'primary'
+                    },
+                    {
+                        path: 'provider-detail',
+                        component: ProviderDetailManagementComponent,
                         outlet: 'primary'
                     },
                 ]
