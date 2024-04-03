@@ -40,6 +40,7 @@ import { CatalogSubCatalogListManagementComponent } from './components/product-c
 import { SubCatalogAddWithInputManagementComponent } from './components/product-catalog/catalog-subcatalog-list/subcatalog-add-input.component';
 import { ProviderStockComponent } from './tabs/provider-stock/provider-stock.component';
 import { ProviderListManagementComponent } from './components/provider-stock/provider-list/provider-list.component';
+import { ProviderDetailManagementComponent } from './components/provider-stock/provider-detail/provider-detail.component';
 const importNzModules = [
     NzButtonModule,
     NzDropDownModule,
@@ -92,7 +93,8 @@ const importNzModules = [
         CouponAddModalComponent,
 
         ProviderStockComponent,
-        ProviderListManagementComponent
+        ProviderListManagementComponent,
+        ProviderDetailManagementComponent
     ],
     exports: []
 })
