@@ -37,3 +37,17 @@ export const selectorSelectedProviderRequirement = createSelector(
     selectProviderStockManagementFeature,
     (state) => state.selectedProviderRequirement
 );
+
+export const selectorProductModelsInfoMergeStockItemRequestsOfProvider = createSelector(
+    selectProviderStockManagementFeature,
+    (state) => state.allProductModelInfoMergeStockItemReqs
+);
+
+export const selectorGrandTotalPriceStockItemRequests = createSelector(
+    selectProviderStockManagementFeature,
+    (state) => {
+        return state.allProductModelInfoMergeStockItemReqs.reduce((acc, item) => {
+            return acc + item.totalItemRequestPrice;
+        }, 0);
+    }
+);

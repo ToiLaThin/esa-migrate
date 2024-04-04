@@ -11,6 +11,8 @@ import { SaleListManagementComponent } from "./components/sale-coupon/sale-list/
 import { ProviderStockComponent } from "./tabs/provider-stock/provider-stock.component";
 import { ProviderListManagementComponent } from "./components/provider-stock/provider-list/provider-list.component";
 import { ProviderDetailManagementComponent } from "./components/provider-stock/provider-detail/provider-detail.component";
+import { OrderComponent } from "./tabs/order/order.component";
+import { OrderApproveManagementComponent } from "./components/order/order-approve/order-approve.component";
 
 export const managementRoutes: Routes = [
     {
@@ -89,6 +91,23 @@ export const managementRoutes: Routes = [
                     {
                         path: 'provider-detail',
                         component: ProviderDetailManagementComponent,
+                        outlet: 'primary'
+                    },
+                ]
+            }, 
+            {
+                path: 'order',
+                component: OrderComponent,
+                outlet: 'primary',
+                children: [
+                    {
+                        path: '',
+                        redirectTo: 'order-approve',
+                        pathMatch: 'full'
+                    },
+                    {
+                        path: 'order-approve',
+                        component: OrderApproveManagementComponent,
                         outlet: 'primary'
                     },
                 ]

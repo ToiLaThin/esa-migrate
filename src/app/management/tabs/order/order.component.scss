@@ -1,0 +1,4 @@
+:host {
+    @apply block w-full h-screen;
+    //inline block prevent w-full h-screen to take effect so block
+}
