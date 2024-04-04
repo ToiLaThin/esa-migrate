@@ -41,7 +41,8 @@
         <a [routerLink]="['/management',{outlets: {primary: 'order'}}]">
             <svg-icon [iconName]="'clipboard'"
                       [fillColor]="'whitesmoke'"
-                      [size]="24">
+                      [size]="24"
+                      (click)="toggleSideBar()">
             </svg-icon>
         </a>
     </div>

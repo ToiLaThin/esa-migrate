@@ -41,6 +41,7 @@ import { SubCatalogAddWithInputManagementComponent } from './components/product-
 import { ProviderStockComponent } from './tabs/provider-stock/provider-stock.component';
 import { ProviderListManagementComponent } from './components/provider-stock/provider-list/provider-list.component';
 import { ProviderDetailManagementComponent } from './components/provider-stock/provider-detail/provider-detail.component';
+import { OrderComponent } from './tabs/order/order.component';
 const importNzModules = [
     NzButtonModule,
     NzDropDownModule,
@@ -94,7 +95,9 @@ const importNzModules = [
 
         ProviderStockComponent,
         ProviderListManagementComponent,
-        ProviderDetailManagementComponent
+        ProviderDetailManagementComponent,
+
+        OrderComponent
     ],
     exports: []
 })

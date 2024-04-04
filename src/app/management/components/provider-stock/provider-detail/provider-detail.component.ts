@@ -1,10 +1,18 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable, Subscription } from 'rxjs';
-import { IProviderRequirement } from '../../../../core/models/provider.interface';
-import { selectorSelectedProviderRequirement } from '../../../state/provider-stock/provider-stock.selectors';
+import {
+    IProductModelInfoMergeStockItemRequest,
+    IProviderRequirement
+} from '../../../../core/models/provider.interface';
+import {
+    selectorGrandTotalPriceStockItemRequests,
+    selectorProductModelsInfoMergeStockItemRequestsOfProvider,
+    selectorSelectedProviderRequirement
+} from '../../../state/provider-stock/provider-stock.selectors';
 import { providerStockManagementFeatureKey } from '../../../state/provider-stock/provider-stock.reducers';
 import { IProviderStockManagementState } from '../../../state/provider-stock/providerStockManageState.interface';
+import { providerStockManagementActions } from '../../../state/provider-stock/provider-stock.actions';
 
 @Component({
     selector: 'esa-management-provider-detail',
@@ -12,12 +20,15 @@ import { IProviderStockManagementState } from '../../../state/provider-stock/pro
     styleUrls: ['./provider-detail.component.scss']
 })
 export class ProviderDetailManagementComponent implements OnInit, OnDestroy {
+    selectedProviderRequirementAllProductModelInfosMergeStockItemRequests$!: Observable<
+        IProductModelInfoMergeStockItemRequest[] | null
+    >;
     selectedProviderRequirement$!: Observable<IProviderRequirement | null>;
-    sub!: Subscription
+    grandTotalPriceStockItemRequests$!: Observable<number>;
+
     constructor(private _store: Store) {}
-    ngOnDestroy(): void {
-        this.sub.unsubscribe();
-    }
+
+    ngOnDestroy(): void {}
 
     ngOnInit() {
         this.selectedProviderRequirement$ = this._store.select((state) =>
@@ -25,20 +36,37 @@ export class ProviderDetailManagementComponent implements OnInit, OnDestroy {
                 state as { [providerStockManagementFeatureKey]: IProviderStockManagementState }
             )
         );
+        this.selectedProviderRequirementAllProductModelInfosMergeStockItemRequests$ =
+            this._store.select((state) =>
+                selectorProductModelsInfoMergeStockItemRequestsOfProvider(
+                    state as { [providerStockManagementFeatureKey]: IProviderStockManagementState }
+                )
+            );
 
-        this.sub = this.selectedProviderRequirement$.subscribe((selectedProviderRequirement) => {
-            console.log('Selected provider requirement: ', selectedProviderRequirement);
-        });
+        this.grandTotalPriceStockItemRequests$ = this._store.select((state) =>
+            selectorGrandTotalPriceStockItemRequests(
+                state as { [providerStockManagementFeatureKey]: IProviderStockManagementState }
+            )
+        );
     }
 
-    increaseQty() {
-        const qtyInput = document.getElementById('qtyInput') as HTMLInputElement;
-        qtyInput.stepUp();
+    increaseQty(productModelId: string) {
+        this._store.dispatch(
+            providerStockManagementActions.increaseStockRequestQuantity({
+                productModelId: productModelId
+            })
+        );
     }
 
-    decreaseQty() {
-        const qtyInput = document.getElementById('qtyInput') as HTMLInputElement;
-        qtyInput.stepDown();
+    decreaseQty(productModelId: string) {
+        this._store.dispatch(
+            providerStockManagementActions.decreaseStockRequestQuantity({
+                productModelId: productModelId
+            })
+        );
     }
-    
+
+    confirmStockRequestToProvider() {
+        this._store.dispatch(providerStockManagementActions.confirmStockRequestToProvider());
+    }
 }

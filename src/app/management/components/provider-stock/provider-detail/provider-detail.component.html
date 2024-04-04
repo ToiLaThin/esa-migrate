@@ -14,48 +14,21 @@
         </div>
         <!-- the parent overflow must also be overflow-auto -->
         <div class="flex flex-row flex-start flex-wrap mt-4" style="min-width: 400px; overflow: auto;">     
-            <div class="item py-5 px-10 border border-solid border-[#ddd] text-center border-collapse">
-                <img src="data:image/webp;base64,UklGRooEAABXRUJQVlA4WAoAAAAQAAAAhAAAbQAAQUxQSB8AAAABFyAQSPKn2myNiAgHAkkbFlJ4/1KP6H8MAAAAoOcJAFZQOCBEBAAA0BcAnQEqhQBuAD6dTqJMJaSjJSUU2ViwE4lAGtsN5cv4fg5zH9l09jbseYDoV+gB/YP8z1nfoAdKF+5HpGarjcnVYuH6ZJoTdjq5B2vmv+vmsk10Fm7GXBJHZkP0nzls12YwZ19e41JDs38xdx1bIRcsovClwwd0jPt+7JHyAvxbv2TyVF9w3momBNoMl32EF9MfRef4z9EsknG8tNhCJczuqwgy622Q+t0oQzZsnz5kHx20eMjuu2ZS2EWHsQn/E6yzlO6eAAD++/YThu/Z/gzyw8EKwfsGTkfwe3hfTHlFlP9joB4m7jH2M3hdaJZPHNZde/pH/yT9vcR5f85+j+uedYEjBMncg68gYDVZ39Oya5XtDOwQbov+rTE3C7O6kGzxXOSnVkHrzk3rptBMcMmwX1rqDj+wSF5PPqv0/nJJVGAIZi+t14LGXDynNK8t5pM6Bz0zb5zsYDHEuK7rsNOdEyqd/mdKGv1ME341tajYhu3isX739R0p1NdHXt1svXpUWpLF8pnQEUIHN8uyeUeEc003ynzOKYVh4Fz+KCbgdIfOCXFf/U9yfgRBF5hth3rOzNOmAIN1K1XWWLafiDbYy6mvmMjzAvBHUPOUmj75HBGVQVldkk77DA7QYrVO/QkPcMh7Sgm0fozvNQBSfMuHpJ/mw1kTeHfHISs8G3eFJIhADlTmxwLuhnE5vj7Oa417azlvPjqGV/HRuV+JmC4yMv8jJPd9BAbFq7TsNW9emcA3dSprQnKWf3y/ffnLY23p6UdVPIe59lEKzPLYBtGOxe0TuDoe8EqLlnYO/s+z2hnPARKle/eRKdlIeuyYGugfExG+S+hYFlHnbvUKjOLi4GGkGswLbJb6JsHYMZLheB+uJ8ERjyrdjGc/6/9I4HT/nT/W0J/AXTRnVViJHsLux0jCpY4ZvM9c/rb7xLYxxHFHFTIvYDdPhSrP9Hw0JJxSRZeTh7jrRM5gCc2mIKYsZKMRAGHwaYZT0zVUNJdkJOC8mGeA+Rmcuov6SIzRSZwXHFrNT2GMO2bJplsNXHxcRxjQW+7MjWoOnr55pL6tIgaxbHFXaFudx4RZ/2IeqIn7yIcnlPSSIK0M9Ce5HOLktM66xrxxJnhEsK+9AmbIV6tka6kD/LfU3MoLeFn/szvKSkH3bZ/yeqTrT8isAbIF4Pi5f9Gp6o7d0n6+N6cDHgyzYohM3X9/V/bWfrhNfJZUcF1UEsJwCgHE9pMtVAwuwc8vWRLbeHV4SPEcrylocqdMropdXEMSkchQAjWo6L6V9bE+8s6AVWxfIgBvkNvUjpqOm7ocx4ZRO2LFFj45/I3qiyY+0wVdoBmac/0/u+7SkYRNpjcKl2YYnxGQtxd4OHFDqmTnqrWwaYSdWO+hSWgIpbCX68aO05jrRsFqMZorjhk+oOs2fmYZPSdblQ1IEkGKfm2IorT2XOU8AAAAAAAA" 
-                     class="w-[80px] h-[78px] object-cover">
-                <p class="text-xs text-tailwick-gray-text font-extralight">Smartphone</p>
-                <p class="text-lg font-bold">87305928</p>
+            @for (productModelMergeStock of this.selectedProviderRequirementAllProductModelInfosMergeStockItemRequests$ | async; track productModelMergeStock) {
+            <div class="item py-5 px-10 border border-solid border-[#ddd] text-center border-collapse max-w-[200px]">
+                <img src="{{productModelMergeStock.productCoverImage}}" 
+                        class="w-[80px] h-[78px] object-cover">
+                <p class="text-xs text-tailwick-gray-text font-extralight"
+                   nz-tooltip
+                   nzTooltipTitle="{{productModelMergeStock.productModelName}}"
+                   nzTooltipPlacement="top">
+                    {{productModelMergeStock.productModelName | slice:0:20}}...
+                </p>
+                <p class="text-lg font-bold">
+                    #{{productModelMergeStock.businessKey | slice:0:8 | uppercase}}
+                </p>
             </div>
-            <div class="item py-5 px-10 border border-solid border-[#ddd] text-center border-collapse">
-                <img src="data:image/webp;base64,UklGRooEAABXRUJQVlA4WAoAAAAQAAAAhAAAbQAAQUxQSB8AAAABFyAQSPKn2myNiAgHAkkbFlJ4/1KP6H8MAAAAoOcJAFZQOCBEBAAA0BcAnQEqhQBuAD6dTqJMJaSjJSUU2ViwE4lAGtsN5cv4fg5zH9l09jbseYDoV+gB/YP8z1nfoAdKF+5HpGarjcnVYuH6ZJoTdjq5B2vmv+vmsk10Fm7GXBJHZkP0nzls12YwZ19e41JDs38xdx1bIRcsovClwwd0jPt+7JHyAvxbv2TyVF9w3momBNoMl32EF9MfRef4z9EsknG8tNhCJczuqwgy622Q+t0oQzZsnz5kHx20eMjuu2ZS2EWHsQn/E6yzlO6eAAD++/YThu/Z/gzyw8EKwfsGTkfwe3hfTHlFlP9joB4m7jH2M3hdaJZPHNZde/pH/yT9vcR5f85+j+uedYEjBMncg68gYDVZ39Oya5XtDOwQbov+rTE3C7O6kGzxXOSnVkHrzk3rptBMcMmwX1rqDj+wSF5PPqv0/nJJVGAIZi+t14LGXDynNK8t5pM6Bz0zb5zsYDHEuK7rsNOdEyqd/mdKGv1ME341tajYhu3isX739R0p1NdHXt1svXpUWpLF8pnQEUIHN8uyeUeEc003ynzOKYVh4Fz+KCbgdIfOCXFf/U9yfgRBF5hth3rOzNOmAIN1K1XWWLafiDbYy6mvmMjzAvBHUPOUmj75HBGVQVldkk77DA7QYrVO/QkPcMh7Sgm0fozvNQBSfMuHpJ/mw1kTeHfHISs8G3eFJIhADlTmxwLuhnE5vj7Oa417azlvPjqGV/HRuV+JmC4yMv8jJPd9BAbFq7TsNW9emcA3dSprQnKWf3y/ffnLY23p6UdVPIe59lEKzPLYBtGOxe0TuDoe8EqLlnYO/s+z2hnPARKle/eRKdlIeuyYGugfExG+S+hYFlHnbvUKjOLi4GGkGswLbJb6JsHYMZLheB+uJ8ERjyrdjGc/6/9I4HT/nT/W0J/AXTRnVViJHsLux0jCpY4ZvM9c/rb7xLYxxHFHFTIvYDdPhSrP9Hw0JJxSRZeTh7jrRM5gCc2mIKYsZKMRAGHwaYZT0zVUNJdkJOC8mGeA+Rmcuov6SIzRSZwXHFrNT2GMO2bJplsNXHxcRxjQW+7MjWoOnr55pL6tIgaxbHFXaFudx4RZ/2IeqIn7yIcnlPSSIK0M9Ce5HOLktM66xrxxJnhEsK+9AmbIV6tka6kD/LfU3MoLeFn/szvKSkH3bZ/yeqTrT8isAbIF4Pi5f9Gp6o7d0n6+N6cDHgyzYohM3X9/V/bWfrhNfJZUcF1UEsJwCgHE9pMtVAwuwc8vWRLbeHV4SPEcrylocqdMropdXEMSkchQAjWo6L6V9bE+8s6AVWxfIgBvkNvUjpqOm7ocx4ZRO2LFFj45/I3qiyY+0wVdoBmac/0/u+7SkYRNpjcKl2YYnxGQtxd4OHFDqmTnqrWwaYSdWO+hSWgIpbCX68aO05jrRsFqMZorjhk+oOs2fmYZPSdblQ1IEkGKfm2IorT2XOU8AAAAAAAA" 
-                     class="w-[80px] h-[78px] object-cover">
-                <p class="text-xs text-tailwick-gray-text font-extralight">Smartphone</p>
-                <p class="text-lg font-bold">87305928</p>
-            </div>
-            <div class="item py-5 px-10 border border-solid border-[#ddd] text-center border-collapse">
-                <img src="data:image/webp;base64,UklGRooEAABXRUJQVlA4WAoAAAAQAAAAhAAAbQAAQUxQSB8AAAABFyAQSPKn2myNiAgHAkkbFlJ4/1KP6H8MAAAAoOcJAFZQOCBEBAAA0BcAnQEqhQBuAD6dTqJMJaSjJSUU2ViwE4lAGtsN5cv4fg5zH9l09jbseYDoV+gB/YP8z1nfoAdKF+5HpGarjcnVYuH6ZJoTdjq5B2vmv+vmsk10Fm7GXBJHZkP0nzls12YwZ19e41JDs38xdx1bIRcsovClwwd0jPt+7JHyAvxbv2TyVF9w3momBNoMl32EF9MfRef4z9EsknG8tNhCJczuqwgy622Q+t0oQzZsnz5kHx20eMjuu2ZS2EWHsQn/E6yzlO6eAAD++/YThu/Z/gzyw8EKwfsGTkfwe3hfTHlFlP9joB4m7jH2M3hdaJZPHNZde/pH/yT9vcR5f85+j+uedYEjBMncg68gYDVZ39Oya5XtDOwQbov+rTE3C7O6kGzxXOSnVkHrzk3rptBMcMmwX1rqDj+wSF5PPqv0/nJJVGAIZi+t14LGXDynNK8t5pM6Bz0zb5zsYDHEuK7rsNOdEyqd/mdKGv1ME341tajYhu3isX739R0p1NdHXt1svXpUWpLF8pnQEUIHN8uyeUeEc003ynzOKYVh4Fz+KCbgdIfOCXFf/U9yfgRBF5hth3rOzNOmAIN1K1XWWLafiDbYy6mvmMjzAvBHUPOUmj75HBGVQVldkk77DA7QYrVO/QkPcMh7Sgm0fozvNQBSfMuHpJ/mw1kTeHfHISs8G3eFJIhADlTmxwLuhnE5vj7Oa417azlvPjqGV/HRuV+JmC4yMv8jJPd9BAbFq7TsNW9emcA3dSprQnKWf3y/ffnLY23p6UdVPIe59lEKzPLYBtGOxe0TuDoe8EqLlnYO/s+z2hnPARKle/eRKdlIeuyYGugfExG+S+hYFlHnbvUKjOLi4GGkGswLbJb6JsHYMZLheB+uJ8ERjyrdjGc/6/9I4HT/nT/W0J/AXTRnVViJHsLux0jCpY4ZvM9c/rb7xLYxxHFHFTIvYDdPhSrP9Hw0JJxSRZeTh7jrRM5gCc2mIKYsZKMRAGHwaYZT0zVUNJdkJOC8mGeA+Rmcuov6SIzRSZwXHFrNT2GMO2bJplsNXHxcRxjQW+7MjWoOnr55pL6tIgaxbHFXaFudx4RZ/2IeqIn7yIcnlPSSIK0M9Ce5HOLktM66xrxxJnhEsK+9AmbIV6tka6kD/LfU3MoLeFn/szvKSkH3bZ/yeqTrT8isAbIF4Pi5f9Gp6o7d0n6+N6cDHgyzYohM3X9/V/bWfrhNfJZUcF1UEsJwCgHE9pMtVAwuwc8vWRLbeHV4SPEcrylocqdMropdXEMSkchQAjWo6L6V9bE+8s6AVWxfIgBvkNvUjpqOm7ocx4ZRO2LFFj45/I3qiyY+0wVdoBmac/0/u+7SkYRNpjcKl2YYnxGQtxd4OHFDqmTnqrWwaYSdWO+hSWgIpbCX68aO05jrRsFqMZorjhk+oOs2fmYZPSdblQ1IEkGKfm2IorT2XOU8AAAAAAAA" 
-                     class="w-[80px] h-[78px] object-cover">
-                <p class="text-xs text-tailwick-gray-text font-extralight">Smartphone</p>
-                <p class="text-lg font-bold">87305928</p>
-            </div>
-            <div class="item py-5 px-10 border border-solid border-[#ddd] text-center border-collapse">
-                <img src="data:image/webp;base64,UklGRooEAABXRUJQVlA4WAoAAAAQAAAAhAAAbQAAQUxQSB8AAAABFyAQSPKn2myNiAgHAkkbFlJ4/1KP6H8MAAAAoOcJAFZQOCBEBAAA0BcAnQEqhQBuAD6dTqJMJaSjJSUU2ViwE4lAGtsN5cv4fg5zH9l09jbseYDoV+gB/YP8z1nfoAdKF+5HpGarjcnVYuH6ZJoTdjq5B2vmv+vmsk10Fm7GXBJHZkP0nzls12YwZ19e41JDs38xdx1bIRcsovClwwd0jPt+7JHyAvxbv2TyVF9w3momBNoMl32EF9MfRef4z9EsknG8tNhCJczuqwgy622Q+t0oQzZsnz5kHx20eMjuu2ZS2EWHsQn/E6yzlO6eAAD++/YThu/Z/gzyw8EKwfsGTkfwe3hfTHlFlP9joB4m7jH2M3hdaJZPHNZde/pH/yT9vcR5f85+j+uedYEjBMncg68gYDVZ39Oya5XtDOwQbov+rTE3C7O6kGzxXOSnVkHrzk3rptBMcMmwX1rqDj+wSF5PPqv0/nJJVGAIZi+t14LGXDynNK8t5pM6Bz0zb5zsYDHEuK7rsNOdEyqd/mdKGv1ME341tajYhu3isX739R0p1NdHXt1svXpUWpLF8pnQEUIHN8uyeUeEc003ynzOKYVh4Fz+KCbgdIfOCXFf/U9yfgRBF5hth3rOzNOmAIN1K1XWWLafiDbYy6mvmMjzAvBHUPOUmj75HBGVQVldkk77DA7QYrVO/QkPcMh7Sgm0fozvNQBSfMuHpJ/mw1kTeHfHISs8G3eFJIhADlTmxwLuhnE5vj7Oa417azlvPjqGV/HRuV+JmC4yMv8jJPd9BAbFq7TsNW9emcA3dSprQnKWf3y/ffnLY23p6UdVPIe59lEKzPLYBtGOxe0TuDoe8EqLlnYO/s+z2hnPARKle/eRKdlIeuyYGugfExG+S+hYFlHnbvUKjOLi4GGkGswLbJb6JsHYMZLheB+uJ8ERjyrdjGc/6/9I4HT/nT/W0J/AXTRnVViJHsLux0jCpY4ZvM9c/rb7xLYxxHFHFTIvYDdPhSrP9Hw0JJxSRZeTh7jrRM5gCc2mIKYsZKMRAGHwaYZT0zVUNJdkJOC8mGeA+Rmcuov6SIzRSZwXHFrNT2GMO2bJplsNXHxcRxjQW+7MjWoOnr55pL6tIgaxbHFXaFudx4RZ/2IeqIn7yIcnlPSSIK0M9Ce5HOLktM66xrxxJnhEsK+9AmbIV6tka6kD/LfU3MoLeFn/szvKSkH3bZ/yeqTrT8isAbIF4Pi5f9Gp6o7d0n6+N6cDHgyzYohM3X9/V/bWfrhNfJZUcF1UEsJwCgHE9pMtVAwuwc8vWRLbeHV4SPEcrylocqdMropdXEMSkchQAjWo6L6V9bE+8s6AVWxfIgBvkNvUjpqOm7ocx4ZRO2LFFj45/I3qiyY+0wVdoBmac/0/u+7SkYRNpjcKl2YYnxGQtxd4OHFDqmTnqrWwaYSdWO+hSWgIpbCX68aO05jrRsFqMZorjhk+oOs2fmYZPSdblQ1IEkGKfm2IorT2XOU8AAAAAAAA" 
-                     class="w-[80px] h-[78px] object-cover">
-                <p class="text-xs text-tailwick-gray-text font-extralight">Smartphone</p>
-                <p class="text-lg font-bold">87305928</p>
-            </div>
-            <div class="item py-5 px-10 border border-solid border-[#ddd] text-center border-collapse">
-                <img src="data:image/webp;base64,UklGRooEAABXRUJQVlA4WAoAAAAQAAAAhAAAbQAAQUxQSB8AAAABFyAQSPKn2myNiAgHAkkbFlJ4/1KP6H8MAAAAoOcJAFZQOCBEBAAA0BcAnQEqhQBuAD6dTqJMJaSjJSUU2ViwE4lAGtsN5cv4fg5zH9l09jbseYDoV+gB/YP8z1nfoAdKF+5HpGarjcnVYuH6ZJoTdjq5B2vmv+vmsk10Fm7GXBJHZkP0nzls12YwZ19e41JDs38xdx1bIRcsovClwwd0jPt+7JHyAvxbv2TyVF9w3momBNoMl32EF9MfRef4z9EsknG8tNhCJczuqwgy622Q+t0oQzZsnz5kHx20eMjuu2ZS2EWHsQn/E6yzlO6eAAD++/YThu/Z/gzyw8EKwfsGTkfwe3hfTHlFlP9joB4m7jH2M3hdaJZPHNZde/pH/yT9vcR5f85+j+uedYEjBMncg68gYDVZ39Oya5XtDOwQbov+rTE3C7O6kGzxXOSnVkHrzk3rptBMcMmwX1rqDj+wSF5PPqv0/nJJVGAIZi+t14LGXDynNK8t5pM6Bz0zb5zsYDHEuK7rsNOdEyqd/mdKGv1ME341tajYhu3isX739R0p1NdHXt1svXpUWpLF8pnQEUIHN8uyeUeEc003ynzOKYVh4Fz+KCbgdIfOCXFf/U9yfgRBF5hth3rOzNOmAIN1K1XWWLafiDbYy6mvmMjzAvBHUPOUmj75HBGVQVldkk77DA7QYrVO/QkPcMh7Sgm0fozvNQBSfMuHpJ/mw1kTeHfHISs8G3eFJIhADlTmxwLuhnE5vj7Oa417azlvPjqGV/HRuV+JmC4yMv8jJPd9BAbFq7TsNW9emcA3dSprQnKWf3y/ffnLY23p6UdVPIe59lEKzPLYBtGOxe0TuDoe8EqLlnYO/s+z2hnPARKle/eRKdlIeuyYGugfExG+S+hYFlHnbvUKjOLi4GGkGswLbJb6JsHYMZLheB+uJ8ERjyrdjGc/6/9I4HT/nT/W0J/AXTRnVViJHsLux0jCpY4ZvM9c/rb7xLYxxHFHFTIvYDdPhSrP9Hw0JJxSRZeTh7jrRM5gCc2mIKYsZKMRAGHwaYZT0zVUNJdkJOC8mGeA+Rmcuov6SIzRSZwXHFrNT2GMO2bJplsNXHxcRxjQW+7MjWoOnr55pL6tIgaxbHFXaFudx4RZ/2IeqIn7yIcnlPSSIK0M9Ce5HOLktM66xrxxJnhEsK+9AmbIV6tka6kD/LfU3MoLeFn/szvKSkH3bZ/yeqTrT8isAbIF4Pi5f9Gp6o7d0n6+N6cDHgyzYohM3X9/V/bWfrhNfJZUcF1UEsJwCgHE9pMtVAwuwc8vWRLbeHV4SPEcrylocqdMropdXEMSkchQAjWo6L6V9bE+8s6AVWxfIgBvkNvUjpqOm7ocx4ZRO2LFFj45/I3qiyY+0wVdoBmac/0/u+7SkYRNpjcKl2YYnxGQtxd4OHFDqmTnqrWwaYSdWO+hSWgIpbCX68aO05jrRsFqMZorjhk+oOs2fmYZPSdblQ1IEkGKfm2IorT2XOU8AAAAAAAA" 
-                     class="w-[80px] h-[78px] object-cover">
-                <p class="text-xs text-tailwick-gray-text font-extralight">Smartphone</p>
-                <p class="text-lg font-bold">87305928</p>
-            </div>
-            <div class="item py-5 px-10 border border-solid border-[#ddd] text-center border-collapse">
-                <img src="data:image/webp;base64,UklGRooEAABXRUJQVlA4WAoAAAAQAAAAhAAAbQAAQUxQSB8AAAABFyAQSPKn2myNiAgHAkkbFlJ4/1KP6H8MAAAAoOcJAFZQOCBEBAAA0BcAnQEqhQBuAD6dTqJMJaSjJSUU2ViwE4lAGtsN5cv4fg5zH9l09jbseYDoV+gB/YP8z1nfoAdKF+5HpGarjcnVYuH6ZJoTdjq5B2vmv+vmsk10Fm7GXBJHZkP0nzls12YwZ19e41JDs38xdx1bIRcsovClwwd0jPt+7JHyAvxbv2TyVF9w3momBNoMl32EF9MfRef4z9EsknG8tNhCJczuqwgy622Q+t0oQzZsnz5kHx20eMjuu2ZS2EWHsQn/E6yzlO6eAAD++/YThu/Z/gzyw8EKwfsGTkfwe3hfTHlFlP9joB4m7jH2M3hdaJZPHNZde/pH/yT9vcR5f85+j+uedYEjBMncg68gYDVZ39Oya5XtDOwQbov+rTE3C7O6kGzxXOSnVkHrzk3rptBMcMmwX1rqDj+wSF5PPqv0/nJJVGAIZi+t14LGXDynNK8t5pM6Bz0zb5zsYDHEuK7rsNOdEyqd/mdKGv1ME341tajYhu3isX739R0p1NdHXt1svXpUWpLF8pnQEUIHN8uyeUeEc003ynzOKYVh4Fz+KCbgdIfOCXFf/U9yfgRBF5hth3rOzNOmAIN1K1XWWLafiDbYy6mvmMjzAvBHUPOUmj75HBGVQVldkk77DA7QYrVO/QkPcMh7Sgm0fozvNQBSfMuHpJ/mw1kTeHfHISs8G3eFJIhADlTmxwLuhnE5vj7Oa417azlvPjqGV/HRuV+JmC4yMv8jJPd9BAbFq7TsNW9emcA3dSprQnKWf3y/ffnLY23p6UdVPIe59lEKzPLYBtGOxe0TuDoe8EqLlnYO/s+z2hnPARKle/eRKdlIeuyYGugfExG+S+hYFlHnbvUKjOLi4GGkGswLbJb6JsHYMZLheB+uJ8ERjyrdjGc/6/9I4HT/nT/W0J/AXTRnVViJHsLux0jCpY4ZvM9c/rb7xLYxxHFHFTIvYDdPhSrP9Hw0JJxSRZeTh7jrRM5gCc2mIKYsZKMRAGHwaYZT0zVUNJdkJOC8mGeA+Rmcuov6SIzRSZwXHFrNT2GMO2bJplsNXHxcRxjQW+7MjWoOnr55pL6tIgaxbHFXaFudx4RZ/2IeqIn7yIcnlPSSIK0M9Ce5HOLktM66xrxxJnhEsK+9AmbIV6tka6kD/LfU3MoLeFn/szvKSkH3bZ/yeqTrT8isAbIF4Pi5f9Gp6o7d0n6+N6cDHgyzYohM3X9/V/bWfrhNfJZUcF1UEsJwCgHE9pMtVAwuwc8vWRLbeHV4SPEcrylocqdMropdXEMSkchQAjWo6L6V9bE+8s6AVWxfIgBvkNvUjpqOm7ocx4ZRO2LFFj45/I3qiyY+0wVdoBmac/0/u+7SkYRNpjcKl2YYnxGQtxd4OHFDqmTnqrWwaYSdWO+hSWgIpbCX68aO05jrRsFqMZorjhk+oOs2fmYZPSdblQ1IEkGKfm2IorT2XOU8AAAAAAAA" 
-                     class="w-[80px] h-[78px] object-cover">
-                <p class="text-xs text-tailwick-gray-text font-extralight">Smartphone</p>
-                <p class="text-lg font-bold">87305928</p>
-            </div>
-            <div class="item py-5 px-10 border border-solid border-[#ddd] text-center border-collapse">
-                <img src="data:image/webp;base64,UklGRooEAABXRUJQVlA4WAoAAAAQAAAAhAAAbQAAQUxQSB8AAAABFyAQSPKn2myNiAgHAkkbFlJ4/1KP6H8MAAAAoOcJAFZQOCBEBAAA0BcAnQEqhQBuAD6dTqJMJaSjJSUU2ViwE4lAGtsN5cv4fg5zH9l09jbseYDoV+gB/YP8z1nfoAdKF+5HpGarjcnVYuH6ZJoTdjq5B2vmv+vmsk10Fm7GXBJHZkP0nzls12YwZ19e41JDs38xdx1bIRcsovClwwd0jPt+7JHyAvxbv2TyVF9w3momBNoMl32EF9MfRef4z9EsknG8tNhCJczuqwgy622Q+t0oQzZsnz5kHx20eMjuu2ZS2EWHsQn/E6yzlO6eAAD++/YThu/Z/gzyw8EKwfsGTkfwe3hfTHlFlP9joB4m7jH2M3hdaJZPHNZde/pH/yT9vcR5f85+j+uedYEjBMncg68gYDVZ39Oya5XtDOwQbov+rTE3C7O6kGzxXOSnVkHrzk3rptBMcMmwX1rqDj+wSF5PPqv0/nJJVGAIZi+t14LGXDynNK8t5pM6Bz0zb5zsYDHEuK7rsNOdEyqd/mdKGv1ME341tajYhu3isX739R0p1NdHXt1svXpUWpLF8pnQEUIHN8uyeUeEc003ynzOKYVh4Fz+KCbgdIfOCXFf/U9yfgRBF5hth3rOzNOmAIN1K1XWWLafiDbYy6mvmMjzAvBHUPOUmj75HBGVQVldkk77DA7QYrVO/QkPcMh7Sgm0fozvNQBSfMuHpJ/mw1kTeHfHISs8G3eFJIhADlTmxwLuhnE5vj7Oa417azlvPjqGV/HRuV+JmC4yMv8jJPd9BAbFq7TsNW9emcA3dSprQnKWf3y/ffnLY23p6UdVPIe59lEKzPLYBtGOxe0TuDoe8EqLlnYO/s+z2hnPARKle/eRKdlIeuyYGugfExG+S+hYFlHnbvUKjOLi4GGkGswLbJb6JsHYMZLheB+uJ8ERjyrdjGc/6/9I4HT/nT/W0J/AXTRnVViJHsLux0jCpY4ZvM9c/rb7xLYxxHFHFTIvYDdPhSrP9Hw0JJxSRZeTh7jrRM5gCc2mIKYsZKMRAGHwaYZT0zVUNJdkJOC8mGeA+Rmcuov6SIzRSZwXHFrNT2GMO2bJplsNXHxcRxjQW+7MjWoOnr55pL6tIgaxbHFXaFudx4RZ/2IeqIn7yIcnlPSSIK0M9Ce5HOLktM66xrxxJnhEsK+9AmbIV6tka6kD/LfU3MoLeFn/szvKSkH3bZ/yeqTrT8isAbIF4Pi5f9Gp6o7d0n6+N6cDHgyzYohM3X9/V/bWfrhNfJZUcF1UEsJwCgHE9pMtVAwuwc8vWRLbeHV4SPEcrylocqdMropdXEMSkchQAjWo6L6V9bE+8s6AVWxfIgBvkNvUjpqOm7ocx4ZRO2LFFj45/I3qiyY+0wVdoBmac/0/u+7SkYRNpjcKl2YYnxGQtxd4OHFDqmTnqrWwaYSdWO+hSWgIpbCX68aO05jrRsFqMZorjhk+oOs2fmYZPSdblQ1IEkGKfm2IorT2XOU8AAAAAAAA" 
-                     class="w-[80px] h-[78px] object-cover">
-                <p class="text-xs text-tailwick-gray-text font-extralight">Smartphone</p>
-                <p class="text-lg font-bold">87305928</p>
-            </div>
+            }
         </div>
     </div>
 
@@ -67,7 +40,7 @@
                    Provider Id
                 </p>
                 <input type="text" 
-                       value="#49108B23" 
+                       value="#{{(selectedProviderRequirement$ | async)?.providerBusinessKey | slice:0:8 | uppercase}}" 
                        placeholder="Any id" 
                        class="input-here">
             </div>
@@ -77,7 +50,7 @@
                    Provider Name
                 </p>
                 <input type="text" 
-                       value="Provider for ..." 
+                       value="{{(selectedProviderRequirement$ | async)?.providerName | titlecase}}" 
                        placeholder="Name of provider" 
                        class="input-here">
             </div>
@@ -133,38 +106,47 @@
             <table>
                 <tr class="font-semibold">
                     <th>Product</th>
-                    <th>Product Code</th>
-                    <th>Price</th>
-                    <th style="text-align: center;">Quantity</th>
+                    <th>Code</th>
+                    <th>Shop</th>
+                    <th>Provider</th>
+                    <th style="text-align: center;">Request</th>
+                    <th>Current</th>
+                    <th>After</th>
                     <th>Subtotal</th>
-                    <th>Delete</th>
                 </tr>
-                <ng-container *ngFor="let i of [1, 2, 3, 4, 5]">
-
+                @for (productModelMergeStock of this.selectedProviderRequirementAllProductModelInfosMergeStockItemRequests$ | async; track productModelMergeStock) {
                 <tr class="text-[#ddd]">
-                    <td>Smartphone</td>
-                    <td class="left-align">87305928</td>
-                    <td>$ 200.00</td>
+                    <td nz-tooltip 
+                        nzTooltipTitle="{{productModelMergeStock.productModelName}}">
+                        {{productModelMergeStock.productModelName | slice:0:12}}...
+                    </td>
+                    <td class="left-align">
+                        #{{productModelMergeStock.businessKey | slice:0:8 | uppercase}}
+                    </td>
+                    <td class="text-[black] font-bold">{{productModelMergeStock.price | currency}}</td>
+                    <td class="text-[black] font-bold">{{productModelMergeStock.unitRequestPrice | currency}}</td>                    
                     <td style="text-align: center;">
                         <div class="qty-container">
                             <span class="incr-btn"
-                                    (click)="decreaseQty()">
+                                    (click)="decreaseQty(productModelMergeStock.productModelId)">
                                 &lsaquo;
                             </span>
                             <input type="number" 
-                                    value="1" 
-                                    id="qtyInput"
-                                    min="0">
+                                   id="qtyInput-{{productModelMergeStock.productModelId}}"
+                                   step="1"
+                                   value="{{productModelMergeStock.itemQuantity}}"
+                                   min="0">
                             <span class="desc-btn"
-                                    (click)="increaseQty()">
+                                    (click)="increaseQty(productModelMergeStock.productModelId)">
                                 &rsaquo;
                             </span>
                         </div>
                     </td>
-                    <td>$200.00</td>
-                    <td class="text-[red] text-3xl">&times;</td>
+                    <td class="text-[red]">{{productModelMergeStock.currentQuantity}}</td>
+                    <td class="text-[green] font-bold">{{productModelMergeStock.afterRequestQuantity}}</td>
+                    <td>{{productModelMergeStock.totalItemRequestPrice | currency}}</td>
                 </tr>
-                </ng-container>
+                }
             </table>
         </div>
 
@@ -175,11 +157,11 @@
 
                     <div class="flex-1 flex flex-row justify-between">
                         <p>Total Item</p>
-                        <p class="font-bold">05</p>
+                        <p class="font-bold">{{(selectedProviderRequirementAllProductModelInfosMergeStockItemRequests$ | async)?.length}}</p>
                     </div>
                     <div class="flex-1 flex flex-row justify-between">
                         <p>Total Cost</p>
-                        <p class="font-bold">05</p>
+                        <p class="font-bold">{{this.grandTotalPriceStockItemRequests$ | async | currency}}</p>
                     </div>
                     <div class="flex-1 flex flex-row justify-between">
                         <p>Discount</p>
@@ -189,12 +171,16 @@
                 <hr class="text-[#ddd]">
                 <div class="flex flex-col xl:flex-row xl:gap-4 xl:justify-between">
                     <div class="flex-1 flex flex-row justify-between">
-                        <p>Coupon</p>
-                        <p class="font-bold">00.00</p>
+                        <p>Min Qty Accept</p>
+                        <p class="font-bold">
+                            {{(this.selectedProviderRequirement$ | async)?.minQuantityToBeAccepted}}
+                        </p>
                     </div>
                     <div class="flex-1 flex flex-row justify-between">
-                        <p>Tax</p>
-                        <p class="font-bold">00.00</p>
+                        <p>Min Price Accept</p>
+                        <p class="font-bold">
+                            {{(this.selectedProviderRequirement$ | async)?.minPriceToBeAccepted}}
+                        </p>
                     </div>
                     <div class="flex-1 flex flex-row justify-between">
                         <p>Shipping</p>
@@ -205,8 +191,9 @@
         </div>
 
         <!-- Confirm -->
-        <div class="confirm">
-            Grand Total : <span class="font-bold text-2xl">800.00</span>
+        <div class="confirm"
+             (click)="confirmStockRequestToProvider()">
+            Grand Total : <span class="font-bold text-2xl">{{this.grandTotalPriceStockItemRequests$ | async | currency}}</span>
         </div>
     </div>
 </div>
