@@ -1,4 +1,4 @@
-import { OrderStatus } from "src/shared/types/orderStatus.enum";
+import { OrderStatus } from "../types/order-status.enum";
 
 export interface IOrderDraftViewModel {
     orderId: string;

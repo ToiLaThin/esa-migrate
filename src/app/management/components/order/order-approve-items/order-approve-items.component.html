@@ -1,0 +1,55 @@
+<div>
+    <app-button (click)="toggleDisplayMode()"
+                    [iconName]="this.displayMode == 'table' ? 'table-view-mode' : 'list-view-mode'"
+                    nz-tooltip
+                    nzTooltipTitle="Items display mode :{{this.displayMode | uppercase}}"
+                    nzTooltipPlacement="right">
+            
+    </app-button>
+</div>
+<div class="container">
+    @if (this.displayMode == 'table') {
+    <ng-container [ngTemplateOutlet]="tableMode">
+    </ng-container>
+    } @else {
+    <ng-container [ngTemplateOutlet]="listMode">
+    </ng-container>
+    }
+</div>
+
+<ng-template #tableMode>
+<table>
+    <tr>
+        <th style="text-align: center;">ID</th>
+        <th>Qty</th>
+    </tr>
+    @for (itemStock of this.itemStockLookUp; track itemStock) {
+    <tr>
+        <td>
+            #{{itemStock.productModelId | slice:0:8 | uppercase}}
+        </td>
+        <td>
+            {{itemStock.quantity}}
+        </td>
+    </tr>    
+    }
+</table>
+</ng-template>
+<ng-template #listMode>
+<div class="flex flex-row gap-2 flex-wrap">
+    @for (itemStock of this.itemStockLookUp; track itemStock) {
+        <div class="item clear-fix">
+            <div class="float-left mr-2">
+                <img src="../../../../../assets/images/no-image.png" 
+                     width="60" height="60" 
+                     class="object-cover rounded-md">
+            </div>
+            <div class="info float-left">
+                <p>Item name - #{{itemStock.productModelId | slice:0:8 | uppercase}}</p>
+                <p>Qty: {{itemStock.quantity}}</p>
+                <p>Price: 8$</p>
+            </div>
+        </div>
+    }
+</div>
+</ng-template>

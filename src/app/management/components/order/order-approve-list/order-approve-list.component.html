@@ -1,0 +1,190 @@
+<div class="sticky top-1">
+    <app-button (click)="toggleDisplayMode()"
+                [iconName]="this.displayMode == 'table' ? 'table-view-mode' : 'kanban-view-mode'"
+                nz-tooltip
+                nzTooltipTitle="Orders display mode :{{this.displayMode | uppercase}}"
+                nzTooltipPlacement="right">
+    </app-button>
+    <app-button (click)="resetApprovedOrders()"
+                [iconName]="'reset-outline'"
+                nz-tooltip
+                nzTooltipTitle="Reset all approved orders"
+                nzTooltipPlacement="right">
+    </app-button>
+    <app-button (click)="confirmApprovedOrders()"
+                [iconName]="'check-square-outline'"
+                nz-tooltip
+                nzTooltipTitle="Confirm all approved orders"
+                nzTooltipPlacement="right">
+    </app-button>
+</div>
+<div class="flex flex-row mt-4">
+    @if (this.displayMode == 'table') {
+    <ng-container [ngTemplateOutlet]="tableMode">
+    </ng-container>
+    } @else if (this.displayMode == 'kanban') {
+    <ng-container [ngTemplateOutlet]="kanbanMode">
+    </ng-container>
+    }
+</div>
+<!-- Layout -->
+
+<ng-template #tableMode>
+<div class="flex flex-col justify-start gap-4">
+    <ng-container [ngTemplateOutlet]="tableOrdersToApprove">
+    </ng-container>
+    <ng-container [ngTemplateOutlet]="tableOrdersApproved">
+    </ng-container>
+</div>
+</ng-template>
+
+<ng-template #tableOrdersToApprove>
+<table>
+    <tr>
+        <th style="text-align: center;">ID</th>
+        <th>Payment Method</th>
+        <th>Status</th>
+        <th>Total</th>
+        <th>Actions</th>
+    </tr>
+    @for (order of this.ordersToApprove; track order) {
+    <tr>
+        <td>
+            #{{order.orderId | slice:0:8 | uppercase}}
+        </td>
+        <td class="flex flex-row items-center">
+            @if (order.paymentMethod == PaymentMethod.COD) {
+            <svg-icon [iconName]="'cod-payment'"
+                        [size]="32"
+                        [fillColor]="'#121212'"
+                        class="m-auto"
+                        nz-tooltip
+                        nzTooltipTitle="Cash on Delivery"
+                        nzTooltipPlacement="top">
+            </svg-icon>
+
+        } @else if (order.paymentMethod == PaymentMethod.CreditCard) {
+            <svg-icon [iconName]="'cash-payment'"
+                        [size]="32"
+                        [fillColor]="'#121212'"
+                        [strokeColor]="'#121212'"
+                        class="m-auto"
+                        nz-tooltip
+                        nzTooltipTitle="Credit Card"
+                        nzTooltipPlacement="top">
+            </svg-icon>
+        } @else if (order.paymentMethod == PaymentMethod.Momo) {
+            <svg-icon [iconName]="'pig-payment'"
+                        [size]="32"
+                        [fillColor]="'#121212'"
+                        class="m-auto"
+                        nz-tooltip
+                        nzTooltipTitle="Momo"
+                        nzTooltipPlacement="top">
+            </svg-icon>
+        }
+        </td>
+        <td style="vertical-align: center;">
+            @if (order.orderStatus == OrderStatus.checkouted) {
+            <app-pill [content]="'Checkouted'"
+                        [className]="PillType.SUCCESS">
+            </app-pill>
+            } @else if (order.orderStatus == OrderStatus.stockConfirmed) {
+            <app-pill [content]="'Stock Confirmed'"
+                        [className]="PillType.DANGER">
+            </app-pill>
+            }
+        </td>
+        <td>
+            {{order.totalPriceFinal| currency:'USD':'symbol':'1.2-2'}}
+        </td>
+        <td>
+            <div class="flex flex-row gap-2">
+                <app-button [className]="'btn-primary'"
+                            [iconName]="'check-square-outline'"
+                            [iconSize]="24"
+                            (click)="approveOrder(order.orderId)">
+                    Approve
+                </app-button>
+                <app-button [className]="'btn-secondary'"
+                            [iconName]="'eye-outline'"
+                            [iconSize]="24">
+                    Detail
+                </app-button>
+            </div>
+        </td>
+    </tr>
+    }
+</table>
+</ng-template>
+
+<ng-template #tableOrdersApproved>
+<table>
+    <tr>
+        <th style="text-align: center;">ID</th>
+        <th>Payment Method</th>
+        <th style="text-align: center;">Status</th>
+        <th>Total</th>
+        <th>Actions</th>
+    </tr>
+    @for (order of this.ordersApproved; track order) {
+    <tr>
+        <td>
+            #{{order.orderId | slice:0:8 | uppercase}}
+        </td>
+        <td class="flex flex-row items-center">
+            @if (order.paymentMethod == PaymentMethod.COD) {
+            <svg-icon [iconName]="'cod-payment'"
+                        [size]="32"
+                        [fillColor]="'#121212'"
+                        class="m-auto"
+                        nz-tooltip
+                        nzTooltipTitle="Cash on Delivery"
+                        nzTooltipPlacement="top">
+            </svg-icon>
+            } @else if (order.paymentMethod == PaymentMethod.CreditCard) {
+                <svg-icon [iconName]="'cash-payment'"
+                            [size]="32"
+                            [fillColor]="'#121212'"
+                            [strokeColor]="'#121212'"
+                            class="m-auto"
+                            nz-tooltip
+                            nzTooltipTitle="Credit Card"
+                            nzTooltipPlacement="top">
+                </svg-icon>
+            } @else if (order.paymentMethod == PaymentMethod.Momo) {
+                <svg-icon [iconName]="'pig-payment'"
+                            [size]="32"
+                            [fillColor]="'#121212'"
+                            class="m-auto"
+                            nz-tooltip
+                            nzTooltipTitle="Momo"
+                            nzTooltipPlacement="top">
+                </svg-icon>
+            }
+            </td>
+            <td style="vertical-align: center;">
+                <app-pill [content]="'Approved'"
+                            [className]="PillType.WARNING">
+                </app-pill>
+            </td>
+            <td>
+                {{order.totalPriceFinal| currency:'USD':'symbol':'1.2-2'}}
+            </td>
+            <td>            
+                <div class="flex flex-row gap-2">
+                    <app-button [className]="'btn-secondary'"
+                    [iconName]="'trash-outline'"
+                    [iconSize]="24"
+                    (click)="removeOrderApproved(order.orderId)">
+                    Remove
+                </app-button>
+            </div>
+        </td>
+    </tr>
+    }
+</table>
+</ng-template>
+
+<ng-template #kanbanMode>
+</ng-template>

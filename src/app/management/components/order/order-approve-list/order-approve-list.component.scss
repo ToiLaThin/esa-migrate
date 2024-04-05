@@ -1,0 +1,24 @@
+table {
+    width: 100%;
+    margin: auto;
+    min-width: 600px;
+    overflow: scroll;
+    font-size: 18px;
+    background-color: #fff;
+
+    td:not(.left-align) {
+        text-align: center; //can change to center
+    }
+
+    .left-align, th {
+        text-align: left;
+    }
+
+    tr {
+        border-bottom: 1px solid #f0f0f0;
+    }
+
+    td, th {
+        padding: 12px 0;
+    }
+}

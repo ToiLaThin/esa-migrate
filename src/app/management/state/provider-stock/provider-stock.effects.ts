@@ -26,7 +26,19 @@ export class ProviderStockManagementEffects {
         private _providerService: ProviderService,
         private _notificationService: NzNotificationService
     ) {}
-
+    
+    clearAllStockRequestsToProviderEffect = createEffect(() =>
+        this.actions$.pipe(
+            ofType(providerStockManagementActions.clearAllStockRequestsToProvider),
+            switchMap((action) => {
+                return of(
+                    providerStockManagementActions.selectProviderRequirement({
+                        providerRequirementId: action.selectingProviderRequirementId
+                    })
+                );
+            })
+        )
+    );
     loadAllProviderRequirementsEffect = createEffect(() =>
         this.actions$.pipe(
             ofType(providerStockManagementActions.loadAllProviderRequirements),
