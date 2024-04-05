@@ -38,7 +38,11 @@
                       [size]="24">
             </svg-icon>
         </a>
-        <a [routerLink]="['/management',{outlets: {primary: 'order'}}]">
+        <a [routerLink]="['/management',{outlets: {primary: 'order'}}]"
+           nz-tooltip
+           nzTooltipPlacement="right"
+           nzTooltipTitle="Orders features"
+           nzTooltipTrigger="hover">
             <svg-icon [iconName]="'clipboard'"
                       [fillColor]="'whitesmoke'"
                       [size]="24"

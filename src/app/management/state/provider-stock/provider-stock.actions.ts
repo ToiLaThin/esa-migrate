@@ -27,5 +27,6 @@ export const providerStockManagementActions = createActionGroup({
 
         'Confirm Stock Request To Provider': emptyProps(),
         'Confirm Stock Request To Provider Failed': props<{error: string}>(),
+        'Clear All Stock Requests To Provider': props<{ selectingProviderRequirementId: string }>(),
     }
 });

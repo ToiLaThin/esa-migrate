@@ -1,1 +1,27 @@
-Order Approve
+<div class="flex flex-row justify-between">
+    <div>
+       There are {{(itemStockLookUp$ | async)?.length}} items involved in {{(ordersToApprove$ | async)?.length}} orders to approve
+    </div>
+    <!-- <div class="px-3 py-2 text-white bg-red-600">Confirm</div> -->
+</div>
+<div class="flex flex-row gap-4 mt-2">
+    <div class="w-1/2">
+        <esa-management-order-approve-items [displayMode]="this.displayModeItems"
+                                            [itemStockLookUp]="(itemStockLookUp$ | async)!"
+                                            (displayModeToggled)="toggleDisplayModeItems()"
+                                            class="sticky top-1 mr-3">
+        </esa-management-order-approve-items>
+    </div>
+
+    <div class="w-1/2">
+        <esa-management-order-approve-list [displayMode]="displayModeOrders"
+                                           [ordersToApprove]="(ordersToApprove$ | async)!"
+                                           [ordersApproved]="(ordersApprovedTypeIOrderItem$ | async)!"
+                                           (displayModeToggled)="toggleDisplayModeOrders()"
+                                           (orderApproved)="approveOrder($event)"
+                                           (resettedApprovedOrders)="resetApprovedOrders()"
+                                           (confirmedApprovedOrders)="confirmApprovedOrders()"
+                                           (removedOrderApproved)="removeOrderApproved($event)">
+        </esa-management-order-approve-list>
+    </div>
+</div>

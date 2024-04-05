@@ -42,6 +42,10 @@ import { ProviderStockComponent } from './tabs/provider-stock/provider-stock.com
 import { ProviderListManagementComponent } from './components/provider-stock/provider-list/provider-list.component';
 import { ProviderDetailManagementComponent } from './components/provider-stock/provider-detail/provider-detail.component';
 import { OrderComponent } from './tabs/order/order.component';
+import { OrderApproveItemsManagementComponent } from './components/order/order-approve-items/order-approve-items.component';
+import { OrderApproveManagementComponent } from './components/order/order-approve/order-approve.component';
+import { OrderApproveListManagementComponent } from './components/order/order-approve-list/order-approve-list.component';
+import { OrderApproveOrderManagementComponent } from './components/order/order-approve-order/order-approve-order.component';
 const importNzModules = [
     NzButtonModule,
     NzDropDownModule,
@@ -97,7 +101,11 @@ const importNzModules = [
         ProviderListManagementComponent,
         ProviderDetailManagementComponent,
 
-        OrderComponent
+        OrderComponent,
+        OrderApproveManagementComponent,
+        OrderApproveListManagementComponent,
+        OrderApproveItemsManagementComponent,
+        OrderApproveOrderManagementComponent
     ],
     exports: []
 })

@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, Subscription, tap } from 'rxjs';
 import {
     IProductModelInfoMergeStockItemRequest,
     IProviderRequirement
@@ -26,6 +26,7 @@ export class ProviderDetailManagementComponent implements OnInit, OnDestroy {
     selectedProviderRequirement$!: Observable<IProviderRequirement | null>;
     grandTotalPriceStockItemRequests$!: Observable<number>;
 
+    selectedProviderRequirementId!: string;
     constructor(private _store: Store) {}
 
     ngOnDestroy(): void {}
@@ -35,6 +36,16 @@ export class ProviderDetailManagementComponent implements OnInit, OnDestroy {
             selectorSelectedProviderRequirement(
                 state as { [providerStockManagementFeatureKey]: IProviderStockManagementState }
             )
+        ).pipe(
+            //not modifying the state so selectedProviderRequirement$ is still IProviderRequirement | null
+            //THIS IS ONLY WORK because on template we DO USING async pipe for selectedProviderRequirement$
+            //so the good way is still use Subscription.unsubscribe() in ngOnDestroy
+            tap((selectedProviderRequirement) => {
+                if (selectedProviderRequirement) {
+                    this.selectedProviderRequirementId = selectedProviderRequirement.providerRequirementId;
+                }
+            })
+        
         );
         this.selectedProviderRequirementAllProductModelInfosMergeStockItemRequests$ =
             this._store.select((state) =>
@@ -68,5 +79,9 @@ export class ProviderDetailManagementComponent implements OnInit, OnDestroy {
 
     confirmStockRequestToProvider() {
         this._store.dispatch(providerStockManagementActions.confirmStockRequestToProvider());
+    }
+
+    clearAllStockRequests() {
+        this._store.dispatch(providerStockManagementActions.clearAllStockRequestsToProvider({selectingProviderRequirementId: this.selectedProviderRequirementId}));
     }
 }

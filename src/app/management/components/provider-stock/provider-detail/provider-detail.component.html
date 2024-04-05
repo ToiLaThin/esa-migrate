@@ -102,7 +102,15 @@
 
         <!-- Selected products -->
         <div class="table-container">
-            <h2 class="uppercase font-bold text-xl">Selected Products</h2>
+            <div class="flex flex-row gap-2">
+                <h2 class="uppercase font-bold text-xl">Selected Products</h2>
+                <app-button (click)="clearAllStockRequests()"
+                            [iconName]="'reset-outline'"
+                            nz-tooltip
+                            nzTooltipTitle="Reset all approved orders"
+                            nzTooltipPlacement="right">
+                </app-button>
+            </div>
             <table>
                 <tr class="font-semibold">
                     <th>Product</th>

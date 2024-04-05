@@ -29,6 +29,8 @@ import { ProductCatalogManagementShareEffects } from "./management/state/managem
 import { saleCouponManagementFeatureKey, saleCouponManagementReducer } from "./management/state/sale-coupon-management/sale-coupon-management.reducers";
 import { ProviderStockManagementEffects } from "./management/state/provider-stock/provider-stock.effects";
 import { providerStockManagementFeatureKey, providerStockManagementReducer } from "./management/state/provider-stock/provider-stock.reducers";
+import { OrderManagementEffect } from "./management/state/order/order.effects";
+import { orderManagementFeatureKey, orderManagementReducer } from "./management/state/order/order.reducers";
 
 registerLocaleData(en);
 
@@ -47,7 +49,8 @@ registerLocaleData(en);
             [managementFeatureKey]: managementReducer,
             [productCatalogManagementFeatureKey]: productCatalogManagementReducer,
             [saleCouponManagementFeatureKey]: saleCouponManagementReducer,
-            [providerStockManagementFeatureKey]: providerStockManagementReducer
+            [providerStockManagementFeatureKey]: providerStockManagementReducer,
+            [orderManagementFeatureKey]: orderManagementReducer
         }),
         EffectsModule.forRoot([
             ProductEffects,
@@ -56,7 +59,8 @@ registerLocaleData(en);
             SaleCouponManagementEffects,
             ProductCatalogManagementEffects,
             ProductCatalogManagementShareEffects,
-            ProviderStockManagementEffects
+            ProviderStockManagementEffects,
+            OrderManagementEffect
         ]),
         StoreDevtoolsModule.instrument({
             maxAge: 25,
