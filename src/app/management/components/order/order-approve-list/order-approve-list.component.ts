@@ -1,13 +1,15 @@
-import { Component, EventEmitter, Input, Output } from "@angular/core";
-import { IOrderApprovedAggregate, IOrderItems } from "../../../../core/models/order-approve.model";
+import { Component, EventEmitter, Input, Output, ViewEncapsulation } from "@angular/core";
+import { IOrderItems } from "../../../../core/models/order-approve.model";
 import { PaymentMethod } from "../../../../core/types/payment-method.enum";
 import { OrderStatus } from "../../../../core/types/order-status.enum";
 import { PillType } from "../../../../core/ui-models/pill-type";
+import { CdkDragDrop } from "@angular/cdk/drag-drop";
 
 @Component({
     selector: 'esa-management-order-approve-list',
     templateUrl: './order-approve-list.component.html',
-    styleUrls: ['./order-approve-list.component.scss']
+    styleUrls: ['./order-approve-list.component.scss'],
+    encapsulation: ViewEncapsulation.None //so the style can be applied on the card
 })
 export class OrderApproveListManagementComponent {
     @Input({required: true}) displayMode: 'kanban' | 'table' = 'kanban';
@@ -18,6 +20,8 @@ export class OrderApproveListManagementComponent {
     @Output() removedOrderApproved: EventEmitter<string> = new EventEmitter<string>();
     @Output() resettedApprovedOrders: EventEmitter<void> = new EventEmitter<void>();
     @Output() confirmedApprovedOrders: EventEmitter<void> = new EventEmitter<void>();
+    @Output() droppedOrder: EventEmitter<CdkDragDrop<IOrderItems[]>> = new EventEmitter<CdkDragDrop<IOrderItems[]>>();
+
     get PaymentMethod() {
         return PaymentMethod;
     }
@@ -27,6 +31,7 @@ export class OrderApproveListManagementComponent {
     get PillType() {
         return PillType;
     }
+
     constructor() {}
 
     toggleDisplayMode() {
@@ -54,5 +59,8 @@ export class OrderApproveListManagementComponent {
         this.confirmedApprovedOrders.emit();
     }
 
+    drop(event: CdkDragDrop<IOrderItems[]>) {
+        this.droppedOrder.emit(event);
+    }
 
 }

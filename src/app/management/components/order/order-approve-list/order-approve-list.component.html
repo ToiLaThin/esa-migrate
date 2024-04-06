@@ -18,15 +18,15 @@
                 nzTooltipPlacement="right">
     </app-button>
 </div>
+@if (this.displayMode == 'table') {
 <div class="flex flex-row mt-4">
-    @if (this.displayMode == 'table') {
     <ng-container [ngTemplateOutlet]="tableMode">
     </ng-container>
-    } @else if (this.displayMode == 'kanban') {
-    <ng-container [ngTemplateOutlet]="kanbanMode">
-    </ng-container>
-    }
 </div>
+} @else if (this.displayMode == 'kanban') {
+<ng-container [ngTemplateOutlet]="kanbanMode">
+</ng-container>
+}
 <!-- Layout -->
 
 <ng-template #tableMode>
@@ -89,8 +89,8 @@
             <app-pill [content]="'Checkouted'"
                         [className]="PillType.SUCCESS">
             </app-pill>
-            } @else if (order.orderStatus == OrderStatus.stockConfirmed) {
-            <app-pill [content]="'Stock Confirmed'"
+            } @else if (order.orderStatus == OrderStatus.customerInfoConfirmed) {
+            <app-pill [content]="'Info confirmed'"
                         [className]="PillType.DANGER">
             </app-pill>
             }
@@ -187,4 +187,43 @@
 </ng-template>
 
 <ng-template #kanbanMode>
+    <div class="flex flex-row gap-5 bg-white"
+         cdkDropListGroup>
+        <div class="kanban-column" cdkDropList 
+        [cdkDropListData]="ordersToApprove"
+        [id]="'to-approve'"
+        (cdkDropListDropped)="drop($event)">
+            <div class="kanban-column-header mt-5 mb-4">
+                <span class="text-lg font-thin uppercase text-textLight ">To Approve</span>
+            </div>
+            <div class="kanban-column-body mb-4" 
+                 >
+                @for (order of ordersToApprove; track order) {
+                <esa-management-order-approve-order [order]="order"
+                                                    class="mb-2"
+                                                    cdkDrag
+                                                    [cdkDragData]="order">
+                </esa-management-order-approve-order>
+                }
+            </div>
+        </div>
+        <div class="kanban-column" cdkDropList 
+        [cdkDropListData]="ordersApproved"
+        [id]="'approved'"
+        (cdkDropListDropped)="drop($event)">
+            <div class="kanban-column-header mt-5 mb-4">
+                <span class="text-lg font-thin uppercase text-textLight ">Approved</span>
+            </div>
+            <div class="kanban-column-body mb-4" 
+                 >
+                @for (order of ordersApproved; track order) {
+                <esa-management-order-approve-order [order]="order"
+                                                    class="mb-2"
+                                                    cdkDrag 
+                                                    [cdkDragData]="order">
+                </esa-management-order-approve-order>
+                }
+            </div>
+        </div>
+    </div>
 </ng-template>

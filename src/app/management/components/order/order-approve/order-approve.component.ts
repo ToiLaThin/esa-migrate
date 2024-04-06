@@ -15,6 +15,7 @@ import {
     selectorOrdersToApprove
 } from '../../../state/order/order.selectors';
 import { IOrderManagementState } from '../../../state/order/orderManagementState,interface';
+import { CdkDragDrop } from '@angular/cdk/drag-drop';
 
 @Component({
     selector: 'esa-management-order-approve',
@@ -85,5 +86,18 @@ export class OrderApproveManagementComponent implements OnInit, OnDestroy {
     confirmApprovedOrders() {
         //console.log(this.ordersApproved);
         this._store.dispatch(orderManagementActions.confirmApprovedOrders({approvedOrders: this.ordersApproved}))
+    }
+
+    drop(event: CdkDragDrop<IOrderItems[]>) {
+        //this may not maintain the right of order,  but that 's not important
+        const newOrder: IOrderItems = {...event.item.data};
+        const orderId = newOrder.orderId;
+        //make this an interface
+        let approvedOrToApprove: 'to-approve' | 'approved' = event.container.id as 'to-approve' | 'approved';
+        if (approvedOrToApprove == 'to-approve') {
+            this._store.dispatch(orderManagementActions.removeApprovedOrder({orderId: orderId}))
+            return;
+        }
+        this._store.dispatch(orderManagementActions.approveOrder({orderId: orderId}))
     }
 }

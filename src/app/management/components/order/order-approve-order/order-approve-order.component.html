@@ -1,0 +1,69 @@
+<div class="order-container flex flex-col">
+    <div class="flex flex-row gap-2 items-center">
+        <p>Order 
+            <span class="text-lg font-medium italic">#{{order.orderId | slice:0:8 | uppercase}}</span>
+        </p>        
+        <svg-icon [iconName]="order.paymentMethod === PaymentMethod.COD ? 'color-credit-payment' : 
+                              order.paymentMethod === PaymentMethod.CreditCard ? 'cash-payment' : 
+                              'color-pig-payment'"
+                  [size]="34"
+                  nz-tooltip
+                  nzTooltipTitle="Payment method: {{this.PaymentMethodText}}">
+        </svg-icon>
+    </div>
+    <div class="flex flex-row justify-start items-center mt-4">
+        <svg-icon [iconName]="order.orderStatus === OrderStatus.checkouted ? 'color-checkmark' : 
+                              order.orderStatus === OrderStatus.customerInfoConfirmed ? 'color-checkmark' : 
+                              'pig-payment'"
+                  [size]="24"
+                  class="mr-1"
+                  nz-tooltip
+                  nzTooltipTitle="Payment method: {{this.PaymentMethodText}}">
+        </svg-icon>
+        <span class="text-sm ">Status: 
+            <span [ngClass]="order.orderStatus === OrderStatus.checkouted ? 'text-[#a4d322]' : 
+                             order.orderStatus === OrderStatus.customerInfoConfirmed ? 'text-[#fdb53f]' : 
+                                 'text-[#D8143A]'"
+                      class="font-medium">
+                {{OrderStatusText | uppercase}}
+            </span>
+        </span>
+    </div>
+    <div class="flex flex-row justify-start items-center mt-1">
+        <div class="flex flex-row justify-start items-center">
+            <svg-icon [iconName]="order.totalPriceFinal <= 8000 ? 'color-pricetag-green' : 
+                                  order.totalPriceFinal <= 16000 ? 'color-pricetag-yellow' : 
+                                  'color-pricetag-red'"
+                      [size]="24"
+                      class="mr-1"
+                      nz-tooltip
+                      nzTooltipTitle="Price: {{order.totalPriceFinal | currency}}">
+            </svg-icon>
+            <span class="text-sm">Price: 
+                <span [ngClass]="order.totalPriceFinal <= 8000 ? 'text-[#a4d322]' : 
+                                 order.totalPriceFinal <= 16000 ? 'text-[#fdb53f]' : 
+                                 'text-[#D8143A]'"
+                      class="font-medium">
+                    {{order.totalPriceFinal | currency}}    
+                </span>
+            </span>
+        </div>
+        <div class="flex-auto"></div>
+        <div class="flex items-center">
+            <svg-icon [iconName]="order.totalPriceFinal <= 8000 ? 'color-lookup' : 
+                                  order.totalPriceFinal <= 16000 ? 'color-view-detail' : 
+                                  'color-view-detail'"
+                      [size]="24"
+                      class="mr-1 hover:scale-150 cursor-pointer transition-transform"
+                      nz-tooltip
+                      nzTooltipTitle="Inspect order">
+            </svg-icon>
+            <svg-icon [iconName]="'color-lookup'"
+                      [size]="24"
+                      class="hover:scale-150 cursor-pointer transition-transform"
+                      nz-tooltip
+                      nzTooltipTitle="Detail order">
+            </svg-icon>
+        </div>
+    </div>
+</div>
