@@ -12,7 +12,7 @@ const sharedComponents = [
     SvgDefinitionsComponent,
     ButtonComponent,
     PillComponent,
-    InputComponent
+    InputComponent,
 ]
 @NgModule({
     declarations: [sharedComponents],

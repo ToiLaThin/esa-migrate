@@ -22,3 +22,32 @@ table {
         padding: 12px 0;
     }
 }
+
+.kanban-column {
+    @apply mb-2 flex flex-col rounded-sm bg-backgroundLightest flex-shrink-0 px-3 py-1;
+    width: calc(100% / 2 - 40px);
+    min-width: 280px;
+    min-height: 400px;
+}
+
+.kanban-column-body {
+    @apply flex flex-col;
+}
+
+.cdk-drag-preview {
+    box-sizing: border-box;
+    border-radius: 4px;
+    box-shadow: 0 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+.cdk-drag-placeholder {
+    .order-container {
+        background-color: rgba(150, 150, 200, 0.1) !important;
+        border: 1px dashed #abc !important;
+        margin: 5px;
+    }
+
+    .order-container > * {
+        opacity: 0;
+    }
+}

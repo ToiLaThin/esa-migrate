@@ -34,6 +34,7 @@ import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzSliderModule } from 'ng-zorro-antd/slider';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { CouponListCouponPlaceholderComponent } from './components/sale-coupon/coupon-list-coupon-placeholder/coupon-placeholder.component';
 import { CouponListCouponComponent } from './components/sale-coupon/coupon-list-coupon/coupon.component';
 import { CatalogSubCatalogListManagementComponent } from './components/product-catalog/catalog-subcatalog-list/catalog-subcatalog-list.component';
@@ -67,7 +68,8 @@ const importNzModules = [
         MatSidenavModule,
         NzToolTipModule,
         NzModalModule,
-        importNzModules
+        importNzModules,
+        DragDropModule //drag and drop module material
     ],
     declarations: [
         ManagementComponent,
