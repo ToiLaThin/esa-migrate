@@ -1,0 +1,23 @@
+<div class="w-4/5 mx-auto mt-4">
+    <div class="pagination-container">
+        @if (currentPage > 1) {
+        <p (click)="goPrevPage()"
+           class="hover:underline cursor-pointer">
+            Previous
+        </p>
+        }
+        @for (pageNum of totalPageAsArray; track pageNum) {
+            <p class="page"
+               [ngClass]="currentPage === pageNum ? 'active' : ''"
+               (click)="changePage(pageNum)">
+               {{pageNum}}
+            </p>
+        }
+        @if (currentPage < totalPageAsArray.length) {
+        <p (click)="goNextPage()"
+           class="hover:underline cursor-pointer">
+            Next
+        </p>
+        }
+    </div>
+</div>

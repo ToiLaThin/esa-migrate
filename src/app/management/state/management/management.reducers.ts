@@ -26,7 +26,10 @@ export const initialManagementState: IManagementState = {
     },
     allCatalogs: [],
     allSubCatalogs: [],
-    subCatalogsOfSelectedCatalog: []
+    subCatalogsOfSelectedCatalog: [],
+
+    subCatalogSelectedIds: [],
+    catalogSelectedId: ''
 };
 export const managementReducer = createReducer(
     initialManagementState,
@@ -75,6 +78,11 @@ export const managementReducer = createReducer(
     on(managementActions.toggleNavigationLeft, (state, action) => {
         return {
             ...initialManagementState,
+            subCatalogSelectedIds: state.subCatalogSelectedIds,
+            catalogSelectedId: state.catalogSelectedId,
+            allCatalogs: state.allCatalogs,
+            allSubCatalogs: state.allSubCatalogs,
+            subCatalogsOfSelectedCatalog: state.subCatalogsOfSelectedCatalog,
             navigationLeftOpened: !state.navigationLeftOpened
         }
     }),
@@ -91,7 +99,9 @@ export const managementReducer = createReducer(
         paginatedProducts: initialManagementState.paginatedProducts,
         allCatalogs: initialManagementState.allCatalogs,
         allSubCatalogs: initialManagementState.allSubCatalogs,
-        subCatalogsOfSelectedCatalog: initialManagementState.subCatalogsOfSelectedCatalog        
+        subCatalogsOfSelectedCatalog: initialManagementState.subCatalogsOfSelectedCatalog,
+        subCatalogSelectedIds: initialManagementState.subCatalogSelectedIds,
+        catalogSelectedId: initialManagementState.catalogSelectedId
     })),
     on(productManagementActions.productsLoadedSuccessfull, (state, action) => ({
         ...state,
@@ -169,8 +179,14 @@ export const managementReducer = createReducer(
         ...state,
         allCatalogs: action.loadedCatalogs
     })),
+    //this is displatched when a catalog is selected on filter
+    on(catalogManagementActions.loadSubCatalogsOfCatalog, (state, action) => ({
+        ...state,
+        catalogSelectedId: action.catalogId
+    })),
     on(catalogManagementActions.subCatalogOfCatalogLoadedSuccessfull, (state, action) => ({
         ...state,
+        subCatalogSelectedIds: [],
         subCatalogsOfSelectedCatalog: action.loadedSubCatalogOfCatalog
     })),
     on(catalogManagementActions.subCatalogSelected, (state, action) => {
@@ -179,7 +195,8 @@ export const managementReducer = createReducer(
         );
         if (!filteredBySub) {
             return {
-                ...state,
+                ...state,                
+                subCatalogSelectedIds: [...state.subCatalogSelectedIds, action.selectedSubCatalogId],
                 productLazyLoadRequest: {
                     ...state.productLazyLoadRequest,
                     filterRequests: [
@@ -209,6 +226,7 @@ export const managementReducer = createReducer(
         };
         return {
             ...state,
+            subCatalogSelectedIds: [...state.subCatalogSelectedIds, action.selectedSubCatalogId],
             productLazyLoadRequest: {
                 ...state.productLazyLoadRequest,
                 filterRequests: [
@@ -232,6 +250,10 @@ export const managementReducer = createReducer(
             //remove filter request of subcatalog, not just remove subcatalogId in Meta
             return {
                 ...state,
+                subCatalogSelectedIds: state.subCatalogSelectedIds.filter(
+                    (subId) => subId != action.deselectedSubCatalogId
+                ),
+                //catalogSelectedId: '', still keep the catalogSelectedId
                 productLazyLoadRequest: {
                     ...state.productLazyLoadRequest,
                     filterRequests: [
@@ -252,6 +274,9 @@ export const managementReducer = createReducer(
         };
         return {
             ...state,
+            subCatalogSelectedIds: state.subCatalogSelectedIds.filter(
+                (subId) => subId != action.deselectedSubCatalogId
+            ),
             productLazyLoadRequest: {
                 ...state.productLazyLoadRequest,
                 filterRequests: [

@@ -1,0 +1,154 @@
+<div class="border-b-gray-50-solid-1px">
+    <div class="p-4">
+        <label class="text-lg font-bold"
+               for="catalog">
+            Filtery By
+        </label>
+        <br>
+    </div>
+    <select class="mx-2 border border-solid border-gray-50 rounded px-1 py-3 mb-4
+                   text-xs font-bold" 
+            name="catalog" 
+            id="catalog" 
+            (change)="onCatalogChange()">
+        @for(cat of allCatalogs$ | async; track cat) {
+        <option value="{{cat.catalogId}}"
+                [selected]="cat.catalogId === (this.selectedCatalogId$ | async)!">
+            {{cat.catalogName}}
+        </option>
+        }
+    </select>
+</div>
+<div class="p-4">
+    <div class="flex flex-col justify-start items-stretch gap-4">
+        <div class="text-sm">
+            <p class="font-semibold">SubCatalog</p>
+            @for (sub of subCatalogsOfSelectedCatalog$ | async; track sub) {
+            <div class="clear-fix mt-2">
+                    <p class="float-left">
+                        <input type="checkbox" 
+                               name="subcatalog" 
+                               class="mr-2"
+                               value="{{sub.subCatalogId}}"
+                               [checked]="(this.selectedSubcatalogIds$ | async)!.includes(sub.subCatalogId!)"
+                               (change)="onSubCatalogSelectionChange($event.target)">
+                        <span class="text-xs capitalize">
+                            {{sub.subCatalogName | lowercase }}
+                        </span>
+                    </p>
+                    <span class="float-right">(17)</span>
+            </div>
+            } @empty {
+                <div class="text-primary">Please select catalog to filter</div>
+            }
+        </div>
+        <!-- Het 1 filter heading availability-->
+
+        <div class="text-sm">
+            <p class="font-semibold">Color</p>
+            <div class="mt-2 flex justify-between">
+                <p class="flex items-center">
+                    <span class="inline-block rounded-full w-5 h-5 bg-[grey] 
+                                 border border-solid border-gray-50 mr-2">
+                    </span>
+                    <span>Gray</span>
+                </p>
+                <span>(4)</span>
+            </div>
+            <!-- Het 1 dong filter -->
+
+            <div class="mt-2 flex justify-between">
+                <p class="flex items-center">
+                    <span class="inline-block rounded-full w-5 h-5 bg-[red] 
+                                 border border-solid border-gray-50 mr-2">
+                    </span>
+                    <span>Red</span>
+                </p>
+                <span>(3)</span>
+            </div>
+            <!-- Het 1 dong filter -->
+
+            <div class="mt-2 flex justify-between">
+                <p class="flex items-center">
+                    <span class="inline-block rounded-full w-5 h-5 bg-[black] 
+                                 border border-solid border-gray-50 mr-2">
+                    </span>
+                    <span>Black</span>
+                </p>
+                <span>(3)</span>
+            </div>
+            <!-- Het 1 dong filter -->
+        </div>
+        <!-- Het 1 filter heading color-->
+
+        <div class="text-sm">
+            <p class="font-semibold">Brand</p>
+            <div class="clear-fix mt-2">
+                <p class="float-left">
+                    <input type="checkbox" class="mr-2">
+                    <span>Gadget Zone</span>
+                </p>
+                <span class="float-right">(3)</span>
+            </div>
+            <!-- Het 1 dong filter -->
+
+            <div class="clear-fix mt-2">
+                <p class="float-left">
+                    <input type="checkbox" class="mr-2">
+                    <span>Initech Space</span>
+                </p>
+                <span class="float-right">(2)</span>
+            </div>
+            <!-- Het 1 dong filter -->
+
+            <div class="clear-fix mt-2">
+                <p class="float-left">
+                    <input type="checkbox" class="mr-2">
+                    <span>Looney Tunes</span>
+                </p>
+                <span class="float-right">(2)</span>
+            </div>
+            <!-- Het 1 dong filter -->
+
+            <div class="clear-fix mt-2">
+                <p class="float-left">
+                    <input type="checkbox" class="mr-2">
+                    <span>Massive Dynamic</span>
+                </p>
+                <span class="float-right">(2)</span>
+            </div>
+            <!-- Het 1 dong filter -->
+        </div>
+        <!-- Het 1 filter heading brand-->
+
+        <div class="text-sm">
+            <p class="font-semibold">Price Range</p>
+            <div class="clear-fix mt-2">
+                <div class="range_container">
+                    <div class="sliders_control">
+                        <input id="fromSlider" 
+                               type="range" 
+                               [(ngModel)]="this.fromPrice" 
+                               min="0" 
+                               max="10000000" 
+                               (change)="onPriceRangeChange()"/>
+                        <input id="toSlider" 
+                               type="range" 
+                               [(ngModel)]="this.toPrice" 
+                               min="0" 
+                               max="10000000" 
+                               (change)="onPriceRangeChange()"/>
+                    </div>
+                    <div class="form_control">
+                        <div>
+                            <p>{{this.fromPrice}}</p>
+                            <p>{{this.toPrice}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Het 1 dong filter -->
+        </div>
+        <!-- Het 1 filter price range-->
+    </div>
+</div>

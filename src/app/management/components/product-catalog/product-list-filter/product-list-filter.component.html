@@ -1,0 +1,62 @@
+<div class="flex flex-row px-6 items-center flex-wrap py-4">
+    <div class="flex flex-row items-center">
+        <div class="gr">
+            <label for="productPerPage">Show:</label>
+            <select class="mx-2 border border-solid border-gray-50 rounded p-3" 
+                    name="productPerPage" 
+                    id="productPerPage" 
+                    (change)="changeProductPerPage($event.target)">
+                <option value="16" selected>16</option>
+                @for(numProductPerPage of numProductPerPageEnums | slice:1; track numProductPerPage) {
+                <option value="{{numProductPerPage.key}}">{{numProductPerPage.value}}</option>
+                }
+            </select>
+            entries
+        </div>
+
+        <esa-input [iconName]="'search-outline'"
+                   [placeholder]="'Search...'"
+                   class="mr-4">
+        </esa-input>
+
+        <!-- Het 1 select -->
+
+        <div class="gr">
+            <label for="sortBy">Sort:</label>
+            <select class="mx-2 border border-solid border-gray-50 rounded p-3" 
+                    name="sortBy" 
+                    id="sortBy"
+                    (change)="changeSortBy($event.target)">
+                <option value="0" selected></option>
+                @for(sortBy of sortByEnums | slice:1; track sortBy) {
+                <option value="{{sortBy.key}}">{{sortBy.value}}</option>
+                }
+            </select>
+        </div>
+        <!-- Het 1 select -->
+
+        <div class="gr">
+            <label for="orderType">Order Type:</label>
+            <select class="mx-2 border border-solid border-gray-50 rounded p-3" 
+                    name="orderType" 
+                    id="orderType" 
+                    (change)="changeOrderType($event.target)">
+                <option value="0" selected>Ascending</option>
+                @for (orderType of orderTypeEnums | slice:1; track orderType) {
+                <option value="{{orderType.key}}">{{orderType.value}}</option>
+                }
+            </select>
+        </div>
+        <!-- Het 1 select -->                
+    </div>
+    <div class="flex-auto"></div>
+    <div class="flex flex-row">
+        <app-button [iconName]="'add-outline'">
+            Add New Product
+        </app-button>
+        <app-button (click)="openAdvanceFilter()">
+            <span nz-icon [nzType]="'setting'" [nzTheme]="'fill'">
+            </span>
+        </app-button>
+    </div>
+</div>
