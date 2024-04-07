@@ -47,6 +47,9 @@ import { OrderApproveItemsManagementComponent } from './components/order/order-a
 import { OrderApproveManagementComponent } from './components/order/order-approve/order-approve.component';
 import { OrderApproveListManagementComponent } from './components/order/order-approve-list/order-approve-list.component';
 import { OrderApproveOrderManagementComponent } from './components/order/order-approve-order/order-approve-order.component';
+import { ProductListPaginationComponent } from './components/product-catalog/product-list-pagination/product-list-pagination.component';
+import { ProductListFilterComponent } from './components/product-catalog/product-list-filter/product-list-filter.component';
+import { ProductListAdvanceFilterComponent } from './components/product-catalog/product-list-advance-filter/product-list-advance-filter.component';
 const importNzModules = [
     NzButtonModule,
     NzDropDownModule,
@@ -107,7 +110,11 @@ const importNzModules = [
         OrderApproveManagementComponent,
         OrderApproveListManagementComponent,
         OrderApproveItemsManagementComponent,
-        OrderApproveOrderManagementComponent
+        OrderApproveOrderManagementComponent,
+
+        ProductListPaginationComponent,
+        ProductListFilterComponent,
+        ProductListAdvanceFilterComponent
     ],
     exports: []
 })

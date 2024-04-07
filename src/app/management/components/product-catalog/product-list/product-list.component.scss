@@ -1,0 +1,40 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Oswald:wght@200..700&display=swap');
+$rowColor: #F7F6FE;
+.table-container {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.table {
+    width: 100%;
+    @apply text-sm;
+    font-family: 'Montserrat';
+
+    th, td {
+        @apply px-3 py-4;
+        vertical-align: middle;
+    }
+    th {
+        font-weight: bold;
+
+    }
+
+    td {
+        font-weight: normal;
+        text-align: center;
+    }
+}
+
+//tr cannot padding, margin, it have no use
+.data-row {
+    cursor: pointer;
+
+    &::nth-child(even) {
+        background-color: $rowColor;
+    }
+
+    &:hover {
+        background-color: darken($color: ($rowColor), $amount: 40%);
+        color: #fff;
+    }
+}

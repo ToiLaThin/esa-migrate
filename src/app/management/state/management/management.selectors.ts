@@ -1,4 +1,3 @@
-import { state } from '@angular/animations';
 import { managementFeatureKey } from './management.reducers';
 import { IManagementState } from './managementState.interface';
 import { createSelector } from '@ngrx/store';

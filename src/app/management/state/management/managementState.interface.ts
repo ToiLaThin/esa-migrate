@@ -10,10 +10,15 @@ export interface IManagementState {
     sidebarMode: SidebarMode,
 
     //share state product (product list, sale list) (this is copy of shopping module)
-    productLazyLoadRequest: IProductLazyLoadRequest;
+    productLazyLoadRequest: IProductLazyLoadRequest,
     paginatedProducts: IPaginatedProduct,
     allCatalogs: ICatalog[],
-    allSubCatalogs: ISubCatalog[]
-    subCatalogsOfSelectedCatalog: ISubCatalog[]
+    allSubCatalogs: ISubCatalog[],
+    subCatalogsOfSelectedCatalog: ISubCatalog[],
+
+    //these are needed to not only load catalogs & sub but know which were 
+    // selected by user in previous filter
+    subCatalogSelectedIds: string[],
+    catalogSelectedId: string,
 
 }
