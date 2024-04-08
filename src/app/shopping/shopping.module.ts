@@ -24,6 +24,14 @@ import { ProductInfoComponent } from "./components/product/product-info/product-
 import { ShareComponentsModule } from "../share-components/share-components.module";
 import { ProductPolicyComponent } from "./components/product/product-policy/product-policy.component";
 import { CartComponent } from "./top-pages/cart/cart.component";
+import { OrderProcessComponent } from "./top-pages/order-process/order-process.component";
+import { OrderListComponent } from "./top-pages/order-list/order-list.component";
+import { OrderTrackingCustomerInfoComponent } from "./components/order-process/order-tracking-customer-info/order-tracking-customer-info.component";
+import { OrderTrackingNotifyCustomerComponent } from "./components/order-process/order-tracking-notify-customer/order-tracking-notify-customer.component";
+import { OrderTrackingPaymentMethodsComponent } from "./components/order-process/order-tracking-payment-methods/order-tracking-payment-methods.component";
+import { OrderTrackingStepperComponent } from "./components/order-process/order-tracking-stepper/order-tracking-stepper.component";
+import { OrderListCardComponent } from "./components/order-list/order-list-card/order-list-card.component";
+import { NzToolTipModule } from "ng-zorro-antd/tooltip";
 @NgModule({
     imports: [
         RouterModule.forChild(shoppingRoutes),
@@ -33,6 +41,7 @@ import { CartComponent } from "./top-pages/cart/cart.component";
         
         ShareComponentsModule,
         NzNotificationModule,
+        NzToolTipModule
     ],
     declarations: [
         ShoppingComponent,
@@ -55,7 +64,14 @@ import { CartComponent } from "./top-pages/cart/cart.component";
         ProductInfoComponent,
         ProductPolicyComponent,
 
-        CartComponent
+        CartComponent,
+        OrderListComponent,
+        OrderListCardComponent,
+        OrderProcessComponent,
+        OrderTrackingCustomerInfoComponent,
+        OrderTrackingNotifyCustomerComponent,
+        OrderTrackingPaymentMethodsComponent,
+        OrderTrackingStepperComponent,
     ],
     exports: [],
 })

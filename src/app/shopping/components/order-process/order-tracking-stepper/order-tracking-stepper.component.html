@@ -1,0 +1,29 @@
+<div class="progressBar">
+    @for (step of steppers;let i = $index; track step) {
+    <div class="container" (click)="addActiveClass($event)" #container>
+        <a class="circle" 
+           routerLink="{{step.url}}"
+           nz-tooltip 
+           nzTooltipTitle="{{step.description}}">
+            <svg-icon [iconName]="step.iconName">
+            </svg-icon>
+            @if (i % 2 === 0) {
+            <div class="content down">
+                <div class="text-center text-xs">
+                    {{ step.title }}
+                </div>
+            </div>
+            } @else {
+            <div class="content up">
+                <div class="text-center text-xs" nz-tooltip>
+                    {{ step.title }}
+                </div>
+            </div>
+            }
+        </a>
+        <div class="line"
+             [ngClass]="{'opacity-0': i === steppers.length - 1}">
+        </div>
+    </div>
+    }
+</div>

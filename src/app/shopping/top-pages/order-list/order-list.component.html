@@ -1,0 +1,50 @@
+<ng-template #horizontalTabsTemplate>
+    <div class="tabs-horizontal">
+        @for (i of [1, 2, 3, 4, 5]; track $index) {
+        <div class="tab" (click)="selectTab($event)">
+            <svg-icon [iconName]="ColorSvgNames.ViewDetail"
+                        [size]="32"
+                        class="mr-1"
+                        nz-tooltip
+                        nzTooltipTitle="Order Drafts">
+            </svg-icon>
+        </div>
+        }
+    </div>
+</ng-template>
+
+<ng-template #verticalTabsTemplate>
+    <div class="tabs-vertical">
+        @for (i of [1, 2, 3, 4, 5]; track $index) {
+        <div class="tab" (click)="selectTab($event)">
+            <svg-icon [iconName]="ColorSvgNames.ViewDetail"
+                        [size]="32"
+                        class="mr-1">
+            </svg-icon>
+            <span class="text-md font-semibold">Order Drafts</span>
+        </div>
+        }
+    </div>
+</ng-template>
+
+
+<div class="bg-[red] px-8 py-6 mx-auto w-5/6">
+    <div class="container">
+        @if (this.currentWindowWidth < lgScreen) {
+        <ng-container *ngTemplateOutlet="horizontalTabsTemplate">
+        </ng-container>
+        } @else {
+        <ng-container *ngTemplateOutlet="verticalTabsTemplate">
+        </ng-container>
+        }
+        <div class="cards-container flex flex-col lg:flex-row flex-wrap gap-1 bg-[#fff] p-2"
+             [ngStyle]="this.currentWindowWidth < lgScreen ? {'align-content': 'stretch'} : {'align-content': 'flex-start'}"
+             #cardContainer>
+             <!-- style will override lg:flex-row if overflow -->
+            @for (order of orderDrafts; track $index) {
+            <esa-order-list-card [order]="order">
+            </esa-order-list-card>
+            }
+        </div>
+    </div>
+</div>

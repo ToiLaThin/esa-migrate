@@ -5,6 +5,10 @@ import { ProductListComponent } from "./top-pages/product-list/product-list.comp
 import { ProductDetailComponent } from "./top-pages/product-detail/product-detail.component";
 import { ProductQuickviewComponent } from "./top-pages/product-quickview/product-quickview.component";
 import { CartComponent } from "./top-pages/cart/cart.component";
+import { OrderListComponent } from "./top-pages/order-list/order-list.component";
+import { OrderProcessComponent } from "./top-pages/order-process/order-process.component";
+import { OrderTrackingCustomerInfoComponent } from "./components/order-process/order-tracking-customer-info/order-tracking-customer-info.component";
+import { OrderTrackingPaymentMethodsComponent } from "./components/order-process/order-tracking-payment-methods/order-tracking-payment-methods.component";
 
 export const shoppingRoutes: Routes = [
     {
@@ -36,6 +40,25 @@ export const shoppingRoutes: Routes = [
             {
                 path: 'cart',
                 component: CartComponent
+            },
+            {
+                path: 'order-list',
+                component: OrderListComponent
+            },
+            {
+                path: 'order-process',
+                component: OrderProcessComponent,
+                children: [
+                    {
+                        path: 'customer-info',
+                        component: OrderTrackingCustomerInfoComponent
+                    },
+                    {
+                        path: 'payment-methods',
+                        component: OrderTrackingPaymentMethodsComponent
+                    },
+
+                ]
             }
         ]
     }

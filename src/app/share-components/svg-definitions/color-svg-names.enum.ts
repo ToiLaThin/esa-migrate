@@ -1,0 +1,16 @@
+export enum ColorSvgNames {
+    PriceTagRed = 'color-pricetag-red',
+    PriceTagGreen = 'color-pricetag-green',
+    PriceTagYellow = 'color-pricetag-yellow',
+    Checkmakr = 'color-checkmark',
+    Lookup = 'color-lookup',
+    ViewDetail = 'color-view-detail',
+    CreditPayment = 'color-credit-payment',
+    CashPayment = 'color-cash-payment',
+    PigPayment = 'color-pig-payment',
+    PaymentMethods = 'color-payment-methods',
+    User = 'color-user',
+    Phone = 'color-phone',
+    Location = 'color-location',
+    SaleTag = 'color-sale-tag',
+}
