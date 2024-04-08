@@ -1,0 +1,31 @@
+:host {
+    flex: 1 1 auto; //this is for element to take up whole space
+    //if the parent become flex-col and it have min height: 500px, then  this should be flex: 0 1 auto;, 
+    //else the height will be stretch to fit the height of the content since there is min-height on parent    
+}
+.card {
+    @apply px-4 py-2 mb-3 bg-[#fff] rounded-[6px];
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);
+    // max-width: 500px;
+    .icon-container {
+        @apply bg-[#ddd];
+        border-radius: 50%;
+    }
+}
+
+.pill-container {
+    @apply px-2 py-1 rounded-[18px] text-center;
+    p {
+        word-break: keep-all;
+    }
+}
+
+.pill-danger {
+    color: #C24443;
+    border: solid 1px darken(#C24443, 20%);
+}
+
+.pill-warning {
+    color: #dfd657;
+    border: solid 1px darken(#dfd657, 20%);
+}

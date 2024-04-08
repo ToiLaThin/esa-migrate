@@ -1,0 +1,104 @@
+
+<form>
+    <ng-template #noPaymentMethodSelected>
+        <div class="payment-icon">
+            <svg-icon [iconName]="ColorSvgNames.PaymentMethods" [size]="160">
+            </svg-icon>
+        </div>
+    
+        <div class="text-center mt-4">
+            <p class="text-2xl font-semibold ">Payment Methods</p>
+            <p>Please choose your payment methods</p>
+        </div>
+    </ng-template>
+    <ng-template #paymentMethodSelected>
+        <div class="payment-icon">
+            <svg-icon [iconName]="paymentMethodChoosen === PaymentMethod.COD ? ColorSvgNames.CashPayment : 
+                                paymentMethodChoosen === PaymentMethod.CreditCard ? ColorSvgNames.CreditPayment : 
+                                ColorSvgNames.PigPayment" 
+                      [size]="160">
+            </svg-icon>
+        </div>
+    
+        <div class="text-center mt-4">
+            <p class="text-2xl font-semibold ">Payment Methods</p>
+            <p>You chose <span class="text-xs font-semibold text-[red]">
+                @if (paymentMethodChoosen === PaymentMethod.Momo) { Momo }
+                @if (paymentMethodChoosen === PaymentMethod.COD) { Cash on Deliver }
+                @if (paymentMethodChoosen === PaymentMethod.CreditCard) { Credit Card }
+            </span></p>
+        </div>
+    </ng-template>
+    @if (this.paymentMethodChoosen === 'none') {
+    <ng-container *ngTemplateOutlet="noPaymentMethodSelected">
+    </ng-container>
+    } @else {
+    <ng-container *ngTemplateOutlet="paymentMethodSelected">
+    </ng-container>
+    }
+
+
+    <div class="mt-[80px] mb-[60px]">
+        <div class="flex flex-row justify-center gap-4">
+            @for (paymentMethod of this.paymentMethodKeyValueArr; track paymentMethod) {
+            <input type="radio" 
+                   name="payment-method" 
+                   id="payment-method-{{paymentMethod.key}}" 
+                   [hidden]="true"
+                   [value]="paymentMethod.key"
+                   (change)="choosenPaymentMethod($event)">
+            <label for="payment-method-{{paymentMethod.key}}" 
+                   class="payment-method">
+                   <!-- Click label will also click input radio , but you should not assign (click) to label element-->
+                   <!-- Hidden = false to see -->
+                @if (paymentMethod.key == PaymentMethod.Momo) {
+                <div class="flex flex-col items-center">
+                    <div class="payment-icon">
+                        <svg-icon [iconName]="ColorSvgNames.PigPayment" [size]="80">
+                        </svg-icon>
+                    </div>
+                    <p class="payment-method-heading">Momo</p>
+                    <ul class="mt-4">
+                        <li>Fast & convenient</li>
+                        <li>No Additional Fees</li>
+                        <li>Can be refunded</li>
+                    </ul>
+                </div>
+                }
+                @if (paymentMethod.key == PaymentMethod.COD) {
+                <div class="flex flex-col items-center">
+                    <div class="payment-icon">
+                        <svg-icon [iconName]="ColorSvgNames.CashPayment" [size]="80">
+                        </svg-icon>
+                    </div>
+                    <p class="payment-method-heading">Cash on Deliver</p>
+                    <ul class="mt-4">
+                        <li>Additional Charge required</li>
+                        <li>No refund</li>
+                        <li>More reliable</li>
+                    </ul>
+                </div>
+                }
+                @if (paymentMethod.key == PaymentMethod.CreditCard) {
+                <div class="flex flex-col items-center">
+                    <div class="payment-icon">
+                        <svg-icon [iconName]="ColorSvgNames.CreditPayment" [size]="80">
+                        </svg-icon>
+                    </div>
+                    <p class="payment-method-heading">Credit Card</p>
+                    <ul class="mt-4">
+                        <li>Fast & convenient</li>
+                        <li>No Additional Fees</li>
+                        <li>Can be refunded</li>
+                    </ul>
+                </div>
+                }
+            </label>
+            }
+        </div>
+    </div>
+</form>
+<button type="submit" 
+        class="submit-btn">
+    Continue
+</button>

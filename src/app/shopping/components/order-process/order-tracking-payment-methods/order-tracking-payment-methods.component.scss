@@ -1,0 +1,57 @@
+.payment-icon {
+    margin: auto;
+    width: fit-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background-color: #f5f5f5;
+}
+
+.payment-method {
+    min-width: 300px;
+    border-radius: 5px;
+    padding: 50px 14px;
+    box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: all 0.3s linear;
+    &:hover {
+        box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+        transform: translateY(-5px);
+    }
+    &-heading {
+        @apply font-bold mt-5 text-xl uppercase text-center;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif, sans-serif;
+    }
+    &.selected {
+        box-shadow: 0 0 10px 0 red;
+    }
+}
+
+ul li {
+    @apply mt-2 relative;
+    &::before{
+        content: '✔';
+        position: absolute;
+        top: 0;
+        left: -30px;
+        width: 0;
+        height: 0;
+        //if have width height, it will take up space
+        transform: translateY(-50%);
+    }
+}
+
+.submit-btn {
+    width: 80%;
+    margin: auto;
+    background-color: dodgerblue;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s linear;
+    &:hover {
+        background-color: #007bff;
+    }
+}

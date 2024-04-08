@@ -1,0 +1,53 @@
+<div class="card flex flex-row justify-between self-start min-w-fit">
+    <div class="flex flex-row justify-start">
+        <div class="icon-container self-start">
+            <svg-icon [iconName]="ColorSvgNames.ViewDetail"
+                        [size]="56">
+            </svg-icon>
+        </div>
+        <div class="ml-2">
+            <div class="text-lg">Order<span class="font-semibold text-sm italic">#{{order.orderId | slice:0:8 | uppercase}}</span></div>
+            <div class="flex flex-row mt-2">
+                @if (order.totalDiscount !== 0) {
+                    <svg-icon [iconName]="ColorSvgNames.SaleTag"
+                              [size]="28"
+                              class="mr-2">
+                    </svg-icon>
+                    <div class="pill-container pill-danger text-xs">
+                        <p>-{{order.totalDiscount}}%</p>
+                    </div>
+                }
+                @else {
+                    <div class="pill-container pill-warning text-xs">
+                        <p>No Coupon</p>
+                    </div>
+                }
+
+            </div>
+        </div>
+    </div>
+
+    <div class="flex flex-row items-center justify-center ">
+        <div class="text-sm font-semibold text-[green]">
+            ${{order.subTotal | number:'1.2-2'}}
+        </div>
+        <div class="flex flex-col ml-2 gap-3 border-l-2 border-solid pl-2">
+            <div class="hover:rotate-[-15deg] transition">
+                <svg-icon [iconName]="ColorSvgNames.Lookup"
+                          [size]="35"
+                          class="cursor-pointer"
+                          nz-tooltip
+                          nzTooltipTitle="Tracking Order">
+                </svg-icon>
+            </div>
+            <div class="hover:scale-50 transition">
+                <svg-icon [iconName]="ColorSvgNames.ViewDetail"
+                          [size]="35"
+                          class="cursor-pointer"
+                          nz-tooltip
+                          nzTooltipTitle="Detail Order">
+                </svg-icon>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,80 @@
+.progressBar {
+    width: fit-content;
+    @apply flex items-center justify-center;
+}
+
+.container {
+    @apply flex items-center;
+    margin: 0 calc(1* 2.5em);
+    cursor: pointer;
+    transform: scale(1.5);
+}
+
+.line {
+    width: 120px;
+    height: 3px;
+    background: lightgrey;
+    border-radius: 4px;
+
+    transition: background 0.5s linear;
+}
+
+.circle {
+    display: block; //since this is a tag
+    position: relative;
+    width: 20px;
+    height: 20px;
+    margin: 0 5px; /* Adjust the margin as needed */
+    border: 2px solid lightgrey;
+    border-radius: 50%; /* To create a circle shape */
+    background-color: transparent; /* Initial circle color */
+    transition: background-color 0.5s ease;
+}
+
+.circle::before {
+    content: "✔";
+    position: absolute;
+    top: 50%; /* Vertically center the tick mark */
+    left: 50%; /* Horizontally center the tick mark */
+    transform: translate(-52.5%, -52.5%); /* Center it precisely */
+
+    transition: opacity 0.5s ease;
+
+    opacity: 0;
+    color: white;
+}
+
+
+/* Show the tick mark and color the circle when the container has the 'active' class */
+
+.container.active .circle::before {
+    opacity: 1;
+}
+
+.container.active .circle {
+    border-color: teal;
+    background-color: teal;
+}
+
+.container.active .line {
+    background: teal;
+}
+
+
+.circle .content {
+    position: absolute;
+    padding: 10px 12px;
+    background-color: #fff;
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}
+
+.up {
+    top: -80px;
+    left: -25px;
+}
+
+.down {
+    top: 30px;
+    left: -25px;
+}

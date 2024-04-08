@@ -1,0 +1,50 @@
+.container {
+    @apply flex flex-col lg:flex-row;
+}
+
+.tabs-vertical {
+    @apply flex flex-col justify-start;
+}
+.tabs-horizontal {
+    @apply flex flex-row justify-center;
+}
+
+.tab {
+    @apply flex flex-row gap-2 items-center px-4 py-2 bg-[#fff];
+    transition: all 0.3s ease-in-out;
+    cursor: pointer;
+
+    &:hover {
+        transform: translateY(-1px);
+        background-color: #C24443;
+        color: #fff;
+    }    
+}
+
+
+//more fluent if using ng-template, window:resize lister with different class and CONTENT
+.tabs-vertical .tab {
+    width: 200px;
+    &.active {
+        transform: translateX(5px);
+        background-color: #C24443;
+    }
+}
+
+.tabs-horizontal .tab {
+    width: auto;
+    &.active {
+        transform: translateY(5px);
+        background-color: #C24443;
+        color: #fff;
+    }
+}
+
+.cards-container {
+    //@apply min-h-[500px];
+    //this cause the card to stretch to fit the height of the content
+    background-color: #C24443;
+    overflow: auto;  //this is not neccessary if using flex-wrap
+    align-content: flex-start; // without this, it result in when wrap there is space
+    //and when this is flex-col, change align-content to stretch
+}
