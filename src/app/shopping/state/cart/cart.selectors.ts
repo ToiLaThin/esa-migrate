@@ -52,6 +52,11 @@ export const selectorCouponApplied = createSelector(
     (cartState) => cartState.couponApplied
 );
 
+export const selectorCouponCodeApplied = createSelector(
+    selectorCartFeature,
+    (cartState) => cartState.couponCodeApplied
+);
+
 export const selectorDiscountAmountCoupon = createSelector(
     selectorCartFeature,
     (cartState) => cartState.discountAmountByCoupon

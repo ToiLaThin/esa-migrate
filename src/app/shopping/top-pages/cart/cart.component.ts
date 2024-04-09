@@ -1,10 +1,11 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { ICartItem } from '../../../core/models/cart-item.interface';
-import { Observable } from 'rxjs';
+import { ICartConfirmRequest, ICartItem } from '../../../core/models/cart-item.interface';
+import { Observable, Subscription } from 'rxjs';
 import { Store } from '@ngrx/store';
 import {
     selectorAllActiveCouponsNotUsedByUser,
     selectorCouponApplied,
+    selectorCouponCodeApplied,
     selectorDiscountAmountCoupon,
     selectorDiscountAmountSale,
     selectorItemsInCart,
@@ -18,6 +19,9 @@ import { cartActions } from '../../state/cart/cart.actions';
 import { ICoupon } from '../../../core/models/coupon.interface';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { DiscountType } from '../../../core/models/sale-item.interface';
+import { selectorUserId } from '../../../auth/state/auth.selectors';
+import { authFeatureKey } from '../../../auth/state/auth.reducers';
+import { IAuthState } from '../../../auth/state/authState.interface';
 
 @Component({
     selector: 'esa-cart',
@@ -90,6 +94,52 @@ export class CartComponent implements OnInit {
 
     removeCoupon() {
         this._store.dispatch(cartActions.removeCouponApplied());
+    }
+
+    confirmCart() {
+        let currentItemsInCart: ICartItem[] = [];
+        let curentUserId: string | undefined = undefined;
+        let couponCodeApplied: string | undefined = undefined;
+        let tempSubscription: Subscription;
+
+        tempSubscription = this.cartItems$.subscribe((cartItems) => {
+            if (cartItems.length === 0) {
+                this._nzNotificationService.error('Cart is empty', '');
+                return;
+            }
+            currentItemsInCart = cartItems;
+        });
+        tempSubscription.unsubscribe();
+
+        tempSubscription = this._store
+            .select((state) => selectorUserId(state as { [authFeatureKey]: IAuthState }))
+            .subscribe((userId) => {
+                curentUserId = userId;
+            });
+        tempSubscription.unsubscribe();
+
+        tempSubscription = this._store
+            .select((state) => selectorCouponCodeApplied(state as { [cartFeatureKey]: ICartState }))
+            .subscribe((couponCode) => {
+                couponCodeApplied = couponCode;
+            });
+        tempSubscription.unsubscribe();
+
+        //if user id is undefined, return
+        if (!curentUserId) {
+            this._nzNotificationService.error('User not logged in', '');
+            return;
+        }
+
+        let cartConfirmReq: ICartConfirmRequest = {
+            cartItems: currentItemsInCart,
+            userId: curentUserId!,
+            couponCode: couponCodeApplied === '' ? undefined : couponCodeApplied
+            //string.empty might cause err so we convert to undefined
+        };
+        //undefined if no coupon applied and  will not have couponCode field in CartConfirmRequestDTO in backend
+        console.log('cartRequest', cartConfirmReq);
+        this._store.dispatch(cartActions.confirmCart({ cartConfirmRequest: cartConfirmReq}));
     }
 
     applyCoupon() {

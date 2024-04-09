@@ -1,5 +1,5 @@
 import { createActionGroup, emptyProps, props } from "@ngrx/store";
-import { ICartItem } from "../../../core/models/cart-item.interface";
+import { ICartConfirmRequest, ICartItem } from "../../../core/models/cart-item.interface";
 import { ICoupon } from "../../../core/models/coupon.interface";
 
 export const cartActions = createActionGroup({
@@ -20,5 +20,9 @@ export const cartActions = createActionGroup({
 
         'Apply Coupon': props<{ discountAmount: number, couponCode: string }>(),
         'Remove Coupon Applied': emptyProps(),
+
+        'Confirm Cart': props<{cartConfirmRequest: ICartConfirmRequest}>(),
+        'Confirm Cart Success': emptyProps(),
+        'Confirm Cart Failure': props<{error: any}>()
     }
 })
