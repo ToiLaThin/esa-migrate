@@ -31,6 +31,8 @@ import { ProviderStockManagementEffects } from "./management/state/provider-stoc
 import { providerStockManagementFeatureKey, providerStockManagementReducer } from "./management/state/provider-stock/provider-stock.reducers";
 import { OrderManagementEffect } from "./management/state/order/order.effects";
 import { orderManagementFeatureKey, orderManagementReducer } from "./management/state/order/order.reducers";
+import { OrderEffects } from "./shopping/state/order/order.effects";
+import { orderFeatureKey, orderReducer } from "./shopping/state/order/order.reducers";
 
 registerLocaleData(en);
 
@@ -50,17 +52,19 @@ registerLocaleData(en);
             [productCatalogManagementFeatureKey]: productCatalogManagementReducer,
             [saleCouponManagementFeatureKey]: saleCouponManagementReducer,
             [providerStockManagementFeatureKey]: providerStockManagementReducer,
-            [orderManagementFeatureKey]: orderManagementReducer
+            [orderManagementFeatureKey]: orderManagementReducer,
+            [orderFeatureKey]: orderReducer
         }),
         EffectsModule.forRoot([
             ProductEffects,
             AuthEffects,
             CartEffects,
+            OrderEffects,
             SaleCouponManagementEffects,
             ProductCatalogManagementEffects,
             ProductCatalogManagementShareEffects,
             ProviderStockManagementEffects,
-            OrderManagementEffect
+            OrderManagementEffect,
         ]),
         StoreDevtoolsModule.instrument({
             maxAge: 25,

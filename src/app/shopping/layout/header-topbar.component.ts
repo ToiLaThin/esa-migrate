@@ -14,6 +14,11 @@ import { authActions } from '../../auth/state/auth.actions';
 import { selectorItemsInCartCount } from '../state/cart/cart.selectors';
 import { cartFeatureKey } from '../state/cart/cart.reducers';
 import { ICartState } from '../state/cart/cartState.interface';
+import { IOrderAggregateCart } from '../../core/models/order.interface';
+import { selectorTrackingOrder } from '../state/order/order.selectors';
+import { IOrderState } from '../state/order/orderState.interface';
+import { orderFeatureKey } from '../state/order/order.reducers';
+import { orderActions } from '../state/order/order.actions';
 
 @Component({
     selector: 'esa-shopping-header-topbar',
@@ -24,6 +29,8 @@ export class HeaderTopbarComponent implements OnInit {
     userRole$!: Observable<string>;
     authStatus$!: Observable<AuthStatus>;
     itemsInCartCount$!: Observable<number>;
+
+    trackingOrder$!: Observable<IOrderAggregateCart | null>;
     get AuthStatus() {
         return AuthStatus;
     } //for template to use enum
@@ -42,6 +49,9 @@ export class HeaderTopbarComponent implements OnInit {
         this.itemsInCartCount$ = this._store.select((state) =>
             selectorItemsInCartCount(state as { [cartFeatureKey]: ICartState })
         );
+        this.trackingOrder$ = this._store.select((state) =>
+            selectorTrackingOrder(state as { [orderFeatureKey]: IOrderState })
+        );
     }
 
     login() {
@@ -49,6 +59,10 @@ export class HeaderTopbarComponent implements OnInit {
     }
 
     logout() {
-        this._store.dispatch(authActions.logoutAttempted())
+        this._store.dispatch(authActions.logoutAttempted());
+    }
+
+    continueOrderingProcess() {
+        this._store.dispatch(orderActions.continueCurrentTrackingOrderProcess());
     }
 }

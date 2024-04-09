@@ -1,6 +1,8 @@
 <div class="progressBar">
     @for (step of steppers;let i = $index; track step) {
-    <div class="container" (click)="addActiveClass($event)" #container>
+    <div class="container" 
+         (click)="addActiveClass($event)" 
+         [ngClass]="i < selectedStepIdx ? 'active': ''" #container>
         <a class="circle" 
            routerLink="{{step.url}}"
            nz-tooltip 

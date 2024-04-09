@@ -9,6 +9,7 @@ import { OrderListComponent } from "./top-pages/order-list/order-list.component"
 import { OrderProcessComponent } from "./top-pages/order-process/order-process.component";
 import { OrderTrackingCustomerInfoComponent } from "./components/order-process/order-tracking-customer-info/order-tracking-customer-info.component";
 import { OrderTrackingPaymentMethodsComponent } from "./components/order-process/order-tracking-payment-methods/order-tracking-payment-methods.component";
+import { OrderTrackingNotifyCustomerComponent } from "./components/order-process/order-tracking-notify-customer/order-tracking-notify-customer.component";
 
 export const shoppingRoutes: Routes = [
     {
@@ -57,6 +58,10 @@ export const shoppingRoutes: Routes = [
                         path: 'payment-methods',
                         component: OrderTrackingPaymentMethodsComponent
                     },
+                    {
+                        path: 'notify-customer',
+                        component: OrderTrackingNotifyCustomerComponent
+                    }
 
                 ]
             }

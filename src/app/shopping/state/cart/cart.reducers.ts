@@ -15,7 +15,7 @@ export const cartFeatureKey = 'cartFeature';
 export const cartReducer = createReducer(
     initialCartState,
     on(cartActions.cartItemUpsert, (state, action) => {
-        let itemsInCart = state.itemsInCart;
+        let itemsInCart = [...state.itemsInCart]; //this single line make it immutable, if not use spread operator, it will mutate the state
         let item = itemsInCart.find(
             (item) =>
                 item.productModelId === action.upsertCartItem.productModelId &&
@@ -107,5 +107,5 @@ export const cartReducer = createReducer(
         couponApplied: false,
         discountAmountByCoupon: 0,
         couponCodeApplied: ''
-    }))
+    })),
 );

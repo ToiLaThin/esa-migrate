@@ -1,6 +1,7 @@
 <div class="flex flex-col gap-4">
     <div class="min-h-[500px] w-[90%] mx-auto flex flex-col items-center justify-center">
-        <esa-order-tracking-stepper></esa-order-tracking-stepper>
+        <esa-order-tracking-stepper [trackingOrder]="(trackingOrder$ | async)!">
+        </esa-order-tracking-stepper>
     </div>
     <div>
         <router-outlet>

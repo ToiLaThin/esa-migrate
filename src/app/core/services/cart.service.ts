@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, map, Observable } from 'rxjs';
 import { ICartConfirmRequest, ICartItem } from '../models/cart-item.interface';
 import { environment as env } from '../../../environments/environment.development';
+import { IOrderAggregateCart } from '../models/order.interface';
 @Injectable({
     providedIn: 'root'
 })
@@ -24,8 +25,8 @@ export class CartService {
         localStorage.removeItem(this.itemsInCartKey);
     }
 
-    public confirmCart(cartConfirmRequest: ICartConfirmRequest): Observable<any> {
-        return this._http.post<ICartConfirmRequest>(
+    public confirmCart(cartConfirmRequest: ICartConfirmRequest) {
+        return this._http.post<IOrderAggregateCart>(
             `${env.BASEURL}/api/Aggregate/WriteAggregator/CheckCouponAndAddCart`,
             cartConfirmRequest
         );

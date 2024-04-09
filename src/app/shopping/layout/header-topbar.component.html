@@ -59,7 +59,17 @@
             </a>
             }
             <div class="px-2">
-                <a class="text-black"><i class="fa fa-repeat flex items-center justify-center text-black xl:text-[32px] md:text-[20px]"></i></a>
+                @if ((this.authStatus$ | async) === AuthStatus.Authenticated && (this.trackingOrder$ | async) !== null) {
+                <a class="text-black" (click)="continueOrderingProcess()">
+                    <i class="fa fa-repeat flex items-center justify-center text-black xl:text-[32px] md:text-[20px]">
+                    </i>
+                </a>
+                } @else {
+                <a class="text-black">
+                    <i class="fa fa-repeat flex items-center justify-center text-black xl:text-[32px] md:text-[20px]">
+                    </i>
+                </a>
+                }
             </div>
             <div class="px-2">
                 <a class="text-black"><i class="far fa-heart flex items-center justify-center text-black xl:text-[32px] md:text-[20px] font-medium"></i></a>
