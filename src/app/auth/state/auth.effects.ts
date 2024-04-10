@@ -83,4 +83,11 @@ export class AuthEffects {
             })
         )
     );
+
+    bootstrapAuthEffect = createEffect(() =>
+        this.actions$.pipe(
+            ofType(authActions.bootstrapAuth),
+            tap(() => this._authService.bootstrapAuth())
+        ), { dispatch: false }
+    );
 }

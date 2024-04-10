@@ -30,8 +30,24 @@ export class AuthService {
 
     constructor(private _notificationService: NzNotificationService, private _store: Store) {
         this._userManager = new UserManager(this.idpSettings);
-        this.checkLoginStatus();
+        // this.checkLoginStatus(); if we f5, the store does not have currUser, so it gurantee we always logout, so we must use bootstrapAuth, then this checkLoginStatus will be called only in checkSession each interval
         //this._store.dispatch(authActions.checkSession()); if use this then even if we logged in, it will only display after 5 seconds
+    }
+
+    //this method is used when we refresh the page, no user in store
+    //so if we have user in local storage, we must get it and dispatch loginSuccessfull
+    bootstrapAuth() {
+        this._userManager.getUser().then((user: User | null) => {
+            if (!user) {
+                this._notificationService.info('user from state is null or not logged in', '');
+                return;
+            }
+            if (user.expired) {
+                this._notificationService.info('Your session has expired. Please login again.', '');
+                this._store.dispatch(authActions.logoutAttempted());
+            }
+            this._store.dispatch(authActions.loginSuccessfull({ returnedUser: user }));
+        });
     }
 
     checkLoginStatus() {

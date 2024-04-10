@@ -9,4 +9,14 @@ export const selectOrderState = (state: { [orderFeatureKey]: IOrderState }) =>
 export const selectorTrackingOrder = createSelector(
     selectOrderState,
     (state) => state.trackingOrder
-)
+);
+
+export const selectorIsAddressDefined = createSelector(
+    selectOrderState,
+    (state) => state.customerOrderInfo?.address !== undefined || state.customerOrderInfo?.address !== null
+);
+
+export const selectorCustomerOrderInfo = createSelector(
+    selectOrderState,
+    (state) => state.customerOrderInfo
+);

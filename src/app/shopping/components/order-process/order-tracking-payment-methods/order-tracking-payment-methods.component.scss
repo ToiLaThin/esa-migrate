@@ -43,11 +43,16 @@ ul li {
 }
 
 .submit-btn {
-    width: 80%;
+    display: block; //without this it will not center
+    width: 50%;
     margin: auto;
+    margin-bottom: 20px;
     background-color: dodgerblue;
     color: white;
-    padding: 10px 20px;
+    font-size: larger;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 30px 20px;
     border-radius: 5px;
     cursor: pointer;
     transition: all 0.3s linear;

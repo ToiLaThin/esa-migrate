@@ -18,5 +18,7 @@ export const authActions = createActionGroup({
         'Session Checking': emptyProps(),
         'Session Valid': emptyProps(),
         'User Updated': props<{updatedUser: User}>(),
+
+        'Bootstrap Auth': emptyProps(),
     }
 })

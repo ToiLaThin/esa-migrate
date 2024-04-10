@@ -1,23 +1,80 @@
 <div class="flex flex-row gap-4">
-    <div class="bg-[#ffd] rounded-sm p-4 w-full self-start">
-        <form class="add-catalog-form">
+    <div class="flex flex-col gap-4 w-full h-[800px]">
+        <div class="map-container bg-[#fff] rounded-sm p-4 shadow">
+            <img src="../../../../../assets/images/marked-map.png" class="rounded-[12px] border-solid border border-[#ddd]"/>
+        </div>
+        <!-- Map -->
+
+        <div class="bg-[#fff] rounded-sm p-4 shadow">
+            <div class="flex flex-row gap-2">
+                <div class="summary-icon">
+                    <svg-icon [iconName]="ColorSvgNames.ViewDetail" [size]="100">
+                    </svg-icon>
+                </div>
+                <div class="w-[8px] self-stretch bg-[red] rounded-[10px]"></div>
+                <div class="p-2">
+                    <div class="flex flex-row items-center mt-2">
+                        <svg-icon [iconName]="ColorSvgNames.Phone" 
+                                  [size]="14"
+                                  class="mr-2">
+                        </svg-icon>
+
+                        <span class="font-thin">
+                            {{inputtedPhoneNumber$ | async}}
+                        </span>
+                    </div>
+
+                    <div class="flex flex-row items-center mt-2">
+                        <svg-icon [iconName]="ColorSvgNames.User" 
+                                  [size]="14"
+                                  class="mr-2">
+                        </svg-icon>
+
+                        <span class="font-thin">
+                            Nguyen Duc Thinh
+                        </span>
+                    </div>
+                    <div class="flex flex-row items-center mt-2">
+                        <svg-icon [iconName]="ColorSvgNames.Location" 
+                                  [size]="14"
+                                  class="mr-2">
+                        </svg-icon>
+
+                        <span class="font-thin">
+                            {{inputtedAddress$ | async}}
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Confirm Info -->
+    </div>
+
+    <div class="bg-[#fff] rounded-sm p-4 w-full self-start shadow min-w-[400px]">
+        <form [formGroup]="this.customerInfoForm" 
+              (ngSubmit)="confirmCustomerInfo()"
+              class="add-catalog-form">
             <div class="form-group">
                 <label for="customer-phone" 
                        class="label">
                     Customer phone
                 </label>
                 <input id="customer-phone"
-                       class="form-input" 
-                       placeholder="Receiver phone:">
+                       class="form-input" required
+                       placeholder="Receiver phone:"
+                       type="tel" pattern="[0][0-9]{9}"
+                       maxlength="10" [formControl]="customerInfoForm.controls.phoneNumberInput">
             </div>
             <div class="form-group mt-3">
                 <label for="customer-address" 
                        class="label">
-                       Customer address
+                       Deliver to
                 </label>
                 <input id="customer-address"
                        class="form-input" 
-                       placeholder="Drop order address:">
+                       placeholder="Drop order address:"
+                       [formControl]="customerInfoForm.controls.addressInput"
+                       [value]="this.inputtedAddress$ | async">
             </div>
             <div class="form-group mt-3">
                 <label class="label">
@@ -52,72 +109,22 @@
             <div class="form-group mt-3">
                 <app-button className="btn-primary mr-2"
                             type="submit">
-                    Save
+                    Confirm
                 </app-button>
                 <app-button className="btn-primary mr-2"
-                            type="submit">
+                            type="button"
+                            (click)="useSavedLocation()">
                     Use saved location
                 </app-button>
                 <app-button className="btn-secondary mr-2"
-                            type="submit">
+                            type="button"
+                            (click)="clearAll()">
                     Clear
                 </app-button>
             </div>
         </form>
     </div>
-    <!-- Form -->
-
-    <div class="flex flex-col gap-4 w-full h-[800px]">
-        <div class="bg-[#ffd] rounded-sm p-4">
-            <img src="../../../../../assets/images/marked-map.png" class="rounded-[12px] border-solid border border-[#ddd]"/>
-        </div>
-        <!-- Map -->
-
-        <div class="bg-[#ffd] rounded-sm p-4">
-            <div class="flex flex-row gap-2">
-                <div class="summary-icon">
-                    <svg-icon [iconName]="ColorSvgNames.ViewDetail" [size]="100">
-                    </svg-icon>
-                </div>
-                <div class="w-[8px] self-stretch bg-[red] rounded-[10px]"></div>
-                <div class="p-2">
-                    <div class="flex flex-row items-center mt-2">
-                        <svg-icon [iconName]="ColorSvgNames.Phone" 
-                                  [size]="14"
-                                  class="mr-2">
-                        </svg-icon>
-
-                        <span class="font-thin">
-                            0123456789
-                        </span>
-                    </div>
-
-                    <div class="flex flex-row items-center mt-2">
-                        <svg-icon [iconName]="ColorSvgNames.User" 
-                                  [size]="14"
-                                  class="mr-2">
-                        </svg-icon>
-
-                        <span class="font-thin">
-                            Nguyen Duc Thinh
-                        </span>
-                    </div>
-                    <div class="flex flex-row items-center mt-2">
-                        <svg-icon [iconName]="ColorSvgNames.Location" 
-                                  [size]="14"
-                                  class="mr-2">
-                        </svg-icon>
-
-                        <span class="font-thin">
-                            123/4/5 Nguyen Van Linh, District 7, HCMC
-                        </span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Confirm Info -->
-    </div>
-
+    <!-- Form -->    
 </div>
 
 <div>
