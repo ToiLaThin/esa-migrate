@@ -1,5 +1,5 @@
 
-<form>
+<form (submit)="chooseThisPaymentMethod()" class="mb-8 px-4 py-5 bg-[#fff] shadow">
     <ng-template #noPaymentMethodSelected>
         <div class="payment-icon">
             <svg-icon [iconName]="ColorSvgNames.PaymentMethods" [size]="160">
@@ -97,8 +97,10 @@
             }
         </div>
     </div>
+
+    <!--  -->
+    <button type="submit" 
+            class="submit-btn">
+        Continue
+    </button>
 </form>
-<button type="submit" 
-        class="submit-btn">
-    Continue
-</button>

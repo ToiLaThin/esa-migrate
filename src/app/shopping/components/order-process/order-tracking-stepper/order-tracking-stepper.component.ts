@@ -49,19 +49,21 @@ export class OrderTrackingStepperComponent implements OnInit, AfterViewInit {
     ngOnInit() {}
 
     addActiveClass(event: Event) {
-        const clickedContainer = event.target as HTMLElement;
-        this.containers.forEach((container) => {
-            this._renderer.removeClass(container.nativeElement, 'active');
-        });
 
-        let isReached = false;
-        this.containers.forEach((container) => {
-            if (container.nativeElement !== clickedContainer.parentElement && !isReached) {
-                this._renderer.addClass(container.nativeElement, 'active');
-            } else if (container.nativeElement === clickedContainer.parentElement) {
-                isReached = true;
-            }
-        });
+        //***we do not want when we click on an previous step, the current step will be inactive
+        // const clickedContainer = event.target as HTMLElement;
+        // this.containers.forEach((container) => {
+        //     this._renderer.removeClass(container.nativeElement, 'active');
+        // });
+
+        // let isReached = false;
+        // this.containers.forEach((container) => {
+        //     if (container.nativeElement !== clickedContainer.parentElement && !isReached) {
+        //         this._renderer.addClass(container.nativeElement, 'active');
+        //     } else if (container.nativeElement === clickedContainer.parentElement) {
+        //         isReached = true;
+        //     }
+        // });
         //clickedContainer.parentElement?.classList.toggle('active');
     }
 }
