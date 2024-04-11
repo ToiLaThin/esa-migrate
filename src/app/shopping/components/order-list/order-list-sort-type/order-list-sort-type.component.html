@@ -1,0 +1,38 @@
+<app-button [className]="'btn-secondary'"
+            nz-dropdown
+            nzTrigger="click"
+            [nzDropdownMenu]="sortTypeMenu">
+    <div class="flex flex-row items-center">
+        @if (this.selectedSortType === null) {
+        <svg-icon [iconName]="ColorSvgNames.SortTypeSymbol" 
+                    [size]="24">
+        </svg-icon>
+        <span class="ml-2">Sort Type</span>
+        }
+        @else {
+            @for (orderListSortTypeUIModel of this.orderListSortTypeUIModels; track orderListSortTypeUIModel) {
+                @if (this.selectedSortType === orderListSortTypeUIModel.sortType) {
+                <svg-icon [iconName]="orderListSortTypeUIModel.iconName" 
+                            [size]="24">
+                </svg-icon>
+                <span class="ml-2">{{orderListSortTypeUIModel.title}}</span>
+                }
+            }
+        }
+    </div>
+</app-button>
+<nz-dropdown-menu #sortTypeMenu="nzDropdownMenu">
+    <!-- since here we only have two possibility, we actually can hard code the template, no need to make ui-models to make it more complicated -->
+    <ul class="mt-3" nz-menu>
+        @for (orderListSortTypeUIModel of this.orderListSortTypeUIModels; track orderListSortTypeUIModel) {
+        <li nz-menu-item (click)="selectSortType(orderListSortTypeUIModel.sortType)">
+            <div class="flex items-center">
+                <svg-icon [iconName]="orderListSortTypeUIModel.iconName" 
+                            [size]="24">
+                </svg-icon>
+                <span class="ml-2">{{orderListSortTypeUIModel.title}}</span>
+            </div>
+        </li>
+        }
+    </ul>
+</nz-dropdown-menu>

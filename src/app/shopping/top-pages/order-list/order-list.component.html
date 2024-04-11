@@ -1,12 +1,13 @@
 <ng-template #horizontalTabsTemplate>
-    <div class="tabs-horizontal">
-        @for (i of [1, 2, 3, 4, 5]; track $index) {
-        <div class="tab" (click)="selectTab($event)">
-            <svg-icon [iconName]="ColorSvgNames.ViewDetail"
+    <div class="tabs-horizontal shadow rounded-sm">
+        @for (orderFilterData of orderFilterDatas; track $index) {
+        <div class="tab" 
+             (click)="selectTab($event, orderFilterData.orderStatusToFilter)" 
+             nz-tooltip 
+             nzTooltipTitle="{{orderFilterData.description}}">
+            <svg-icon [iconName]="orderFilterData.iconName"
                         [size]="32"
-                        class="mr-1"
-                        nz-tooltip
-                        nzTooltipTitle="Order Drafts">
+                        class="mr-1">
             </svg-icon>
         </div>
         }
@@ -14,22 +15,49 @@
 </ng-template>
 
 <ng-template #verticalTabsTemplate>
-    <div class="tabs-vertical">
-        @for (i of [1, 2, 3, 4, 5]; track $index) {
-        <div class="tab" (click)="selectTab($event)">
-            <svg-icon [iconName]="ColorSvgNames.ViewDetail"
+    <div class="tabs-vertical shadow rounded-sm">
+        @for (orderFilterData of orderFilterDatas; track $index) {
+        <div class="tab" 
+             (click)="selectTab($event, orderFilterData.orderStatusToFilter)" 
+             nz-tooltip 
+             nzTooltipTitle="{{orderFilterData.description}}">
+            <svg-icon [iconName]="orderFilterData.iconName"
                         [size]="32"
                         class="mr-1">
             </svg-icon>
-            <span class="text-md font-semibold">Order Drafts</span>
+            <span class="text-md font-semibold">{{orderFilterData.title | uppercase}}</span>
         </div>
         }
     </div>
 </ng-template>
 
 
-<div class="bg-[red] px-8 py-6 mx-auto w-5/6">
-    <div class="container">
+<div class="bg-[#fff] px-8 py-6 ">
+    <div class="header mb-4 mx-auto w-4/6 rounded-sm">
+        <div class="flex flex-row flex-start items-center gap-2">
+            <!-- nullable -->
+            <esa-order-list-sort-by [selectedSortBy]="(this.selectedOrderListFilterSortBy$ | async)"
+                                    (sortBySelected)="selectSortBy($event)">
+            </esa-order-list-sort-by>
+
+            <esa-order-list-sort-type [selectedSortType]="(selectedOrderListFilterSortType$ | async)"
+                                      (sortTypeSelected)="selectSortType($event)">
+            </esa-order-list-sort-type>
+        </div>
+        <!-- left flex upper filter container -->
+
+        <div class="flex flex-row flex-start items-center gap-2">
+            <esa-order-list-num-per-page [selectedNumberPerPage]="(selectedOrderListNumberPerPage$ | async)"
+                                         (numberPerPageSelected)="selectNumberPerPage($event)">
+            </esa-order-list-num-per-page>
+
+            <esa-order-list-payment-method [selectedPaymentMethod]="(selectedOrderListFilterPaymentMethod$ | async)" 
+                                           (paymentMethodSelectedOrDeselected)="selectOrDeselectPaymentMethod($event)">
+            </esa-order-list-payment-method>
+        </div>
+        <!-- right flex upper filter container -->
+    </div>
+    <div class="container mx-auto w-5/6 rounded-sm">
         @if (this.currentWindowWidth < lgScreen) {
         <ng-container *ngTemplateOutlet="horizontalTabsTemplate">
         </ng-container>
@@ -37,14 +65,19 @@
         <ng-container *ngTemplateOutlet="verticalTabsTemplate">
         </ng-container>
         }
-        <div class="cards-container flex flex-col lg:flex-row flex-wrap gap-1 bg-[#fff] p-2"
+        <div class="cards-container shadow flex flex-col lg:flex-row flex-wrap gap-1 bg-[#fff] p-2"
              [ngStyle]="this.currentWindowWidth < lgScreen ? {'align-content': 'stretch'} : {'align-content': 'flex-start'}"
              #cardContainer>
              <!-- style will override lg:flex-row if overflow -->
-            @for (order of orderDrafts; track $index) {
-            <esa-order-list-card [order]="order">
+            @for (orderAggregateCart of (this.orderAggregateCartsFilteredSortedPaginated$ | async); track $index) {
+            <esa-order-list-card [orderAggregateCart]="orderAggregateCart">
             </esa-order-list-card>
             }
         </div>
+    </div>
+    <div class="my-4 mx-auto w-4/6 rounded-sm shadow py-6">
+        <esa-order-list-pagination [currentPageNum]="(currentPageNum$ | async)!" 
+                                   [totalPagesAsArray]="(this.totalPagesAsArray$ | async)!">
+        </esa-order-list-pagination>
     </div>
 </div>

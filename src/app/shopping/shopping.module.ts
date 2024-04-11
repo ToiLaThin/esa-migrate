@@ -32,6 +32,13 @@ import { OrderTrackingPaymentMethodsComponent } from "./components/order-process
 import { OrderTrackingStepperComponent } from "./components/order-process/order-tracking-stepper/order-tracking-stepper.component";
 import { OrderListCardComponent } from "./components/order-list/order-list-card/order-list-card.component";
 import { NzToolTipModule } from "ng-zorro-antd/tooltip";
+import { NzDropDownModule } from "ng-zorro-antd/dropdown";
+import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
+import { OrderListSortByComponent } from "./components/order-list/order-list-sort-by/order-list-sort-by.component";
+import { OrderListSortTypeComponent } from "./components/order-list/order-list-sort-type/order-list-sort-type.component";
+import { OrderListNumPerPageComponent } from "./components/order-list/order-list-num-per-page/order-list-num-per-page.component";
+import { OrderListPaymentMethodComponent } from "./components/order-list/order-list-payment-method/order-list-payment-method.component";
+import { OrderListPaginationComponent } from "./components/order-list/order-list-pagination/order-list-pagination.component";
 @NgModule({
     imports: [
         RouterModule.forChild(shoppingRoutes),
@@ -41,7 +48,9 @@ import { NzToolTipModule } from "ng-zorro-antd/tooltip";
         
         ShareComponentsModule,
         NzNotificationModule,
-        NzToolTipModule
+        NzToolTipModule,
+        NzDropDownModule,
+        NzCheckboxModule
     ],
     declarations: [
         ShoppingComponent,
@@ -65,13 +74,19 @@ import { NzToolTipModule } from "ng-zorro-antd/tooltip";
         ProductPolicyComponent,
 
         CartComponent,
-        OrderListComponent,
-        OrderListCardComponent,
         OrderProcessComponent,
         OrderTrackingCustomerInfoComponent,
         OrderTrackingNotifyCustomerComponent,
         OrderTrackingPaymentMethodsComponent,
         OrderTrackingStepperComponent,
+        
+        OrderListComponent,
+        OrderListCardComponent,
+        OrderListSortByComponent,
+        OrderListSortTypeComponent,
+        OrderListPaymentMethodComponent,
+        OrderListNumPerPageComponent,
+        OrderListPaginationComponent
     ],
     exports: [],
 })

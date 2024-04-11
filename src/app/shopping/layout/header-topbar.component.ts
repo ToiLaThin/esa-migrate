@@ -19,6 +19,8 @@ import { selectorTrackingOrder } from '../state/order/order.selectors';
 import { IOrderState } from '../state/order/orderState.interface';
 import { orderFeatureKey } from '../state/order/order.reducers';
 import { orderActions } from '../state/order/order.actions';
+import { ColorSvgNames } from '../../share-components/svg-definitions/color-svg-names.enum';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'esa-shopping-header-topbar',
@@ -34,7 +36,11 @@ export class HeaderTopbarComponent implements OnInit {
     get AuthStatus() {
         return AuthStatus;
     } //for template to use enum
-    constructor(private _store: Store) {}
+
+    get ColorSvgNames() {
+        return ColorSvgNames;
+    }
+    constructor(private _store: Store, private _router: Router) {}
 
     ngOnInit(): void {
         this.userName$ = this._store.select((state) =>
@@ -64,5 +70,10 @@ export class HeaderTopbarComponent implements OnInit {
 
     continueOrderingProcess() {
         this._store.dispatch(orderActions.continueCurrentTrackingOrderProcess());
+    }
+
+    navigateToOrderList() {
+        console.log('navigateToOrderList');
+        this._router.navigate(['/shopping/order-list']);
     }
 }

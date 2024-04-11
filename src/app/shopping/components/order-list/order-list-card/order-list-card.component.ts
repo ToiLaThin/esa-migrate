@@ -1,6 +1,7 @@
 import { Component, Input } from "@angular/core";
-import { IOrderDraftViewModel } from "../../../../core/models/order.interface";
+import { IOrderAggregateCart } from "../../../../core/models/order.interface";
 import { ColorSvgNames } from "../../../../share-components/svg-definitions/color-svg-names.enum";
+import { OrderStatus } from "../../../../core/types/order-status.enum";
 
 @Component({
     selector: "esa-order-list-card",
@@ -8,9 +9,13 @@ import { ColorSvgNames } from "../../../../share-components/svg-definitions/colo
     styleUrls: ["./order-list-card.component.scss"]
 })
 export class OrderListCardComponent {
-    @Input({required: true}) order!: IOrderDraftViewModel;
+    @Input({required: true}) orderAggregateCart!: IOrderAggregateCart;
     get ColorSvgNames() {
         return ColorSvgNames;
+    }
+
+    get OrderStatus() {
+        return OrderStatus;
     }
     
     constructor() {}

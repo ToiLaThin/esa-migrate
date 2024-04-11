@@ -1,0 +1,52 @@
+<app-button [className]="'btn-secondary'"
+            nz-dropdown
+            nzTrigger="click"
+            [nzDropdownMenu]="sortByMenu">
+    <div class="flex flex-row items-center">
+        @if (this.selectedSortBy === null) {
+        <svg-icon [iconName]="ColorSvgNames.SortBySymbol" 
+                  [size]="24">
+        </svg-icon>
+        <span class="ml-2">Sort By</span>
+        } 
+        @else {
+            @for (orderListSortByUIModel of this.orderListSortByUIModels; track orderListSortByUIModel) {
+                @if (this.selectedSortBy === orderListSortByUIModel.sortBy) {
+                <svg-icon [iconName]="orderListSortByUIModel.iconName" 
+                            [size]="24">
+                </svg-icon>
+                <span class="ml-2">Id</span>
+                }
+            }
+        }
+    </div>
+</app-button>
+<nz-dropdown-menu #sortByMenu="nzDropdownMenu">
+    <ul class="mt-3" nz-menu>
+        <!-- We can also loop here like above -->
+        <li nz-menu-item (click)="selectSortBy(OrdersSortBy.id)">
+            <div class="flex items-center">
+                <svg-icon [iconName]="ColorSvgNames.SortById" 
+                            [size]="24">
+                </svg-icon>
+                <span class="ml-2">Id</span>
+            </div>
+        </li>
+        <li nz-menu-item (click)="selectSortBy(OrdersSortBy.subTotal)">
+            <div class="flex items-center">
+                <svg-icon [iconName]="ColorSvgNames.SortByPrice" 
+                            [size]="24">
+                </svg-icon>
+                <span class="ml-2">SubTotal</span>
+            </div>
+        </li>
+        <li nz-menu-item (click)="selectSortBy(OrdersSortBy.dateCreatedDraft)">
+            <div class="flex items-center">
+                <svg-icon [iconName]="ColorSvgNames.SortByDate" 
+                            [size]="24">
+                </svg-icon>
+                <span class="ml-2">Date</span>
+            </div>
+        </li>
+    </ul>
+</nz-dropdown-menu>

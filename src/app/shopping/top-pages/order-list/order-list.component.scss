@@ -10,7 +10,7 @@
 }
 
 .tab {
-    @apply flex flex-row gap-2 items-center px-4 py-2 bg-[#fff];
+    @apply flex flex-row gap-2 items-center bg-[#fff];
     transition: all 0.3s ease-in-out;
     cursor: pointer;
 
@@ -24,6 +24,7 @@
 
 //more fluent if using ng-template, window:resize lister with different class and CONTENT
 .tabs-vertical .tab {
+    @apply px-10 py-6;
     width: 200px;
     &.active {
         transform: translateX(5px);
@@ -32,6 +33,7 @@
 }
 
 .tabs-horizontal .tab {
+    @apply px-4 py-2;
     width: auto;
     &.active {
         transform: translateY(5px);
@@ -43,8 +45,14 @@
 .cards-container {
     //@apply min-h-[500px];
     //this cause the card to stretch to fit the height of the content
-    background-color: #C24443;
+    @apply py-4 px-5 bg-[#fff];
     overflow: auto;  //this is not neccessary if using flex-wrap
     align-content: flex-start; // without this, it result in when wrap there is space
     //and when this is flex-col, change align-content to stretch
 }
+
+.header {
+    @apply flex flex-row gap-2 flex-wrap justify-between items-center;
+    @apply py-4 px-5 bg-[#fff] rounded-sm shadow;
+}
+

@@ -1,0 +1,41 @@
+<app-button [className]="'btn-secondary'"
+            nz-dropdown
+            nzTrigger="click"
+            [nzDropdownMenu]="paymentMethodMenu">
+    <div class="flex flex-row items-center">
+        @if (selectedPaymentMethod === null) {
+        <svg-icon [iconName]="ColorSvgNames.PaymentMethods" 
+                    [size]="24">
+        </svg-icon>
+        <span class="ml-2">Payment Methods</span>
+        } 
+        @else {
+            @for (orderListPaymentMethodUIModel of this.orderListPaymentMethodUIModels; track orderListPaymentMethodUIModel) {
+                @if (this.selectedPaymentMethod === orderListPaymentMethodUIModel.paymentMethod) {
+                <svg-icon [iconName]="orderListPaymentMethodUIModel.iconName" 
+                          [size]="24">
+                </svg-icon>
+                <span class="ml-2">{{orderListPaymentMethodUIModel.title}}</span>
+                }
+            }
+        }
+    </div>
+</app-button>
+<nz-dropdown-menu #paymentMethodMenu="nzDropdownMenu">
+    <ul class="mt-3" nz-menu>
+        @for (orderListPaymentMethodUIModel of this.orderListPaymentMethodUIModels; track orderListPaymentMethodUIModel) {
+        <li nz-menu-item>
+            <div class="flex items-center">
+                <span nz-checkbox [nzChecked]="orderListPaymentMethodUIModel.paymentMethod === this.selectedPaymentMethod"
+                      (nzCheckedChange)="selectOrDeSelectPaymentMethod(orderListPaymentMethodUIModel.paymentMethod)"
+                        class="mr-2">
+                </span>
+                <svg-icon [iconName]="orderListPaymentMethodUIModel.iconName" 
+                          [size]="24">
+                </svg-icon>
+                <span class="ml-2">{{orderListPaymentMethodUIModel.title}}</span>
+            </div>
+        </li>
+        }
+    </ul>
+</nz-dropdown-menu>
