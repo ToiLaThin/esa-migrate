@@ -4,15 +4,19 @@ import { Injectable } from '@angular/core';
 import { orderActions } from './order.actions';
 import { catchError, map, of, switchMap, tap } from 'rxjs';
 import { IOrderAggregateCart } from '../../../core/models/order.interface';
-import { State, Store } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { orderFeatureKey } from './order.reducers';
-import { IOrderState } from './orderState.interface';
-import { selectorTrackingOrder } from './order.selectors';
+import { IOrderListFilterSortPaginateAggregateState, IOrderState } from './orderState.interface';
+import {
+    selectorOrderListFilterSortPaginateAggregateState,
+    selectorTrackingOrder
+} from './order.selectors';
 import { Router } from '@angular/router';
 import { OrderStatus } from '../../../core/types/order-status.enum';
 import { IAuthState } from '../../../auth/state/authState.interface';
 import { authFeatureKey } from '../../../auth/state/auth.reducers';
 import { selectorUserId } from '../../../auth/state/auth.selectors';
+import { OrdersSortBy, OrdersSortType } from '../../../core/ui-models/order-filter-data';
 
 @Injectable({ providedIn: 'root' })
 export class OrderEffects {
@@ -301,6 +305,70 @@ export class OrderEffects {
                             of(orderActions.pickPaymentMethodCreditCardFailed({ error }))
                         )
                     );
+            })
+        )
+    );
+
+    loadOrderFilteredSortedPaginatedListEffect = createEffect(() =>
+        this.actions$.pipe(
+            ofType(orderActions.loadOrderFitlerdSortedPaginatedList),
+            switchMap((_) => {
+                //instead of multiple selector for one scalar value => make a big obj => only have to subscribe one to get value
+                let orderListFilterSortPaginateAggregateState: IOrderListFilterSortPaginateAggregateState | null =
+                    null;
+                let orderListFilterSortPaginateAggregateStateSubscription = this._store
+                    .select((state) =>
+                        selectorOrderListFilterSortPaginateAggregateState(
+                            state as { [orderFeatureKey]: IOrderState }
+                        )
+                    )
+                    .pipe(
+                        tap(
+                            (orderFilterSortPaginatedWrapper) =>
+                                (orderListFilterSortPaginateAggregateState =
+                                    orderFilterSortPaginatedWrapper)
+                        )
+                    )
+                    .subscribe();
+                orderListFilterSortPaginateAggregateStateSubscription.unsubscribe();
+                return this._orderService
+                    .loadOrderFitlerdSortedPaginatedList(
+                        orderListFilterSortPaginateAggregateState!.orderListFilterOrderStatus,
+                        orderListFilterSortPaginateAggregateState!.orderListFilterPaymentMethod,
+                        orderListFilterSortPaginateAggregateState!.orderListPageNum,
+                        orderListFilterSortPaginateAggregateState!.orderListPageSize,
+                        orderListFilterSortPaginateAggregateState!.orderListSortBy,
+                        orderListFilterSortPaginateAggregateState!.orderListSortType
+                    )
+                    .pipe(
+                        tap((returnedResult) =>
+                            console.log('OrderFitlerdSortedPaginatedList', returnedResult)
+                        ),
+                        map((returnedResult) =>
+                            orderActions.loadOrderFitlerdSortedPaginatedListSuccess({
+                                orderAggregateCartFilteredSortedPaginatedList: returnedResult
+                            })
+                        ),
+                        catchError((error) =>
+                            of(orderActions.loadOrderFitlerdSortedPaginatedListFailed({ error }))
+                        )
+                    );
+            })
+        )
+    );
+
+    //add more actions can trigger this effect
+    filterSortPaginateChangedEffect = createEffect(() =>
+        this.actions$.pipe(
+            ofType(
+                orderActions.filterOrderStatusBy,
+                orderActions.filterOrderSortBy,
+                orderActions.filterOrderSortType,
+                orderActions.numberPerPageSelected,
+                orderActions.paymentMethodSelectedOrDeselect
+            ),
+            switchMap((_) => {
+                return of(orderActions.loadOrderFitlerdSortedPaginatedList());
             })
         )
     );

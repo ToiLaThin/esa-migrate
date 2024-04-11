@@ -13,4 +13,18 @@ export enum ColorSvgNames {
     Phone = 'color-phone',
     Location = 'color-location',
     SaleTag = 'color-sale-tag',
+
+    SortTypeSymbol = 'color-sort-type-symbol',
+    SortTypeDesc = 'color-sort-type-desc',
+    SortTypeAsc = 'color-sort-type-asc',
+
+    SortBySymbol = 'color-sort-by-symbol',
+    SortByDate = 'color-sort-by-calendar',
+    SortByPrice = 'color-sort-by-dollar',
+    SortById = 'color-sort-by-id',
+
+    NumberPerPageSymbol = 'color-num-per-page-symbol',
+    NumberPerPage5 = 'color-num-per-page-5',
+    NumberPerPage10 = 'color-num-per-page-10',
+    NumberPerPage15 = 'color-num-per-page-15',
 }

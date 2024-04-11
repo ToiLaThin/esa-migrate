@@ -74,6 +74,21 @@
             <div class="px-2">
                 <a class="text-black"><i class="far fa-heart flex items-center justify-center text-black xl:text-[32px] md:text-[20px] font-medium"></i></a>
             </div>
+            <div class="px-2">
+                @if ((this.authStatus$ | async) === AuthStatus.Authenticated) {
+                <a class="text-black" (click)="navigateToOrderList()">
+                    <svg-icon [iconName]="ColorSvgNames.ViewDetail"
+                              [size]="32">
+                    </svg-icon>
+                </a>
+                } @else {
+                <a class="text-black" (click)="navigateToOrderList()">
+                    <svg-icon [iconName]="ColorSvgNames.ViewDetail"
+                              [size]="32">
+                    </svg-icon>
+                </a>
+                }
+            </div>
         </div>
     </div>
 </div>

@@ -7,12 +7,7 @@ import { take, tap } from 'rxjs';
 import { IOrderState } from '../../../state/order/orderState.interface';
 import { IOrderAggregateCart } from '../../../../core/models/order.interface';
 import { orderActions } from '../../../state/order/order.actions';
-
-export enum PaymentMethod {
-    COD = 0,
-    Momo = 1,
-    CreditCard = 2
-}
+import { PaymentMethod } from '../../../../core/types/payment-method.enum';
 
 @Component({
     selector: 'esa-order-tracking-payment-methods',

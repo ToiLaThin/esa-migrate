@@ -1,7 +1,7 @@
 import { Store } from '@ngrx/store';
 import { IOrderAggregateCart } from '../models/order.interface';
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import {
     ICustomerOrderInfo,
     ICustomerOrderInfoConfirmedRequest
@@ -9,6 +9,9 @@ import {
 import { orderActions } from '../../shopping/state/order/order.actions';
 import { environment as env } from '../../../environments/environment.development';
 import { IPaymentRequest, IPaymentResponse } from '../models/payment.interface';
+import { OrderStatus } from '../types/order-status.enum';
+import { PaymentMethod } from '../types/payment-method.enum';
+import { OrdersSortBy, OrdersSortType } from '../ui-models/order-filter-data';
 @Injectable({
     providedIn: 'root'
 })
@@ -100,6 +103,33 @@ export class OrderService {
         return this._http.post<IOrderAggregateCart>(
             `${env.BASEURL}/api/OrderCart/OrderAPI/ConfirmOrderCustomerInfo`,
             customerOrderInfoConfirmedReq
+        );
+    }
+
+    loadOrderFitlerdSortedPaginatedList(
+        orderListFilterOrderStatus: OrderStatus | null,
+        orderListFilterPaymentMethod: PaymentMethod | null,
+        orderListPageNum: number,
+        orderListPageSize: number,
+        orderListSortBy: OrdersSortBy,
+        orderListSortType: OrdersSortType) {
+        let httpParams = new HttpParams().appendAll({
+            'sortBy': orderListSortBy,
+            'page': orderListPageNum,
+            'pageSize': orderListPageSize,
+            'sortType': orderListSortType,
+        })
+        if (orderListFilterOrderStatus !== null) {
+            httpParams = httpParams.append('filterOrderStatus', orderListFilterOrderStatus);
+        }
+        if (orderListFilterPaymentMethod !== null) {
+            httpParams = httpParams.append('filterPaymentMethod', orderListFilterPaymentMethod);
+        }
+        console.log(httpParams);
+        console.log("Key:", httpParams.keys());
+        return this._http.get<IOrderAggregateCart[]>(
+            `${env.BASEURL}/api/OrderCart/OrderAPI/GetOrdersAggregateCartFilterSortPagination`,
+            {params: httpParams}
         );
     }
 

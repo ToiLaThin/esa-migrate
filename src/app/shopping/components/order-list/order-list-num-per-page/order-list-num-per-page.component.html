@@ -1,0 +1,38 @@
+<app-button [className]="'btn-secondary'"
+            nz-dropdown
+            nzTrigger="click"
+            [nzDropdownMenu]="numPerPageMenu">
+    <div class="flex flex-row items-center">
+        @if(this.selectedNumberPerPage === null) {
+            <svg-icon [iconName]="ColorSvgNames.NumberPerPageSymbol" 
+                        [size]="24">
+            </svg-icon>
+            <span class="ml-2">Num Per Page</span>
+        }
+        @else {
+            @for (orderListNumberPerPageUIModel of this.orderListNumberPerPageUIModels; track orderListNumberPerPageUIModel) {
+                @if (this.selectedNumberPerPage === orderListNumberPerPageUIModel.numberPerPage) {
+                    <svg-icon [iconName]="orderListNumberPerPageUIModel.iconName" 
+                                [size]="24">
+                    </svg-icon>
+                    <span class="ml-2">{{orderListNumberPerPageUIModel.title}}</span>
+                }
+            }
+        }
+    </div>
+</app-button>
+<nz-dropdown-menu #numPerPageMenu="nzDropdownMenu">
+    <ul class="mt-3" nz-menu>
+        @for (orderListNumberPerPageUIModel of this.orderListNumberPerPageUIModels; track orderListNumberPerPageUIModel) {
+        <li nz-menu-item 
+            (click)="selectNumberPerPage(orderListNumberPerPageUIModel.numberPerPage)">
+            <div class="flex items-center">
+                <svg-icon [iconName]="orderListNumberPerPageUIModel.iconName" 
+                            [size]="24">
+                </svg-icon>
+                <span class="ml-2">{{orderListNumberPerPageUIModel.title}}</span>
+            </div>
+        </li>
+        }
+    </ul>
+</nz-dropdown-menu>

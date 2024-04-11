@@ -1,6 +1,9 @@
 import { createActionGroup, emptyProps, props } from "@ngrx/store";
 import { IOrderAggregateCart } from "../../../core/models/order.interface";
 import { ICustomerOrderInfo, ICustomerOrderInfoConfirmedRequest } from "../../../core/models/customer-order-info.interface";
+import { OrderStatus } from "../../../core/types/order-status.enum";
+import { OrdersSortBy, OrdersSortType } from "../../../core/ui-models/order-filter-data";
+import { PaymentMethod } from "../../../core/types/payment-method.enum";
 
 export const orderActions = createActionGroup({
     source: 'Order Events In Shopping Module',
@@ -29,6 +32,16 @@ export const orderActions = createActionGroup({
         'Pick Payment Method Credit Card': emptyProps(),
         'Pick Payment Method Credit Card Success': emptyProps(),
         'Pick Payment Method Credit Card Failed': props<{ error: any }>(),
+
+        'Load Order Fitlerd Sorted Paginated List': emptyProps(),
+        'Load Order Fitlerd Sorted Paginated List Success': props<{ orderAggregateCartFilteredSortedPaginatedList: IOrderAggregateCart[] }>(),
+        'Load Order Fitlerd Sorted Paginated List Failed': props<{ error: any }>(),
+
+        'Filter Order Status By': props<{newOrderListFilterByOrderStatus: OrderStatus}>(),
+        'Filter Order Sort By': props<{newOrderListFilterBySortBy: OrdersSortBy}>(),
+        'Filter Order Sort Type': props<{newOrderListFilterBySortType: OrdersSortType}>(),
+        'Number Per Page Selected': props<{newOrderListNumberPerPage: number}>(),
+        'Payment Method Selected Or Deselect': props<{newOrderListPaymentMethod: PaymentMethod | null}>(),
 
     }
 })
