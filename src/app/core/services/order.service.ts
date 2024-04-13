@@ -127,7 +127,11 @@ export class OrderService {
         }
         console.log(httpParams);
         console.log("Key:", httpParams.keys());
-        return this._http.get<IOrderAggregateCart[]>(
+        //key must match property name in OrderAggregateCartViewModelEnvelope in backend
+        return this._http.get<{
+            orderAggregateCartViewModels: IOrderAggregateCart[],
+            totalOrdersCount: number
+        }>(
             `${env.BASEURL}/api/OrderCart/OrderAPI/GetOrdersAggregateCartFilterSortPagination`,
             {params: httpParams}
         );

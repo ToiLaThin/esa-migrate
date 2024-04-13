@@ -1,4 +1,4 @@
-import { ICustomerOrderInfo, ICustomerOrderInfoConfirmedRequest } from "../../../core/models/customer-order-info.interface";
+import { ICustomerOrderInfo } from "../../../core/models/customer-order-info.interface";
 import { IOrderAggregateCart } from "../../../core/models/order.interface";
 import { OrderStatus } from "../../../core/types/order-status.enum";
 import { PaymentMethod } from "../../../core/types/payment-method.enum";
@@ -16,6 +16,7 @@ export interface IOrderState {
     orderListSortType: OrdersSortType;
 
     orderAggregateCartFilteredSortedPaginatedList: IOrderAggregateCart[];
+    totalOrdersAfterFilteredCount: number;//not paginated count, but all after filter
 }
 
 export interface IOrderListFilterSortPaginateAggregateState {

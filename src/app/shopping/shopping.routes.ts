@@ -10,6 +10,7 @@ import { OrderProcessComponent } from "./top-pages/order-process/order-process.c
 import { OrderTrackingCustomerInfoComponent } from "./components/order-process/order-tracking-customer-info/order-tracking-customer-info.component";
 import { OrderTrackingPaymentMethodsComponent } from "./components/order-process/order-tracking-payment-methods/order-tracking-payment-methods.component";
 import { OrderTrackingNotifyCustomerComponent } from "./components/order-process/order-tracking-notify-customer/order-tracking-notify-customer.component";
+import { AuthenticatedRequiredGuard } from "../core/guards/authenticated-required.guard";
 
 export const shoppingRoutes: Routes = [
     {
@@ -26,6 +27,7 @@ export const shoppingRoutes: Routes = [
                 component: IndexComponent
             },
             {
+                canActivate: [AuthenticatedRequiredGuard],
                 path: 'product-list',
                 component: ProductListComponent
             },

@@ -2,7 +2,6 @@ import { createReducer, on } from "@ngrx/store";
 import { IOrderState } from "./orderState.interface";
 import { orderActions } from "./order.actions";
 import { OrdersNumberPerPage, OrdersSortBy, OrdersSortType } from "../../../core/ui-models/order-filter-data";
-import { IOrderAggregateCart } from './../../../core/models/order.interface';
 
 export const orderFeatureKey = 'orderFeature';
 
@@ -17,7 +16,8 @@ export const initialOrderState: IOrderState = {
     orderListSortBy: OrdersSortBy.id,
     orderListSortType: OrdersSortType.ascending,
     
-    orderAggregateCartFilteredSortedPaginatedList: []
+    orderAggregateCartFilteredSortedPaginatedList: [],
+    totalOrdersAfterFilteredCount: 0,//not paginated count, but all after filter
 }
 
 export const orderReducer = createReducer(
@@ -55,7 +55,8 @@ export const orderReducer = createReducer(
     on(orderActions.loadOrderFitlerdSortedPaginatedListSuccess, (state, action) => {
         return {
             ...state,
-            orderAggregateCartFilteredSortedPaginatedList: action.orderAggregateCartFilteredSortedPaginatedList
+            orderAggregateCartFilteredSortedPaginatedList: action.orderAggregateCartFilteredSortedPaginatedList,
+            totalOrdersAfterFilteredCount: action.totalOrdersAfterOnlyFilteredCount
         }
     }),
 
@@ -103,6 +104,15 @@ export const orderReducer = createReducer(
         return {
             ...state,
             orderListFilterPaymentMethod: action.newOrderListPaymentMethod
+        };
+    }),
+    on(orderActions.selectPageNumber, (state, action) => {
+        if (action.selectedPageNum === state.orderListPageNum) {
+            return {...state};
+        }
+        return {
+            ...state,
+            orderListPageNum: action.selectedPageNum
         };
     }),
 );

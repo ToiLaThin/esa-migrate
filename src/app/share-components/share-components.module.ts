@@ -6,6 +6,7 @@ import { CommonModule } from "@angular/common";
 import { PillComponent } from "./pill/pill.component";
 import { InputComponent } from "./input/input.component";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { FullPageNotificationComponent } from "./full-page-notification/full-page-notification.component";
 
 const sharedComponents = [
     SvgIconComponent,
@@ -13,6 +14,7 @@ const sharedComponents = [
     ButtonComponent,
     PillComponent,
     InputComponent,
+    FullPageNotificationComponent
 ]
 @NgModule({
     declarations: [sharedComponents],

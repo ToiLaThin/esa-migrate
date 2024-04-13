@@ -193,6 +193,11 @@ export class OrderListComponent implements OnInit {
             })
         );
     }
+
+    changePageNum(pageNum: number) {
+        this._store.dispatch(orderActions.selectPageNumber({ selectedPageNum: pageNum}))
+    }
+    
     @HostListener('window:resize', ['$event'])
     onResize(event: any) {
         this.currentWindowWidth = event.target.innerWidth;

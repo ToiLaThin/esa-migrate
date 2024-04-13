@@ -346,7 +346,8 @@ export class OrderEffects {
                         ),
                         map((returnedResult) =>
                             orderActions.loadOrderFitlerdSortedPaginatedListSuccess({
-                                orderAggregateCartFilteredSortedPaginatedList: returnedResult
+                                orderAggregateCartFilteredSortedPaginatedList: returnedResult.orderAggregateCartViewModels,
+                                totalOrdersAfterOnlyFilteredCount: returnedResult.totalOrdersCount
                             })
                         ),
                         catchError((error) =>
@@ -365,7 +366,8 @@ export class OrderEffects {
                 orderActions.filterOrderSortBy,
                 orderActions.filterOrderSortType,
                 orderActions.numberPerPageSelected,
-                orderActions.paymentMethodSelectedOrDeselect
+                orderActions.paymentMethodSelectedOrDeselect,
+                orderActions.selectPageNumber
             ),
             switchMap((_) => {
                 return of(orderActions.loadOrderFitlerdSortedPaginatedList());
