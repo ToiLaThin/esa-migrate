@@ -65,7 +65,8 @@ export class SignalrService {
                 })
                 .catch((err: any) => {
                     console.log('Error while starting SignalR connection');
-
+                    console.log(err);
+                    
                     this._notificationService.error(err, 'Error');
                 });
 

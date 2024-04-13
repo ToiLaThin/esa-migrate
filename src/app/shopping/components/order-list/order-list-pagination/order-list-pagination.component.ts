@@ -9,20 +9,20 @@ import { Component, EventEmitter, Input, Output } from "@angular/core";
 export class OrderListPaginationComponent {
     @Input({ required: true }) currentPageNum!: number;
     @Input({ required: true }) totalPagesAsArray: number[] = [];
-    @Output() changedPage: EventEmitter<number> = new EventEmitter<number>();
+    @Output() pageNumChanged: EventEmitter<number> = new EventEmitter<number>();
     constructor() { }
     ngOnInit() {
     }
 
     changePage(pageNum: number) {
-        this.changedPage.emit(pageNum);    
+        this.pageNumChanged.emit(pageNum);    
     }
 
     goPrevPage() {
-        this.changedPage.emit(this.currentPageNum - 1);
+        this.pageNumChanged.emit(this.currentPageNum - 1);
     }
 
     goNextPage() {
-        this.changedPage.emit(this.currentPageNum + 1);
+        this.pageNumChanged.emit(this.currentPageNum + 1);
     }
 }

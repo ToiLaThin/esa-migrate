@@ -1,4 +1,11 @@
-<p>You are currently not logged in</p>
-<button type="button" (click)="login()" style="display:inline-block; padding: 1rem; border: 1px solid black;">Login</button>
+<esa-full-page-notification [notifyIconName]="ColorSvgNames.LoginRequired">
+    <h2 class="mt-4 text-md font-medium text-[#1e1e1e]">You are currently not logged in</h2>
+    <app-button (click)="login()"
+                [iconName]="ColorSvgNames.LoginRequired"
+                [iconSize]="24"
+                class="btn-primary mt-4">
+        Login
+    </app-button>
+</esa-full-page-notification>
 <!-- <a type="button" href="https://localhost:7003/Auth/Redirect/IdentityServer4" style="display:inline-block; padding: 1rem; border: 1px solid black;">Login Diff</a> -->
 <!-- This work -->

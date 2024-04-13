@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { UnAuthorizedComponent } from './components/un-authorized.component';
 import { SigninRedirectCallbackComponent } from './components/signin-redirect-callback.component';
 import { SignoutRedirectCallbackComponent } from './components/signout-redirect-callback.component';
+import { ShareComponentsModule } from '../share-components/share-components.module';
 
 const authRoutes: Routes = [
   {
@@ -33,6 +34,7 @@ const authRoutes: Routes = [
   imports: [
     CommonModule,
     RouterModule.forChild(authRoutes),
+    ShareComponentsModule
   ],
 })
 export class AuthModule { }

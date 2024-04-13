@@ -42,15 +42,15 @@ export const selectorOrderAggregateCartFilteredSortedPaginatedList = createSelec
     (state) => state.orderAggregateCartFilteredSortedPaginatedList
 )
 
-//we must get this from server, not the state.orderAggregateCartFilteredSortedPaginatedList.length
-export const selectorOrderAggregateCartFilteredSortedTotalCount = createSelector(
+export const selectorOrderAggregateCartFilteredListTotalCount = createSelector(
     selectOrderState,
-    (state) => state.orderAggregateCartFilteredSortedPaginatedList.length //wrong
+    (state) => state.totalOrdersAfterFilteredCount
 )
 
 export const selectorPageCountOrderAggregateCartFilteredSortedPaginated = createSelector(
-    selectOrderState,
-    (state) => Math.ceil(state.orderAggregateCartFilteredSortedPaginatedList.length / state.orderListPageSize)
+    selectorOrderListFilterSortPaginateAggregateState,
+    selectorOrderAggregateCartFilteredListTotalCount,
+    (orderListFilterSortPaginateAggregateState, totalOrdersAfterFilteredCount) => Math.ceil(totalOrdersAfterFilteredCount / orderListFilterSortPaginateAggregateState.orderListPageSize)
     //math ceil luon lam tron len => 1.1 -> 2
 )
 

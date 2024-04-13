@@ -77,7 +77,8 @@
     </div>
     <div class="my-4 mx-auto w-4/6 rounded-sm shadow py-6">
         <esa-order-list-pagination [currentPageNum]="(currentPageNum$ | async)!" 
-                                   [totalPagesAsArray]="(this.totalPagesAsArray$ | async)!">
+                                   [totalPagesAsArray]="(this.totalPagesAsArray$ | async)!"
+                                   (pageNumChanged)="changePageNum($event)">
         </esa-order-list-pagination>
     </div>
 </div>

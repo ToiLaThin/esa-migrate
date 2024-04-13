@@ -27,4 +27,6 @@ export enum ColorSvgNames {
     NumberPerPage5 = 'color-num-per-page-5',
     NumberPerPage10 = 'color-num-per-page-10',
     NumberPerPage15 = 'color-num-per-page-15',
+
+    LoginRequired = 'color-login-required',
 }
