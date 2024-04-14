@@ -8,7 +8,9 @@ import {
     selectorIsSelectedProductBookmarked,
     selectorIsSelectedProductDisliked,
     selectorIsSelectedProductLiked,
-    selectorProductSelected
+    selectorIsSelectedProductRated,
+    selectorProductSelected,
+    selectorSelectedProductRating
 } from '../../state/product/product.selectors';
 import { IProductState } from '../../state/product/productState.interface';
 import { productFeatureKey } from '../../state/product/product.reducers';
@@ -33,6 +35,10 @@ export class ProductQuickviewComponent implements OnInit, OnDestroy {
 
     productBusinessKey!: string;
     currUserId!: string;
+
+    productRating$!: Observable<number | undefined | null>;
+    isProductRated$!: Observable<boolean>;
+    
     constructor(private _route: ActivatedRoute, private _router: Router, private _store: Store) {}
 
     ngOnDestroy(): void {
@@ -102,13 +108,36 @@ export class ProductQuickviewComponent implements OnInit, OnDestroy {
             .subscribe();
         tempSubscription.unsubscribe();
 
-        this._store.dispatch(productActions.loadProductBookmarkMappings({
-            userId: this.currUserId
-        }));
+        let authStatus!: AuthStatus;
+        tempSubscription = this.authStatus$.pipe(
+            tap(status => authStatus = status)
+        ).subscribe();
+        tempSubscription.unsubscribe();
 
-        this._store.dispatch(productActions.loadProductLikeMappings({
-            userId: this.currUserId,
-        }));
+        if (authStatus === AuthStatus.Authenticated) {
+            this._store.dispatch(productActions.loadProductBookmarkMappings({
+                userId: this.currUserId
+            }));
+    
+            this._store.dispatch(productActions.loadProductLikeMappings({
+                userId: this.currUserId,
+            }));
+            this._store.dispatch(productActions.loadProductRateMappings({
+                userId: this.currUserId
+            }));
+        }
+
+        this.isProductRated$ = this._store.select((state) =>
+            selectorIsSelectedProductRated(this.productBusinessKey)(
+                state as { [productFeatureKey]: IProductState }
+            )
+        );
+        this.productRating$ = this._store.select((state) =>
+            selectorSelectedProductRating(this.productBusinessKey)(
+                state as { [productFeatureKey]: IProductState }
+            )
+        );
+        
     }
 
     closeProductModal() {
@@ -169,6 +198,20 @@ export class ProductQuickviewComponent implements OnInit, OnDestroy {
             productActions.unlikeProduct({
                 productBusinessKey: this.productBusinessKey,
                 userId: this.currUserId,
+            })
+        );
+    }
+
+    rateProduct(rating: string) {
+        if (!this.currUserId) {
+            alert('Error: Please login to rate');
+            return;
+        }
+        this._store.dispatch(
+            productActions.rateProduct({
+                productBusinessKey: this.productBusinessKey,
+                userId: this.currUserId,
+                rating
             })
         );
     }

@@ -12,6 +12,7 @@ import { CatalogService } from '../../../core/services/catalog.service';
 import { ProductCommentService } from '../../../core/services/product-comment.service';
 import { ProductBookmarkService } from '../../../core/services/product-bookmark.service';
 import { ProductLikeService } from '../../../core/services/product-like.service';
+import { ProductRateService } from '../../../core/services/product-rate.service';
 
 @Injectable({ providedIn: 'root' })
 export class ProductEffects {
@@ -22,6 +23,7 @@ export class ProductEffects {
         private _productCommentService: ProductCommentService,
         private _productBookmarkService: ProductBookmarkService,
         private _productLikeService: ProductLikeService,
+        private _productRateService: ProductRateService,
         private _store: Store
     ) {}
 
@@ -289,6 +291,48 @@ export class ProductEffects {
                         of(productActions.productLikeMappingsLoadedFailed({ error: err }))
                     )
                 )
+            )
+        )
+    );
+
+    loadProductRateMappingsEffect = createEffect(() =>
+        this.actions$.pipe(
+            ofType(productActions.loadProductRateMappings),
+            switchMap((action) =>
+                this._productRateService.getUserProductRateMappings(action.userId).pipe(
+                    map((ratedProductMappings) => {
+                        //no content is null result
+                        if (!ratedProductMappings) {
+                            return productActions.productRateMappingsLoadedSuccessfully({
+                                ratedProductMappings: []
+                            });
+                        }
+                        return productActions.productRateMappingsLoadedSuccessfully({
+                            ratedProductMappings
+                        });
+                    }),
+                    catchError((err) =>
+                        of(productActions.productRateMappingsLoadedFailed({ error: err }))
+                    )
+                )
+            )
+        )
+    );
+
+    rateProductEffect = createEffect(() =>
+        this.actions$.pipe(
+            ofType(productActions.rateProduct),
+            switchMap((action) =>
+                this._productRateService
+                    .rateProduct(action.productBusinessKey, action.userId, action.rating)
+                    .pipe(
+                        map((_) =>
+                            productActions.loadProductRateMappings({ userId: action.userId })
+                        ),
+                        catchError((err) =>
+                            of(productActions.productRateMappingsLoadedFailed({ error: err }))
+                        )
+                    )
             )
         )
     );

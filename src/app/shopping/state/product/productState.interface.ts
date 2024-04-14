@@ -1,6 +1,6 @@
 import { ICatalog, ISubCatalog } from "../../../core/models/catalog.interface";
 import { IComment } from "../../../core/models/order.interface";
-import { IBookmarkProduct, ILikeProduct } from "../../../core/models/product-interactions.interface";
+import { IBookmarkProduct, ILikeProduct, IRateProduct } from "../../../core/models/product-interactions.interface";
 import { IPaginatedProduct, IProductLazyLoadRequest } from "../../../core/models/product.interface";
 
 export interface IProductState {
@@ -12,5 +12,6 @@ export interface IProductState {
 
     selectedProductComments: IComment[],
     userProductBookmarkMappings: IBookmarkProduct[],
-    userProductLikeMappings: ILikeProduct[]
+    userProductLikeMappings: ILikeProduct[],
+    userProductRateMappings: IRateProduct[]
 }
