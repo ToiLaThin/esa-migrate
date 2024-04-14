@@ -86,10 +86,24 @@
             </div>
         </div>   
         <div class="mt-4 text-subheading">
-            <span>
-                <i class="far fa-heart text-lg mr-2"></i>
+            @if (isProductBookmarked === false) {
+            <span (click)="toggleProductBookmark(true)">
+                <i class="far fa-heart text-lg mr-2 cursor-pointer"></i>
                 Add To Wishlist
             </span>
+            } @else if (isProductBookmarked === null) {
+            <span (click)="login()" 
+                  nz-tooltip 
+                  nzTooltipTitle="Login required">
+                <i class="far fa-heart text-lg mr-2 cursor-pointer"></i>
+                Add To Wishlist
+            </span>
+            } @else {
+            <span (click)="toggleProductBookmark(false)">
+                <i class="fas fa-heart text-lg mr-2 cursor-pointer"></i>
+                Remove From Wishlist
+            </span>
+            }
             <span class="ml-4">
                 <i class="far fa-copy text-lg mr-2"></i>
                 Add To Compare

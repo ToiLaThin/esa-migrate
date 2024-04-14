@@ -1,9 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, Subscription, of, switchMap } from 'rxjs';
 import { IProduct, IProductModel } from '../../../core/models/product.interface';
 import { Store } from '@ngrx/store';
 import {
+    selectorIsSelectedProductBookmarked,
     selectorProductSelected,
     selectorProductSelectedComments
 } from '../../state/product/product.selectors';
@@ -30,6 +31,8 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     authStatus$!: Observable<AuthStatus>;
     currentUserId!: string;
     productComments$!: Observable<IComment[]>;
+
+    isProductBookmarked$!: Observable<boolean | null>;
 
     get AuthStatus() {
         return AuthStatus;
@@ -60,14 +63,33 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
             this.currentUserId = userId;
         });
         tempSubscription.unsubscribe();
+        
+        this.productComments$ = this._store.select((state) =>
+            selectorProductSelectedComments(state as { [productFeatureKey]: IProductState })
+        );
+
+        //pipe from another observable, we do not need to subscribe to get value
+        this.isProductBookmarked$ = this.authStatus$.pipe(
+            switchMap((authStatus) => {
+                if (authStatus === AuthStatus.Authenticated) {
+                    return this._store.select((state) =>
+                        selectorIsSelectedProductBookmarked(this.productBusinessKey)(
+                            state as { [productFeatureKey]: IProductState }
+                        )
+                    );
+                }
+                //so if unauthenticated, isProductBookmarked$ will return null not false
+                //null vs false are different, null means we do not know if the product is bookmarked or not
+                return of(null);
+            })
+        );
 
         this._store.dispatch(
             productActions.loadProductComments({ productBusinessKey: this.productBusinessKey })
         );
-        this.productComments$ = this._store.select((state) =>
-            selectorProductSelectedComments(state as { [productFeatureKey]: IProductState })
-        );
-        
+        this._store.dispatch(productActions.loadProductBookmarkMappings({
+            userId: this.currentUserId
+        }));
     }
 
     login() {
@@ -85,6 +107,24 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
                 userId: this.currentUserId,
                 productBusinessKey: this.productBusinessKey,
                 commentDetail
+            })
+        );
+    }
+
+    toggleProductBookmark(isBookmarked: boolean) {
+        if (isBookmarked) {
+            this._store.dispatch(
+                productActions.bookmarkProduct({
+                    productBusinessKey: this.productBusinessKey,
+                    userId: this.currentUserId
+                })
+            );
+            return;
+        } 
+        this._store.dispatch(
+            productActions.unbookmarkProduct({
+                productBusinessKey: this.productBusinessKey,
+                userId: this.currentUserId
             })
         );
     }

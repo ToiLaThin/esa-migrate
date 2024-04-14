@@ -7,6 +7,7 @@ import {
 } from './../../../core/models/product.interface';
 import { ICatalog, ISubCatalog } from '../../../core/models/catalog.interface';
 import { IComment } from '../../../core/models/order.interface';
+import { IBookmarkProduct } from '../../../core/models/product-interactions.interface';
 
 export const productActions = createActionGroup({
     source: 'Product Events In Shopping Module',
@@ -21,7 +22,7 @@ export const productActions = createActionGroup({
         'Price Range Changed': props<{ fromPrice: number; toPrice: number }>(),
 
         'Load Product Comments': props<{ productBusinessKey: string }>(),
-        'Product Comments Loaded Successfull': props<{ comments: IComment[] }>(),
+        'Product Comments Loaded Successfully': props<{ comments: IComment[] }>(),
         'Product Comments Loaded Failed': props<{ error: string }>(),
 
         'Comment Product': props<{
@@ -31,6 +32,12 @@ export const productActions = createActionGroup({
         }>(),
         'Product Commented Successfull': props<{ productBusinessKey: string }>(),
         'Product Commented Failed': props<{ error: string }>(),
+
+        'Load Product Bookmark Mappings': props<{ userId: string }>(),
+        'Product Bookmark Mappings Loaded Successfully': props<{ bookmarkedProductMappings: IBookmarkProduct[] }>(),
+        'Product Bookmark Mappings Loaded Failed': props<{ error: string }>(),
+        'Bookmark Product': props<{ productBusinessKey: string; userId: string }>(),
+        'Unbookmark Product': props<{ productBusinessKey: string; userId: string }>(),
     }
 });
 

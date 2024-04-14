@@ -23,6 +23,13 @@ export const selectorProductSelected = (productId: string) =>
         ) as IProduct;
     });
 
+export const selectorIsSelectedProductBookmarked = (productBusinessKey: string) =>
+    createSelector(selectorProductFeature, (productState) =>
+        productState.selectedProductBookmarkMappings
+            .map((mapping) => mapping.productBusinessKey)
+            .includes(productBusinessKey)
+    );
+    
 export const selectorDisplayingProducts = createSelector(
     selectorProductFeature,
     (productState) => productState.paginatedProducts.products

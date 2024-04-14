@@ -10,6 +10,7 @@ import { IProductLazyLoadRequest } from '../../../core/models/product.interface'
 import { Injectable } from '@angular/core';
 import { CatalogService } from '../../../core/services/catalog.service';
 import { ProductCommentService } from '../../../core/services/product-comment.service';
+import { ProductBookmarkService } from '../../../core/services/product-bookmark.service';
 
 @Injectable({ providedIn: 'root' })
 export class ProductEffects {
@@ -18,6 +19,7 @@ export class ProductEffects {
         private _productService: ProductService,
         private _catalogService: CatalogService,
         private _productCommentService: ProductCommentService,
+        private _productBookmarkService: ProductBookmarkService,
         private _store: Store
     ) {}
 
@@ -111,7 +113,7 @@ export class ProductEffects {
             switchMap((action) =>
                 this._productCommentService.getProductComments(action.productBusinessKey).pipe(
                     map((returnedComments) =>
-                        productActions.productCommentsLoadedSuccessfull({
+                        productActions.productCommentsLoadedSuccessfully({
                             comments: returnedComments
                         })
                     ),
@@ -146,7 +148,74 @@ export class ProductEffects {
     commentProductSuccessfulEffect = createEffect(() =>
         this.actions$.pipe(
             ofType(productActions.productCommentedSuccessfull),
-            switchMap((action) => of(productActions.loadProductComments({ productBusinessKey: action.productBusinessKey }))),
+            switchMap((action) =>
+                of(
+                    productActions.loadProductComments({
+                        productBusinessKey: action.productBusinessKey
+                    })
+                )
+            )
+        )
+    );
+
+    loadProductBookmarkMappingsEffect = createEffect(() =>
+        this.actions$.pipe(
+            ofType(productActions.loadProductBookmarkMappings),
+            switchMap((action) =>
+                this._productBookmarkService.getBookmarkProductMappings(action.userId).pipe(
+                    map((bookmarkedProductMappings) => {
+                        //no content is null result
+                        if (!bookmarkedProductMappings) {
+                            return productActions.productBookmarkMappingsLoadedSuccessfully({
+                                bookmarkedProductMappings: []
+                            });
+                        }
+                        return productActions.productBookmarkMappingsLoadedSuccessfully({
+                            bookmarkedProductMappings
+                        });
+                    }),
+                    catchError((err) =>
+                        of(productActions.productBookmarkMappingsLoadedFailed({ error: err }))
+                    )
+                )
+            )
+        )
+    );
+
+    //no need for another successful action
+    bookmarkProductEffect = createEffect(() =>
+        this.actions$.pipe(
+            ofType(productActions.bookmarkProduct),
+            switchMap((action) =>
+                this._productBookmarkService
+                    .bookmarkProduct(action.productBusinessKey, action.userId)
+                    .pipe(
+                        map((_) =>
+                            productActions.loadProductBookmarkMappings({ userId: action.userId })
+                        ),
+                        catchError((err) =>
+                            of(productActions.productBookmarkMappingsLoadedFailed({ error: err }))
+                        )
+                    )
+            )
+        )
+    );
+
+    unbookmarkProductEffect = createEffect(() =>
+        this.actions$.pipe(
+            ofType(productActions.unbookmarkProduct),
+            switchMap((action) =>
+                this._productBookmarkService
+                    .unbookmarkProduct(action.productBusinessKey, action.userId)
+                    .pipe(
+                        map((_) =>
+                            productActions.loadProductBookmarkMappings({ userId: action.userId })
+                        ),
+                        catchError((err) =>
+                            of(productActions.productBookmarkMappingsLoadedFailed({ error: err }))
+                        )
+                    )
+            )
         )
     );
 }
