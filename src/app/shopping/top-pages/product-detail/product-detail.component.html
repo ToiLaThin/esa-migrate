@@ -29,7 +29,10 @@
                 </div>
             </div>
             <div>
-                <esa-product-info [product]="(product$ | async)!"></esa-product-info>
+                <esa-product-info [product]="(product$ | async)!"
+                                  [isProductBookmarked]="isProductBookmarked$ | async"
+                                  (productBookmarkToggled)="toggleProductBookmark($event)">
+                </esa-product-info>
                 <esa-product-policy></esa-product-policy>
             </div>
         </div>

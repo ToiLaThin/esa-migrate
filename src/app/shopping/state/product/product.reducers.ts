@@ -26,7 +26,8 @@ export const initialProductState: IProductState = {
     allSubCatalogs: [],
     subCatalogsOfSelectedCatalog: [],
 
-    selectedProductComments: []
+    selectedProductComments: [],
+    selectedProductBookmarkMappings: []
 };
 
 export const productFeatureKey = 'productFeature';
@@ -202,10 +203,17 @@ export const productReducer = createReducer(
         };
     }),
 
-    on(productActions.productCommentsLoadedSuccessfull, (state, action) => {
+    on(productActions.productCommentsLoadedSuccessfully, (state, action) => {
         return {
             ...state,
             selectedProductComments: action.comments
+        }
+    }),
+
+    on(productActions.productBookmarkMappingsLoadedSuccessfully, (state, action) => {
+        return {
+            ...state,
+            selectedProductBookmarkMappings: action.bookmarkedProductMappings
         }
     })
 );
