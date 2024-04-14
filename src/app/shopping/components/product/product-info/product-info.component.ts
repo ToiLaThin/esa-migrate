@@ -13,10 +13,15 @@ import { productActions } from "../../../state/product/product.actions";
 export class ProductInfoComponent {
     @Input({required: true}) product!: IProduct;
     @Input({required: true}) isProductBookmarked!: boolean | null;
+    @Input({required: true}) isProductLiked!: boolean | null;
+    @Input({required: true}) isProductDisliked!: boolean | null;
     @Output() productBookmarkToggled: EventEmitter<boolean> = new EventEmitter<boolean>();
+    @Output() productLikeToggled: EventEmitter<boolean> = new EventEmitter<boolean>();
+    @Output() productDislikeToggled: EventEmitter<boolean> = new EventEmitter<boolean>();
     constructor( private _store: Store) {
         console.log(this.isProductBookmarked);
-        
+        console.log(this.isProductLiked);
+        console.log(this.isProductDisliked);
     }
 
     addModelToCart(event: Event, model: IProductModel) {
@@ -66,5 +71,25 @@ export class ProductInfoComponent {
 
     toggleProductBookmark(isBookmarked: boolean) {
         this.productBookmarkToggled.emit(isBookmarked);
+    }
+
+    toggleProductLike(isLiked: boolean) {
+        // (this.isProductLiked === false && this.isProductDisliked === false): if you logged in and you didn't like or dislike the product, this is valid
+        if(this.isProductLiked === true && this.isProductDisliked === true) {
+            alert("Error: like and dislike the product at the same time");
+            return;
+        }
+        console.log("toggleProductLike:", isLiked);
+        this.productLikeToggled.emit(isLiked);
+    }
+
+    toggleProductDislike(isDisliked: boolean) {
+        // (this.isProductLiked === false && this.isProductDisliked === false): if you logged in and you didn't like or dislike the product, this is valid
+        if(this.isProductLiked === true && this.isProductDisliked === true) {
+            alert("Error: like and dislike the product at the same time");
+            return;
+        }
+        console.log("toggleProductDislike:", isDisliked);
+        this.productDislikeToggled.emit(isDisliked);
     }
 }

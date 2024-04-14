@@ -31,7 +31,11 @@
             <div>
                 <esa-product-info [product]="(product$ | async)!"
                                   [isProductBookmarked]="isProductBookmarked$ | async"
-                                  (productBookmarkToggled)="toggleProductBookmark($event)">
+                                  [isProductLiked]="isProductLiked$ | async"
+                                  [isProductDisliked]="isProductDisliked$ | async"
+                                  (productBookmarkToggled)="toggleProductBookmark($event)"
+                                  (productLikeToggled)="toggleProductLike($event)"
+                                  (productDislikeToggled)="toggleProductDislike($event)">
                 </esa-product-info>
                 <esa-product-policy></esa-product-policy>
             </div>

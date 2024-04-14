@@ -1,10 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, Subscription, of, switchMap } from 'rxjs';
+import { Observable, Subscription, combineLatest, of, switchMap } from 'rxjs';
 import { IProduct, IProductModel } from '../../../core/models/product.interface';
 import { Store } from '@ngrx/store';
 import {
     selectorIsSelectedProductBookmarked,
+    selectorIsSelectedProductDisliked,
+    selectorIsSelectedProductLiked,
     selectorProductSelected,
     selectorProductSelectedComments
 } from '../../state/product/product.selectors';
@@ -33,6 +35,8 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     productComments$!: Observable<IComment[]>;
 
     isProductBookmarked$!: Observable<boolean | null>;
+    isProductLiked$!: Observable<boolean | null>;
+    isProductDisliked$!: Observable<boolean | null>;
 
     get AuthStatus() {
         return AuthStatus;
@@ -84,6 +88,32 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
             })
         );
 
+        this.isProductLiked$ = combineLatest([this.product$, this.authStatus$]).pipe(
+            switchMap(([product, authStatus]) => {
+                if (authStatus === AuthStatus.Authenticated) {
+                    return this._store.select((state) =>
+                        selectorIsSelectedProductLiked(product.businessKey as string)(
+                            state as { [productFeatureKey]: IProductState }
+                        )
+                    );
+                }
+                return of(null);
+            })
+        );
+
+        this.isProductDisliked$ = combineLatest([this.product$, this.authStatus$]).pipe(
+            switchMap(([product, authStatus]) => {
+                if (authStatus === AuthStatus.Authenticated) {
+                    return this._store.select((state) =>
+                        selectorIsSelectedProductDisliked(product.businessKey as string)(
+                            state as { [productFeatureKey]: IProductState }
+                        )
+                    );
+                }
+                return of(null);
+            })
+        );
+        
         this._store.dispatch(
             productActions.loadProductComments({ productBusinessKey: this.productBusinessKey })
         );
@@ -125,6 +155,42 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
             productActions.unbookmarkProduct({
                 productBusinessKey: this.productBusinessKey,
                 userId: this.currentUserId
+            })
+        );
+    }
+
+    toggleProductLike(isLiked: boolean) {
+        if(isLiked === true) {
+            this._store.dispatch(
+                productActions.likeProduct({
+                    productBusinessKey: this.productBusinessKey,
+                    userId: this.currentUserId
+                })
+            );
+            return;
+        }
+        this._store.dispatch(
+            productActions.unlikeProduct({
+                productBusinessKey: this.productBusinessKey,
+                userId: this.currentUserId,
+            })
+        );
+    }
+
+    toggleProductDislike(isDisliked: boolean) {
+        if(isDisliked === true) {
+            this._store.dispatch(
+                productActions.dislikeProduct({
+                    productBusinessKey: this.productBusinessKey,
+                    userId: this.currentUserId
+                })
+            );
+            return;
+        }
+        this._store.dispatch(
+            productActions.unlikeProduct({
+                productBusinessKey: this.productBusinessKey,
+                userId: this.currentUserId,
             })
         );
     }

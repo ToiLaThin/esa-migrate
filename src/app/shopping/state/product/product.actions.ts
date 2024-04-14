@@ -1,13 +1,12 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
 import {
     IPaginatedProduct,
-    IProductLazyLoadRequest,
     OrderType,
     SortBy
 } from './../../../core/models/product.interface';
 import { ICatalog, ISubCatalog } from '../../../core/models/catalog.interface';
 import { IComment } from '../../../core/models/order.interface';
-import { IBookmarkProduct } from '../../../core/models/product-interactions.interface';
+import { IBookmarkProduct, ILikeProduct } from '../../../core/models/product-interactions.interface';
 
 export const productActions = createActionGroup({
     source: 'Product Events In Shopping Module',
@@ -38,6 +37,14 @@ export const productActions = createActionGroup({
         'Product Bookmark Mappings Loaded Failed': props<{ error: string }>(),
         'Bookmark Product': props<{ productBusinessKey: string; userId: string }>(),
         'Unbookmark Product': props<{ productBusinessKey: string; userId: string }>(),
+
+        'Load Product Like Mappings': props<{ userId: string }>(),
+        'Product Like Mappings Loaded Successfully': props<{ likedProductMappings: ILikeProduct[] }>(),
+        'Product Like Mappings Loaded Failed': props<{ error: string }>(),
+
+        'Like Product': props<{ productBusinessKey: string; userId: string }>(),
+        'Unlike Product': props<{ productBusinessKey: string; userId: string }>(),
+        'Dislike Product': props<{ productBusinessKey: string; userId: string }>(),
     }
 });
 

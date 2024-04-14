@@ -2,6 +2,7 @@ import { createSelector } from '@ngrx/store';
 import { productFeatureKey } from './product.reducers';
 import { IProductState } from './productState.interface';
 import { IProduct } from '../../../core/models/product.interface';
+import { LikeStatus } from '../../../core/models/product-interactions.interface';
 
 export const selectorProductFeature = (state: { [productFeatureKey]: IProductState }) =>
     state[productFeatureKey];
@@ -17,19 +18,35 @@ export const selectorProductSelectedComments = createSelector(
 );
 
 export const selectorProductSelected = (productId: string) =>
-    createSelector(selectorProductFeature, (projectState: IProductState) => {
-        return projectState.paginatedProducts.products.find(
+    createSelector(selectorProductFeature, (productState: IProductState) => {
+        return productState.paginatedProducts.products.find(
             (product) => product.productId == productId
         ) as IProduct;
     });
 
+export const selectorIsSelectedProductLiked = (productBusinessKey: string) =>
+    createSelector(selectorProductFeature, (productState: IProductState) => {
+        return productState.userProductLikeMappings
+            .filter((mapping) => mapping.status === LikeStatus.Liked)
+            .map((mapping) => mapping.productBusinessKey)
+            .includes(productBusinessKey);
+    });
+
+export const selectorIsSelectedProductDisliked = (productBusinessKey: string) =>
+    createSelector(selectorProductFeature, (productState: IProductState) => {
+        return productState.userProductLikeMappings
+            .filter((mapping) => mapping.status === LikeStatus.Disliked)
+            .map((mapping) => mapping.productBusinessKey)
+            .includes(productBusinessKey);
+    });
+
 export const selectorIsSelectedProductBookmarked = (productBusinessKey: string) =>
     createSelector(selectorProductFeature, (productState) =>
-        productState.selectedProductBookmarkMappings
+        productState.userProductBookmarkMappings
             .map((mapping) => mapping.productBusinessKey)
             .includes(productBusinessKey)
     );
-    
+
 export const selectorDisplayingProducts = createSelector(
     selectorProductFeature,
     (productState) => productState.paginatedProducts.products

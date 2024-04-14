@@ -86,28 +86,17 @@
             </div>
         </div>   
         <div class="mt-4 text-subheading">
-            @if (isProductBookmarked === false) {
-            <span (click)="toggleProductBookmark(true)">
-                <i class="far fa-heart text-lg mr-2 cursor-pointer"></i>
-                Add To Wishlist
-            </span>
-            } @else if (isProductBookmarked === null) {
-            <span (click)="login()" 
-                  nz-tooltip 
-                  nzTooltipTitle="Login required">
-                <i class="far fa-heart text-lg mr-2 cursor-pointer"></i>
-                Add To Wishlist
-            </span>
-            } @else {
-            <span (click)="toggleProductBookmark(false)">
-                <i class="fas fa-heart text-lg mr-2 cursor-pointer"></i>
-                Remove From Wishlist
-            </span>
-            }
+            
+            <ng-container *ngTemplateOutlet="productBookmarkTemplate">
+            </ng-container>
+
             <span class="ml-4">
                 <i class="far fa-copy text-lg mr-2"></i>
                 Add To Compare
             </span>
+
+            <ng-container *ngTemplateOutlet="productLikeTemplate">
+            </ng-container>
         </div>      
         
         <p class="mt-4 inline-block border border-solid border-[#4cbb6c] text-[#4cbb6c] px-2 bg-[#e9f9ee]">
@@ -120,3 +109,62 @@
         </div>
     </div>
 </div>
+
+<ng-template #productBookmarkTemplate>
+@if (isProductBookmarked === false) {
+<span (click)="toggleProductBookmark(true)">
+    <i class="far fa-heart text-lg mr-2 cursor-pointer"></i>
+    Add To Wishlist
+</span>
+} @else if (isProductBookmarked === null) {
+<span (click)="login()" 
+        nz-tooltip 
+        nzTooltipTitle="Login required">
+    <i class="far fa-heart text-lg mr-2 cursor-pointer"></i>
+    Add To Wishlist
+</span>
+} @else {
+<span (click)="toggleProductBookmark(false)">
+    <i class="fas fa-heart text-lg mr-2 cursor-pointer"></i>
+    Remove From Wishlist
+</span>
+}
+</ng-template>
+
+<ng-template #productLikeTemplate>
+<!-- Like + dislike -->
+@if ((isProductLiked === undefined && isProductDisliked === undefined) || (isProductLiked === null && isProductDisliked === null)) {
+<span class="ml-4 cursor-pointer" (click)="login()">
+    <i class="far fa-thumbs-up">
+    </i>
+    Login required
+</span>
+}
+@if (isProductLiked === true) {
+<span class="ml-4 cursor-pointer" (click)="toggleProductLike(false)">
+    <i class="fas fa-thumbs-up">
+    </i>
+    Unlike
+</span>
+} @else if (isProductLiked === false) {
+<span class="ml-4 cursor-pointer" (click)="toggleProductLike(true)">
+    <i class="far fa-thumbs-up">
+    </i>
+    Like
+</span>
+} 
+
+@if (isProductDisliked === true) {
+<span class="ml-4 cursor-pointer" (click)="toggleProductDislike(false)">
+    <i class="fas fa-thumbs-down">
+    </i>
+    Undislike
+</span>
+} @else if (isProductDisliked === false) {
+<span class="ml-4 cursor-pointer" (click)="toggleProductDislike(true)">
+    <i class="far fa-thumbs-down">
+    </i>
+    Dislike
+</span>
+}
+</ng-template>
