@@ -1,4 +1,5 @@
 import { ICatalog, ISubCatalog } from "../../../core/models/catalog.interface";
+import { IComment } from "../../../core/models/order.interface";
 import { IPaginatedProduct, IProductLazyLoadRequest } from "../../../core/models/product.interface";
 
 export interface IProductState {
@@ -6,5 +7,7 @@ export interface IProductState {
     paginatedProducts: IPaginatedProduct,
     allCatalogs: ICatalog[],
     allSubCatalogs: ISubCatalog[]
-    subCatalogsOfSelectedCatalog: ISubCatalog[]
+    subCatalogsOfSelectedCatalog: ISubCatalog[],
+
+    selectedProductComments: IComment[]
 }

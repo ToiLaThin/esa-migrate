@@ -32,7 +32,9 @@ export class AuthenticatedRequiredGuard implements CanActivate {
         tempSub.unsubscribe();
         if (authStatus !== AuthStatus.Authenticated) {
             this._router.navigateByUrl('/auth/unauthorized', { replaceUrl: true });
+            return false;
         }
-        return false;
+        //fixed this
+        return true;
     }
 }

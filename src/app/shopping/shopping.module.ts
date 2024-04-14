@@ -39,6 +39,8 @@ import { OrderListSortTypeComponent } from "./components/order-list/order-list-s
 import { OrderListNumPerPageComponent } from "./components/order-list/order-list-num-per-page/order-list-num-per-page.component";
 import { OrderListPaymentMethodComponent } from "./components/order-list/order-list-payment-method/order-list-payment-method.component";
 import { OrderListPaginationComponent } from "./components/order-list/order-list-pagination/order-list-pagination.component";
+import { ProductCommentComponent } from "./components/product/product-comment/product-comment.component";
+import { ProductCommentFormComponent } from "./components/product/product-comment-form/product-comment-form.component";
 @NgModule({
     imports: [
         RouterModule.forChild(shoppingRoutes),
@@ -72,6 +74,8 @@ import { OrderListPaginationComponent } from "./components/order-list/order-list
         ProductQuickviewComponent,
         ProductInfoComponent,
         ProductPolicyComponent,
+        ProductCommentComponent,
+        ProductCommentFormComponent,
 
         CartComponent,
         OrderProcessComponent,

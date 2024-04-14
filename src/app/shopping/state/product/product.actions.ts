@@ -6,6 +6,7 @@ import {
     SortBy
 } from './../../../core/models/product.interface';
 import { ICatalog, ISubCatalog } from '../../../core/models/catalog.interface';
+import { IComment } from '../../../core/models/order.interface';
 
 export const productActions = createActionGroup({
     source: 'Product Events In Shopping Module',
@@ -17,7 +18,19 @@ export const productActions = createActionGroup({
         'Sort Products By Changed': props<{ selectedSortBy: SortBy }>(),
         'Products Order Type Changed': props<{ selectedOrderType: OrderType }>(),
         'Page Changed': props<{ selectedPage: number }>(),
-        'Price Range Changed': props<{ fromPrice: number, toPrice: number}>()
+        'Price Range Changed': props<{ fromPrice: number; toPrice: number }>(),
+
+        'Load Product Comments': props<{ productBusinessKey: string }>(),
+        'Product Comments Loaded Successfull': props<{ comments: IComment[] }>(),
+        'Product Comments Loaded Failed': props<{ error: string }>(),
+
+        'Comment Product': props<{
+            productBusinessKey: string;
+            commentDetail: string;
+            userId: string;
+        }>(),
+        'Product Commented Successfull': props<{ productBusinessKey: string }>(),
+        'Product Commented Failed': props<{ error: string }>(),
     }
 });
 

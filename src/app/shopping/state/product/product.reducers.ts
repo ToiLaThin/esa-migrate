@@ -24,7 +24,9 @@ export const initialProductState: IProductState = {
     },
     allCatalogs: [],
     allSubCatalogs: [],
-    subCatalogsOfSelectedCatalog: []
+    subCatalogsOfSelectedCatalog: [],
+
+    selectedProductComments: []
 };
 
 export const productFeatureKey = 'productFeature';
@@ -198,5 +200,12 @@ export const productReducer = createReducer(
                 ]
             }
         };
+    }),
+
+    on(productActions.productCommentsLoadedSuccessfull, (state, action) => {
+        return {
+            ...state,
+            selectedProductComments: action.comments
+        }
     })
 );
