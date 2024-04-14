@@ -40,6 +40,25 @@ export const selectorIsSelectedProductDisliked = (productBusinessKey: string) =>
             .includes(productBusinessKey);
     });
 
+export const selectorIsSelectedProductRated = (productBusinessKey: string) =>
+    createSelector(selectorProductFeature, (productState: IProductState) => {
+        if (productState.userProductRateMappings === null) {
+            return false;
+        }
+        return productState.userProductRateMappings
+            .map((mapping) => mapping.productBusinessKey)
+            .includes(productBusinessKey);
+    });
+
+export const selectorSelectedProductRating = (productBusinessKey: string) =>
+    createSelector(selectorProductFeature, (productState: IProductState) => {
+        if (productState.userProductRateMappings === null) return 0;
+        const rateProductMapping = productState.userProductRateMappings.find(
+            (mapping) => mapping.productBusinessKey === productBusinessKey
+        );
+        return rateProductMapping?.rating;
+    });
+
 export const selectorIsSelectedProductBookmarked = (productBusinessKey: string) =>
     createSelector(selectorProductFeature, (productState) =>
         productState.userProductBookmarkMappings

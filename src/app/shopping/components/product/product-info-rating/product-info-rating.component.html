@@ -1,0 +1,67 @@
+<!-- thanks to: https://codepen.io/andreacrawford/pen/NvqJXW -->
+<div id="half-stars-example" *ngIf="this.authStatus === AuthStatus.Authenticated else loginRequiredToRateTemplate;">
+    <div class="rating-group">        
+        <input class="rating__input rating__input--none"
+                [checked]="isProductRated === false"
+                name="rating2"
+                id="rating2-0" 
+                value="0" 
+                type="radio"
+                (change)="rateProduct()">
+        <label aria-label="0 stars" 
+                class="rating__label" 
+                for="rating2-0">
+            &nbsp;                                   
+        </label>
+        <ng-container *ngFor="let rating of this.allRatings">
+            <ng-container *ngIf="rating % 1 === 0 then ratingIsInt else ratingIsFloat"></ng-container>
+            <ng-template #ratingIsInt>
+                <label class="rating__label" 
+                        for="rating2-{{rating}}">
+                    <i class="rating__icon rating__icon--star fa fa-star"></i>
+                </label>
+            </ng-template>
+            <ng-template #ratingIsFloat>
+                <label class="rating__label rating__label--half" 
+                    for="rating2-{{rating}}">
+                    <i class="rating__icon rating__icon--star fa fa-star-half"></i>
+                </label>
+            </ng-template>  
+            <ng-container *ngIf="rating === productRating then checkedInput else uncheckedInput"></ng-container>
+            <ng-template #checkedInput>
+                <input class="rating__input" 
+                        checked 
+                        name="rating2" 
+                        id="rating2-{{rating}}" 
+                        value="{{rating}}" 
+                        type="radio"
+                        (change)="rateProduct()"
+                        >
+            </ng-template>
+            <ng-template #uncheckedInput>
+                <input class="rating__input" 
+                        name="rating2" 
+                        id="rating2-{{rating}}" 
+                        value="{{rating}}" 
+                        type="radio"
+                        (change)="rateProduct()"
+                        >
+            </ng-template>
+        </ng-container>                                                
+    </div>
+</div>
+
+<ng-template #loginRequiredToRateTemplate>
+    <div class="flex flex-row gap-3">
+        <svg-icon [iconName]="'lock'" 
+                  [size]="26">
+        </svg-icon>
+        <p>Please 
+            <span class="cursor-pointer text-blue-400 hover:underline"
+                  (click)="login()">
+                login
+            </span>
+            to rate product
+        </p>
+    </div>
+</ng-template>

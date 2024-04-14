@@ -6,7 +6,7 @@ import {
 } from './../../../core/models/product.interface';
 import { ICatalog, ISubCatalog } from '../../../core/models/catalog.interface';
 import { IComment } from '../../../core/models/order.interface';
-import { IBookmarkProduct, ILikeProduct } from '../../../core/models/product-interactions.interface';
+import { IBookmarkProduct, ILikeProduct, IRateProduct } from '../../../core/models/product-interactions.interface';
 
 export const productActions = createActionGroup({
     source: 'Product Events In Shopping Module',
@@ -45,6 +45,13 @@ export const productActions = createActionGroup({
         'Like Product': props<{ productBusinessKey: string; userId: string }>(),
         'Unlike Product': props<{ productBusinessKey: string; userId: string }>(),
         'Dislike Product': props<{ productBusinessKey: string; userId: string }>(),
+
+        'Load Product Rate Mappings': props<{ userId: string }>(),
+        'Product Rate Mappings Loaded Successfully': props<{ ratedProductMappings: IRateProduct[] }>(),
+        'Product Rate Mappings Loaded Failed': props<{ error: string }>(),
+
+        'Rate Product': props<{ productBusinessKey: string; userId: string; rating: string }>(),
+        
     }
 });
 

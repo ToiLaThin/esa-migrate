@@ -41,6 +41,7 @@ import { OrderListPaymentMethodComponent } from "./components/order-list/order-l
 import { OrderListPaginationComponent } from "./components/order-list/order-list-pagination/order-list-pagination.component";
 import { ProductCommentComponent } from "./components/product/product-comment/product-comment.component";
 import { ProductCommentFormComponent } from "./components/product/product-comment-form/product-comment-form.component";
+import { ProductInfoRatingComponent } from "./components/product/product-info-rating/product-info-rating.component";
 @NgModule({
     imports: [
         RouterModule.forChild(shoppingRoutes),
@@ -73,6 +74,7 @@ import { ProductCommentFormComponent } from "./components/product/product-commen
         ProductDetailComponent,
         ProductQuickviewComponent,
         ProductInfoComponent,
+        ProductInfoRatingComponent,
         ProductPolicyComponent,
         ProductCommentComponent,
         ProductCommentFormComponent,

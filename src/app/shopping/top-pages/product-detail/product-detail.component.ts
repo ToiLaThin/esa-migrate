@@ -1,14 +1,16 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, Subscription, combineLatest, of, switchMap } from 'rxjs';
+import { Observable, Subscription, combineLatest, of, switchMap, tap } from 'rxjs';
 import { IProduct, IProductModel } from '../../../core/models/product.interface';
 import { Store } from '@ngrx/store';
 import {
     selectorIsSelectedProductBookmarked,
     selectorIsSelectedProductDisliked,
     selectorIsSelectedProductLiked,
+    selectorIsSelectedProductRated,
     selectorProductSelected,
-    selectorProductSelectedComments
+    selectorProductSelectedComments,
+    selectorSelectedProductRating
 } from '../../state/product/product.selectors';
 import { productFeatureKey } from '../../state/product/product.reducers';
 import { IProductState } from '../../state/product/productState.interface';
@@ -37,6 +39,9 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     isProductBookmarked$!: Observable<boolean | null>;
     isProductLiked$!: Observable<boolean | null>;
     isProductDisliked$!: Observable<boolean | null>;
+
+    productRating$!: Observable<number | undefined>;
+    isProductRated$!: Observable<boolean>;
 
     get AuthStatus() {
         return AuthStatus;
@@ -114,12 +119,34 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
             })
         );
         
-        this._store.dispatch(
-            productActions.loadProductComments({ productBusinessKey: this.productBusinessKey })
+        let authStatus!: AuthStatus;
+        tempSubscription = this.authStatus$.pipe(
+            tap(status => authStatus = status)
+        ).subscribe();
+        tempSubscription.unsubscribe();
+
+        if (authStatus === AuthStatus.Authenticated) {
+            this._store.dispatch(
+                productActions.loadProductComments({ productBusinessKey: this.productBusinessKey })
+            );
+            this._store.dispatch(productActions.loadProductBookmarkMappings({
+                userId: this.currentUserId
+            }));
+            this._store.dispatch(productActions.loadProductRateMappings({
+                userId: this.currentUserId
+            }));
+        }
+
+        this.isProductRated$ = this._store.select((state) =>
+            selectorIsSelectedProductRated(this.productBusinessKey)(
+                state as { [productFeatureKey]: IProductState }
+            )
         );
-        this._store.dispatch(productActions.loadProductBookmarkMappings({
-            userId: this.currentUserId
-        }));
+        this.productRating$ = this._store.select((state) =>
+            selectorSelectedProductRating(this.productBusinessKey)(
+                state as { [productFeatureKey]: IProductState }
+            )
+        );
     }
 
     login() {
@@ -191,6 +218,20 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
             productActions.unlikeProduct({
                 productBusinessKey: this.productBusinessKey,
                 userId: this.currentUserId,
+            })
+        );
+    }
+
+    rateProduct(rating: string) {
+        if (!this.currentUserId) {
+            alert('Error: Please login to rate');
+            return;
+        }
+        this._store.dispatch(
+            productActions.rateProduct({
+                productBusinessKey: this.productBusinessKey,
+                userId: this.currentUserId,
+                rating
             })
         );
     }

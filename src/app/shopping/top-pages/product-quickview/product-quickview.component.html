@@ -39,6 +39,13 @@
             </div>
         </div>
         <div class="w-full lg:w-1/2">
+            <esa-product-info-rating [product]="(product$ | async)!"
+                                     [isProductRated]="isProductRated$ | async"
+                                     [productRating]="productRating$ | async"
+                                     [authStatus]="authStatus$ | async"
+                                     (productRated)="rateProduct($event)"
+                                     class="mb-3">
+            </esa-product-info-rating>
             <esa-product-info [product]="(product$ | async)!"
                               [isProductBookmarked]="this.isProductBookmarked$ | async"
                               [isProductLiked]="isProductLiked$ | async"

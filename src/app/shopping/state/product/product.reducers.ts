@@ -28,7 +28,8 @@ export const initialProductState: IProductState = {
 
     selectedProductComments: [],
     userProductBookmarkMappings: [],
-    userProductLikeMappings: []
+    userProductLikeMappings: [],
+    userProductRateMappings: []
 };
 
 export const productFeatureKey = 'productFeature';
@@ -222,6 +223,13 @@ export const productReducer = createReducer(
         return {
             ...state,
             userProductLikeMappings: action.likedProductMappings
+        }
+    }),
+
+    on(productActions.productRateMappingsLoadedSuccessfully, (state, action) => {
+        return {
+            ...state,
+            userProductRateMappings: action.ratedProductMappings
         }
     })
 );
