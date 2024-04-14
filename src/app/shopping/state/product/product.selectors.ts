@@ -11,6 +11,11 @@ export const selectorProductLazyLoadRequest = createSelector(
     (productState) => productState.productLazyLoadRequest
 );
 
+export const selectorProductSelectedComments = createSelector(
+    selectorProductFeature,
+    (productState) => productState.selectedProductComments
+);
+
 export const selectorProductSelected = (productId: string) =>
     createSelector(selectorProductFeature, (projectState: IProductState) => {
         return projectState.paginatedProducts.products.find(

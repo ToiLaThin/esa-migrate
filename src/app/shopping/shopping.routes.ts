@@ -27,7 +27,7 @@ export const shoppingRoutes: Routes = [
                 component: IndexComponent
             },
             {
-                canActivate: [AuthenticatedRequiredGuard],
+                // canActivate: [AuthenticatedRequiredGuard],
                 path: 'product-list',
                 component: ProductListComponent
             },

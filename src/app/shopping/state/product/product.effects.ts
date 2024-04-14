@@ -9,6 +9,7 @@ import { selectorProductLazyLoadRequest } from './product.selectors';
 import { IProductLazyLoadRequest } from '../../../core/models/product.interface';
 import { Injectable } from '@angular/core';
 import { CatalogService } from '../../../core/services/catalog.service';
+import { ProductCommentService } from '../../../core/services/product-comment.service';
 
 @Injectable({ providedIn: 'root' })
 export class ProductEffects {
@@ -16,6 +17,7 @@ export class ProductEffects {
         private actions$: Actions,
         private _productService: ProductService,
         private _catalogService: CatalogService,
+        private _productCommentService: ProductCommentService,
         private _store: Store
     ) {}
 
@@ -91,11 +93,60 @@ export class ProductEffects {
             switchMap((action) =>
                 this._catalogService.getAllSubCatalogsOfCatalog(action.catalogId).pipe(
                     map((subCatalogs) =>
-                        catalogActions.subCatalogOfCatalogLoadedSuccessfull({ loadedSubCatalogOfCatalog: subCatalogs })
+                        catalogActions.subCatalogOfCatalogLoadedSuccessfull({
+                            loadedSubCatalogOfCatalog: subCatalogs
+                        })
                     ),
-                    catchError((err) => of(catalogActions.subCatalogOfCatalogLoadedFailed({ error: err })))
+                    catchError((err) =>
+                        of(catalogActions.subCatalogOfCatalogLoadedFailed({ error: err }))
+                    )
                 )
             )
+        )
+    );
+
+    loadProductCommentsEffect = createEffect(() =>
+        this.actions$.pipe(
+            ofType(productActions.loadProductComments),
+            switchMap((action) =>
+                this._productCommentService.getProductComments(action.productBusinessKey).pipe(
+                    map((returnedComments) =>
+                        productActions.productCommentsLoadedSuccessfull({
+                            comments: returnedComments
+                        })
+                    ),
+                    catchError((err) =>
+                        of(productActions.productCommentsLoadedFailed({ error: err }))
+                    )
+                )
+            )
+        )
+    );
+
+    commentProductEffect = createEffect(() =>
+        this.actions$.pipe(
+            ofType(productActions.commentProduct),
+            switchMap((action) =>
+                this._productCommentService
+                    .commentProduct(action.userId, action.productBusinessKey, action.commentDetail)
+                    .pipe(
+                        map(() =>
+                            productActions.productCommentedSuccessfull({
+                                productBusinessKey: action.productBusinessKey
+                            })
+                        ),
+                        catchError((err) =>
+                            of(productActions.productCommentedFailed({ error: err }))
+                        )
+                    )
+            )
+        )
+    );
+
+    commentProductSuccessfulEffect = createEffect(() =>
+        this.actions$.pipe(
+            ofType(productActions.productCommentedSuccessfull),
+            switchMap((action) => of(productActions.loadProductComments({ productBusinessKey: action.productBusinessKey }))),
         )
     );
 }
