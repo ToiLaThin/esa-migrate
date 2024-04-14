@@ -11,6 +11,7 @@ import { Injectable } from '@angular/core';
 import { CatalogService } from '../../../core/services/catalog.service';
 import { ProductCommentService } from '../../../core/services/product-comment.service';
 import { ProductBookmarkService } from '../../../core/services/product-bookmark.service';
+import { ProductLikeService } from '../../../core/services/product-like.service';
 
 @Injectable({ providedIn: 'root' })
 export class ProductEffects {
@@ -20,6 +21,7 @@ export class ProductEffects {
         private _catalogService: CatalogService,
         private _productCommentService: ProductCommentService,
         private _productBookmarkService: ProductBookmarkService,
+        private _productLikeService: ProductLikeService,
         private _store: Store
     ) {}
 
@@ -215,6 +217,78 @@ export class ProductEffects {
                             of(productActions.productBookmarkMappingsLoadedFailed({ error: err }))
                         )
                     )
+            )
+        )
+    );
+
+    loadProductLikeMappingsEffect = createEffect(() =>
+        this.actions$.pipe(
+            ofType(productActions.loadProductLikeMappings),
+            switchMap((action) =>
+                this._productLikeService.getLikeProductMappings(action.userId).pipe(
+                    map((likedProductMappings) => {
+                        //no content is null result
+                        if (!likedProductMappings) {
+                            return productActions.productLikeMappingsLoadedSuccessfully({
+                                likedProductMappings: []
+                            });
+                        }
+                        return productActions.productLikeMappingsLoadedSuccessfully({
+                            likedProductMappings
+                        });
+                    }),
+                    catchError((err) =>
+                        of(productActions.productLikeMappingsLoadedFailed({ error: err }))
+                    )
+                )
+            )
+        )
+    );
+
+    likeProductEffect = createEffect(() =>
+        this.actions$.pipe(
+            ofType(productActions.likeProduct),
+            switchMap((action) =>
+                this._productLikeService.likeProduct(action.productBusinessKey, action.userId).pipe(
+                    map((_) =>
+                        productActions.loadProductLikeMappings({ userId: action.userId })
+                    ),
+                    catchError((err) =>
+                        of(productActions.productLikeMappingsLoadedFailed({ error: err }))
+                    )
+                )
+            )
+        )
+    );
+    
+    dislikeProductEffect = createEffect(() =>
+        this.actions$.pipe(
+            ofType(productActions.dislikeProduct),
+            switchMap((action) =>
+                this._productLikeService.dislikeProduct(action.productBusinessKey, action.userId).pipe(
+                    map((_) =>
+                        productActions.loadProductLikeMappings({ userId: action.userId })
+                    ),
+                    catchError((err) =>
+                        of(productActions.productLikeMappingsLoadedFailed({ error: err }))
+                    )
+                )
+            )
+        )
+    );
+    
+    unlikeProductEffect = createEffect(() =>
+        this.actions$.pipe(
+            ofType(productActions.unlikeProduct),
+            switchMap((action) =>
+                this._productLikeService.unlikeProduct(action.productBusinessKey, action.userId).pipe(
+                    map((_) =>
+                        productActions.loadProductLikeMappings({ userId: action.userId })
+                    ),
+                    catchError((err) =>
+                        of(productActions.productLikeMappingsLoadedFailed({ error: err }))
+                    )
+                )
             )
         )
     );

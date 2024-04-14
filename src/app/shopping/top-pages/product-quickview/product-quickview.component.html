@@ -41,7 +41,11 @@
         <div class="w-full lg:w-1/2">
             <esa-product-info [product]="(product$ | async)!"
                               [isProductBookmarked]="this.isProductBookmarked$ | async"
-                              (productBookmarkToggled)="toggleProductBookmark($event)">
+                              [isProductLiked]="isProductLiked$ | async"
+                              [isProductDisliked]="isProductDisliked$ | async"
+                              (productBookmarkToggled)="toggleProductBookmark($event)"
+                              (productLikeToggled)="toggleProductLike($event)"
+                              (productDislikeToggled)="toggleProductDislike($event)">
             </esa-product-info>
         </div>
     </div>

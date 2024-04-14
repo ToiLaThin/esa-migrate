@@ -6,6 +6,8 @@ import { AuthStatus } from '../../../core/types/auth-status.enum';
 import { Store } from '@ngrx/store';
 import {
     selectorIsSelectedProductBookmarked,
+    selectorIsSelectedProductDisliked,
+    selectorIsSelectedProductLiked,
     selectorProductSelected
 } from '../../state/product/product.selectors';
 import { IProductState } from '../../state/product/productState.interface';
@@ -26,6 +28,8 @@ export class ProductQuickviewComponent implements OnInit, OnDestroy {
     product$!: Observable<IProduct>;
     authStatus$!: Observable<AuthStatus>;
     isProductBookmarked$!: Observable<boolean | null>;
+    isProductLiked$!: Observable<boolean | null>;
+    isProductDisliked$!: Observable<boolean | null>;
 
     productBusinessKey!: string;
     currUserId!: string;
@@ -66,6 +70,32 @@ export class ProductQuickviewComponent implements OnInit, OnDestroy {
             })
         );
 
+        this.isProductLiked$ = combineLatest([this.product$, this.authStatus$]).pipe(
+            switchMap(([product, authStatus]) => {
+                if (authStatus === AuthStatus.Authenticated) {
+                    return this._store.select((state) =>
+                        selectorIsSelectedProductLiked(product.businessKey as string)(
+                            state as { [productFeatureKey]: IProductState }
+                        )
+                    );
+                }
+                return of(null);
+            })
+        );
+
+        this.isProductDisliked$ = combineLatest([this.product$, this.authStatus$]).pipe(
+            switchMap(([product, authStatus]) => {
+                if (authStatus === AuthStatus.Authenticated) {
+                    return this._store.select((state) =>
+                        selectorIsSelectedProductDisliked(product.businessKey as string)(
+                            state as { [productFeatureKey]: IProductState }
+                        )
+                    );
+                }
+                return of(null);
+            })
+        );
+
         let tempSubscription = this._store
             .select((state) => selectorUserId(state as { [authFeatureKey]: IAuthState }))
             .pipe(tap((userId) => (this.currUserId = userId)))
@@ -74,6 +104,10 @@ export class ProductQuickviewComponent implements OnInit, OnDestroy {
 
         this._store.dispatch(productActions.loadProductBookmarkMappings({
             userId: this.currUserId
+        }));
+
+        this._store.dispatch(productActions.loadProductLikeMappings({
+            userId: this.currUserId,
         }));
     }
 
@@ -99,6 +133,42 @@ export class ProductQuickviewComponent implements OnInit, OnDestroy {
             productActions.unbookmarkProduct({
                 productBusinessKey: this.productBusinessKey,
                 userId: this.currUserId
+            })
+        );
+    }
+
+    toggleProductLike(isLiked: boolean) {
+        if(isLiked === true) {
+            this._store.dispatch(
+                productActions.likeProduct({
+                    productBusinessKey: this.productBusinessKey,
+                    userId: this.currUserId
+                })
+            );
+            return;
+        }
+        this._store.dispatch(
+            productActions.unlikeProduct({
+                productBusinessKey: this.productBusinessKey,
+                userId: this.currUserId,
+            })
+        );
+    }
+
+    toggleProductDislike(isDisliked: boolean) {
+        if(isDisliked === true) {
+            this._store.dispatch(
+                productActions.dislikeProduct({
+                    productBusinessKey: this.productBusinessKey,
+                    userId: this.currUserId
+                })
+            );
+            return;
+        }
+        this._store.dispatch(
+            productActions.unlikeProduct({
+                productBusinessKey: this.productBusinessKey,
+                userId: this.currUserId,
             })
         );
     }
