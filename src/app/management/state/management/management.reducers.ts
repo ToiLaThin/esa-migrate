@@ -3,6 +3,7 @@ import { IManagementState } from './managementState.interface';
 import { catalogManagementActions, managementActions, productManagementActions } from './management.actions';
 import { SidebarMode } from '../../../core/types/sidebar-mode.enum';
 import { ProductPerPage, SortBy, OrderType, FilterBy, IProductLazyLoadRequest } from '../../../core/models/product.interface';
+import { Currency } from '../../../core/types/currency.enum';
 
 export const managementFeatureKey = 'managementFeature';
 export const initialManagementState: IManagementState = {
@@ -29,7 +30,8 @@ export const initialManagementState: IManagementState = {
     subCatalogsOfSelectedCatalog: [],
 
     subCatalogSelectedIds: [],
-    catalogSelectedId: ''
+    catalogSelectedId: '',
+    currency: Currency.VND
 };
 export const managementReducer = createReducer(
     initialManagementState,
@@ -90,8 +92,12 @@ export const managementReducer = createReducer(
         ...state,
         topbarOpened: !state.topbarOpened
     })),
-
-
+    on(managementActions.changeCurrency, (state, action) => {
+        return {
+            ...state,
+            currency: action.newCurrency
+        }
+    }),
 
     on(managementActions.resetManagementProductsAndCatalogState, (state, action) => ({
         ...state,

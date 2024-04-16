@@ -2,6 +2,7 @@ import { createActionGroup, emptyProps, props } from "@ngrx/store";
 import { SidebarMode } from "../../../core/types/sidebar-mode.enum";
 import { ICatalog, ISubCatalog } from "../../../core/models/catalog.interface";
 import { IPaginatedProduct, SortBy, OrderType } from "../../../core/models/product.interface";
+import { Currency } from "../../../core/types/currency.enum";
 
 export const managementActions = createActionGroup({
     source: 'Management Events in Management Module',
@@ -12,6 +13,7 @@ export const managementActions = createActionGroup({
         'Switch mode Sidebar': props<{ newSidebarMode: SidebarMode}>(),
         'Toggle Navigation Left': emptyProps(),
         'Reset Management Products And Catalog State': emptyProps(),
+        'Change Currency': props<{ newCurrency: Currency }>(),
     }
 })
 
@@ -39,6 +41,6 @@ export const catalogManagementActions = createActionGroup({
         'SubCatalog Of Catalog Loaded Successfull': props<{ loadedSubCatalogOfCatalog: ISubCatalog[] }>(),
         'SubCatalog Of Catalog Loaded Failed': props<{ error: string }>(),
         'SubCatalog Selected': props<{ selectedSubCatalogId: string }>(),
-        'SubCatalog Deselected': props<{ deselectedSubCatalogId: string }>(),
+        'SubCatalog Deselected': props<{ deselectedSubCatalogId: string }>(),        
     }
 })
