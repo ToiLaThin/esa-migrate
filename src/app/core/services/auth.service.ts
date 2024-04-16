@@ -9,6 +9,7 @@ import { authActions } from '../../auth/state/auth.actions';
 import { selectorCurrentUser } from '../../auth/state/auth.selectors';
 import { IAuthState } from '../../auth/state/authState.interface';
 import { authFeatureKey } from '../../auth/state/auth.reducers';
+import { managementActions } from '../../management/state/management/management.actions';
 
 @Injectable({
     providedIn: 'root'
@@ -110,6 +111,7 @@ export class AuthService {
             //necessary to remove the user (oidc.sub) from the local storage to avoid the user to be logged in again when checking session)
             this._notificationService.success('Logout successfully', '');
             this._store.dispatch(authActions.logoutSuccessfull());
+            this._store.dispatch(managementActions.clearUserRewardPointsAfterLoggedOut()) //clear the reward points in the store
         });
     }
 }

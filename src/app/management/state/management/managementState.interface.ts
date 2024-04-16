@@ -1,5 +1,6 @@
 import { ICatalog, ISubCatalog } from "../../../core/models/catalog.interface";
 import { IPaginatedProduct, IProductLazyLoadRequest } from "../../../core/models/product.interface";
+import { IUserRewardPoint } from "../../../core/models/reward-point.interface";
 import { Currency } from "../../../core/types/currency.enum";
 import { SidebarMode } from "../../../core/types/sidebar-mode.enum";
 
@@ -24,5 +25,6 @@ export interface IManagementState {
 
 
     currency: Currency,
+    userRewardPoints: IUserRewardPoint | null, //null means not login
 
 }

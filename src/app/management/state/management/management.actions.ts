@@ -3,6 +3,7 @@ import { SidebarMode } from "../../../core/types/sidebar-mode.enum";
 import { ICatalog, ISubCatalog } from "../../../core/models/catalog.interface";
 import { IPaginatedProduct, SortBy, OrderType } from "../../../core/models/product.interface";
 import { Currency } from "../../../core/types/currency.enum";
+import { IUserRewardPoint } from "../../../core/models/reward-point.interface";
 
 export const managementActions = createActionGroup({
     source: 'Management Events in Management Module',
@@ -14,6 +15,10 @@ export const managementActions = createActionGroup({
         'Toggle Navigation Left': emptyProps(),
         'Reset Management Products And Catalog State': emptyProps(),
         'Change Currency': props<{ newCurrency: Currency }>(),
+        'Load User Reward Points': props<{userId: string}>(),
+        'Load User Reward Points Successfully': props<{ userRewardPoints: IUserRewardPoint }>(),
+        'Load User Reward Points Failed': props<{ error: string }>(),
+        'Clear User Reward Points After Logged Out': emptyProps(),
     }
 })
 

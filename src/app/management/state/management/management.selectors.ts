@@ -34,3 +34,8 @@ export const selectorCurrencySelected = createSelector(
     selectorManagementFeature,
     (managementState) => managementState.currency
 );
+
+export const selectorUserRewardPoints = createSelector(
+    selectorManagementFeature,
+    (managementState) => managementState.userRewardPoints?.rewardPoint
+)
