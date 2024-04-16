@@ -42,13 +42,16 @@ import { OrderListPaginationComponent } from "./components/order-list/order-list
 import { ProductCommentComponent } from "./components/product/product-comment/product-comment.component";
 import { ProductCommentFormComponent } from "./components/product/product-comment-form/product-comment-form.component";
 import { ProductInfoRatingComponent } from "./components/product/product-info-rating/product-info-rating.component";
+import { ReactiveCurrencyPipe } from "../core/pipes/reactive-currency.pipe";
 @NgModule({
     imports: [
+        //pipes
+        ReactiveCurrencyPipe,
+
         RouterModule.forChild(shoppingRoutes),
         CommonModule, //to have async pipe
         FormsModule, //have ngModel
         ReactiveFormsModule,
-        
         ShareComponentsModule,
         NzNotificationModule,
         NzToolTipModule,

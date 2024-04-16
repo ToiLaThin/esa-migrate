@@ -10,11 +10,11 @@
             Price: 
             @if (product.isOnSale) {
             <span class="text-xs font-semibold text-[red]">
-                {{product.productModels[0].priceOnSaleModel | currency}}
+                {{product.productModels[0].priceOnSaleModel! | rcurrency}}
             </span>
             } @else {
             <span class="text-xs font-semibold text-[#121212]">
-                {{product.productModels[0].price | currency}}
+                {{product.productModels[0].price | rcurrency}}
             </span>
             }
         </p>

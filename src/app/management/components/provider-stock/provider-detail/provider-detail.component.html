@@ -131,8 +131,8 @@
                     <td class="left-align">
                         #{{productModelMergeStock.businessKey | slice:0:8 | uppercase}}
                     </td>
-                    <td class="text-[black] font-bold">{{productModelMergeStock.price | currency}}</td>
-                    <td class="text-[black] font-bold">{{productModelMergeStock.unitRequestPrice | currency}}</td>                    
+                    <td class="text-[black] font-bold">{{productModelMergeStock.price | rcurrency}}</td>
+                    <td class="text-[black] font-bold">{{productModelMergeStock.unitRequestPrice | rcurrency}}</td>                    
                     <td style="text-align: center;">
                         <div class="qty-container">
                             <span class="incr-btn"
@@ -152,7 +152,7 @@
                     </td>
                     <td class="text-[red]">{{productModelMergeStock.currentQuantity}}</td>
                     <td class="text-[green] font-bold">{{productModelMergeStock.afterRequestQuantity}}</td>
-                    <td>{{productModelMergeStock.totalItemRequestPrice | currency}}</td>
+                    <td>{{productModelMergeStock.totalItemRequestPrice | rcurrency}}</td>
                 </tr>
                 }
             </table>
@@ -169,7 +169,7 @@
                     </div>
                     <div class="flex-1 flex flex-row justify-between">
                         <p>Total Cost</p>
-                        <p class="font-bold">{{this.grandTotalPriceStockItemRequests$ | async | currency}}</p>
+                        <p class="font-bold">{{this.grandTotalPriceStockItemRequests$ | async | rcurrency}}</p>
                     </div>
                     <div class="flex-1 flex flex-row justify-between">
                         <p>Discount</p>
@@ -201,7 +201,7 @@
         <!-- Confirm -->
         <div class="confirm"
              (click)="confirmStockRequestToProvider()">
-            Grand Total : <span class="font-bold text-2xl">{{this.grandTotalPriceStockItemRequests$ | async | currency}}</span>
+            Grand Total : <span class="font-bold text-2xl">{{this.grandTotalPriceStockItemRequests$ | async | rcurrency}}</span>
         </div>
     </div>
 </div>

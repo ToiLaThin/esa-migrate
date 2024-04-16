@@ -37,19 +37,20 @@
                       [size]="24"
                       class="mr-1"
                       nz-tooltip
-                      nzTooltipTitle="Price: {{order.totalPriceFinal | currency}}">
+                      nzTooltipTitle="Price: {{order.totalPriceFinal | rcurrency}}">
             </svg-icon>
             <span class="text-sm">Price: 
                 <span [ngClass]="order.totalPriceFinal <= 8000 ? 'text-[#a4d322]' : 
                                  order.totalPriceFinal <= 16000 ? 'text-[#fdb53f]' : 
                                  'text-[#D8143A]'"
                       class="font-medium">
-                    {{order.totalPriceFinal | currency}}    
+                    {{order.totalPriceFinal | rcurrency}}    
                 </span>
             </span>
         </div>
         <div class="flex-auto"></div>
         <div class="flex items-center">
+            <!-- This does not need rcurrency pipe -->
             <svg-icon [iconName]="order.totalPriceFinal <= 8000 ? 'color-lookup' : 
                                   order.totalPriceFinal <= 16000 ? 'color-view-detail' : 
                                   'color-view-detail'"
