@@ -5,6 +5,7 @@ import { AuthService } from '../../core/services/auth.service';
 import { Store } from '@ngrx/store';
 import {
     selectorAuthStatus,
+    selectorUserId,
     selectorUserName,
     selectorUserRole
 } from '../../auth/state/auth.selectors';
@@ -23,10 +24,14 @@ import { ColorSvgNames } from '../../share-components/svg-definitions/color-svg-
 import { Router } from '@angular/router';
 import { currencyDatas } from '../../core/ui-models/currency-data';
 import { Currency } from '../../core/types/currency.enum';
-import { selectorCurrencySelected } from '../../management/state/management/management.selectors';
+import {
+    selectorCurrencySelected,
+    selectorUserRewardPoints
+} from '../../management/state/management/management.selectors';
 import { managementFeatureKey } from '../../management/state/management/management.reducers';
 import { IManagementState } from '../../management/state/management/managementState.interface';
 import { managementActions } from '../../management/state/management/management.actions';
+import { IUserRewardPoint } from '../../core/models/reward-point.interface';
 
 @Component({
     selector: 'esa-shopping-header-topbar',
@@ -35,6 +40,7 @@ import { managementActions } from '../../management/state/management/management.
 export class HeaderTopbarComponent implements OnInit, OnDestroy {
     userName$!: Observable<string>;
     userRole$!: Observable<string>;
+    userId!: string;
     authStatus$!: Observable<AuthStatus>;
     itemsInCartCount$!: Observable<number>;
 
@@ -43,6 +49,8 @@ export class HeaderTopbarComponent implements OnInit, OnDestroy {
 
     destroy$: Subject<void> = new Subject<void>(); //for unsubscribing
     selectedCurrency!: Currency;
+    rewardPoints$!: Observable<number | undefined>;
+
     get AuthStatus() {
         return AuthStatus;
     } //for template to use enum
@@ -82,6 +90,24 @@ export class HeaderTopbarComponent implements OnInit, OnDestroy {
                 takeUntil(this.destroy$)
             )
             .subscribe();
+
+        this._store
+            .select((state) => selectorUserId(state as { [authFeatureKey]: IAuthState }))
+            .pipe(
+                tap((uId) => (this.userId = uId)),
+                takeUntil(this.destroy$)
+            )
+            .subscribe();
+
+        this.rewardPoints$ = this._store.select((state) =>
+            selectorUserRewardPoints(state as { [managementFeatureKey]: IManagementState })
+        );
+
+        console.log('userId', this.userId);
+        
+        if (this.userId && this.userId !== '') {
+            this._store.dispatch(managementActions.loadUserRewardPoints({ userId: this.userId }));
+        }
     }
 
     login() {

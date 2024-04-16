@@ -33,6 +33,7 @@ import { OrderManagementEffect } from "./management/state/order/order.effects";
 import { orderManagementFeatureKey, orderManagementReducer } from "./management/state/order/order.reducers";
 import { OrderEffects } from "./shopping/state/order/order.effects";
 import { orderFeatureKey, orderReducer } from "./shopping/state/order/order.reducers";
+import { ManagementEffects } from "./management/state/management/management.effects";
 
 registerLocaleData(en);
 
@@ -65,6 +66,7 @@ registerLocaleData(en);
             ProductCatalogManagementShareEffects,
             ProviderStockManagementEffects,
             OrderManagementEffect,
+            ManagementEffects
         ]),
         StoreDevtoolsModule.instrument({
             maxAge: 25,

@@ -4,6 +4,14 @@
 
         <div class="flex flex-row justify-between lg:gap-3 sm:gap-0 md:gap-0 sm:justify-center md:justify-center">
             <p class="pr-3 border-r-2 border-solid border-gray-50 sm:min-w-min">
+                @if ((authStatus$ | async) === AuthStatus.Authenticated) {
+                Reward Points: <span class="text-red-600 font-semibold">{{ rewardPoints$ | async }}</span>
+                } 
+                @else {
+                Reward Points: <span nz-tooltip nzTooltipTitle="Login required">?</span>
+                }
+            </p>
+            <p class="pr-3 border-r-2 border-solid border-gray-50 sm:min-w-min">
                 Help Center
             </p>
             <p class="pr-3 border-r-2 border-solid border-gray-50 sm:min-w-min">

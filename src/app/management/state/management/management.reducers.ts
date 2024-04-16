@@ -31,7 +31,8 @@ export const initialManagementState: IManagementState = {
 
     subCatalogSelectedIds: [],
     catalogSelectedId: '',
-    currency: Currency.VND
+    currency: Currency.VND,
+    userRewardPoints: null
 };
 export const managementReducer = createReducer(
     initialManagementState,
@@ -292,5 +293,18 @@ export const managementReducer = createReducer(
                 ]
             }
         };
-    })
+    }),
+
+    on(managementActions.loadUserRewardPointsSuccessfully, (state, action) => {
+        return {
+            ...state,
+            userRewardPoints: action.userRewardPoints
+        }
+    }),
+    on(managementActions.clearUserRewardPointsAfterLoggedOut, (state, action) => {
+        return {
+            ...state,
+            userRewardPoints: null
+        }
+    }),
 );

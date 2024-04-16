@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ICartConfirmRequest, ICartItem } from '../../../core/models/cart-item.interface';
-import { Observable, Subscription } from 'rxjs';
+import { Observable, Subscription, tap } from 'rxjs';
 import { Store } from '@ngrx/store';
 import {
     selectorAllActiveCouponsNotUsedByUser,
@@ -22,6 +22,9 @@ import { DiscountType } from '../../../core/models/sale-item.interface';
 import { selectorUserId } from '../../../auth/state/auth.selectors';
 import { authFeatureKey } from '../../../auth/state/auth.reducers';
 import { IAuthState } from '../../../auth/state/authState.interface';
+import { selectorUserRewardPoints } from '../../../management/state/management/management.selectors';
+import { managementFeatureKey } from '../../../management/state/management/management.reducers';
+import { IManagementState } from '../../../management/state/management/managementState.interface';
 
 @Component({
     selector: 'esa-cart',
@@ -182,7 +185,27 @@ export class CartComponent implements OnInit {
     }
 
     private checkUserRewardPointValidForCoupon(coupon: ICoupon): boolean {
-        return true; //TODO: implement
+        let currentUserRewardPoint: number | undefined;
+        let tempSubscription: Subscription;
+        tempSubscription = this._store.select(state => selectorUserRewardPoints(state as { [managementFeatureKey]: IManagementState })).pipe(
+            tap((rewardPoint) => currentUserRewardPoint = rewardPoint),
+        ).subscribe();
+        tempSubscription.unsubscribe(); 
+
+        if (currentUserRewardPoint === undefined) {
+            this._nzNotificationService.error('User reward point is not valid', '');
+            return false;
+        }
+        if (coupon.rewardPointRequire === undefined) {
+            this._nzNotificationService.error('Min reward point is not valid', '');
+            return false;
+        }
+
+        if (currentUserRewardPoint < coupon.rewardPointRequire) {
+            this._nzNotificationService.error('User reward point is not enough', '');
+            return false;
+        }
+        return true;
     }
 
     private notifyStoreCouponApplied(coupon: ICoupon) {

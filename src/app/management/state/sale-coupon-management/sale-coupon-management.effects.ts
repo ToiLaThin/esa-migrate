@@ -39,6 +39,13 @@ export class SaleCouponManagementEffects {
         )
     );
 
+    addNewCouponSuccessEffect = createEffect(() =>
+        this.actions$.pipe(
+            ofType(saleCouponManagementActions.addNewCouponSuccess),
+            map((_) => saleCouponManagementActions.loadAllCoupons())
+        )
+    );
+
 
     loadAllCouponsEffect = createEffect(() =>
         this.actions$.pipe(

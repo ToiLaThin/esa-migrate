@@ -12,6 +12,10 @@ import { CouponService } from '../../../core/services/coupon.service';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { Router } from '@angular/router';
 import { orderActions } from '../order/order.actions';
+import { managementActions } from '../../../management/state/management/management.actions';
+import { selectorUserId } from '../../../auth/state/auth.selectors';
+import { authFeatureKey } from '../../../auth/state/auth.reducers';
+import { IAuthState } from '../../../auth/state/authState.interface';
 
 @Injectable({ providedIn: 'root' })
 export class CartEffects {
@@ -127,6 +131,20 @@ export class CartEffects {
                 ofType(cartActions.confirmCartSuccess),
                 switchMap((_) => of(cartActions.cartClear(), cartActions.removeCouponApplied())),
                 tap((_) => {
+                    let currentUserId!: string;
+                    let tempSubscription = this._store
+                        .select((state) => selectorUserId(state as { [authFeatureKey]: IAuthState }))
+                        .pipe(
+                            tap((uid) => {
+                                currentUserId = uid;
+                            })
+                        )
+                        .subscribe();
+                    tempSubscription.unsubscribe();
+                    if (currentUserId && currentUserId !== '') {
+                        this._store.dispatch(managementActions.loadUserRewardPoints({userId: currentUserId}));
+                    }
+
                     this._notificationService.create('success', 'Order confirmed', '');
                     this._router.navigate(['/shopping/order-process/']);
                 })
