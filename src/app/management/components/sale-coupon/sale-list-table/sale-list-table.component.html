@@ -18,7 +18,7 @@
                 {{product.productName}}
             </td>
             <td>{{product.subCatalogName}}</td>
-            <td>${{product.productModels[0].price}}</td>
+            <td>{{product.productModels[0].price | rcurrency}}</td>
             <td>
                 @if (product.isOnSale === true) {
                 <app-pill [className]="PillType.DANGER"

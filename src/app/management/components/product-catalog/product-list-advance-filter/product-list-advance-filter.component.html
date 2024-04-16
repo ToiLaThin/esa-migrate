@@ -140,10 +140,8 @@
                                (change)="onPriceRangeChange()"/>
                     </div>
                     <div class="form_control">
-                        <div>
-                            <p>{{this.fromPrice}}</p>
-                            <p>{{this.toPrice}}</p>
-                        </div>
+                        <p>{{this.fromPrice | rcurrency}}</p>
+                        <p>{{this.toPrice | rcurrency}}</p>
                     </div>
                 </div>
             </div>

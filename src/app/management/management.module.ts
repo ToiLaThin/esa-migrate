@@ -50,6 +50,7 @@ import { OrderApproveOrderManagementComponent } from './components/order/order-a
 import { ProductListPaginationComponent } from './components/product-catalog/product-list-pagination/product-list-pagination.component';
 import { ProductListFilterComponent } from './components/product-catalog/product-list-filter/product-list-filter.component';
 import { ProductListAdvanceFilterComponent } from './components/product-catalog/product-list-advance-filter/product-list-advance-filter.component';
+import { ReactiveCurrencyPipe } from '../core/pipes/reactive-currency.pipe';
 const importNzModules = [
     NzButtonModule,
     NzDropDownModule,
@@ -62,6 +63,9 @@ const importNzModules = [
 ]
 @NgModule({
     imports: [
+        //currency pipe
+        ReactiveCurrencyPipe,
+
         RouterModule.forChild(managementRoutes),
         ShareComponentsModule,
         CommonModule,

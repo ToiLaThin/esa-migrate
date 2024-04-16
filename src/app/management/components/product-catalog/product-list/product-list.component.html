@@ -31,7 +31,7 @@
             <td>{{product.productInfo?.productBrand}}</td>
             @if (product.isOnSale) {
             <td>
-                ${{product.productDisplayPriceOnSale}} - 
+                {{product.productDisplayPriceOnSale! | rcurrency}} - 
                 <span class="text-xs text-red-600">
                     @if (product.productModels[0].saleType == DiscountType.ByPercent) {
                     {{product.productModels[0].saleValueModel}}%
@@ -41,7 +41,7 @@
                 </span>
             </td>
             } @else {
-            <td>${{product.productModels[0].price}}</td>
+            <td>{{product.productModels[0].price | rcurrency}}</td>
             }
             <td>
                 @if (product.isOnSale) {
