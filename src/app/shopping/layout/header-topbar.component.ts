@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Observable, Subject, take, takeUntil, tap } from 'rxjs';
 import { AuthStatus } from '../../core/types/auth-status.enum';
 import { AuthService } from '../../core/services/auth.service';
 import { Store } from '@ngrx/store';
@@ -21,18 +21,28 @@ import { orderFeatureKey } from '../state/order/order.reducers';
 import { orderActions } from '../state/order/order.actions';
 import { ColorSvgNames } from '../../share-components/svg-definitions/color-svg-names.enum';
 import { Router } from '@angular/router';
+import { currencyDatas } from '../../core/ui-models/currency-data';
+import { Currency } from '../../core/types/currency.enum';
+import { selectorCurrencySelected } from '../../management/state/management/management.selectors';
+import { managementFeatureKey } from '../../management/state/management/management.reducers';
+import { IManagementState } from '../../management/state/management/managementState.interface';
+import { managementActions } from '../../management/state/management/management.actions';
 
 @Component({
     selector: 'esa-shopping-header-topbar',
     templateUrl: './header-topbar.component.html'
 })
-export class HeaderTopbarComponent implements OnInit {
+export class HeaderTopbarComponent implements OnInit, OnDestroy {
     userName$!: Observable<string>;
     userRole$!: Observable<string>;
     authStatus$!: Observable<AuthStatus>;
     itemsInCartCount$!: Observable<number>;
 
     trackingOrder$!: Observable<IOrderAggregateCart | null>;
+    currencyDatas = currencyDatas;
+
+    destroy$: Subject<void> = new Subject<void>(); //for unsubscribing
+    selectedCurrency!: Currency;
     get AuthStatus() {
         return AuthStatus;
     } //for template to use enum
@@ -41,6 +51,11 @@ export class HeaderTopbarComponent implements OnInit {
         return ColorSvgNames;
     }
     constructor(private _store: Store, private _router: Router) {}
+
+    ngOnDestroy(): void {
+        this.destroy$.next();
+        this.destroy$.complete();
+    }
 
     ngOnInit(): void {
         this.userName$ = this._store.select((state) =>
@@ -58,6 +73,15 @@ export class HeaderTopbarComponent implements OnInit {
         this.trackingOrder$ = this._store.select((state) =>
             selectorTrackingOrder(state as { [orderFeatureKey]: IOrderState })
         );
+        this._store
+            .select((state) =>
+                selectorCurrencySelected(state as { [managementFeatureKey]: IManagementState })
+            )
+            .pipe(
+                tap((currency) => (this.selectedCurrency = currency)),
+                takeUntil(this.destroy$)
+            )
+            .subscribe();
     }
 
     login() {
@@ -75,5 +99,15 @@ export class HeaderTopbarComponent implements OnInit {
     navigateToOrderList() {
         console.log('navigateToOrderList');
         this._router.navigate(['/shopping/order-list']);
+    }
+
+    changeCurrency(clickedCurrency: Currency) {
+        console.log('currenCurrency', this.selectedCurrency);
+        console.log('changeCurrency', clickedCurrency);
+        if (this.selectedCurrency !== clickedCurrency) {
+            this._store.dispatch(
+                managementActions.changeCurrency({ newCurrency: clickedCurrency })
+            );
+        }
     }
 }

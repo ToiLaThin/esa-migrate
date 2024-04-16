@@ -29,4 +29,6 @@ export enum ColorSvgNames {
     NumberPerPage15 = 'color-num-per-page-15',
 
     LoginRequired = 'color-login-required',
+    FlagVn = 'color-flag-vn',
+    FlagUs = 'color-flag-us',
 }

@@ -14,8 +14,44 @@
                 <span class="dropdown-arrow text-black"></span>
             </p>
             <p class="sm:min-w-min">
-                USD 
-                <span class="dropdown-arrow text-black"></span>
+                <app-button [className]="'btn-secondary'"
+                    nz-dropdown
+                    nzTrigger="click"
+                    [nzDropdownMenu]="currencyMenu">
+                    <div class="flex flex-row items-center">
+                        @if (this.selectedCurrency === null) {
+                            <svg-icon [iconName]="ColorSvgNames.FlagVn" 
+                                      [size]="24">
+                            </svg-icon>
+                        <span class="ml-2">Unknown</span>
+                        } 
+                        @else {
+                            @for (currencyData of this.currencyDatas; track currencyData) {
+                                @if (this.selectedCurrency === currencyData.currency) {
+                                <svg-icon [iconName]="currencyData.iconName" 
+                                            [size]="24">
+                                </svg-icon>
+                                <span class="ml-2">{{currencyData.title}}</span>
+                                }
+                            }
+                        }
+                    </div>
+                </app-button>
+                <nz-dropdown-menu #currencyMenu="nzDropdownMenu">
+                    <ul class="mt-3" nz-menu>
+                        @for (currencyData of this.currencyDatas; track currencyData) {
+                        <li nz-menu-item (click)="changeCurrency(currencyData.currency)">
+                            <div class="flex items-center">
+                                <svg-icon [iconName]="currencyData.iconName" 
+                                            [size]="24">
+                                </svg-icon>
+                                <span class="ml-2">{{currencyData.title}}</span>
+                            </div>
+                        </li>
+                        }
+                    </ul>
+                </nz-dropdown-menu>
+                
             </p>
             
         </div>

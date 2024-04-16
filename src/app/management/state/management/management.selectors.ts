@@ -29,3 +29,8 @@ export const selectorTopbarOpened = createSelector(
     selectorManagementFeature,
     (managementState) => managementState.topbarOpened
 );
+
+export const selectorCurrencySelected = createSelector(
+    selectorManagementFeature,
+    (managementState) => managementState.currency
+);

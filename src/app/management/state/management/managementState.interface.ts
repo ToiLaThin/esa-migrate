@@ -1,5 +1,6 @@
 import { ICatalog, ISubCatalog } from "../../../core/models/catalog.interface";
 import { IPaginatedProduct, IProductLazyLoadRequest } from "../../../core/models/product.interface";
+import { Currency } from "../../../core/types/currency.enum";
 import { SidebarMode } from "../../../core/types/sidebar-mode.enum";
 
 export interface IManagementState {
@@ -20,5 +21,8 @@ export interface IManagementState {
     // selected by user in previous filter
     subCatalogSelectedIds: string[],
     catalogSelectedId: string,
+
+
+    currency: Currency,
 
 }
