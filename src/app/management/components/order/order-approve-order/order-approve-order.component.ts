@@ -1,4 +1,4 @@
-import { Component, Input } from "@angular/core";
+import { Component, EventEmitter, Input, Output } from "@angular/core";
 import { IOrderItems } from "../../../../core/models/order-approve.model";
 import { PaymentMethod } from "../../../../core/types/payment-method.enum";
 import { OrderStatus } from "../../../../core/types/order-status.enum";
@@ -10,6 +10,7 @@ import { OrderStatus } from "../../../../core/types/order-status.enum";
 })
 export class OrderApproveOrderManagementComponent {
     @Input({required: true}) order!: IOrderItems;
+    @Output() viewedDetailOrder: EventEmitter<string> = new EventEmitter<string>();
     get PaymentMethod() {
         return PaymentMethod;
     }
@@ -25,4 +26,9 @@ export class OrderApproveOrderManagementComponent {
         return OrderStatus[this.order.orderStatus];
     }
     constructor() {}
+
+    viewDetailOrder(orderId: string) {
+        this.viewedDetailOrder.emit(orderId);
+    }
+
 }

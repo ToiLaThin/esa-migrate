@@ -2,6 +2,7 @@ import { orderManagementFeatureKey } from './order.reducers';
 import { IOrderManagementState } from './orderManagementState,interface';
 import { createSelector } from '@ngrx/store';
 import { IItemStock, IOrderItems } from '../../../core/models/order-approve.model';
+import { state } from '@angular/animations';
 
 export const selectOrderManagementFeature = (state: {
     [orderManagementFeatureKey]: IOrderManagementState;
@@ -39,3 +40,8 @@ export const selectorOrdersApprovedTypeIOrderItem = createSelector(
     selectOrderManagementFeature,
     state => state.ordersApprovedTypeIOrderItem
 )
+
+export const selectorOrderAggregateCartDetail = createSelector(
+    selectOrderManagementFeature,
+    state => state.orderDetail
+);

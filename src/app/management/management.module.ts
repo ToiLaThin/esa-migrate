@@ -51,6 +51,8 @@ import { ProductListPaginationComponent } from './components/product-catalog/pro
 import { ProductListFilterComponent } from './components/product-catalog/product-list-filter/product-list-filter.component';
 import { ProductListAdvanceFilterComponent } from './components/product-catalog/product-list-advance-filter/product-list-advance-filter.component';
 import { ReactiveCurrencyPipe } from '../core/pipes/reactive-currency.pipe';
+import { OrderDetailDrawerManagementComponent } from './components/order/order-detail-drawer-management/order-detail-drawer-management.component';
+import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 const importNzModules = [
     NzButtonModule,
     NzDropDownModule,
@@ -59,7 +61,8 @@ const importNzModules = [
     NzCheckboxModule,
     NzModalModule,
     NzSliderModule,
-    NzLayoutModule
+    NzLayoutModule,
+    NzDrawerModule
 ]
 @NgModule({
     imports: [
@@ -74,7 +77,7 @@ const importNzModules = [
         
         MatSidenavModule,
         NzToolTipModule,
-        NzModalModule,
+        NzModalModule,        
         importNzModules,
         DragDropModule //drag and drop module material
     ],
@@ -115,6 +118,7 @@ const importNzModules = [
         OrderApproveListManagementComponent,
         OrderApproveItemsManagementComponent,
         OrderApproveOrderManagementComponent,
+        OrderDetailDrawerManagementComponent,
 
         ProductListPaginationComponent,
         ProductListFilterComponent,

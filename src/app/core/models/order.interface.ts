@@ -2,18 +2,18 @@ import { OrderStatus } from "../types/order-status.enum";
 import { DiscountType } from "./sale-item.interface";
 import { PaymentMethod } from "../types/payment-method.enum";
 
-export interface IOrderDraftViewModel {
-    orderId: string;
-    subTotal: number;
-    totalDiscount: number;
-}
+// export interface IOrderDraftViewModel {
+//     orderId: string;
+//     subTotal: number;
+//     totalDiscount: number;
+// }
 
-export interface IOrderViewModel {
-    orderId: string;
-    orderStatus: OrderStatus;
-    subTotal: number;
-    totalDiscount: number;
-}
+// export interface IOrderViewModel {
+//     orderId: string;
+//     orderStatus: OrderStatus;
+//     subTotal: number;
+//     totalDiscount: number;
+// }
 
 export interface IComment {
     commentId: string;
@@ -38,7 +38,10 @@ export interface ICartItemViewModel {
     unitPrice: number;
     finalPrice: number;
     unitAfterSalePrice?: number;
-    finalAfterSalePrice?: number;        
+    finalAfterSalePrice?: number;  
+    productName: string;
+    productImage: string;
+    subCatalogName: string;      
 }
 
 export interface ICartSummaryViewModel {
