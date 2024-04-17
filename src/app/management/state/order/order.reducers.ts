@@ -8,7 +8,8 @@ export const initialOrderManagementState: IOrderManagementState = {
     itemStockLookUp: new Map<string, number>(),
     ordersToApprove: [],
     ordersApprovedTypeIOrderItem: [],
-    ordersApproved: []
+    ordersApproved: [],
+    orderDetail: null
 };
 
 export const orderManagementReducer = createReducer(
@@ -105,4 +106,18 @@ export const orderManagementReducer = createReducer(
             ordersApproved: state.ordersApproved.filter((o) => o.orderId !== action.orderId)
         };
     }),
+
+    on(orderManagementActions.orderDetailLoaded, (state, action) => {
+        return {
+            ...state,
+            orderDetail: action.orderDetail
+        };
+    }),
+
+    on(orderManagementActions.closeOrderDetailDrawer, (state, action) => {
+        return {
+            ...state,
+            orderDetail: null
+        };
+    })
 );

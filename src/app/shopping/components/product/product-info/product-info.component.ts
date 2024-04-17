@@ -4,6 +4,7 @@ import { Store } from "@ngrx/store";
 import { cartActions } from "../../../state/cart/cart.actions";
 import { authActions } from "../../../../auth/state/auth.actions";
 import { productActions } from "../../../state/product/product.actions";
+import { ICartItem } from "../../../../core/models/cart-item.interface";
 
 @Component({
     selector: 'esa-product-info',
@@ -52,7 +53,10 @@ export class ProductInfoComponent {
                     ? undefined
                     : model.priceOnSaleModel === undefined
                     ? undefined
-                    : model.priceOnSaleModel * parseInt(modelQuantity.value)
+                    : model.priceOnSaleModel * parseInt(modelQuantity.value),
+            productName: this.product.productName,
+            productImage: this.product.productCoverImage,
+            subCatalogName: this.product.subCatalogName,
         };
 
         //reset the quantity input
@@ -60,7 +64,7 @@ export class ProductInfoComponent {
 
         this._store.dispatch(
             cartActions.cartItemUpsert({
-                upsertCartItem: cartItem
+                upsertCartItem: cartItem as ICartItem //try to type assertion so if there is a missing field / undefined, it will throw an error
             })
         );
     }

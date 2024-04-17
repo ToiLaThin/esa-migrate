@@ -63,7 +63,8 @@
                       [size]="24"
                       class="hover:scale-150 cursor-pointer transition-transform"
                       nz-tooltip
-                      nzTooltipTitle="Detail order">
+                      nzTooltipTitle="Detail order"
+                      (click)="viewDetailOrder(order.orderId)">
             </svg-icon>
         </div>
     </div>

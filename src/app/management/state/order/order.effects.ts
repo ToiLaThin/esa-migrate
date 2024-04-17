@@ -4,6 +4,7 @@ import { OrderApproveService } from '../../../core/services/order-approve.servic
 import { orderManagementActions } from './order.actions';
 import { catchError, map, of, switchMap, tap } from 'rxjs';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
+import { OrderService } from '../../../core/services/order.service';
 
 @Injectable({
     providedIn: 'root'
@@ -12,6 +13,7 @@ export class OrderManagementEffect {
     constructor(
         private actions$: Actions,
         private _orderApproveService: OrderApproveService,
+        private _orderService: OrderService,
         private _notificationService: NzNotificationService
     ) {}
 
@@ -84,4 +86,11 @@ export class OrderManagementEffect {
             )
         )
     );
+
+    viewOrderDetailEffect = createEffect(() => this.actions$.pipe(
+        ofType(orderManagementActions.viewOrderDetail),
+        switchMap((action) => this._orderService.getOrderAggregateCartByOrderId(action.orderId)),
+        map((orderAggregateCart) => orderManagementActions.orderDetailLoaded({ orderDetail: orderAggregateCart })),
+        catchError((error) => of(orderManagementActions.orderDetailLoadFailed({ error })))
+    ));
 }

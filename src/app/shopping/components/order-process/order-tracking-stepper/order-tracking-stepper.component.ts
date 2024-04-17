@@ -3,6 +3,8 @@ import { StepperData } from '../../../../core/ui-models/stepper-data';
 import { ColorSvgNames } from '../../../../share-components/svg-definitions/color-svg-names.enum';
 import { IOrderAggregateCart } from '../../../../core/models/order.interface';
 import { OrderStatus } from '../../../../core/types/order-status.enum';
+import { NzModalService } from 'ng-zorro-antd/modal';
+import { OrderDetailModalComponent } from '../order-detail-modal/order-detail-modal.component';
 
 @Component({
     selector: 'esa-order-tracking-stepper',
@@ -18,7 +20,7 @@ export class OrderTrackingStepperComponent implements OnInit, AfterViewInit {
         new StepperData('Order Shipped', ColorSvgNames.Location, 'Your order has been ready to shipped.',''),
         new StepperData('Order Delivered', ColorSvgNames.Checkmakr, 'Your order has been delivered.','')
     ];
-    constructor(private _renderer: Renderer2) {}
+    constructor(private _renderer: Renderer2, private _modalService: NzModalService) {}
 
     ngAfterViewInit(): void {
         if (!this.trackingOrder) {
@@ -65,5 +67,17 @@ export class OrderTrackingStepperComponent implements OnInit, AfterViewInit {
         //     }
         // });
         //clickedContainer.parentElement?.classList.toggle('active');
+    }
+
+    viewOrderDetail() {
+        this._modalService.create({
+            nzTitle: undefined,
+            nzContent: OrderDetailModalComponent,
+            nzFooter: null,
+            nzWidth: '50%',
+            nzData: {
+                orderAggregateCart: this.trackingOrder
+            }
+        });
     }
 }

@@ -12,7 +12,10 @@ export interface ICartItem {
     unitPrice: number;
     finalPrice: number;
     unitAfterSalePrice?: number;
-    finalAfterSalePrice?: number;        
+    finalAfterSalePrice?: number;
+    productName: string;
+    productImage: string;
+    subCatalogName: string;
 }
 
 export interface ICartConfirmRequest {

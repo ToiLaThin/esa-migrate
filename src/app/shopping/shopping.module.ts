@@ -43,6 +43,10 @@ import { ProductCommentComponent } from "./components/product/product-comment/pr
 import { ProductCommentFormComponent } from "./components/product/product-comment-form/product-comment-form.component";
 import { ProductInfoRatingComponent } from "./components/product/product-info-rating/product-info-rating.component";
 import { ReactiveCurrencyPipe } from "../core/pipes/reactive-currency.pipe";
+import { OrderDetailDrawerComponent } from "./components/order-list/order-detail-drawer/order-detail-drawer.component";
+import { NzDrawerModule } from "ng-zorro-antd/drawer";
+import { OrderDetailModalComponent } from "./components/order-process/order-detail-modal/order-detail-modal.component";
+import { NzModalModule } from "ng-zorro-antd/modal";
 @NgModule({
     imports: [
         //pipes
@@ -56,7 +60,9 @@ import { ReactiveCurrencyPipe } from "../core/pipes/reactive-currency.pipe";
         NzNotificationModule,
         NzToolTipModule,
         NzDropDownModule,
-        NzCheckboxModule
+        NzCheckboxModule,
+        NzDrawerModule, 
+        NzModalModule      
     ],
     declarations: [
         ShoppingComponent,
@@ -95,7 +101,9 @@ import { ReactiveCurrencyPipe } from "../core/pipes/reactive-currency.pipe";
         OrderListSortTypeComponent,
         OrderListPaymentMethodComponent,
         OrderListNumPerPageComponent,
-        OrderListPaginationComponent
+        OrderListPaginationComponent,
+        OrderDetailDrawerComponent,
+        OrderDetailModalComponent
     ],
     exports: [],
 })
