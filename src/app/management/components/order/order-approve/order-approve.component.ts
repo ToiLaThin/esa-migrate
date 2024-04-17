@@ -10,12 +10,15 @@ import {
 import { orderManagementFeatureKey } from '../../../state/order/order.reducers';
 import {
     selectorItemStockLookUp,
+    selectorOrderAggregateCartDetail,
     selectorOrdersApprovedAggregate,
     selectorOrdersApprovedTypeIOrderItem,
     selectorOrdersToApprove
 } from '../../../state/order/order.selectors';
 import { IOrderManagementState } from '../../../state/order/orderManagementState,interface';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
+import { NzDrawerService } from 'ng-zorro-antd/drawer';
+import { OrderDetailDrawerManagementComponent } from '../order-detail-drawer-management/order-detail-drawer-management.component';
 
 @Component({
     selector: 'esa-management-order-approve',
@@ -33,12 +36,14 @@ export class OrderApproveManagementComponent implements OnInit, OnDestroy {
     ordersApproved!: IOrderApprovedAggregate[];
     ordersToApprove$!: Observable<IOrderItems[]>;
 
-    constructor(private _store: Store) {
+    orderDetailSubscription!: Subscription;
+    constructor(private _store: Store, private _drawerService: NzDrawerService) {
         this._store.dispatch(orderManagementActions.reloadOrdersToApprove());
     }
 
     ngOnDestroy(): void {
         this.ordersApprovedSubscription.unsubscribe();
+        this.orderDetailSubscription.unsubscribe();
     }
 
     ngOnInit(): void {
@@ -61,6 +66,27 @@ export class OrderApproveManagementComponent implements OnInit, OnDestroy {
         this.ordersApprovedSubscription = this.ordersApproved$
             .pipe(tap((ordersApproved) => (this.ordersApproved = ordersApproved)))
             .subscribe();
+
+        this.orderDetailSubscription = this._store
+            .select((state) =>
+                selectorOrderAggregateCartDetail(
+                    state as { [orderManagementFeatureKey]: IOrderManagementState }
+                )
+            )
+            .subscribe((orderDetail) => {
+                if (orderDetail) {
+                    this._drawerService.create({
+                        nzTitle: undefined,
+                        nzFooter: undefined,
+                        nzWidth: '40%',
+                        nzPlacement: 'right',
+                        nzContent: OrderDetailDrawerManagementComponent,
+                        nzData: {
+                            orderAggregateCart: orderDetail
+                        }
+                    });
+                }
+            });
     }
 
     toggleDisplayModeItems() {
@@ -86,6 +112,10 @@ export class OrderApproveManagementComponent implements OnInit, OnDestroy {
     confirmApprovedOrders() {
         //console.log(this.ordersApproved);
         this._store.dispatch(orderManagementActions.confirmApprovedOrders({approvedOrders: this.ordersApproved}))
+    }
+
+    viewDetailOrder(orderId: string) {
+        this._store.dispatch(orderManagementActions.viewOrderDetail({orderId: orderId}));        
     }
 
     drop(event: CdkDragDrop<IOrderItems[]>) {

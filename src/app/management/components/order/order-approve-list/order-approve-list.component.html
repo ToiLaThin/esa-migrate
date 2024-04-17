@@ -109,7 +109,8 @@
                 </app-button>
                 <app-button [className]="'btn-secondary'"
                             [iconName]="'eye-outline'"
-                            [iconSize]="24">
+                            [iconSize]="24"
+                            (click)="viewDetailOrder(order.orderId)">
                     Detail
                 </app-button>
             </div>
@@ -204,7 +205,8 @@
                 <esa-management-order-approve-order [order]="order"
                                                     class="mb-2"
                                                     cdkDrag
-                                                    [cdkDragData]="order">
+                                                    [cdkDragData]="order"
+                                                    (viewedDetailOrder)="viewDetailOrder($event)">
                 </esa-management-order-approve-order>
                 }
             </div>
@@ -222,7 +224,8 @@
                 <esa-management-order-approve-order [order]="order"
                                                     class="mb-2"
                                                     cdkDrag 
-                                                    [cdkDragData]="order">
+                                                    [cdkDragData]="order"
+                                                    (viewedDetailOrder)="viewDetailOrder($event)">
                 </esa-management-order-approve-order>
                 }
             </div>

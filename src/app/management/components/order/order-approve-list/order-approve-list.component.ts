@@ -22,6 +22,9 @@ export class OrderApproveListManagementComponent {
     @Output() confirmedApprovedOrders: EventEmitter<void> = new EventEmitter<void>();
     @Output() droppedOrder: EventEmitter<CdkDragDrop<IOrderItems[]>> = new EventEmitter<CdkDragDrop<IOrderItems[]>>();
 
+    //multi level output event emitter
+    @Output() viewedDetailOrder: EventEmitter<string> = new EventEmitter<string>();
+
     get PaymentMethod() {
         return PaymentMethod;
     }
@@ -61,6 +64,10 @@ export class OrderApproveListManagementComponent {
 
     drop(event: CdkDragDrop<IOrderItems[]>) {
         this.droppedOrder.emit(event);
+    }
+
+    viewDetailOrder(orderId: string) {
+        this.viewedDetailOrder.emit(orderId);
     }
 
 }

@@ -1,0 +1,71 @@
+<div class="bg-[#fff] px-4">
+    <div class="header mb-6">
+        #{{orderDetail.orderId | slice:0:8 | uppercase}}
+    </div>
+
+    <div class="flex flex-row gap-4 flex-wrap max-h-[500px] overflow-auto">
+        @for (item of orderDetail.cart.items; track item) {
+        <div class="w-[45%]">
+            <div class="flex flex-row">
+                <div class="rounded-[50%] bg-[#ddd] overflow-hidden self-start">
+                    @if (item.productImage) {
+                    <img src="{{item.productImage}}" 
+                            class="w-14 h-14 object-contain">
+                    } @else {
+                    <img src="../../../../../assets/images/no-image.png" 
+                            class="w-14 h-14 object-contain">
+                    }
+                </div>
+                <div class="ml-2 flex-1 flex flex-col">
+                    <div class="flex flex-row justify-start items-center">
+                        @if (item.productName) {
+                            <span class="text-lg">{{item.productName}}</span>
+                            } @else {
+                            <span class="text-lg">No Name</span>
+                            }
+                            <span class="text-sm text-[#ddd] font-medium">{{item.subCatalogName}}</span>
+                    </div>
+                    <div class="flex flex-col mt-[4px]">
+                        <p>Quantity:   {{item.quantity}}</p>
+                        @if (item.isOnSale) {
+                        <p>Total:   {{item.quantity}} x 
+                            <span class="line-through">{{item.unitPrice | rcurrency}}</span> 
+                            {{item.unitAfterSalePrice! | rcurrency}}
+                            = {{item.finalPrice | rcurrency}}
+                        </p>
+                        } @else {
+                        <p>Total:   {{item.quantity}} x {{item.unitPrice | rcurrency}} = {{item.finalPrice | rcurrency}}</p>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+        }
+    </div>
+</div>
+
+<div class="footer">
+    <div class="flex flex-col">
+        <div class="flex flex-row justify-between items-center">
+            <span>Subtotal:</span>
+            <span>{{orderDetail.cart.totalPriceOriginal| rcurrency}}</span>
+        </div>
+        <div class="flex flex-row justify-between items-center">
+            <span>Discount (coupon):</span>
+            <span>{{orderDetail.cart.couponDiscountAmount | rcurrency}}</span>
+        </div>
+        <div class="flex flex-row justify-between items-center">
+            <span>Discount (sales):</span>
+            <span>{{orderDetail.cart.totalSaleDiscountAmount | rcurrency}}</span>
+        </div>
+        <div class="flex flex-row justify-between items-center">
+            <span class="font-semibold text-lg text-[red]">Grandtotal:</span>
+            <span class="font-semibold text-lg text-[red]">{{orderDetail.cart.totalPriceFinal | rcurrency}}</span>
+        </div>
+    </div>
+    <div class="flex flex-row justify-end mt-4">
+        <app-button className="btn-primary" (click)="close()">
+            Close
+        </app-button>
+    </div>
+</div>

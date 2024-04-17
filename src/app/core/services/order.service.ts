@@ -112,13 +112,14 @@ export class OrderService {
         orderListPageNum: number,
         orderListPageSize: number,
         orderListSortBy: OrdersSortBy,
-        orderListSortType: OrdersSortType) {
+        orderListSortType: OrdersSortType
+    ) {
         let httpParams = new HttpParams().appendAll({
-            'sortBy': orderListSortBy,
-            'page': orderListPageNum,
-            'pageSize': orderListPageSize,
-            'sortType': orderListSortType,
-        })
+            sortBy: orderListSortBy,
+            page: orderListPageNum,
+            pageSize: orderListPageSize,
+            sortType: orderListSortType
+        });
         if (orderListFilterOrderStatus !== null) {
             httpParams = httpParams.append('filterOrderStatus', orderListFilterOrderStatus);
         }
@@ -126,15 +127,14 @@ export class OrderService {
             httpParams = httpParams.append('filterPaymentMethod', orderListFilterPaymentMethod);
         }
         console.log(httpParams);
-        console.log("Key:", httpParams.keys());
+        console.log('Key:', httpParams.keys());
         //key must match property name in OrderAggregateCartViewModelEnvelope in backend
         return this._http.get<{
-            orderAggregateCartViewModels: IOrderAggregateCart[],
-            totalOrdersCount: number
-        }>(
-            `${env.BASEURL}/api/OrderCart/OrderAPI/GetOrdersAggregateCartFilterSortPagination`,
-            {params: httpParams}
-        );
+            orderAggregateCartViewModels: IOrderAggregateCart[];
+            totalOrdersCount: number;
+        }>(`${env.BASEURL}/api/OrderCart/OrderAPI/GetOrdersAggregateCartFilterSortPagination`, {
+            params: httpParams
+        });
     }
 
     pickPaymentMethodCOD(trackingOrder: IOrderAggregateCart) {
@@ -151,7 +151,9 @@ export class OrderService {
 
     pickPaymentMethodEWallet(trackingOrder: IOrderAggregateCart, userId: string) {
         if (trackingOrder === null) {
-            alert('There is an exception from picking payment method E-wallet. Please try again later');
+            alert(
+                'There is an exception from picking payment method E-wallet. Please try again later'
+            );
             return;
         }
         let paymentRequest: IPaymentRequest = {
@@ -171,7 +173,9 @@ export class OrderService {
     //lúc này sẽ có 1 trang để list các order đã xong và chờ được duyệt
     pickPaymentMethodCreditCard(trackingOrder: IOrderAggregateCart, userId: string) {
         if (trackingOrder === null) {
-            alert('There is an exception from picking payment method Credit card. Please try again later');
+            alert(
+                'There is an exception from picking payment method Credit card. Please try again later'
+            );
             return;
         }
         let paymentRequest: IPaymentRequest = {
@@ -183,6 +187,12 @@ export class OrderService {
         return this._http.post<IPaymentResponse>(
             `${env.BASEURL}/api/Payment/StripeAPI/MakePayment`,
             paymentRequest
+        );
+    }
+
+    getOrderAggregateCartByOrderId(orderId: string) {
+        return this._http.get<IOrderAggregateCart>(
+            `${env.BASEURL}/api/OrderCart/OrderAPI/GetOrderAggregateCartByOrderId?orderId=${orderId}`
         );
     }
 }
