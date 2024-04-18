@@ -15,6 +15,7 @@ export const managementActions = createActionGroup({
         'Toggle Navigation Left': emptyProps(),
         'Reset Management Products And Catalog State': emptyProps(),
         'Change Currency': props<{ newCurrency: Currency }>(),
+        'Change Language': props<{ newLanguage: 'en' | 'vi' }>(),
         'Load User Reward Points': props<{userId: string}>(),
         'Load User Reward Points Successfully': props<{ userRewardPoints: IUserRewardPoint }>(),
         'Load User Reward Points Failed': props<{ error: string }>(),

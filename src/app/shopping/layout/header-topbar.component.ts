@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable, Subject, take, takeUntil, tap } from 'rxjs';
 import { AuthStatus } from '../../core/types/auth-status.enum';
-import { AuthService } from '../../core/services/auth.service';
 import { Store } from '@ngrx/store';
 import {
     selectorAuthStatus,
@@ -26,12 +25,14 @@ import { currencyDatas } from '../../core/ui-models/currency-data';
 import { Currency } from '../../core/types/currency.enum';
 import {
     selectorCurrencySelected,
+    selectorLanguageSelected,
     selectorUserRewardPoints
 } from '../../management/state/management/management.selectors';
 import { managementFeatureKey } from '../../management/state/management/management.reducers';
 import { IManagementState } from '../../management/state/management/managementState.interface';
 import { managementActions } from '../../management/state/management/management.actions';
-import { IUserRewardPoint } from '../../core/models/reward-point.interface';
+import { I18NStaticNavIdSelector, I18NStaticTopBarIdSelector } from '../../core/ui-models/i18n-common-static-id';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
     selector: 'esa-shopping-header-topbar',
@@ -49,6 +50,7 @@ export class HeaderTopbarComponent implements OnInit, OnDestroy {
 
     destroy$: Subject<void> = new Subject<void>(); //for unsubscribing
     selectedCurrency!: Currency;
+    selectedLanguage!: string;
     rewardPoints$!: Observable<number | undefined>;
 
     get AuthStatus() {
@@ -58,7 +60,19 @@ export class HeaderTopbarComponent implements OnInit, OnDestroy {
     get ColorSvgNames() {
         return ColorSvgNames;
     }
-    constructor(private _store: Store, private _router: Router) {}
+
+    get I18nTopbarIds() {
+        return I18NStaticTopBarIdSelector;
+    }
+
+    get I18nNavIds() {
+        return I18NStaticNavIdSelector;
+    }
+    constructor(
+        private _store: Store,
+        private _router: Router,
+        private _translateService: TranslateService
+    ) {}
 
     ngOnDestroy(): void {
         this.destroy$.next();
@@ -92,6 +106,16 @@ export class HeaderTopbarComponent implements OnInit, OnDestroy {
             .subscribe();
 
         this._store
+            .select((state) =>
+                selectorLanguageSelected(state as { [managementFeatureKey]: IManagementState })
+            )
+            .pipe(
+                tap((language) => (this.selectedLanguage = language)),
+                takeUntil(this.destroy$)
+            )
+            .subscribe();
+
+        this._store
             .select((state) => selectorUserId(state as { [authFeatureKey]: IAuthState }))
             .pipe(
                 tap((uId) => (this.userId = uId)),
@@ -104,7 +128,7 @@ export class HeaderTopbarComponent implements OnInit, OnDestroy {
         );
 
         console.log('userId', this.userId);
-        
+
         if (this.userId && this.userId !== '') {
             this._store.dispatch(managementActions.loadUserRewardPoints({ userId: this.userId }));
         }
@@ -134,6 +158,14 @@ export class HeaderTopbarComponent implements OnInit, OnDestroy {
             this._store.dispatch(
                 managementActions.changeCurrency({ newCurrency: clickedCurrency })
             );
+        }
+    }
+
+    changeLanguage(language: 'vi' | 'en') {
+        console.log('currentLanguage', this.selectedLanguage);
+        console.log('changeLanguage', language);
+        if (this.selectedLanguage !== language) {
+            this._store.dispatch(managementActions.changeLanguage({ newLanguage: language }));
         }
     }
 }

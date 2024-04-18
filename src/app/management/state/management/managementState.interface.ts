@@ -25,6 +25,7 @@ export interface IManagementState {
 
 
     currency: Currency,
+    language: 'en' | 'vi';
     userRewardPoints: IUserRewardPoint | null, //null means not login
 
 }

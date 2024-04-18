@@ -53,6 +53,9 @@ import { ProductListAdvanceFilterComponent } from './components/product-catalog/
 import { ReactiveCurrencyPipe } from '../core/pipes/reactive-currency.pipe';
 import { OrderDetailDrawerManagementComponent } from './components/order/order-detail-drawer-management/order-detail-drawer-management.component';
 import { NzDrawerModule } from 'ng-zorro-antd/drawer';
+import { HttpClient } from '@angular/common/http';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 const importNzModules = [
     NzButtonModule,
     NzDropDownModule,
@@ -68,6 +71,15 @@ const importNzModules = [
     imports: [
         //currency pipe
         ReactiveCurrencyPipe,
+        TranslateModule.forChild({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: (http: HttpClient) => {
+                    return new TranslateHttpLoader(http);
+                },
+                deps: [HttpClient]
+            }
+        }),
 
         RouterModule.forChild(managementRoutes),
         ShareComponentsModule,
