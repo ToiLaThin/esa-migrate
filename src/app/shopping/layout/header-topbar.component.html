@@ -5,21 +5,64 @@
         <div class="flex flex-row justify-between lg:gap-3 sm:gap-0 md:gap-0 sm:justify-center md:justify-center">
             <p class="pr-3 border-r-2 border-solid border-gray-50 sm:min-w-min">
                 @if ((authStatus$ | async) === AuthStatus.Authenticated) {
-                Reward Points: <span class="text-red-600 font-semibold">{{ rewardPoints$ | async }}</span>
+                {{I18nTopbarIds.StaticTopbarReward | translate}}: <span class="text-red-600 font-semibold">{{ rewardPoints$ | async }}</span>
                 } 
                 @else {
-                Reward Points: <span nz-tooltip nzTooltipTitle="Login required">?</span>
+                {{I18nTopbarIds.StaticTopbarReward | translate}}: <span nz-tooltip nzTooltipTitle="{{I18nTopbarIds.StaticTopbarLogin | translate}} required">?</span>
                 }
             </p>
             <p class="pr-3 border-r-2 border-solid border-gray-50 sm:min-w-min">
-                Help Center
+                {{I18nTopbarIds.StaticTopbarHelp | translate}}
             </p>
             <p class="pr-3 border-r-2 border-solid border-gray-50 sm:min-w-min">
-                Order Tracking
+                {{I18nTopbarIds.StaticTopbarOrderTracking | translate}}
             </p>
             <p class="pr-3 border-r-2 border-solid border-gray-50 sm:min-w-min">
-                English
-                <span class="dropdown-arrow text-black"></span>
+                <app-button [className]="'btn-secondary'"
+                    nz-dropdown
+                    nzTrigger="click"
+                    [nzDropdownMenu]="langMenu">
+                    <div class="flex flex-row items-center">
+                        @if (this.selectedLanguage === null || this.selectedLanguage === undefined) {
+                            <svg-icon [iconName]="ColorSvgNames.FlagVn" 
+                                      [size]="24">
+                            </svg-icon>
+                        <span class="ml-2">Unknown</span>
+                        } 
+                        @if (this.selectedLanguage === 'vi') {
+                        <svg-icon [iconName]="ColorSvgNames.FlagVn" 
+                                    [size]="24">
+                        </svg-icon>
+                        <span class="ml-2">{{I18nTopbarIds.StaticTopbarLangVi | translate}}</span>
+                        }
+                        @if (this.selectedLanguage === 'en') {
+                        <svg-icon [iconName]="ColorSvgNames.FlagUs" 
+                                    [size]="24">
+                        </svg-icon>
+                        <span class="ml-2">{{I18nTopbarIds.StaticTopbarLangEn | translate}}</span>
+                        }
+                    </div>
+                </app-button>
+                <nz-dropdown-menu #langMenu="nzDropdownMenu">
+                    <ul class="mt-3" nz-menu>
+                        <li nz-menu-item (click)="changeLanguage('en')">
+                            <div class="flex items-center">
+                                <svg-icon [iconName]="ColorSvgNames.FlagUs" 
+                                            [size]="24">
+                                </svg-icon>
+                                <span class="ml-2">{{I18nTopbarIds.StaticTopbarLangEn | translate}}</span>
+                            </div>
+                        </li>
+                        <li nz-menu-item (click)="changeLanguage('vi')">
+                            <div class="flex items-center">
+                                <svg-icon [iconName]="ColorSvgNames.FlagVn" 
+                                            [size]="24">
+                                </svg-icon>
+                                <span class="ml-2">{{I18nTopbarIds.StaticTopbarLangVi | translate}}</span>
+                            </div>
+                        </li>
+                    </ul>
+                </nz-dropdown-menu>
             </p>
             <p class="sm:min-w-min">
                 <app-button [className]="'btn-secondary'"
@@ -27,11 +70,11 @@
                     nzTrigger="click"
                     [nzDropdownMenu]="currencyMenu">
                     <div class="flex flex-row items-center">
-                        @if (this.selectedCurrency === null) {
+                        @if (this.selectedCurrency === null || this.selectedCurrency === undefined) {
                             <svg-icon [iconName]="ColorSvgNames.FlagVn" 
                                       [size]="24">
                             </svg-icon>
-                        <span class="ml-2">Unknown</span>
+                        <span class="ml-2">{{I18nTopbarIds.StaticTopbarLanguage | translate}}</span>
                         } 
                         @else {
                             @for (currencyData of this.currencyDatas; track currencyData) {
@@ -58,8 +101,7 @@
                         </li>
                         }
                     </ul>
-                </nz-dropdown-menu>
-                
+                </nz-dropdown-menu>                
             </p>
             
         </div>
@@ -76,26 +118,28 @@
     
         <div class="flex flex-row justify-between items-center gap-2 sm:hidden md:hidden lg:hidden xl:flex">
             <input type="text" 
-                   placeholder="Search product here ..." 
+                   placeholder="{{I18nTopbarIds.StaticTopbarSearchPlaceholder | translate}}" 
                    style="min-width: 700px;" 
                    class="border rounded border-gray-50 border-solid p-2">
             <button class="btn-primary-uppercase txt-[13px]">
-                Search
+                {{I18nTopbarIds.StaticTopbarSearch | translate}}
             </button>
         </div>
     
         <div class="flex flex-row justify-between items-center gap-2">
             @if ((this.authStatus$ | async) === AuthStatus.Anonymous) {
             <div class="border-r-2 border-solid border-gray-300 px-4 py-2 xl:block lg:block sm:hidden md:hidden">
-                <a class="text-black" (click)="login()">Login / Register</a>
+                <a class="text-black" (click)="login()">{{I18nTopbarIds.StaticTopbarLogin | translate}} / {{I18nTopbarIds.StaticTopbarRegister | translate}}</a>
             </div>
             } @else {
             <div class="border-r-2 border-solid border-gray-300 px-4 py-2 xl:block lg:block sm:hidden md:hidden">
-                <a class="text-black" (click)="logout()">Logout</a>
+                <a class="text-black" (click)="logout()">{{I18nTopbarIds.StaticTopbarLogout | translate}}</a>
             </div>
             <i class="fa fa-user xl:hidden lg:hidden sm:block md:block"></i>
             <a class="flex flex-row px-2"
-               [routerLink]="'/shopping/cart'">
+               [routerLink]="'/shopping/cart'"
+               nz-tooltip
+               nzTooltipTitle="{{I18nTopbarIds.StaticTopbarCart | translate}}">
                 <svg-icon [iconName]="'cart-outline'" 
                           [size]="24">
                 </svg-icon>
@@ -141,15 +185,17 @@
     <div class="flex flex-row justify-between items-center font-medium">
         <p class="uppercase">
             <i class="fa fa-star mr-2"></i>
-            Shop By Categories
+            {{I18nNavIds.StaticNavbarShopCatalog| translate}}
         </p>
     
         <div class="xl:flex lg:hidden flex-row justify-between text-center"> 
-            <p class="2xl:p-4 xl:p-1 min-w-[100px]">Home</p>
+            <p class="2xl:p-4 xl:p-1 min-w-[100px]">
+                <a routerLink="/shopping/index">{{I18nNavIds.StaticNavbarHome | translate}}</a>
+            </p> 
             <p class="2xl:p-4 xl:p-1 min-w-[100px]">Fashion</p>
             <p class="2xl:p-4 xl:p-1 min-w-[130px]">New Arrivals</p>
             <p class="2xl:p-4 xl:p-1 min-w-[110px]">All Brands</p>
-            <p class="2xl:p-4 xl:p-1 min-w-[100px]">More</p>
+            <p class="2xl:p-4 xl:p-1 min-w-[100px]">{{I18nNavIds.StaticNavbarMore | translate}}</p>
         </div>
     
         <p>

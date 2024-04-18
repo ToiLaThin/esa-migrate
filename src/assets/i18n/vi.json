@@ -1,0 +1,41 @@
+{
+	"common": {
+		"actions": {
+            "add": "Thêm mới",
+			"back": "Quay lại",
+			"cancel": "Hủy bỏ",
+			"clear": "Lược bỏ",
+			"close": "Đóng lại",
+			"delete": "Xóa",
+			"edit": "Sửa",
+			"next": "Tiêp theo",
+			"save": "Lưu trữ",
+			"search": "Tìm kiếm",
+			"submit": "Gửi đi"
+		}
+	},
+	"static": {
+		"nav": {
+			"about": "Về chúng tôi",
+			"contact": "Thông tin liên hệ",
+			"home": "Trang chủ",
+			"more": "Thêm",
+			"shop_catalog": "Danh mục mua sắm"
+		},
+		"topbar": {
+			"cart": "Giỏ hàng",
+			"currency": "Currency",
+			"help": "Trung tâm hỗ trợ",
+			"lang.en": "Tiếng Anh",
+			"lang.vi": "Tiếng Việt",
+			"language": "Ngôn ngữ",
+			"login": "Đăng nhập",
+			"register": "Đăng ký",
+			"logout": "Đăng xuất",
+			"order_tracking": "Theo dõi đơn hàng",
+			"reward": "Điểm thưởng",
+			"search": "Tìm kiếm",
+			"search_placeholder": "Tìm kiếm sản phẩm..."
+		}
+	}
+}

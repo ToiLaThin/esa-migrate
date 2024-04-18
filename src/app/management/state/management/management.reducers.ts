@@ -32,6 +32,7 @@ export const initialManagementState: IManagementState = {
     subCatalogSelectedIds: [],
     catalogSelectedId: '',
     currency: Currency.VND,
+    language: 'en',
     userRewardPoints: null
 };
 export const managementReducer = createReducer(
@@ -98,6 +99,13 @@ export const managementReducer = createReducer(
             ...state,
             currency: action.newCurrency
         }
+    }),
+    on(managementActions.changeLanguage, (state, action) => {
+        return {
+            ...state,
+            language: action.newLanguage
+        }
+    
     }),
 
     on(managementActions.resetManagementProductsAndCatalogState, (state, action) => ({

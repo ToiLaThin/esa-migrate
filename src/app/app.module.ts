@@ -10,7 +10,7 @@ import { EffectsModule } from "@ngrx/effects";
 import { StoreDevtoolsModule } from "@ngrx/store-devtools";
 import { ProductEffects } from "./shopping/state/product/product.effects";
 import { productFeatureKey, productReducer } from "./shopping/state/product/product.reducers";
-import { HttpClientModule, provideHttpClient } from "@angular/common/http";
+import { HttpClient, HttpClientModule, provideHttpClient } from "@angular/common/http";
 import { NZ_I18N } from 'ng-zorro-antd/i18n';
 import { en_US } from 'ng-zorro-antd/i18n';
 import en from '@angular/common/locales/en';
@@ -34,12 +34,26 @@ import { orderManagementFeatureKey, orderManagementReducer } from "./management/
 import { OrderEffects } from "./shopping/state/order/order.effects";
 import { orderFeatureKey, orderReducer } from "./shopping/state/order/order.reducers";
 import { ManagementEffects } from "./management/state/management/management.effects";
+// import ngx-translate and the http loader
+import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 
 registerLocaleData(en);
 
 @NgModule({
     declarations: [AppComponent],
     imports: [
+        //translate ngx-translate
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: (http: HttpClient) => {
+                    return new TranslateHttpLoader(http);
+                },
+                deps: [HttpClient]
+            }
+        }),
+
         CommonModule,
         BrowserModule,
         HttpClientModule,
@@ -80,12 +94,10 @@ registerLocaleData(en);
     exports: [],
     bootstrap: [AppComponent],
     providers: [
-      { provide: NZ_I18N, useValue: en_US },
-      provideAnimationsAsync(),
-      provideHttpClient(),
-      provideAnimationsAsync('noop')
+        { provide: NZ_I18N, useValue: en_US },
+        provideAnimationsAsync(),
+        provideHttpClient(),
+        provideAnimationsAsync('noop')
     ]
 })
-export class AppModule {
-
-}
+export class AppModule {}

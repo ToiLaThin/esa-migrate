@@ -47,10 +47,23 @@ import { OrderDetailDrawerComponent } from "./components/order-list/order-detail
 import { NzDrawerModule } from "ng-zorro-antd/drawer";
 import { OrderDetailModalComponent } from "./components/order-process/order-detail-modal/order-detail-modal.component";
 import { NzModalModule } from "ng-zorro-antd/modal";
+import { TranslateLoader, TranslateModule, TranslatePipe } from "@ngx-translate/core";
+import { HttpClient } from "@angular/common/http";
+import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 @NgModule({
     imports: [
         //pipes
         ReactiveCurrencyPipe,
+        //so that translate pipe can be used in template
+        TranslateModule.forChild({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: (http: HttpClient) => {
+                    return new TranslateHttpLoader(http);
+                },
+                deps: [HttpClient]
+            }
+        }),
 
         RouterModule.forChild(shoppingRoutes),
         CommonModule, //to have async pipe
@@ -62,7 +75,7 @@ import { NzModalModule } from "ng-zorro-antd/modal";
         NzDropDownModule,
         NzCheckboxModule,
         NzDrawerModule, 
-        NzModalModule      
+        NzModalModule,
     ],
     declarations: [
         ShoppingComponent,
