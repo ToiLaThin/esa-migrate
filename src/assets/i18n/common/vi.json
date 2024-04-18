@@ -1,0 +1,17 @@
+{
+    "common": {
+		"actions": {
+            "add": "Thêm mới",
+			"back": "Quay lại",
+			"cancel": "Hủy bỏ",
+			"clear": "Lược bỏ",
+			"close": "Đóng lại",
+			"delete": "Xóa",
+			"edit": "Sửa",
+			"next": "Tiêp theo",
+			"save": "Lưu trữ",
+			"search": "Tìm kiếm",
+			"submit": "Gửi đi"
+		}
+	}
+}

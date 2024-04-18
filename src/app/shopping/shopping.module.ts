@@ -50,7 +50,10 @@ import { NzModalModule } from "ng-zorro-antd/modal";
 import { TranslateLoader, TranslateModule, TranslatePipe } from "@ngx-translate/core";
 import { HttpClient } from "@angular/common/http";
 import { TranslateHttpLoader } from "@ngx-translate/http-loader";
+import { MultiFilesTranslationLoader } from "../core/translation-loader/multi-files-translation.loader";
+
 @NgModule({
+    //https://github.com/ngx-translate/core/issues/1193
     imports: [
         //pipes
         ReactiveCurrencyPipe,
@@ -59,10 +62,29 @@ import { TranslateHttpLoader } from "@ngx-translate/http-loader";
             loader: {
                 provide: TranslateLoader,
                 useFactory: (http: HttpClient) => {
-                    return new TranslateHttpLoader(http);
+                    return new MultiFilesTranslationLoader(http, {
+                        transfiles: [
+                            {
+                                prefix: 'assets/i18n/shopping',
+                                suffix: 'layout',
+                                extension: 'json'
+                            }
+                        ],
+                        includeCommonFile: true,
+                    });
                 },
                 deps: [HttpClient]
-            }
+            },
+            //extend the parent module translation
+            //when we switch language, the module is not reloaded
+            //so the transfile of the new language is not loaded
+            // extend: true,
+
+            //follow this post: https://medium.com/@TuiZ/how-to-split-your-i18n-file-per-lazy-loaded-module-with-ngx-translate-3caef57a738f
+            //we have multiple translation service instance for each module, and use state management
+            //so when we switch language, we need to notify all module reload the module to get the new translation
+            //see in the shopping.component.ts, we can make root module import nothing, all import happen in the lazy modules
+            isolate: true
         }),
 
         RouterModule.forChild(shoppingRoutes),
@@ -74,12 +96,12 @@ import { TranslateHttpLoader } from "@ngx-translate/http-loader";
         NzToolTipModule,
         NzDropDownModule,
         NzCheckboxModule,
-        NzDrawerModule, 
-        NzModalModule,
+        NzDrawerModule,
+        NzModalModule
     ],
     declarations: [
         ShoppingComponent,
-        HeaderTopbarComponent,        
+        HeaderTopbarComponent,
         FooterComponent,
         IndexComponent,
         BannerComponent,
@@ -107,7 +129,7 @@ import { TranslateHttpLoader } from "@ngx-translate/http-loader";
         OrderTrackingNotifyCustomerComponent,
         OrderTrackingPaymentMethodsComponent,
         OrderTrackingStepperComponent,
-        
+
         OrderListComponent,
         OrderListCardComponent,
         OrderListSortByComponent,
@@ -118,8 +140,7 @@ import { TranslateHttpLoader } from "@ngx-translate/http-loader";
         OrderDetailDrawerComponent,
         OrderDetailModalComponent
     ],
-    exports: [],
+    exports: []
 })
-export class ShoppingModule {
-}
+export class ShoppingModule {}
 

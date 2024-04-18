@@ -37,21 +37,29 @@ import { ManagementEffects } from "./management/state/management/management.effe
 // import ngx-translate and the http loader
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import { MultiFilesTranslationLoader } from "./core/translation-loader/multi-files-translation.loader";
 
 registerLocaleData(en);
 
 @NgModule({
     declarations: [AppComponent],
+    //https://github.com/ngx-translate/core/issues/1193
     imports: [
         //translate ngx-translate
         TranslateModule.forRoot({
             loader: {
                 provide: TranslateLoader,
+                //factory method to create the loader
                 useFactory: (http: HttpClient) => {
-                    return new TranslateHttpLoader(http);
+                    return new MultiFilesTranslationLoader(http, {
+                        transfiles: [],
+                        includeCommonFile: false,
+                    });
                 },
-                deps: [HttpClient]
-            }
+                deps: [HttpClient],
+            },
+            // isolate: false, //lazy module can extend the translation of parent
+            isolate: true, //each module has its own translation
         }),
 
         CommonModule,

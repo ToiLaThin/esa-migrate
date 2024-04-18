@@ -5,17 +5,17 @@
         <div class="flex flex-row justify-between lg:gap-3 sm:gap-0 md:gap-0 sm:justify-center md:justify-center">
             <p class="pr-3 border-r-2 border-solid border-gray-50 sm:min-w-min">
                 @if ((authStatus$ | async) === AuthStatus.Authenticated) {
-                {{I18nTopbarIds.StaticTopbarReward | translate}}: <span class="text-red-600 font-semibold">{{ rewardPoints$ | async }}</span>
+                {{I18NLayoutIds.LayoutTopbarReward | translate}}: <span class="text-red-600 font-semibold">{{ rewardPoints$ | async }}</span>
                 } 
                 @else {
-                {{I18nTopbarIds.StaticTopbarReward | translate}}: <span nz-tooltip nzTooltipTitle="{{I18nTopbarIds.StaticTopbarLogin | translate}} required">?</span>
+                {{I18NLayoutIds.LayoutTopbarReward | translate}}: <span nz-tooltip nzTooltipTitle="{{I18NLayoutIds.LayoutTopbarLogin | translate}} required">?</span>
                 }
             </p>
             <p class="pr-3 border-r-2 border-solid border-gray-50 sm:min-w-min">
-                {{I18nTopbarIds.StaticTopbarHelp | translate}}
+                {{I18NLayoutIds.LayoutTopbarHelp | translate}}
             </p>
             <p class="pr-3 border-r-2 border-solid border-gray-50 sm:min-w-min">
-                {{I18nTopbarIds.StaticTopbarOrderTracking | translate}}
+                {{I18NLayoutIds.LayoutTopbarOrderTracking | translate}}
             </p>
             <p class="pr-3 border-r-2 border-solid border-gray-50 sm:min-w-min">
                 <app-button [className]="'btn-secondary'"
@@ -33,13 +33,13 @@
                         <svg-icon [iconName]="ColorSvgNames.FlagVn" 
                                     [size]="24">
                         </svg-icon>
-                        <span class="ml-2">{{I18nTopbarIds.StaticTopbarLangVi | translate}}</span>
+                        <span class="ml-2">{{I18NLayoutIds.LayoutTopbarLangVi| translate}}</span>
                         }
                         @if (this.selectedLanguage === 'en') {
                         <svg-icon [iconName]="ColorSvgNames.FlagUs" 
                                     [size]="24">
                         </svg-icon>
-                        <span class="ml-2">{{I18nTopbarIds.StaticTopbarLangEn | translate}}</span>
+                        <span class="ml-2">{{I18NLayoutIds.LayoutTopbarLangEn | translate}}</span>
                         }
                     </div>
                 </app-button>
@@ -50,7 +50,7 @@
                                 <svg-icon [iconName]="ColorSvgNames.FlagUs" 
                                             [size]="24">
                                 </svg-icon>
-                                <span class="ml-2">{{I18nTopbarIds.StaticTopbarLangEn | translate}}</span>
+                                <span class="ml-2">{{I18NLayoutIds.LayoutTopbarLangEn | translate}}</span>
                             </div>
                         </li>
                         <li nz-menu-item (click)="changeLanguage('vi')">
@@ -58,7 +58,7 @@
                                 <svg-icon [iconName]="ColorSvgNames.FlagVn" 
                                             [size]="24">
                                 </svg-icon>
-                                <span class="ml-2">{{I18nTopbarIds.StaticTopbarLangVi | translate}}</span>
+                                <span class="ml-2">{{I18NLayoutIds.LayoutTopbarLangVi | translate}}</span>
                             </div>
                         </li>
                     </ul>
@@ -74,7 +74,7 @@
                             <svg-icon [iconName]="ColorSvgNames.FlagVn" 
                                       [size]="24">
                             </svg-icon>
-                        <span class="ml-2">{{I18nTopbarIds.StaticTopbarLanguage | translate}}</span>
+                        <span class="ml-2">{{I18NLayoutIds.LayoutTopbarLanguage | translate}}</span>
                         } 
                         @else {
                             @for (currencyData of this.currencyDatas; track currencyData) {
@@ -118,28 +118,28 @@
     
         <div class="flex flex-row justify-between items-center gap-2 sm:hidden md:hidden lg:hidden xl:flex">
             <input type="text" 
-                   placeholder="{{I18nTopbarIds.StaticTopbarSearchPlaceholder | translate}}" 
+                   placeholder="{{I18NLayoutIds.LayoutTopbarSearchPlaceholder | translate}}" 
                    style="min-width: 700px;" 
                    class="border rounded border-gray-50 border-solid p-2">
             <button class="btn-primary-uppercase txt-[13px]">
-                {{I18nTopbarIds.StaticTopbarSearch | translate}}
+                {{I18NLayoutIds.LayoutTopbarSearch | translate}}
             </button>
         </div>
     
         <div class="flex flex-row justify-between items-center gap-2">
             @if ((this.authStatus$ | async) === AuthStatus.Anonymous) {
             <div class="border-r-2 border-solid border-gray-300 px-4 py-2 xl:block lg:block sm:hidden md:hidden">
-                <a class="text-black" (click)="login()">{{I18nTopbarIds.StaticTopbarLogin | translate}} / {{I18nTopbarIds.StaticTopbarRegister | translate}}</a>
+                <a class="text-black" (click)="login()">{{I18NLayoutIds.LayoutTopbarLogin | translate}} / {{I18NLayoutIds.LayoutTopbarRegister | translate}}</a>
             </div>
             } @else {
             <div class="border-r-2 border-solid border-gray-300 px-4 py-2 xl:block lg:block sm:hidden md:hidden">
-                <a class="text-black" (click)="logout()">{{I18nTopbarIds.StaticTopbarLogout | translate}}</a>
+                <a class="text-black" (click)="logout()">{{I18NLayoutIds.LayoutTopbarLogout | translate}}</a>
             </div>
             <i class="fa fa-user xl:hidden lg:hidden sm:block md:block"></i>
             <a class="flex flex-row px-2"
                [routerLink]="'/shopping/cart'"
                nz-tooltip
-               nzTooltipTitle="{{I18nTopbarIds.StaticTopbarCart | translate}}">
+               nzTooltipTitle="{{I18NLayoutIds.LayoutTopbarCart | translate}}">
                 <svg-icon [iconName]="'cart-outline'" 
                           [size]="24">
                 </svg-icon>
@@ -185,17 +185,17 @@
     <div class="flex flex-row justify-between items-center font-medium">
         <p class="uppercase">
             <i class="fa fa-star mr-2"></i>
-            {{I18nNavIds.StaticNavbarShopCatalog| translate}}
+            {{I18NLayoutIds.LayoutNavbarShopCatalog| translate}}
         </p>
     
         <div class="xl:flex lg:hidden flex-row justify-between text-center"> 
             <p class="2xl:p-4 xl:p-1 min-w-[100px]">
-                <a routerLink="/shopping/index">{{I18nNavIds.StaticNavbarHome | translate}}</a>
+                <a routerLink="/shopping/index">{{I18NLayoutIds.LayoutNavbarHome | translate}}</a>
             </p> 
             <p class="2xl:p-4 xl:p-1 min-w-[100px]">Fashion</p>
             <p class="2xl:p-4 xl:p-1 min-w-[130px]">New Arrivals</p>
             <p class="2xl:p-4 xl:p-1 min-w-[110px]">All Brands</p>
-            <p class="2xl:p-4 xl:p-1 min-w-[100px]">{{I18nNavIds.StaticNavbarMore | translate}}</p>
+            <p class="2xl:p-4 xl:p-1 min-w-[100px]">{{I18NLayoutIds.LayoutNavbarMore | translate}}</p>
         </div>
     
         <p>
