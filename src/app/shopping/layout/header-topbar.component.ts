@@ -31,8 +31,7 @@ import {
 import { managementFeatureKey } from '../../management/state/management/management.reducers';
 import { IManagementState } from '../../management/state/management/managementState.interface';
 import { managementActions } from '../../management/state/management/management.actions';
-import { I18NStaticNavIdSelector, I18NStaticTopBarIdSelector } from '../../core/ui-models/i18n-common-static-id';
-import { TranslateService } from '@ngx-translate/core';
+import { I18NLayoutIdSelector } from '../translate-ids/i18n-layout-id';
 
 @Component({
     selector: 'esa-shopping-header-topbar',
@@ -61,17 +60,13 @@ export class HeaderTopbarComponent implements OnInit, OnDestroy {
         return ColorSvgNames;
     }
 
-    get I18nTopbarIds() {
-        return I18NStaticTopBarIdSelector;
+    get I18NLayoutIds() {
+        return I18NLayoutIdSelector;
     }
 
-    get I18nNavIds() {
-        return I18NStaticNavIdSelector;
-    }
     constructor(
         private _store: Store,
         private _router: Router,
-        private _translateService: TranslateService
     ) {}
 
     ngOnDestroy(): void {
