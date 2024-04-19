@@ -1,6 +1,7 @@
 <div class="absolute h-full w-full top-0 left-0 bg-black opacity-70 z-10">
 </div>
-<div class="fixed top-[5%] left-[10%] w-[80%] h-[90%] z-20 m-auto bg-white opacity-100 p-3 overflow-auto">
+<!-- must set bg for this since it is absolute, so if no background, itt will transparent or same as it relative -->
+<div class="fixed top-[5%] left-[10%] w-[80%] h-[90%] z-20 m-auto bg-white dark:bg-black opacity-100 p-3 overflow-auto">
     <div class="clear-fix mt-4">
         <div class="float-end">
             <button (click)="openProductDetail()"

@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+    darkMode: 'selector',
     content: ['./src/**/*.{html,js}'],
     theme: {
         screens: {
@@ -12,8 +13,12 @@ module.exports = {
             transparent: 'transparent',
             current: 'currentColor',
             black: '#000',
+
+            //for actions button
             primary: '#ff5252',
+            darkPrimary: '#FF204E',
             secondary: '#666',
+            darkSecondary: '#EEEEEE',
             tenery: '#ffffff',
             white: '#fff',
             gray: {

@@ -10,13 +10,13 @@
 }
 
 .tab {
-    @apply flex flex-row gap-2 items-center bg-[#fff];
+    @apply flex flex-row gap-2 items-center;
     transition: all 0.3s ease-in-out;
     cursor: pointer;
 
     &:hover {
         transform: translateY(-1px);
-        background-color: #C24443;
+        background-color: #31363F;
         color: #fff;
     }    
 }
@@ -28,7 +28,7 @@
     width: 200px;
     &.active {
         transform: translateX(5px);
-        background-color: #C24443;
+        background-color: #31363F;
     }
 }
 
@@ -37,7 +37,7 @@
     width: auto;
     &.active {
         transform: translateY(5px);
-        background-color: #C24443;
+        background-color: #31363F;
         color: #fff;
     }
 }
@@ -45,7 +45,7 @@
 .cards-container {
     //@apply min-h-[500px];
     //this cause the card to stretch to fit the height of the content
-    @apply py-4 px-5 bg-[#fff];
+    @apply py-4 px-5;
     overflow: auto;  //this is not neccessary if using flex-wrap
     align-content: flex-start; // without this, it result in when wrap there is space
     //and when this is flex-col, change align-content to stretch
@@ -53,6 +53,6 @@
 
 .header {
     @apply flex flex-row gap-2 flex-wrap justify-between items-center;
-    @apply py-4 px-5 bg-[#fff] rounded-sm shadow;
+    @apply py-4 px-5 rounded-sm shadow;
 }
 

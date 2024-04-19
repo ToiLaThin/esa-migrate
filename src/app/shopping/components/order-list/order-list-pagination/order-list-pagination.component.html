@@ -1,3 +1,4 @@
+<!-- bg-[#f5f5f5] dark:bg-[#31363F] -->
 <div class="w-4/5 mx-auto mt-4">
     <div class="pagination-container">
         @if (currentPageNum > 1) {
@@ -7,7 +8,7 @@
         </p>
         }
         @for (pageNum of totalPagesAsArray; track pageNum) {
-            <p class="page"
+            <p class="page bg-[#31363F]"
                [ngClass]="currentPageNum === pageNum ? 'active' : ''"
                (click)="changePage(pageNum)">
                {{pageNum}}

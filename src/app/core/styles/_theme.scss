@@ -1,0 +1,18 @@
+::root {
+    --text-primary-color: rgba(0, 0 , 0, 0.87);
+    --text-secondary-color: rgba(229, 229 , 229, 1);
+    --bg-primary-color: rgba(255, 255 , 255, 1);
+    --bg-secondary-color: #f5f5f5;
+    --action-color: #1890ff;
+}
+
+//when this class is toggle in html tag, tailwindcss will apply the dark theme too
+//https://tailwindcss.com/docs/dark-mode
+.dark {
+    --text-primary-color: rgba(255, 255 , 255, 1);
+    --text-secondary-color: #EEEEEE;
+    //form color hunt, theme dark
+    --bg-primary-color: #222831;
+    --bg-secondary-color: #31363F;
+    --action-color: #FF204E;
+}
