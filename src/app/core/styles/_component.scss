@@ -31,11 +31,11 @@
     .text-subheading { @apply font-light text-gray-500 text-sm;}
 
     .btn-primary-uppercase {
-        @apply py-2 px-5 text-white rounded bg-primary font-medium uppercase tracking-wide;
+        @apply py-2 px-5 text-white rounded bg-primary dark:bg-darkPrimary font-medium uppercase tracking-wide;
     }
 
     .btn-primary {
-        @apply py-3 px-5 text-white rounded bg-primary font-medium tracking-wide;
+        @apply py-3 px-5 text-white rounded bg-primary dark:bg-darkPrimary font-medium tracking-wide;
     }
 
     .clear-fix {

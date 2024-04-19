@@ -4,7 +4,7 @@
     //else the height will be stretch to fit the height of the content since there is min-height on parent    
 }
 .card {
-    @apply px-4 py-2 mb-3 bg-[#fff] rounded-[6px];
+    @apply px-4 py-2 mb-3 rounded-[6px];
     box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);
     // max-width: 500px;
     .icon-container {

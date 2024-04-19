@@ -32,4 +32,13 @@ export class AppComponent {
         this._store.dispatch(cartActions.loadCartItemsFromStorage());
         this._store.dispatch(orderActions.loadTrackingOrderFromStorage());
     }
+
+    toggleTheme() {
+        let themeContainer = document.getElementsByTagName('body')[0];
+        if (themeContainer.classList.contains('dark')) {
+            themeContainer.classList.remove('dark');
+        } else {
+            themeContainer.classList.add('dark');
+        }
+    }
 }

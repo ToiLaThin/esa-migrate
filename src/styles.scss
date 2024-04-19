@@ -3,6 +3,7 @@
 @tailwind components;
 @tailwind utilities;
 
+@import 'app/core/styles/_theme.scss';
 @import 'app/core/styles/_resets.scss';
 @import 'app/core/styles/_component.scss';
 @import 'app/core/styles/_form.scss';

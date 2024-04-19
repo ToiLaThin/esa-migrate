@@ -9,9 +9,11 @@ $pageColor: #9E9E9E;
 }
 
 .page {
-    @apply py-2 px-4 rounded-[10px] bg-textLight text-[#fff] cursor-pointer;
+    @apply py-2 px-4 rounded-[10px] text-[#fff] cursor-pointer;
+
     &.active {
-        @apply bg-primary;
+        //dark not working
+        @apply bg-primary dark:bg-darkPrimary;
     }
     &:hover:not(.active) {
         background-color: lighten(rgb(7, 71,116), 10%);

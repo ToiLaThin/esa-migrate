@@ -19,7 +19,7 @@
                             <p>
                                 <span class="text-subheading mr-4">{{cartItem.unitPrice | rcurrency}}</span>
                                 @if (cartItem.isOnSale) {
-                                <span class="text-primary font-semibold text-lg">- {{cartItem.saleValue! | rcurrency}}</span>
+                                <span class="text-primary dark:text-darkPrimary font-semibold text-lg">- {{cartItem.saleValue! | rcurrency}}</span>
                                 }
                             </p>
                             <p class="font-bold text-sm">Color: <span class="text-subheading">Grey</span></p>
@@ -32,7 +32,7 @@
                                    min="1"
                                    (change)="changeCartItemQuantity(i, $event)">
                         </div>
-                        <div class="text-primary font-semibold text-lg">
+                        <div class="text-primary dark:text-darkPrimary font-semibold text-lg">
                             @if (cartItem.isOnSale) {
                             <span class="line-through">
                                 {{ cartItem.unitPrice | rcurrency}}
@@ -43,7 +43,7 @@
                             }
 
                         </div>
-                        <div class="text-primary font-semibold text-lg">
+                        <div class="text-primary dark:text-darkPrimary font-semibold text-lg">
                             @if (cartItem.isOnSale) {
                             <span class="line-through">
                                 {{ cartItem.unitPrice * cartItem.quantity | rcurrency}}
@@ -53,7 +53,7 @@
                             {{cartItem.unitPrice * cartItem.quantity | rcurrency}}
                             }
                         </div>
-                        <div class="fas fa-trash text-primary" 
+                        <div class="fas fa-trash text-primary dark:text-darkPrimary" 
                              (click)="removeCartItemFromCart(i)">
                         </div>
                     </div>
@@ -82,21 +82,21 @@
                     <div class="mx-6 my-4 font-semibold">
                         <div class="clear-fix mt-4">
                             <p class="float-left text-sm">Sub total</p>
-                            <p class="float-right text-primary text-md">
+                            <p class="float-right text-primary dark:text-darkPrimary text-md">
                                 {{ subItemsPrice$ | async | rcurrency}}
                             </p>
                         </div>
             
                         <div class="clear-fix mt-2">
                             <p class="float-left text-sm">Discount amount (by sale)</p>
-                            <p class="float-right text-primary text-md">
+                            <p class="float-right text-primary dark:text-darkPrimary text-md">
                                 {{ this.discountAmountSale$ | async | rcurrency}}
                             </p>
                         </div>
 
                         <div class="clear-fix mt-2">
                             <p class="float-left text-sm">Discount amount (by coupon)</p>
-                            <p class="float-right text-primary text-md">
+                            <p class="float-right text-primary dark:text-darkPrimary text-md">
                                 {{ this.discountAmountCoupon$ | async | rcurrency}}
                             </p>
                         </div>
@@ -105,18 +105,18 @@
                 <div class="mx-6 my-4 font-semibold">
                     <div class="clear-fix mt-4">
                         <p class="float-left text-sm">Grand total after sale</p>
-                        <p class="float-right text-primary text-md">{{ subItemsAfterSalePrice$ | async | rcurrency}}</p>                        
+                        <p class="float-right text-primary dark:text-darkPrimary text-md">{{ subItemsAfterSalePrice$ | async | rcurrency}}</p>                        
                     </div>
         
                     <div class="clear-fix mt-2">
                         <p class="float-left text-sm">Grand total after coupon applied</p>
-                        <p class="float-right text-primary text-md">
+                        <p class="float-right text-primary dark:text-darkPrimary text-md">
                             {{ subItemsAfterSaleThenCouponPrice$ | async | rcurrency}}
                         </p>
                     </div>
                     <div class="clear-fix mt-2">
                         <p class="float-left text-sm">Grand total</p>
-                        <p class="float-right text-primary text-md">
+                        <p class="float-right text-primary dark:text-darkPrimary text-md">
                             {{ subItemsAfterSaleThenCouponPrice$ | async | rcurrency}}
                         </p>
                     </div>
@@ -127,7 +127,7 @@
                 </ng-container>
                 } @else {
                 <div class="mx-6">
-                    <p class="underline text-primary">
+                    <p class="underline text-primary dark:text-darkPrimary">
                         Have a promote code ?
                     </p>
                     <div class="flex flex-row gap-4">

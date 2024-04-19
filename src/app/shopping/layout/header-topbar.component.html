@@ -1,9 +1,9 @@
-<div class=" py-2 border-b-gray-50-solid-1px my-container">
-    <div class="flex flex-row justify-between items-center text-secondary">
+<div class=" py-2 border-b-gray-50-solid-1px dark:border-darkPrimary my-container">
+    <div class="flex flex-row justify-between items-center text-secondary dark:text-darkSecondary">
         <div class="md:hidden sm:hidden lg:block">Get up 50% off new season styles, limited time only</div>
 
         <div class="flex flex-row justify-between lg:gap-3 sm:gap-0 md:gap-0 sm:justify-center md:justify-center">
-            <p class="pr-3 border-r-2 border-solid border-gray-50 sm:min-w-min">
+            <p class="pr-3 border-r-2 border-solid border-gray-50 dark:border-darkPrimary sm:min-w-min">
                 @if ((authStatus$ | async) === AuthStatus.Authenticated) {
                 {{I18NLayoutIds.LayoutTopbarReward | translate}}: <span class="text-red-600 font-semibold">{{ rewardPoints$ | async }}</span>
                 } 
@@ -11,13 +11,13 @@
                 {{I18NLayoutIds.LayoutTopbarReward | translate}}: <span nz-tooltip nzTooltipTitle="{{I18NLayoutIds.LayoutTopbarLogin | translate}} required">?</span>
                 }
             </p>
-            <p class="pr-3 border-r-2 border-solid border-gray-50 sm:min-w-min">
+            <p class="pr-3 border-r-2 border-solid border-gray-50 dark:border-darkPrimary sm:min-w-min">
                 {{I18NLayoutIds.LayoutTopbarHelp | translate}}
             </p>
-            <p class="pr-3 border-r-2 border-solid border-gray-50 sm:min-w-min">
+            <p class="pr-3 border-r-2 border-solid border-gray-50 dark:border-darkPrimary sm:min-w-min">
                 {{I18NLayoutIds.LayoutTopbarOrderTracking | translate}}
             </p>
-            <p class="pr-3 border-r-2 border-solid border-gray-50 sm:min-w-min">
+            <p class="pr-3 border-r-2 border-solid border-gray-50 dark:border-darkPrimary sm:min-w-min">
                 <app-button [className]="'btn-secondary'"
                     nz-dropdown
                     nzTrigger="click"
@@ -107,10 +107,10 @@
         </div>
     </div>
 </div>
-<div class=" border-b-gray-50-solid-1px pb-6 mt-6 my-container">
+<div class=" border-b-gray-50-solid-1px dark:border-darkPrimary pb-6 mt-6 my-container">
     <div class="flex flex-row justify-between items-center">
         <div class="bg-cover">
-            <a>
+            <a routerLink="/shopping/index">
                 <img src="https://demos.codezeel.com/prestashop/PRS21/PRS210502/img/logo-1691412328.jpg" 
                      style="min-width: 240px; width: 280px ;height: auto;">
             </a>
@@ -128,12 +128,12 @@
     
         <div class="flex flex-row justify-between items-center gap-2">
             @if ((this.authStatus$ | async) === AuthStatus.Anonymous) {
-            <div class="border-r-2 border-solid border-gray-300 px-4 py-2 xl:block lg:block sm:hidden md:hidden">
-                <a class="text-black" (click)="login()">{{I18NLayoutIds.LayoutTopbarLogin | translate}} / {{I18NLayoutIds.LayoutTopbarRegister | translate}}</a>
+            <div class="border-r-2 border-solid border-gray-300 dark:border-darkPrimary px-4 py-2 xl:block lg:block sm:hidden md:hidden">
+                <a (click)="login()">{{I18NLayoutIds.LayoutTopbarLogin | translate}} / {{I18NLayoutIds.LayoutTopbarRegister | translate}}</a>
             </div>
             } @else {
-            <div class="border-r-2 border-solid border-gray-300 px-4 py-2 xl:block lg:block sm:hidden md:hidden">
-                <a class="text-black" (click)="logout()">{{I18NLayoutIds.LayoutTopbarLogout | translate}}</a>
+            <div class="border-r-2 border-solid border-gray-300 dark:border-darkPrimary px-4 py-2 xl:block lg:block sm:hidden md:hidden">
+                <a (click)="logout()">{{I18NLayoutIds.LayoutTopbarLogout | translate}}</a>
             </div>
             <i class="fa fa-user xl:hidden lg:hidden sm:block md:block"></i>
             <a class="flex flex-row px-2"
@@ -148,29 +148,29 @@
             }
             <div class="px-2">
                 @if ((this.authStatus$ | async) === AuthStatus.Authenticated && (this.trackingOrder$ | async) !== null) {
-                <a class="text-black" (click)="continueOrderingProcess()">
-                    <i class="fa fa-repeat flex items-center justify-center text-black xl:text-[32px] md:text-[20px]">
+                <a (click)="continueOrderingProcess()">
+                    <i class="fa fa-repeat flex items-center justifyxl:text-[32px] md:text-[20px]">
                     </i>
                 </a>
                 } @else {
-                <a class="text-black">
-                    <i class="fa fa-repeat flex items-center justify-center text-black xl:text-[32px] md:text-[20px]">
+                <a>
+                    <i class="fa fa-repeat flex items-center justifyxl:text-[32px] md:text-[20px]">
                     </i>
                 </a>
                 }
             </div>
             <div class="px-2">
-                <a class="text-black"><i class="far fa-heart flex items-center justify-center text-black xl:text-[32px] md:text-[20px] font-medium"></i></a>
+                <a><i class="far fa-heart flex items-center justifyxl:text-[32px] md:text-[20px] font-medium"></i></a>
             </div>
             <div class="px-2">
                 @if ((this.authStatus$ | async) === AuthStatus.Authenticated) {
-                <a class="text-black" (click)="navigateToOrderList()">
+                <a (click)="navigateToOrderList()">
                     <svg-icon [iconName]="ColorSvgNames.ViewDetail"
                               [size]="32">
                     </svg-icon>
                 </a>
                 } @else {
-                <a class="text-black" (click)="navigateToOrderList()">
+                <a (click)="navigateToOrderList()">
                     <svg-icon [iconName]="ColorSvgNames.ViewDetail"
                               [size]="32">
                     </svg-icon>
