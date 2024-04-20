@@ -10,13 +10,13 @@
             <svg-icon [iconName]="step.iconName">
             </svg-icon>
             @if (i % 2 === 0) {
-            <div class="content down">
+            <div class="content down bg-lightGray dark:bg-darkGray">
                 <div class="text-center text-xs">
                     {{ step.title }}
                 </div>
             </div>
             } @else {
-            <div class="content up">
+            <div class="content up bg-lightGray dark:bg-darkGray">
                 <div class="text-center text-xs" nz-tooltip>
                     {{ step.title }}
                 </div>

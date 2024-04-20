@@ -5,7 +5,7 @@
                  [disableClose]="this.sidebarFixed$ | async"
                  [mode]="(this.sidebarMode$ | async)!" 
                  [opened]="this.sidebarOpened$ | async">
-        <div class="collapse-container px-5 py-4">
+        <div class="collapse-container px-5 py-4 bg-lightGray dark:bg-darkGray">
             <div class="collapse-content flex flex-col mx-auto">
                 <div [hidden]="(this.sidebarFixed$ | async)">
                     <button class="toggleBtn" 
@@ -22,8 +22,8 @@
                               class="mr-2">
                     </svg-icon>
                     <div>
-                        <h2 class="text-textDark text-xl">Admin Dashboard Eshop Analysis</h2>
-                        <p class="text-textLight text-xs">Created by ecommerce</p>
+                        <h2 class="text-textDark dark:text-textLogo text-xl">Admin Dashboard Eshop Analysis</h2>
+                        <p class="text-textLight dark:text-darkSecondary text-xs">Created by ecommerce</p>
                     </div>
                 </div>
 

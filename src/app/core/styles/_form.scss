@@ -1,5 +1,14 @@
 $background: #f4f5f7;
 $blue-border: #4c9aff;
+:host {
+    --label-color: #5e6c84;
+    --input-color: #172b4d;
+}
+
+.dark {
+    --label-color: #d9e2ec;
+    --input-color: #f0f4f8;
+}
 
 form {
     .label {
@@ -7,7 +16,7 @@ form {
         padding-bottom: .5rem;
         font-weight: 600;
         font-size: .8125rem;
-        color: #5e6c84;
+        color: var(--label-color);
     }
 
     .form-input {
@@ -15,14 +24,16 @@ form {
         width: 100%;
         padding: .325rem .75rem;
 
+        background-color: inherit; //from user agent stylesheet, the background is field
         border-radius: 3px;
         border: 1px solid #ddd;
         font-size: 15px;
-        color: #172b4d;
+        color: var(--input-color);
         transition: background .1s;
 
         &:hover {
             background: $background;
+            color: invert($color: $background);
         }
 
         &:focus {

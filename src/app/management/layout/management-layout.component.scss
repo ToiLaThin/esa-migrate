@@ -7,8 +7,8 @@ mat-sidenav-container {
 }
 
 .collapse-container {
-    @apply h-full relative bg-backgroundLightest;
-    
+    @apply h-full relative;
+    color: var(--text-secondary-color);
     .toggleBtn {
         float: right;
         &::after {

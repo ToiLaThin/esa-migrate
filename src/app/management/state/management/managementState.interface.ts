@@ -3,6 +3,7 @@ import { IPaginatedProduct, IProductLazyLoadRequest } from "../../../core/models
 import { IUserRewardPoint } from "../../../core/models/reward-point.interface";
 import { Currency } from "../../../core/types/currency.enum";
 import { SidebarMode } from "../../../core/types/sidebar-mode.enum";
+import { ThemeType } from "../../../core/ui-models/theme-type";
 
 export interface IManagementState {
     topbarOpened: boolean,
@@ -27,5 +28,6 @@ export interface IManagementState {
     currency: Currency,
     language: 'en' | 'vi';
     userRewardPoints: IUserRewardPoint | null, //null means not login
+    theme: ThemeType,
 
 }

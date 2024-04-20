@@ -4,7 +4,6 @@ table {
     min-width: 600px;
     overflow: scroll;
     font-size: 18px;
-    background-color: #fff;
 
     td:not(.left-align) {
         text-align: center; //can change to center
@@ -24,7 +23,7 @@ table {
 }
 
 .kanban-column {
-    @apply mb-2 flex flex-col rounded-sm bg-backgroundLightest flex-shrink-0 px-3 py-1;
+    @apply mb-2 flex flex-col rounded-sm flex-shrink-0 px-3 py-1;
     width: calc(100% / 2 - 40px);
     min-width: 280px;
     min-height: 400px;

@@ -4,6 +4,7 @@ import { ICatalog, ISubCatalog } from "../../../core/models/catalog.interface";
 import { IPaginatedProduct, SortBy, OrderType } from "../../../core/models/product.interface";
 import { Currency } from "../../../core/types/currency.enum";
 import { IUserRewardPoint } from "../../../core/models/reward-point.interface";
+import { ThemeType } from "../../../core/ui-models/theme-type";
 
 export const managementActions = createActionGroup({
     source: 'Management Events in Management Module',
@@ -16,6 +17,7 @@ export const managementActions = createActionGroup({
         'Reset Management Products And Catalog State': emptyProps(),
         'Change Currency': props<{ newCurrency: Currency }>(),
         'Change Language': props<{ newLanguage: 'en' | 'vi' }>(),
+        'Change Theme': props<{ newTheme: ThemeType }>(),
         'Load User Reward Points': props<{userId: string}>(),
         'Load User Reward Points Successfully': props<{ userRewardPoints: IUserRewardPoint }>(),
         'Load User Reward Points Failed': props<{ error: string }>(),

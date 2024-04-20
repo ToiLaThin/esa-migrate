@@ -5,7 +5,7 @@
         <div class="flex flex-row justify-between lg:gap-3 sm:gap-0 md:gap-0 sm:justify-center md:justify-center">
             <p class="pr-3 border-r-2 border-solid border-gray-50 dark:border-darkPrimary sm:min-w-min">
                 @if ((authStatus$ | async) === AuthStatus.Authenticated) {
-                {{I18NLayoutIds.LayoutTopbarReward | translate}}: <span class="text-red-600 font-semibold">{{ rewardPoints$ | async }}</span>
+                {{I18NLayoutIds.LayoutTopbarReward | translate}}: <span class="text-darkPrimary font-semibold">{{ rewardPoints$ | async }}</span>
                 } 
                 @else {
                 {{I18NLayoutIds.LayoutTopbarReward | translate}}: <span nz-tooltip nzTooltipTitle="{{I18NLayoutIds.LayoutTopbarLogin | translate}} required">?</span>
@@ -16,6 +16,22 @@
             </p>
             <p class="pr-3 border-r-2 border-solid border-gray-50 dark:border-darkPrimary sm:min-w-min">
                 {{I18NLayoutIds.LayoutTopbarOrderTracking | translate}}
+            </p>
+            <p class="pr-3 border-r-2 border-solid border-gray-50 dark:border-darkPrimary sm:min-w-min">
+                @if (currentTheme === ThemeType.DARK) {
+                <app-button [iconName]="ColorSvgNames.ThemeDark"
+                            [iconSize]="24"
+                            (click)="changeTheme(ThemeType.LIGHT)"
+                            className="btn-secondary" nz-tooltip nzTooltipTitle="Theme light">
+                </app-button>
+                }
+                @if (currentTheme === ThemeType.LIGHT) {
+                <app-button [iconName]="ColorSvgNames.ThemeLight"
+                            [iconSize]="24"     
+                            (click)="changeTheme(ThemeType.DARK)"
+                            className="btn-secondary" nz-tooltip nzTooltipTitle="Theme dark">
+                </app-button>
+                }
             </p>
             <p class="pr-3 border-r-2 border-solid border-gray-50 dark:border-darkPrimary sm:min-w-min">
                 <app-button [className]="'btn-secondary'"

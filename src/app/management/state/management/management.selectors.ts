@@ -44,3 +44,8 @@ export const selectorUserRewardPoints = createSelector(
     selectorManagementFeature,
     (managementState) => managementState.userRewardPoints?.rewardPoint
 )
+
+export const selectorThemeSelected = createSelector(
+    selectorManagementFeature,
+    (managementState) => managementState.theme
+);

@@ -4,6 +4,7 @@ import { catalogManagementActions, managementActions, productManagementActions }
 import { SidebarMode } from '../../../core/types/sidebar-mode.enum';
 import { ProductPerPage, SortBy, OrderType, FilterBy, IProductLazyLoadRequest } from '../../../core/models/product.interface';
 import { Currency } from '../../../core/types/currency.enum';
+import { ThemeType } from '../../../core/ui-models/theme-type';
 
 export const managementFeatureKey = 'managementFeature';
 export const initialManagementState: IManagementState = {
@@ -33,7 +34,8 @@ export const initialManagementState: IManagementState = {
     catalogSelectedId: '',
     currency: Currency.VND,
     language: 'en',
-    userRewardPoints: null
+    userRewardPoints: null,
+    theme: ThemeType.LIGHT
 };
 export const managementReducer = createReducer(
     initialManagementState,
@@ -105,7 +107,12 @@ export const managementReducer = createReducer(
             ...state,
             language: action.newLanguage
         }
-    
+    }),
+    on(managementActions.changeTheme, (state, action) => {
+        return {
+            ...state,
+            theme: action.newTheme
+        }
     }),
 
     on(managementActions.resetManagementProductsAndCatalogState, (state, action) => ({

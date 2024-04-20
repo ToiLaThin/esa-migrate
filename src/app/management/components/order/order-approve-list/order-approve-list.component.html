@@ -1,4 +1,5 @@
-<div class="sticky top-1">
+<!-- only stick if parent is flex-row -->
+<div class="lg:sticky lg:top-1">
     <app-button (click)="toggleDisplayMode()"
                 [iconName]="this.displayMode == 'table' ? 'table-view-mode' : 'kanban-view-mode'"
                 nz-tooltip
@@ -190,9 +191,9 @@
 </ng-template>
 
 <ng-template #kanbanMode>
-    <div class="flex flex-row gap-5 bg-white"
+    <div class="flex flex-row gap-5"
          cdkDropListGroup>
-        <div class="kanban-column" cdkDropList 
+        <div class="kanban-column bg-lightGray dark:bg-darkGray" cdkDropList 
         [cdkDropListData]="ordersToApprove"
         [id]="'to-approve'"
         (cdkDropListDropped)="drop($event)">
@@ -211,7 +212,7 @@
                 }
             </div>
         </div>
-        <div class="kanban-column" cdkDropList 
+        <div class="kanban-column bg-lightGray dark:bg-darkGray" cdkDropList 
         [cdkDropListData]="ordersApproved"
         [id]="'approved'"
         (cdkDropListDropped)="drop($event)">
@@ -232,3 +233,10 @@
         </div>
     </div>
 </ng-template>
+
+<!-- test position sticky of order-approve-items -->
+<!-- @for(i of [1, 2, 3, 4, 5, 6, 7 , 8 , 10, 12]; track i) {
+    <p>
+        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dignissimos alias tenetur ullam dolore odit, harum id voluptas nisi! Eligendi a ad aut consequatur vel ut commodi debitis odit. Optio, adipisci.
+    </p>
+} -->

@@ -1,15 +1,12 @@
 
-$pageColor: #9E9E9E;
-
 .pagination-container {
     @apply flex flex-row justify-center items-center gap-2;
     @apply text-xs;
     font-family: 'Montserrat', sans-serif;
-    color: $pageColor;
 }
 
 .page {
-    @apply py-2 px-4 rounded-[10px] bg-textLight text-[#fff] cursor-pointer;
+    @apply py-2 px-4 rounded-[10px] cursor-pointer;
     &.active {
         @apply bg-primary;
     }

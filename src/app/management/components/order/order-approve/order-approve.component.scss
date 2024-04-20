@@ -1,4 +1,6 @@
-:host {
-    padding: 10px 14px;
-    background-color: #f1f1f1;
-}
+// :host {
+//     padding: 10px 14px;
+//     background-color: #f1f1f1;
+// }
+
+//since the order-list-items is sticky, we should not style host, it cause overlapping

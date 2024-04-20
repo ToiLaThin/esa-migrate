@@ -26,12 +26,14 @@ import { Currency } from '../../core/types/currency.enum';
 import {
     selectorCurrencySelected,
     selectorLanguageSelected,
+    selectorThemeSelected,
     selectorUserRewardPoints
 } from '../../management/state/management/management.selectors';
 import { managementFeatureKey } from '../../management/state/management/management.reducers';
 import { IManagementState } from '../../management/state/management/managementState.interface';
 import { managementActions } from '../../management/state/management/management.actions';
 import { I18NLayoutIdSelector } from '../translate-ids/i18n-layout-id';
+import { ThemeType } from '../../core/ui-models/theme-type';
 
 @Component({
     selector: 'esa-shopping-header-topbar',
@@ -41,6 +43,7 @@ export class HeaderTopbarComponent implements OnInit, OnDestroy {
     userName$!: Observable<string>;
     userRole$!: Observable<string>;
     userId!: string;
+    currentTheme!: ThemeType;
     authStatus$!: Observable<AuthStatus>;
     itemsInCartCount$!: Observable<number>;
 
@@ -58,6 +61,10 @@ export class HeaderTopbarComponent implements OnInit, OnDestroy {
 
     get ColorSvgNames() {
         return ColorSvgNames;
+    }
+
+    get ThemeType() {
+        return ThemeType;
     }
 
     get I18NLayoutIds() {
@@ -96,6 +103,16 @@ export class HeaderTopbarComponent implements OnInit, OnDestroy {
             )
             .pipe(
                 tap((currency) => (this.selectedCurrency = currency)),
+                takeUntil(this.destroy$)
+            )
+            .subscribe();
+
+        this._store
+            .select((state) =>
+                selectorThemeSelected(state as { [managementFeatureKey]: IManagementState })
+            )
+            .pipe(
+                tap((theme) => (this.currentTheme = theme)),
                 takeUntil(this.destroy$)
             )
             .subscribe();
@@ -144,6 +161,12 @@ export class HeaderTopbarComponent implements OnInit, OnDestroy {
     navigateToOrderList() {
         console.log('navigateToOrderList');
         this._router.navigate(['/shopping/order-list']);
+    }
+
+    changeTheme(newTheme: ThemeType) {
+        if (this.currentTheme !== newTheme) {
+            this._store.dispatch(managementActions.changeTheme({ newTheme: newTheme }));
+        }
     }
 
     changeCurrency(clickedCurrency: Currency) {

@@ -31,4 +31,6 @@ export enum ColorSvgNames {
     LoginRequired = 'color-login-required',
     FlagVn = 'color-flag-vn',
     FlagUs = 'color-flag-us',
+    ThemeLight = 'color-theme-light',
+    ThemeDark = 'color-theme-dark',
 }
