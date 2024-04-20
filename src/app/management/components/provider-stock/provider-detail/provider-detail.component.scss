@@ -43,7 +43,7 @@ select.input-here {
 }
 
 .table-container {
-    @apply w-full px-4 py-5 mt-[5px] bg-[#fff];
+    @apply w-full px-4 py-5 mt-[5px];
     overflow: auto;
     border-radius: 5px;
 }
@@ -91,6 +91,6 @@ table {
 }
 
 .confirm {
-    @apply w-full px-4 py-5 mt-[20px] bg-[#121212] text-[#fff] rounded-[8px];
+    @apply w-full px-4 py-5 mt-[20px] rounded-[8px];
     @apply text-center text-lg cursor-pointer;
 }

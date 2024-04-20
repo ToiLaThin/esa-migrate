@@ -4,6 +4,7 @@ import { RewardPointService } from '../../../core/services/reward-point.service'
 import { managementActions } from './management.actions';
 import { catchError, map, of, switchMap } from 'rxjs';
 import { TranslateService } from '@ngx-translate/core';
+import { ThemeType } from '../../../core/ui-models/theme-type';
 
 @Injectable({
     providedIn: 'root'
@@ -38,6 +39,22 @@ export class ManagementEffects {
             ofType(managementActions.changeLanguage),
             map((action) => {
                 this._translateService.use(action.newLanguage);
+            })
+        ), { dispatch: false}
+    );
+
+    changeTheme$ = createEffect(() =>
+        this.actions$.pipe(
+            ofType(managementActions.changeTheme),
+            map((action) => {
+                let themeContainer = document.body;
+                if (action.newTheme == ThemeType.LIGHT) {
+                    themeContainer.classList.remove(ThemeType.DARK);
+                    themeContainer.classList.add(ThemeType.LIGHT);
+                    return;
+                }
+                themeContainer.classList.remove(ThemeType.LIGHT);
+                themeContainer.classList.add(ThemeType.DARK);
             })
         ), { dispatch: false}
     );

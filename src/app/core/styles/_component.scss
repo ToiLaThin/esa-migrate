@@ -28,7 +28,7 @@
     }
 
     /* .text-subheading { @apply lg:text-base font-light text-gray-500 sm:text-sm;} */
-    .text-subheading { @apply font-light text-gray-500 text-sm;}
+    .text-subheading { @apply font-light text-secondary dark:text-darkSecondary text-sm;}
 
     .btn-primary-uppercase {
         @apply py-2 px-5 text-white rounded bg-primary dark:bg-darkPrimary font-medium uppercase tracking-wide;

@@ -16,6 +16,11 @@ body {
     color: var(--text-primary-color);
 }
 
+input[type="number"],select {
+    background-color: var(--bg-primary-color) !important;
+    color: var(--text-primary-color) !important;
+}
+
 h1, 
 h2, 
 h3, 

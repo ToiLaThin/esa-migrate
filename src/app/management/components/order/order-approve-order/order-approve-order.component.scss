@@ -4,13 +4,11 @@
     padding: 4px 20px 8px;
     cursor: grabbing;
     border: 1px solid #e0e0e0;
-    background-color: #fff;
     border-radius: 4px;
     transition: all 0.3s ease;
 
     &:hover {
         transform: scale(1.005);
         box-shadow: 0 0 10px 0 #e0e0e0;
-        background-color: #f6f6f6;
     }
 }

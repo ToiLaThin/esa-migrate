@@ -9,7 +9,7 @@
 </app-button>
 <div class="flex flex-row w-4/5">
     <div [style.width.px]="this.siderToggled === true ? 280 : 0"
-         class="bg-[#fff] flex flex-col justify-start items-center h-[400px] sticky top-5"
+         class="flex flex-col justify-start items-center h-[400px] sticky top-5"
          [ngClass]="this.siderToggled === true ? 'mr-4': 'overflow-hidden'"
          style="transition: width .2s linear;">
         <esa-coupon-placeholder class="mt-4" [type]="'add'" (click)="openAddNewCouponModal()">

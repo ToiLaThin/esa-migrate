@@ -4,7 +4,6 @@
 }
 
 .item {
-    background-color: #fff;
     border-radius: 5px;
     padding: 12px 18px;
 }
@@ -14,7 +13,8 @@ table {
     min-width: 600px;
     overflow: scroll;
     font-size: 18px;
-    background-color: #fff;
+    //table does not automatically inherit the font color, and background color
+    color: inherit;
 
     td:not(.left-align) {
         text-align: center; //can change to center

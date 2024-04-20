@@ -16,8 +16,8 @@
 
     &:hover {
         transform: translateY(-1px);
-        background-color: #31363F;
-        color: #fff;
+        //why it's not working
+        @apply bg-lightGray dark:bg-darkGray text-secondary dark:text-darkSecondary;
     }    
 }
 
@@ -28,7 +28,7 @@
     width: 200px;
     &.active {
         transform: translateX(5px);
-        background-color: #31363F;
+        @apply bg-lightGray dark:bg-darkGray;
     }
 }
 
@@ -37,8 +37,7 @@
     width: auto;
     &.active {
         transform: translateY(5px);
-        background-color: #31363F;
-        color: #fff;
+        @apply bg-lightGray dark:bg-darkGray text-white dark:text-black;
     }
 }
 

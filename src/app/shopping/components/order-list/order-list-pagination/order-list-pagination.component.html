@@ -8,7 +8,7 @@
         </p>
         }
         @for (pageNum of totalPagesAsArray; track pageNum) {
-            <p class="page bg-[#31363F]"
+            <p class="page bg-darkGray"
                [ngClass]="currentPageNum === pageNum ? 'active' : ''"
                (click)="changePage(pageNum)">
                {{pageNum}}
