@@ -1,6 +1,7 @@
 import { Component, Input } from "@angular/core";
 import { NzModalService } from "ng-zorro-antd/modal";
 import { CouponListAdvanceFilterComponent } from "./coupon-list-advance-filter.component";
+import { OutlineSvgNames } from "../../../../share-components/svg-definitions/outline-svg-names.enum";
 
 @Component({
     selector: 'esa-coupon-list-filter',
@@ -11,6 +12,10 @@ export class CouponListFilterComponent {
 
     showAdvanceFilter: boolean = false;
 
+    get OutlineSvgNames() {
+        return OutlineSvgNames;
+    }
+    
     constructor(private _modalService: NzModalService) {}
 
     checkOpenAdvanceFilter() {

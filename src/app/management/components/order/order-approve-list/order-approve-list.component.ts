@@ -4,6 +4,7 @@ import { PaymentMethod } from "../../../../core/types/payment-method.enum";
 import { OrderStatus } from "../../../../core/types/order-status.enum";
 import { PillType } from "../../../../core/ui-models/pill-type";
 import { CdkDragDrop } from "@angular/cdk/drag-drop";
+import { OutlineSvgNames } from "../../../../share-components/svg-definitions/outline-svg-names.enum";
 
 @Component({
     selector: 'esa-management-order-approve-list',
@@ -35,6 +36,10 @@ export class OrderApproveListManagementComponent {
         return PillType;
     }
 
+    get OutlineSvgNames() {
+        return OutlineSvgNames;
+    }
+    
     constructor() {}
 
     toggleDisplayMode() {

@@ -9,6 +9,7 @@ import { selectorAllCoupons } from '../../../state/sale-coupon-management/sale-c
 import { saleCouponManagementFeatureKey } from '../../../state/sale-coupon-management/sale-coupon-management.reducers';
 import { ISaleCouponManagementState } from '../../../state/sale-coupon-management/saleCouponManagementState.interface';
 import { saleCouponManagementActions } from '../../../state/sale-coupon-management/sale-coupon-management.actions';
+import { OutlineSvgNames } from '../../../../share-components/svg-definitions/outline-svg-names.enum';
 
 @Component({
     selector: 'esa-management-coupon-list',
@@ -26,6 +27,10 @@ export class CouponListManagementComponent implements OnInit {
         this._store.dispatch(saleCouponManagementActions.loadAllCoupons());
     }
 
+    get OutlineSvgNames() {
+        return OutlineSvgNames;
+    }
+    
     ngOnInit(): void {
         this.allCoupons$ = this._store.select((state) =>
             selectorAllCoupons(

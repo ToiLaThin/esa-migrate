@@ -18,6 +18,7 @@ import { IAuthState } from '../../../auth/state/authState.interface';
 import { authFeatureKey } from '../../../auth/state/auth.reducers';
 import { selectorAuthStatus, selectorUserId } from '../../../auth/state/auth.selectors';
 import { productActions } from '../../state/product/product.actions';
+import { OutlineSvgNames } from '../../../share-components/svg-definitions/outline-svg-names.enum';
 
 @Component({
     selector: 'esa-product-quickview',
@@ -41,6 +42,10 @@ export class ProductQuickviewComponent implements OnInit, OnDestroy {
     
     constructor(private _route: ActivatedRoute, private _router: Router, private _store: Store) {}
 
+    get OutlineSvgNames() {
+        return OutlineSvgNames;
+    }
+    
     ngOnDestroy(): void {
         this.routeParamsSubscription.unsubscribe();
     }

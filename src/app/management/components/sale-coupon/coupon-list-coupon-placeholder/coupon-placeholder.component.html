@@ -4,17 +4,17 @@
     'type-edit']">
     <div class="left">
         @if (type === 'delete') {
-            <svg-icon [iconName]="'trash-outline'"
+            <svg-icon [iconName]="OutlineSvgNames.ActionDelete"
                       [size]="32">
             </svg-icon>
         } 
         @if (type === 'edit') {
-            <svg-icon [iconName]="'edit-outline'"
+            <svg-icon [iconName]="OutlineSvgNames.ActionEdit"
                       [size]="32">
             </svg-icon>
         } 
         @if (type === 'add') {
-            <svg-icon [iconName]="'add-outline'"
+            <svg-icon [iconName]="OutlineSvgNames.ActionAdd"
                       [size]="32">
             </svg-icon>
         } 

@@ -1,4 +1,5 @@
 import { Component, Input } from "@angular/core";
+import { OutlineSvgNames } from "../../../../share-components/svg-definitions/outline-svg-names.enum";
 
 @Component({
     selector: 'esa-coupon-placeholder',
@@ -7,5 +8,9 @@ import { Component, Input } from "@angular/core";
 })
 export class CouponListCouponPlaceholderComponent {
     @Input() type!: 'add' | 'edit' | 'delete';
+
+    get OutlineSvgNames() {
+        return OutlineSvgNames;
+    }
     constructor() {}
 }

@@ -1,5 +1,5 @@
 <app-button (click)="toggleDisplayMode()"
-                [iconName]="this.displayMode == 'table' ? 'table-view-mode' : 'list-view-mode'"
+                [iconName]="this.displayMode == 'table' ? OutlineSvgNames.ViewModeTable : OutlineSvgNames.ViewModeList"
                 nz-tooltip
                 nzTooltipTitle="Items display mode :{{this.displayMode | uppercase}}"
                 nzTooltipPlacement="right">

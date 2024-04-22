@@ -2,7 +2,7 @@
     <a [routerLink]="['provider-list']"
        class="flex flex-row items-center mt-2">
         <span class="mr-2">
-            <svg-icon iconName="stocks-stack-outline" 
+            <svg-icon [iconName]="OutlineSvgNames.StocksStack" 
                     [size]="24" 
                     [fillColor]="'#000'">
             </svg-icon>            
@@ -12,7 +12,7 @@
     <a [routerLink]="['stock-list']"
        class="flex flex-row items-center mt-4">
         <span class="mr-2">
-            <svg-icon iconName="stocks-warehouse-outline" 
+            <svg-icon [iconName]="OutlineSvgNames.StocksWarehouse" 
                     [size]="24" 
                     [fillColor]="'#000'">
             </svg-icon>            
@@ -22,7 +22,7 @@
     <a [routerLink]="['abc-list']"
        class="flex flex-row items-center mt-4">
         <span class="mr-2">
-            <svg-icon iconName="stock-open-outline" 
+            <svg-icon [iconName]="OutlineSvgNames.StocksOpen" 
                     [size]="24" 
                     [fillColor]="'#000'">
             </svg-icon>            

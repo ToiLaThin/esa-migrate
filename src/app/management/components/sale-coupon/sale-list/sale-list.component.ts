@@ -7,6 +7,7 @@ import { IProduct } from "../../../../core/models/product.interface";
 import { selectorDisplayingProductsCount, selectorDisplayingProductsManagement, selectorPageCountManagement } from "../../../state/management/product-catalog-share-management.selectors";
 import { managementFeatureKey } from "../../../state/management/management.reducers";
 import { IManagementState } from "../../../state/management/managementState.interface";
+import { OutlineSvgNames } from "../../../../share-components/svg-definitions/outline-svg-names.enum";
 
 @Component({
     selector: 'esa-management-coupon-list',
@@ -24,6 +25,9 @@ export class SaleListManagementComponent {
     totalPage$!: Observable<number>;
     totalPageAsArray$!: Observable<number[]>;
 
+    get OutlineSvgNames() {
+        return OutlineSvgNames;
+    }
     constructor(private _renderer: Renderer2, 
         private _store: Store,
         private _notificationService: NzNotificationService) {

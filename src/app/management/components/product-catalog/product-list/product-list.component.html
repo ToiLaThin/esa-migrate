@@ -1,86 +1,88 @@
-<esa-management-product-list-filter (changedOrderType)="changeOrderType($event)"
-                                    (changedProductPerPage)="changeProductPerPage($event)"
-                                    (changedSortBy)="changeSortBy($event)"
-                                    (openedAdvanceFilter)="openAdvanceFilter()">
-</esa-management-product-list-filter>
-
-<div class="table-container bg-lightGray dark:bg-darkGray">
-    <table class="table">
-        <tr class="head-row">
-            <th>ID</th>
-            <th>Product</th>
-            <th>Subcatalog</th>
-            <th>Brand</th>
-            <th>Price</th>
-            <!-- Add col price type: cublic or not -->
-            <th>Sale Status</th>
-            <th>Action</th>
-        </tr>
-        @for (product of displayingProducts$ | async; track product) {
-        <tr class="data-row">
-            <td>#{{product.businessKey | slice:0:8 | uppercase}}</td>
-            <td class="flex flex-row" 
-                nz-tooltip
-                nzTooltipTitle="{{product.productName}}">
-                <div class="overflow-hidden mr-3 object-cover" style="width: 30px; height: 30px;">
-                    <img src="{{product.productCoverImage}}" class="w-full h-auto object-cover">
-                </div>
-                {{product.productName | slice:0:20}}...
-            </td>
-            <td>{{product.subCatalogName}}</td>
-            <td>{{product.productInfo?.productBrand}}</td>
-            @if (product.isOnSale) {
-            <td>
-                {{product.productDisplayPriceOnSale! | rcurrency}} - 
-                <span class="text-xs text-red-600">
-                    @if (product.productModels[0].saleType == DiscountType.ByPercent) {
-                    {{product.productModels[0].saleValueModel}}%
-                    } @else if (product.productModels[0].saleType == DiscountType.ByValue) {
-                    -${{product.productModels[0].saleValueModel}}
-                    }
-                </span>
-            </td>
-            } @else {
-            <td>{{product.productModels[0].price | rcurrency}}</td>
-            }
-            <td>
+<div class="px-4 py-2">
+    <esa-management-product-list-filter (changedOrderType)="changeOrderType($event)"
+                                        (changedProductPerPage)="changeProductPerPage($event)"
+                                        (changedSortBy)="changeSortBy($event)"
+                                        (openedAdvanceFilter)="openAdvanceFilter()">
+    </esa-management-product-list-filter>
+    
+    <div class="table-container bg-white dark:bg-black">
+        <table class="table">
+            <tr class="head-row">
+                <th>ID</th>
+                <th>Product</th>
+                <th>Subcatalog</th>
+                <th>Brand</th>
+                <th>Price</th>
+                <!-- Add col price type: cublic or not -->
+                <th>Sale Status</th>
+                <th>Action</th>
+            </tr>
+            @for (product of displayingProducts$ | async; track product) {
+            <tr class="data-row">
+                <td>#{{product.businessKey | slice:0:8 | uppercase}}</td>
+                <td class="flex flex-row" 
+                    nz-tooltip
+                    nzTooltipTitle="{{product.productName}}">
+                    <div class="overflow-hidden mr-3 object-cover" style="width: 30px; height: 30px;">
+                        <img src="{{product.productCoverImage}}" class="w-full h-auto object-cover">
+                    </div>
+                    {{product.productName | slice:0:20}}...
+                </td>
+                <td>{{product.subCatalogName}}</td>
+                <td>{{product.productInfo?.productBrand}}</td>
                 @if (product.isOnSale) {
-                <app-pill [className]="PillType.DANGER"
-                            [content]="'On Sale'">
-                </app-pill>
-                } @else if (!product.isOnSale) {
-                <app-pill [className]="PillType.SUCCESS"
-                            [content]="'Not On Sale'">
-                </app-pill>
+                <td>
+                    {{product.productDisplayPriceOnSale! | rcurrency}} - 
+                    <span class="text-xs text-red-600">
+                        @if (product.productModels[0].saleType == DiscountType.ByPercent) {
+                        {{product.productModels[0].saleValueModel}}%
+                        } @else if (product.productModels[0].saleType == DiscountType.ByValue) {
+                        -${{product.productModels[0].saleValueModel}}
+                        }
+                    </span>
+                </td>
+                } @else {
+                <td>{{product.productModels[0].price | rcurrency}}</td>
                 }
-            </td>
-            <td class="flex flex-row">
-                <svg-icon [iconName]="'trash-outline'" 
-                          [strokeColor]="'purple'"
-                          [size]="24"
-                          class="mr-3"
-                          nz-tooltip 
-                          nzTooltipTitle="Delete product">
-                </svg-icon>
-                <svg-icon [iconName]="'edit-outline'" 
-                          [strokeColor]="'tomato'"
-                          [size]="24"
-                          class="mr-3"
-                          nz-tooltip
-                          nzTooltipTitle="Adjust product">
-                </svg-icon>
-                <svg-icon [iconName]="'eye-outline'" 
-                          [strokeColor]="'green'"
-                          [size]="24"
-                          nz-tooltip
-                          nzTooltipTitle="View detail">
-                </svg-icon>
-            </td>
-        </tr>
-        }
-    </table>
+                <td>
+                    @if (product.isOnSale) {
+                    <app-pill [className]="PillType.DANGER"
+                                [content]="'On Sale'">
+                    </app-pill>
+                    } @else if (!product.isOnSale) {
+                    <app-pill [className]="PillType.SUCCESS"
+                                [content]="'Not On Sale'">
+                    </app-pill>
+                    }
+                </td>
+                <td class="flex flex-row">
+                    <svg-icon [iconName]="OutlineSvgNames.ActionDelete" 
+                              [strokeColor]="'purple'"
+                              [size]="24"
+                              class="mr-3"
+                              nz-tooltip 
+                              nzTooltipTitle="Delete product">
+                    </svg-icon>
+                    <svg-icon [iconName]="OutlineSvgNames.ActionEdit" 
+                              [strokeColor]="'tomato'"
+                              [size]="24"
+                              class="mr-3"
+                              nz-tooltip
+                              nzTooltipTitle="Adjust product">
+                    </svg-icon>
+                    <svg-icon [iconName]="OutlineSvgNames.ActionDetail" 
+                              [strokeColor]="'green'"
+                              [size]="24"
+                              nz-tooltip
+                              nzTooltipTitle="View detail">
+                    </svg-icon>
+                </td>
+            </tr>
+            }
+        </table>
+    </div>
+    <esa-management-product-list-pagination [currentPage]="(this.selectedPageNum$ | async)!"
+                                            [totalPageAsArray]="(this.totalPageAsArray$| async)!"
+                                            (changedPage)="changePage($event)">
+    </esa-management-product-list-pagination>
 </div>
-<esa-management-product-list-pagination [currentPage]="(this.selectedPageNum$ | async)!"
-                                        [totalPageAsArray]="(this.totalPageAsArray$| async)!"
-                                        (changedPage)="changePage($event)">
-</esa-management-product-list-pagination>

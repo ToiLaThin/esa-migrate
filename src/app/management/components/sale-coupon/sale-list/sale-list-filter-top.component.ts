@@ -2,6 +2,7 @@ import { Component, ElementRef, EventEmitter, Input, Output, Renderer2, ViewChil
 import { Store } from "@ngrx/store";
 import { SortBy, OrderType, ProductPerPage } from "../../../../core/models/product.interface";
 import { productManagementActions } from "../../../state/management/management.actions";
+import { OutlineSvgNames } from "../../../../share-components/svg-definitions/outline-svg-names.enum";
 
 @Component({
     selector: 'esa-management-sale-list-filter-top',
@@ -32,6 +33,10 @@ export class SaleListFilterTopManagementComponent {
             value: OrderType[k as any]
         }));
                 
+    get OutlineSvgNames() {
+        return OutlineSvgNames;
+    }
+    
     constructor(private _renderer: Renderer2, private _store: Store) {}
 
     toggleViewMode() {}

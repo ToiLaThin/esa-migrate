@@ -2,6 +2,8 @@ import { Component, EventEmitter, Input, Output } from "@angular/core";
 import { IOrderItems } from "../../../../core/models/order-approve.model";
 import { PaymentMethod } from "../../../../core/types/payment-method.enum";
 import { OrderStatus } from "../../../../core/types/order-status.enum";
+import { ColorSvgNames } from "../../../../share-components/svg-definitions/color-svg-names.enum";
+import { OutlineSvgNames } from "../../../../share-components/svg-definitions/outline-svg-names.enum";
 
 @Component({
     selector: 'esa-management-order-approve-order',
@@ -25,6 +27,15 @@ export class OrderApproveOrderManagementComponent {
     get OrderStatusText() {
         return OrderStatus[this.order.orderStatus];
     }
+
+    get ColorSvgNames() {
+        return ColorSvgNames;
+    }
+
+    get OutlineSvgNames() {
+        return OutlineSvgNames;
+    }
+
     constructor() {}
 
     viewDetailOrder(orderId: string) {

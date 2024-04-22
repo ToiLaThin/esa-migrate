@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output } from "@angular/core";
 import { ProductPerPage, SortBy, OrderType } from "../../../../core/models/product.interface";
 import { Store } from "@ngrx/store";
+import { OutlineSvgNames } from "../../../../share-components/svg-definitions/outline-svg-names.enum";
 
 @Component({
     selector: 'esa-management-product-list-filter',
@@ -32,6 +33,10 @@ export class ProductListFilterComponent {
             value: OrderType[k as any]
         }));
         
+    get OutlineSvgNames() {
+        return OutlineSvgNames;
+    }
+    
     constructor(private _store: Store) { }
 
     ngOnInit() {

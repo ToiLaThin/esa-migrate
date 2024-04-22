@@ -1,19 +1,19 @@
 <!-- only stick if parent is flex-row -->
 <div class="lg:sticky lg:top-1">
     <app-button (click)="toggleDisplayMode()"
-                [iconName]="this.displayMode == 'table' ? 'table-view-mode' : 'kanban-view-mode'"
+                [iconName]="this.displayMode == 'table' ? OutlineSvgNames.ViewModeTable : OutlineSvgNames.ViewModeKanban"
                 nz-tooltip
                 nzTooltipTitle="Orders display mode :{{this.displayMode | uppercase}}"
                 nzTooltipPlacement="right">
     </app-button>
     <app-button (click)="resetApprovedOrders()"
-                [iconName]="'reset-outline'"
+                [iconName]="OutlineSvgNames.ActionReset"
                 nz-tooltip
                 nzTooltipTitle="Reset all approved orders"
                 nzTooltipPlacement="right">
     </app-button>
     <app-button (click)="confirmApprovedOrders()"
-                [iconName]="'check-square-outline'"
+                [iconName]="OutlineSvgNames.CheckSquare"
                 nz-tooltip
                 nzTooltipTitle="Confirm all approved orders"
                 nzTooltipPlacement="right">
@@ -55,7 +55,7 @@
         </td>
         <td class="flex flex-row items-center">
             @if (order.paymentMethod == PaymentMethod.COD) {
-            <svg-icon [iconName]="'cod-payment'"
+            <svg-icon [iconName]="OutlineSvgNames.PaymentMomo"
                         [size]="32"
                         [fillColor]="'#121212'"
                         class="m-auto"
@@ -65,7 +65,8 @@
             </svg-icon>
 
         } @else if (order.paymentMethod == PaymentMethod.CreditCard) {
-            <svg-icon [iconName]="'cash-payment'"
+            <!-- icon is cash but represent credit payment -->
+            <svg-icon [iconName]="OutlineSvgNames.PaymentCash"
                         [size]="32"
                         [fillColor]="'#121212'"
                         [strokeColor]="'#121212'"
@@ -75,7 +76,7 @@
                         nzTooltipPlacement="top">
             </svg-icon>
         } @else if (order.paymentMethod == PaymentMethod.Momo) {
-            <svg-icon [iconName]="'pig-payment'"
+            <svg-icon [iconName]="OutlineSvgNames.PaymentMomo"
                         [size]="32"
                         [fillColor]="'#121212'"
                         class="m-auto"
@@ -103,13 +104,13 @@
         <td>
             <div class="flex flex-row gap-2">
                 <app-button [className]="'btn-primary'"
-                            [iconName]="'check-square-outline'"
+                            [iconName]="OutlineSvgNames.ActionApproveOrder"
                             [iconSize]="24"
                             (click)="approveOrder(order.orderId)">
                     Approve
                 </app-button>
                 <app-button [className]="'btn-secondary'"
-                            [iconName]="'eye-outline'"
+                            [iconName]="OutlineSvgNames.ActionDetail"
                             [iconSize]="24"
                             (click)="viewDetailOrder(order.orderId)">
                     Detail
@@ -137,7 +138,7 @@
         </td>
         <td class="flex flex-row items-center">
             @if (order.paymentMethod == PaymentMethod.COD) {
-            <svg-icon [iconName]="'cod-payment'"
+            <svg-icon [iconName]="OutlineSvgNames.PaymentCash"
                         [size]="32"
                         [fillColor]="'#121212'"
                         class="m-auto"
@@ -146,7 +147,8 @@
                         nzTooltipPlacement="top">
             </svg-icon>
             } @else if (order.paymentMethod == PaymentMethod.CreditCard) {
-                <svg-icon [iconName]="'cash-payment'"
+                <!-- icon is cash but represent credit payment -->
+                <svg-icon [iconName]="OutlineSvgNames.PaymentCard"
                             [size]="32"
                             [fillColor]="'#121212'"
                             [strokeColor]="'#121212'"
@@ -178,7 +180,7 @@
             <td>            
                 <div class="flex flex-row gap-2">
                     <app-button [className]="'btn-secondary'"
-                    [iconName]="'trash-outline'"
+                    [iconName]="OutlineSvgNames.ActionDelete"
                     [iconSize]="24"
                     (click)="removeOrderApproved(order.orderId)">
                     Remove

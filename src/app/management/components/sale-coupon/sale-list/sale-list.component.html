@@ -23,20 +23,20 @@
     <div class="right flex flex-col" #rightCol>
         <div class="right-header my-4 flex flex-row gap-8 justify-between">
             <div class="flex flex-row">
-                <svg-icon [strokeColor]="'#fff'" [iconName]="'times'" [size]="24" (click)="closeRightPart()"
+                <svg-icon [strokeColor]="'#fff'" [iconName]="OutlineSvgNames.ActionClose" [size]="24" (click)="closeRightPart()"
                     class="mr-4">
                 </svg-icon>
                 @if (this.currentViewModeTable) {
-                <svg-icon [strokeColor]="'#fff'" [iconName]="'list-view-mode'" [size]="24" (click)="toggleViewMode()">
+                <svg-icon [strokeColor]="'#fff'" [iconName]="OutlineSvgNames.ViewModeList" [size]="24" (click)="toggleViewMode()">
                 </svg-icon>
                 } @else if (this.currentViewModeTable === false) {
-                <svg-icon [strokeColor]="'#fff'" [iconName]="'table-view-mode'" [size]="24" (click)="toggleViewMode()">
+                <svg-icon [strokeColor]="'#fff'" [iconName]="OutlineSvgNames.ViewModeTable" [size]="24" (click)="toggleViewMode()">
                 </svg-icon>
                 }
             </div>
             <div class="actions">
                 <app-button>
-                    <svg-icon [fillColor]="'#fff'" [iconName]="'add-outline'" [size]="24" (click)="addNewSaleModal()">
+                    <svg-icon [fillColor]="'#fff'" [iconName]="OutlineSvgNames.ActionAdd" [size]="24" (click)="addNewSaleModal()">
                     </svg-icon>
                 </app-button>
             </div>

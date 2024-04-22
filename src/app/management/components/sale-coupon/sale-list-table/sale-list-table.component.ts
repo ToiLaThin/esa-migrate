@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from "@angular/core";
 import { PillType } from "../../../../core/ui-models/pill-type";
 import { Observable } from "rxjs";
 import { IProduct } from "../../../../core/models/product.interface";
+import { OutlineSvgNames } from "../../../../share-components/svg-definitions/outline-svg-names.enum";
 export enum OrderStatus {
     CANCELED = 'Canceled',
     DELIVERED = 'Delivered',
@@ -33,6 +34,10 @@ export class SaleListTableComponent implements OnInit {
 
     get PillType() {
         return PillType;
+    }
+
+    get OutlineSvgNames() {
+        return OutlineSvgNames;
     }
     @Input({required: true}) displayingProducts$!: Observable<IProduct[]>;
 

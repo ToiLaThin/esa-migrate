@@ -2,19 +2,19 @@
     <div class="flex flex-row items-center gap-4">
         @if (collapsed && !this.currentViewModeTable) {
         <svg-icon [strokeColor]="'#000'"
-                  [iconName]="'list-view-mode'"
+                  [iconName]="OutlineSvgNames.ViewModeList"
                   [size]="24"
                   (click)="toggleViewMode()">
         </svg-icon>
         } @else if (collapsed && this.currentViewModeTable) {
         <svg-icon [strokeColor]="'#000'"
-                  [iconName]="'table-view-mode'"
+                  [iconName]="OutlineSvgNames.ViewModeTable"
                   [size]="24"
                   (click)="toggleViewMode()">
         </svg-icon>
         }
         <span>There are 20 products.</span>
-        <esa-input [iconName]="'search-outline'"
+        <esa-input [iconName]="OutlineSvgNames.ActionSearch"
                    [placeholder]="'Search...'">
         </esa-input>
     </div>
@@ -62,13 +62,13 @@
             </select>
         </div>
         <!-- Het 1 group -->
-        <app-button [iconName]="'filter-xmark-outline'">
+        <app-button [iconName]="OutlineSvgNames.ActionFilterXmark">
             Open catalog filter
         </app-button>
 
         @if (collapsed) {
         <svg-icon [strokeColor]="'#000'"
-                    [iconName]="'circle-right-arrow'"
+                    [iconName]="OutlineSvgNames.CircleRightArrow"
                     [size]="24"
                     (click)="openRightPartEventEmit()">
         </svg-icon>

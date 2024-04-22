@@ -6,6 +6,7 @@ import { providerStockManagementActions } from '../../../state/provider-stock/pr
 import { selectorAllProviderRequirementsWithCatalogs } from './../../../state/provider-stock/provider-stock.selectors';
 import { catalogManagementActions } from '../../../state/management/management.actions';
 import { Router } from '@angular/router';
+import { OutlineSvgNames } from '../../../../share-components/svg-definitions/outline-svg-names.enum';
 
 @Component({
     selector: 'esa-management-provider-list',
@@ -23,6 +24,10 @@ export class ProviderListManagementComponent implements OnInit {
     allProviderRequirementWithCatalogsAggregates$!: Observable<
         IProviderRequirementWithCatalogsAggregate[]
     >;
+
+    get OutlineSvgNames() {
+        return OutlineSvgNames;
+    }
 
     constructor(private _store: Store, private _router: Router) {
         this._store.dispatch(providerStockManagementActions.loadAllProviderRequirements());

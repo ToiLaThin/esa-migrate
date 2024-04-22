@@ -8,6 +8,7 @@ import { IProductCatalogManagementState } from '../../../state/product-catalog-m
 import { productCatalogManagementFeatureKey } from '../../../state/product-catalog-management/product-catalog-management.reducers';
 import { CatalogSubCatalogListManagementComponent } from '../catalog-subcatalog-list/catalog-subcatalog-list.component';
 import { NzModalService } from 'ng-zorro-antd/modal';
+import { OutlineSvgNames } from '../../../../share-components/svg-definitions/outline-svg-names.enum';
 
 @Component({
     selector: 'esa-management-catalog-list',
@@ -18,6 +19,11 @@ export class CatalogManagementListComponent implements OnInit {
     allCatalogs$!: Observable<ICatalog[]>;
     @ViewChild('subcatalogList', { read: CatalogSubCatalogListManagementComponent}) subcatalogList!: CatalogSubCatalogListManagementComponent;
     showSubCatalogs = false;
+
+    get OutlineSvgNames() {
+        return OutlineSvgNames;
+    }
+    
     constructor(private _store: Store) {
         this._store.dispatch(catalogManagementActions.reloadCatalogs());
     }

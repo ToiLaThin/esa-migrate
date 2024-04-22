@@ -27,6 +27,7 @@ import {
     selectorSelectedSubCatalogs
 } from '../../../state/management/product-catalog-share-management.selectors';
 import { ICatalog, ISubCatalog } from '../../../../core/models/catalog.interface';
+import { OutlineSvgNames } from '../../../../share-components/svg-definitions/outline-svg-names.enum';
 
 @Component({
     selector: 'esa-management-product-list',
@@ -44,6 +45,10 @@ export class ProductManagementListComponent implements OnInit {
 
     get DiscountType() {
         return DiscountType;
+    }
+
+    get OutlineSvgNames() {
+        return OutlineSvgNames;
     }
 
     displayingProducts$!: Observable<IProduct[]>;
