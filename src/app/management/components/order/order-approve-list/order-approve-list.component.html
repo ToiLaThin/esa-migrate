@@ -55,7 +55,7 @@
         </td>
         <td class="flex flex-row items-center">
             @if (order.paymentMethod == PaymentMethod.COD) {
-            <svg-icon [iconName]="OutlineSvgNames.PaymentMomo"
+            <svg-icon [iconName]="OutlineSvgNames.PaymentCash"
                         [size]="32"
                         [fillColor]="'#121212'"
                         class="m-auto"
@@ -66,7 +66,7 @@
 
         } @else if (order.paymentMethod == PaymentMethod.CreditCard) {
             <!-- icon is cash but represent credit payment -->
-            <svg-icon [iconName]="OutlineSvgNames.PaymentCash"
+            <svg-icon [iconName]="OutlineSvgNames.PaymentCard"
                         [size]="32"
                         [fillColor]="'#121212'"
                         [strokeColor]="'#121212'"
