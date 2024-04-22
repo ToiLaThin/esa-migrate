@@ -64,6 +64,7 @@ registerLocaleData(en);
 
         CommonModule,
         BrowserModule,
+        BrowserAnimationsModule,
         HttpClientModule,
         ShareComponentsModule,
         RouterModule.forRoot(appRoutes),
@@ -96,8 +97,7 @@ registerLocaleData(en);
             autoPause: true,
             traceLimit: 25
         }),
-        FormsModule,
-        BrowserAnimationsModule
+        FormsModule,        
     ],
     exports: [],
     bootstrap: [AppComponent],
@@ -105,7 +105,7 @@ registerLocaleData(en);
         { provide: NZ_I18N, useValue: en_US },
         provideAnimationsAsync(),
         provideHttpClient(),
-        provideAnimationsAsync('noop')
+        //provideAnimationsAsync('noop') this line cause animation not working
     ]
 })
 export class AppModule {}
