@@ -1,4 +1,5 @@
 <!-- custom event listener when click backdrop, can use disableClose on mat-sidenav to turn off toggle click backdrop behavior-->
+<!-- mat backdrop may not work since we disable the angular material styling file -->
 <mat-sidenav-container (backdropClick)="toggleSidebar()"
                        [hasBackdrop]="!(this.sidebarFixed$ | async)">
     <mat-sidenav #sidenav 
@@ -35,7 +36,7 @@
             </div>
         </div>            
     </mat-sidenav>
-    <mat-sidenav-content>        
+    <mat-sidenav-content [ngClass]="sidenav.opened && sidenav.mode !== 'over' ? 'dynamic-width' : ''">        
         <router-outlet>
         </router-outlet>
     </mat-sidenav-content>

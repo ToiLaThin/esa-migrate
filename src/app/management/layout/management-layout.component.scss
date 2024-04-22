@@ -1,3 +1,8 @@
+:host {
+    //this is the color of backdrop, since we disable the style , we must set this by ourself
+    --mat-sidenav-scrim-color: rgba(0, 0, 0, 0.5);
+}
+
 mat-sidenav-container {
     @apply h-full;
 
@@ -24,4 +29,8 @@ mat-sidenav-container {
     overflow-y: auto;
     min-width: 240px;
     padding: 8px 4px;
+}
+
+.dynamic-width {
+    width: calc(100% - 280px);
 }

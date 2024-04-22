@@ -18,6 +18,11 @@ export const managementActions = createActionGroup({
         'Change Currency': props<{ newCurrency: Currency }>(),
         'Change Language': props<{ newLanguage: 'en' | 'vi' }>(),
         'Change Theme': props<{ newTheme: ThemeType }>(),
+
+        'Load Currency From Storage': emptyProps(),
+        'Load Language From Storage': emptyProps(),
+        'Load Theme From Storage': emptyProps(),
+
         'Load User Reward Points': props<{userId: string}>(),
         'Load User Reward Points Successfully': props<{ userRewardPoints: IUserRewardPoint }>(),
         'Load User Reward Points Failed': props<{ error: string }>(),
