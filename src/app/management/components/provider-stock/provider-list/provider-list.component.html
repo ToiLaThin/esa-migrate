@@ -7,7 +7,7 @@
             <div class="flex-row-center justify-start outline-btn-purple" style="max-width: fit-content;">
                 <span>Filter</span>
                 <span class="ml-2">
-                    <svg-icon [iconName]="'adjust-outline'"
+                    <svg-icon [iconName]="OutlineSvgNames.ActionAdjust"
                               [size]="24"
                               [fillColor]="this.theme.purple">
                     </svg-icon>
@@ -18,7 +18,7 @@
                        placeholder="Search provider"
                        class="search-container-input">
                 <div class="search-btn ml-2">
-                    <svg-icon [iconName]="'search-outline'"
+                    <svg-icon [iconName]="OutlineSvgNames.ActionSearch"
                               [size]="24"
                               [fillColor]="this.theme.white">
 
@@ -36,7 +36,7 @@
             <div class="flex-row-center justify-start fill-btn-green">
                 <span>Import</span>
                 <span class="ml-2">
-                    <svg-icon [iconName]="'download-outline'"
+                    <svg-icon [iconName]="OutlineSvgNames.ActionDownload"
                               [size]="24"
                               [strokeColor]="this.theme.white">
                     </svg-icon>
@@ -45,7 +45,7 @@
             <div class="flex-row-center justify-start fill-btn-red">
                 <span>Create Adjustment</span>
                 <span class="ml-2">
-                    <svg-icon [iconName]="'add-outline'"
+                    <svg-icon [iconName]="OutlineSvgNames.ActionAdd"
                               [size]="24"
                               [strokeColor]="this.theme.white">
                     </svg-icon>
@@ -62,7 +62,7 @@
                     <div class="flex flex-row items-center">
                         <input type="checkbox" class="mr-2">
                         <span class="mr-2">Date</span>
-                        <svg-icon [iconName]="'sort-vertical-outline'"
+                        <svg-icon [iconName]="OutlineSvgNames.ActionSort"
                                   [size]="24"
                                   [strokeColor]="this.theme.purple">
                         </svg-icon>
@@ -133,7 +133,7 @@
                 <td>{{providerReqWithCatalogs.providerRequirement.minPriceToBeAccepted | rcurrency}}</td>
                 <td class="text-3xl">
                     <div class="flex flex-row items-center gap-2">
-                        <svg-icon iconName="eye-outline" 
+                        <svg-icon [iconName]="OutlineSvgNames.ActionDetail" 
                                   [size]="32" 
                                   [strokeColor]="this.theme.green"
                                   nz-tooltip 
@@ -142,7 +142,7 @@
                                   (click)="navigateToProviderDetail(providerReqWithCatalogs.providerRequirement.providerRequirementId)"
                                   class="cursor-pointer">
                         </svg-icon>
-                        <svg-icon iconName="trash-outline" 
+                        <svg-icon [iconName]="OutlineSvgNames.ActionDelete"
                                   [size]="32" 
                                   [strokeColor]="this.theme.red"
                                   nz-tooltip 
@@ -150,7 +150,7 @@
                                   nzTooltipPlacement="top"
                                   class="cursor-not-allowed">
                         </svg-icon>
-                        <svg-icon iconName="times" 
+                        <svg-icon [iconName]="OutlineSvgNames.ActionClose" 
                                   [size]="32" 
                                   [strokeColor]="this.theme.purple"
                                   nz-tooltip 

@@ -9,6 +9,7 @@ import {
 } from '../state/management/management.selectors';
 import { IManagementState } from '../state/management/managementState.interface';
 import { managementFeatureKey } from '../state/management/management.reducers';
+import { OutlineSvgNames } from '../../share-components/svg-definitions/outline-svg-names.enum';
 
 @Component({
     selector: 'esa-management-navigation',
@@ -20,6 +21,11 @@ export class ManagementNavigationComponent {
     get SidebarMode() {
         return SidebarMode;
     }
+
+    get OutlineSvgNames() {
+        return OutlineSvgNames;
+    }
+    
     topbarOpened$!: Observable<boolean>;
 
     constructor(private _store: Store) {

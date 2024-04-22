@@ -3,18 +3,18 @@
         <p>Order 
             <span class="text-lg font-medium italic">#{{order.orderId | slice:0:8 | uppercase}}</span>
         </p>        
-        <svg-icon [iconName]="order.paymentMethod === PaymentMethod.COD ? 'color-credit-payment' : 
+        <svg-icon [iconName]="order.paymentMethod === PaymentMethod.COD ? ColorSvgNames.CreditPayment : 
                               order.paymentMethod === PaymentMethod.CreditCard ? 'cash-payment' : 
-                              'color-pig-payment'"
+                              ColorSvgNames.PigPayment"
                   [size]="34"
                   nz-tooltip
                   nzTooltipTitle="Payment method: {{this.PaymentMethodText}}">
         </svg-icon>
     </div>
     <div class="flex flex-row justify-start items-center mt-4">
-        <svg-icon [iconName]="order.orderStatus === OrderStatus.checkouted ? 'color-checkmark' : 
-                              order.orderStatus === OrderStatus.customerInfoConfirmed ? 'color-checkmark' : 
-                              'pig-payment'"
+        <svg-icon [iconName]="order.orderStatus === OrderStatus.checkouted ? ColorSvgNames.Checkmakr : 
+                              order.orderStatus === OrderStatus.customerInfoConfirmed ? ColorSvgNames.Checkmakr : 
+                              OutlineSvgNames.PaymentMomo"
                   [size]="24"
                   class="mr-1"
                   nz-tooltip
@@ -53,13 +53,13 @@
             <!-- This does not need rcurrency pipe -->
             <svg-icon [iconName]="order.totalPriceFinal <= 8000 ? 'color-lookup' : 
                                   order.totalPriceFinal <= 16000 ? 'color-view-detail' : 
-                                  'color-view-detail'"
+                                  ColorSvgNames.ViewDetail"
                       [size]="24"
                       class="mr-1 hover:scale-150 cursor-pointer transition-transform"
                       nz-tooltip
                       nzTooltipTitle="Inspect order">
             </svg-icon>
-            <svg-icon [iconName]="'color-lookup'"
+            <svg-icon [iconName]="ColorSvgNames.Lookup"
                       [size]="24"
                       class="hover:scale-150 cursor-pointer transition-transform"
                       nz-tooltip

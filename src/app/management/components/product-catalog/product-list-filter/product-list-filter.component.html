@@ -1,4 +1,4 @@
-<div class="flex flex-row px-6 items-center flex-wrap py-4">
+<div class="flex flex-row px-6 items-center flex-wrap py-4 bg-lightGray dark:bg-darkGray">
     <div class="flex flex-row items-center">
         <div class="gr">
             <label for="productPerPage">Show:</label>
@@ -14,7 +14,7 @@
             entries
         </div>
 
-        <esa-input [iconName]="'search-outline'"
+        <esa-input [iconName]="OutlineSvgNames.ActionSearch"
                    [placeholder]="'Search...'"
                    class="mr-4">
         </esa-input>
@@ -51,7 +51,7 @@
     </div>
     <div class="flex-auto"></div>
     <div class="flex flex-row">
-        <app-button [iconName]="'add-outline'">
+        <app-button [iconName]="OutlineSvgNames.ActionAdd">
             Add New Product
         </app-button>
         <app-button (click)="openAdvanceFilter()">

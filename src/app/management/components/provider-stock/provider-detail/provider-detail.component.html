@@ -89,7 +89,7 @@
             </p>
             <div class="search-container input-here flex flex-row">
                 <div class="search-btn mr-2">
-                    <svg-icon [iconName]="'search-outline'"
+                    <svg-icon [iconName]="OutlineSvgNames.ActionSearch"
                               [size]="24"
                               [fillColor]="'#ddd'">
                     </svg-icon>
@@ -105,7 +105,7 @@
             <div class="flex flex-row gap-2">
                 <h2 class="uppercase font-bold text-xl">Selected Products</h2>
                 <app-button (click)="clearAllStockRequests()"
-                            [iconName]="'reset-outline'"
+                            [iconName]="OutlineSvgNames.ActionReset"
                             nz-tooltip
                             nzTooltipTitle="Reset all approved orders"
                             nzTooltipPlacement="right">

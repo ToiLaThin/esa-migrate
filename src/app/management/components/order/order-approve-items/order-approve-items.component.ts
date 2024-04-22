@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 import { IItemStock } from "../../../../core/models/order-approve.model";
+import { OutlineSvgNames } from "../../../../share-components/svg-definitions/outline-svg-names.enum";
 
 @Component({
     selector: 'esa-management-order-approve-items',
@@ -11,6 +12,9 @@ export class OrderApproveItemsManagementComponent implements OnInit{
     @Input({required: true}) displayMode: 'table' | 'list' = 'table';
     @Output() displayModeToggled: EventEmitter<void> = new EventEmitter<void>();
 
+    get OutlineSvgNames() {
+        return OutlineSvgNames;
+    }
     constructor() {}
 
     ngOnInit(): void {        

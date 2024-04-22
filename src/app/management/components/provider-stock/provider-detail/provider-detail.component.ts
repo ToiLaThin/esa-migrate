@@ -13,6 +13,7 @@ import {
 import { providerStockManagementFeatureKey } from '../../../state/provider-stock/provider-stock.reducers';
 import { IProviderStockManagementState } from '../../../state/provider-stock/providerStockManageState.interface';
 import { providerStockManagementActions } from '../../../state/provider-stock/provider-stock.actions';
+import { OutlineSvgNames } from '../../../../share-components/svg-definitions/outline-svg-names.enum';
 
 @Component({
     selector: 'esa-management-provider-detail',
@@ -27,6 +28,10 @@ export class ProviderDetailManagementComponent implements OnInit, OnDestroy {
     grandTotalPriceStockItemRequests$!: Observable<number>;
 
     selectedProviderRequirementId!: string;
+
+    get OutlineSvgNames() {
+        return OutlineSvgNames;
+    }
     constructor(private _store: Store) {}
 
     ngOnDestroy(): void {}

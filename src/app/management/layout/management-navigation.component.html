@@ -11,7 +11,7 @@
            nzTooltipTitle="Product and catalog features"
            nzTooltipTrigger="hover"
            (click)="toggleSideBar()">
-            <svg-icon [iconName]="'cart'"
+            <svg-icon [iconName]="OutlineSvgNames.Cart"
                       [fillColor]="'whitesmoke'"
                       [size]="24">
             </svg-icon>
@@ -22,7 +22,7 @@
            nzTooltipTitle="Provider and stock features"
            nzTooltipTrigger="hover"
            (click)="toggleSideBar()">
-            <svg-icon [iconName]="'cube'"
+            <svg-icon [iconName]="OutlineSvgNames.Cube"
                       [fillColor]="'whitesmoke'"
                       [size]="24">
             </svg-icon>
@@ -33,7 +33,7 @@
             nzTooltipTitle="Sale and coupons features"
             nzTooltipTrigger="hover"
            (click)="toggleSideBar()">
-            <svg-icon [iconName]="'discount'"
+            <svg-icon [iconName]="OutlineSvgNames.Discount"
                       [fillColor]="'whitesmoke'"
                       [size]="24">
             </svg-icon>
@@ -43,7 +43,7 @@
            nzTooltipPlacement="right"
            nzTooltipTitle="Orders features"
            nzTooltipTrigger="hover">
-            <svg-icon [iconName]="'clipboard'"
+            <svg-icon [iconName]="OutlineSvgNames.Clipboard"
                       [fillColor]="'whitesmoke'"
                       [size]="24"
                       (click)="toggleSideBar()">
@@ -62,7 +62,7 @@
             </ng-container>
             }
             <ng-template #switchSidebarPushModeTempl>
-                <svg-icon [iconName]="'sidebar-push-right'"
+                <svg-icon [iconName]="OutlineSvgNames.SidebarPushRight"
                           [size]="24"
                           (click)="switchSidebarOver()"
                           nz-tooltip
@@ -72,7 +72,7 @@
                 </svg-icon>
             </ng-template>
             <ng-template #switchSidebarOverModeTempl>
-                <svg-icon [iconName]="'sidebar-overlay'"
+                <svg-icon [iconName]="OutlineSvgNames.SidebarOverlay"
                           [size]="24"
                           [fillColor]="'whitesmoke'"
                           (click)="switchSidebarPush()"
@@ -93,7 +93,7 @@
             </ng-container>
             }
             <ng-template #topbarCloseTempl>
-                <svg-icon [iconName]="'topbar'"
+                <svg-icon [iconName]="OutlineSvgNames.TopbarClose"
                           [size]="24"
                           (click)="toggleTopbar()"
                           nz-tooltip
@@ -103,7 +103,7 @@
                 </svg-icon>
             </ng-template>
             <ng-template #topbarOpenTempl>
-                <svg-icon [iconName]="'topbar'"
+                <svg-icon [iconName]="OutlineSvgNames.TopbarOpen"
                           [size]="24"
                           [fillColor]="'whitesmoke'"
                           (click)="toggleTopbar()"

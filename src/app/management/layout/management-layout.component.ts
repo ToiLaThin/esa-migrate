@@ -10,6 +10,7 @@ import {
 } from '../state/management/management.selectors';
 import { managementActions } from '../state/management/management.actions';
 import { SidebarMode } from '../../core/types/sidebar-mode.enum';
+import { OutlineSvgNames } from '../../share-components/svg-definitions/outline-svg-names.enum';
 
 @Component({
     selector: 'esa-management-layout',
@@ -21,6 +22,9 @@ export class ManagementLayoutComponent implements OnInit {
     sidebarMode$!: Observable<SidebarMode>;
     sidebarFixed$!: Observable<boolean>;
 
+    get OutlineSvgNames() {
+        return OutlineSvgNames;
+    }
     constructor(private _store: Store) {}
 
     ngOnInit(): void {
