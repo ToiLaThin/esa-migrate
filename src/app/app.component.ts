@@ -20,22 +20,21 @@ export class AppComponent {
     title = 'esa-migrate';
 
     constructor(private _store: Store, private _translateService: TranslateService) {
-        this._translateService.setDefaultLang('en');
-        this._store.dispatch(managementActions.changeLanguage({ 
-            newLanguage: 'en' 
-        }));
-
-
         // or we can use interval rxjs operator 
         // in auth.effects.ts startCheckSessionEffect
-
+        
         // setInterval(() => {
-        //     console.log('checking session');
-        //     this._store.dispatch(authActions.checkSession());
-        // }, env.loginCheckInterval);
-        this._store.dispatch(authActions.bootstrapAuth());
+            //     console.log('checking session');
+            //     this._store.dispatch(authActions.checkSession());
+            // }, env.loginCheckInterval);
+            this._store.dispatch(authActions.bootstrapAuth());
         this._store.dispatch(cartActions.loadCartItemsFromStorage());
         this._store.dispatch(orderActions.loadTrackingOrderFromStorage());
+        this._store.dispatch(managementActions.loadThemeFromStorage());
+        this._store.dispatch(managementActions.loadCurrencyFromStorage());
+        
+        this._translateService.setDefaultLang('en');
+        this._store.dispatch(managementActions.loadLanguageFromStorage());
     }
 
     toggleTheme() {
