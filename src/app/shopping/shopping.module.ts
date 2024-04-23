@@ -51,6 +51,8 @@ import { TranslateLoader, TranslateModule, TranslatePipe } from "@ngx-translate/
 import { HttpClient } from "@angular/common/http";
 import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 import { MultiFilesTranslationLoader } from "../core/translation-loader/multi-files-translation.loader";
+import { OptionHorizontalComponent } from "./layout/option-horizontal.component";
+import { OptionVerticalComponent } from "./layout/option-vertical.component";
 
 @NgModule({
     //https://github.com/ngx-translate/core/issues/1193
@@ -102,6 +104,8 @@ import { MultiFilesTranslationLoader } from "../core/translation-loader/multi-fi
     declarations: [
         ShoppingComponent,
         HeaderTopbarComponent,
+        OptionHorizontalComponent,
+        OptionVerticalComponent,
         FooterComponent,
         IndexComponent,
         BannerComponent,

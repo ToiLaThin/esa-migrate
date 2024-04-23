@@ -33,4 +33,13 @@ export enum ColorSvgNames {
     FlagUs = 'color-flag-us',
     ThemeLight = 'color-theme-light',
     ThemeDark = 'color-theme-dark',
+    
+    OptionMoreHorizontal = 'color-option-more-horizontal',
+    OptionMoreVertical = 'color-option-more-vertical',
+    OptionLessHorizontal = 'color-option-less-horizontal',
+    
+    Heart = 'color-heart',
+    Logout = 'color-logout',
+    Cog = 'color-cog',
+    ThumbUp = 'color-thumb-up',
 }

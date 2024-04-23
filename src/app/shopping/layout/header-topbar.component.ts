@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, HostListener, OnDestroy, OnInit, Renderer2, TemplateRef, ViewChild } from '@angular/core';
 import { Observable, Subject, take, takeUntil, tap } from 'rxjs';
 import { AuthStatus } from '../../core/types/auth-status.enum';
 import { Store } from '@ngrx/store';
@@ -34,12 +34,18 @@ import { IManagementState } from '../../management/state/management/managementSt
 import { managementActions } from '../../management/state/management/management.actions';
 import { I18NLayoutIdSelector } from '../translate-ids/i18n-layout-id';
 import { ThemeType } from '../../core/ui-models/theme-type';
+import { selectorHorizontalOptionExpanded } from '../state/ui/ui.selectors';
+import { uiShoppingFeatureKey } from '../state/ui/ui.reducers';
+import { IUIState } from '../state/ui/uiState.inteface';
+import { uiShoppingActions } from '../state/ui/ui.actions';
+import { OutlineSvgNames } from '../../share-components/svg-definitions/outline-svg-names.enum';
+import { NzDrawerRef, NzDrawerService } from 'ng-zorro-antd/drawer';
 
 @Component({
     selector: 'esa-shopping-header-topbar',
     templateUrl: './header-topbar.component.html'
 })
-export class HeaderTopbarComponent implements OnInit, OnDestroy {
+export class HeaderTopbarComponent implements OnInit, OnDestroy, AfterViewInit {
     userName$!: Observable<string>;
     userRole$!: Observable<string>;
     userId!: string;
@@ -47,13 +53,20 @@ export class HeaderTopbarComponent implements OnInit, OnDestroy {
     authStatus$!: Observable<AuthStatus>;
     itemsInCartCount$!: Observable<number>;
 
+    optionHorizontalExpanded$!:Observable<boolean>;
+    optionVerticalOpened: boolean = false;
     trackingOrder$!: Observable<IOrderAggregateCart | null>;
     currencyDatas = currencyDatas;
 
     destroy$: Subject<void> = new Subject<void>(); //for unsubscribing
+    drawerRef: NzDrawerRef | null = null;
     selectedCurrency!: Currency;
     selectedLanguage!: string;
     rewardPoints$!: Observable<number | undefined>;
+
+    @ViewChild('userAvatar', {read: ElementRef}) userAvatar!: ElementRef;
+    @ViewChild('optionVertical', {read: ElementRef}) optionVertical!: ElementRef;
+    @ViewChild('verticalNavTemplate') verticalNavTemplate!: TemplateRef<any>;
 
     get AuthStatus() {
         return AuthStatus;
@@ -63,6 +76,9 @@ export class HeaderTopbarComponent implements OnInit, OnDestroy {
         return ColorSvgNames;
     }
 
+    get OutlineSvgNames() {
+        return OutlineSvgNames;
+    }
     get ThemeType() {
         return ThemeType;
     }
@@ -74,7 +90,38 @@ export class HeaderTopbarComponent implements OnInit, OnDestroy {
     constructor(
         private _store: Store,
         private _router: Router,
+        private _renderer: Renderer2,
+        private _drawerService: NzDrawerService
     ) {}
+
+    ngAfterViewInit(): void {
+        if (!this.userAvatar) {
+            return;
+        }
+        // this._renderer.listen(this.userAvatar.nativeElement, 'click', () => {
+        //     if (this.optionVerticalOpened) {
+        //         this.closeOptionHorizontal();
+        //         return;
+        //     }
+        //     this.openOptionHorizontal();
+        // });
+        this._renderer.listen('window', 'click', (event) => {
+            if (event.target === this.userAvatar.nativeElement) {
+                this.openOptionHorizontal();
+                return;
+            }    
+            if (this.optionVerticalOpened && this.optionVertical.nativeElement.contains(event.target)) {
+                this.closeOptionHorizontal();
+                return;
+            }
+            if (this.userAvatar.nativeElement.contains(event.target)) {
+                this.openOptionHorizontal();
+                return;
+            };
+            this.closeOptionHorizontal();
+        });
+    }
+
 
     ngOnDestroy(): void {
         this.destroy$.next();
@@ -96,6 +143,9 @@ export class HeaderTopbarComponent implements OnInit, OnDestroy {
         );
         this.trackingOrder$ = this._store.select((state) =>
             selectorTrackingOrder(state as { [orderFeatureKey]: IOrderState })
+        );
+        this.optionHorizontalExpanded$ = this._store.select((state) =>
+            selectorHorizontalOptionExpanded(state as { [uiShoppingFeatureKey]: IUIState })
         );
         this._store
             .select((state) =>
@@ -152,6 +202,45 @@ export class HeaderTopbarComponent implements OnInit, OnDestroy {
 
     logout() {
         this._store.dispatch(authActions.logoutAttempted());
+    }
+
+    openOptionHorizontal() {
+        if (this.optionVerticalOpened) {
+            return;
+        }
+        this.optionVerticalOpened = true;
+    }
+
+    closeOptionHorizontal() {
+        if (this.optionVerticalOpened === false) {
+            return;
+        }
+        this.optionVerticalOpened = false;
+    }
+
+    toggleOptionHorizontal() {
+        this._store.dispatch(uiShoppingActions.toggleOptionHorizontalExpanded());
+    }
+
+    toggleVerticalNav() {
+        this.drawerRef = this._drawerService.create({
+            nzClosable: false,
+            nzTitle: undefined,
+            nzContent: this.verticalNavTemplate,
+            nzFooter: undefined,
+            nzPlacement: 'left',
+            nzWidth: '100%',
+            nzBodyStyle: {
+                'padding': '0px'
+            }
+        });
+    }
+
+    closeDrawerRef() {
+        if (this.drawerRef) {
+            this.drawerRef.close();
+        }
+        this.drawerRef = null;
     }
 
     continueOrderingProcess() {

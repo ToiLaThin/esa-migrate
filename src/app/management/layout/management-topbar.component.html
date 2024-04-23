@@ -1,11 +1,129 @@
-<nav class="h-navigation flex flex-row bg-lightGray dark:bg-darkGray border-b border-solid">
-    <svg-icon [iconName]="OutlineSvgNames.SidebarNotFixed"
-              [size]="32"
-              [fillColor]="'none'"
-              (click)="toggleSidebarFixed()">
-    </svg-icon>
-    <svg-icon [iconName]="OutlineSvgNames.SidebarFixed"
-              [size]="32"
-              (click)="toggleNavigationLeft()">
-    </svg-icon>
+<nav class="h-navigation flex flex-row bg-lightGray dark:bg-darkGray border-gray-50 border-b border-solid gap-4">
+    
+    <div class="flex-auto"></div>
+    <div class="topnav-management-item"  
+         nz-dropdown
+         nzTrigger="click"
+         [nzDropdownMenu]="currencyMenu">
+        @if (this.selectedCurrency === null || this.selectedCurrency === undefined) {
+        <svg-icon [iconName]="ColorSvgNames.FlagVn" 
+                    [size]="24"
+                    nz-tooltip
+                    nzTooltipTitle="{{I18NLayoutIds.LayoutTopbarLanguage | translate}}">
+        </svg-icon>
+        } 
+        @else {
+        @for (currencyData of this.currencyDatas; track currencyData) {
+            @if (this.selectedCurrency === currencyData.currency) {
+            <svg-icon [iconName]="currencyData.iconName" 
+                        [size]="24"
+                        nz-tooltip
+                        nzTooltipTitle="{{currencyData.title}}">
+            </svg-icon>
+            }
+        }
+        }
+    </div>
+    
+    <div class="topnav-management-item" 
+            nz-dropdown
+            nzTrigger="click"
+            [nzDropdownMenu]="langMenu">
+        @if (this.selectedLanguage === null || this.selectedLanguage === undefined) {
+        <svg-icon [iconName]="ColorSvgNames.FlagVn" 
+                  [size]="24"
+                  nz-tooltip
+                  nzTooltipTitle="Unknown">
+        </svg-icon>
+        } 
+        @if (this.selectedLanguage === 'vi') {
+        <svg-icon [iconName]="ColorSvgNames.FlagVn" 
+                  [size]="24"
+                  nz-tooltip
+                  nzTooltipTitle="{{I18NLayoutIds.LayoutTopbarLangVi| translate}}">
+        </svg-icon>
+        }
+        @if (this.selectedLanguage === 'en') {
+        <svg-icon [iconName]="ColorSvgNames.FlagUs" 
+                  [size]="24"
+                  nz-tooltip
+                  nzTooltipTitle="{{I18NLayoutIds.LayoutTopbarLangEn | translate}}">
+        </svg-icon>
+        }
+    </div>
+    
+    <div class="topnav-management-item">
+        @if (currentTheme === ThemeType.DARK) {
+        <svg-icon [iconName]="ColorSvgNames.ThemeDark"
+                  [size]="24"
+                  (click)="changeTheme(ThemeType.LIGHT)"
+                  nz-tooltip nzTooltipTitle="Theme light">
+        </svg-icon>
+            }
+        @if (currentTheme === ThemeType.LIGHT) {
+        <svg-icon [iconName]="ColorSvgNames.ThemeLight"
+                  [size]="24"     
+                  (click)="changeTheme(ThemeType.DARK)"
+                  nz-tooltip nzTooltipTitle="Theme dark">
+        </svg-icon>
+        }
+    </div>
+
+
+    <div class="topnav-management-item">
+        <svg-icon [iconName]="moreLayoutOptionTopbarExpanded === true ? ColorSvgNames.OptionLessHorizontal : ColorSvgNames.OptionMoreHorizontal" 
+                   [size]="24"
+                   (click)="toggleMoreLayoutOptionTopbar()">
+        </svg-icon>
+        <div class="flex flex-row gap-1 overflow-hidden transition-all duration-1200 ease-in-out"
+             [ngClass]="moreLayoutOptionTopbarExpanded === true ? 'w-auto px-[6px]': 'w-0 px-0'">
+            <svg-icon [iconName]="OutlineSvgNames.SidebarNotFixed"
+                      [size]="24"
+                      [fillColor]="'none'"
+                      (click)="toggleSidebarFixed()">
+            </svg-icon>
+            <svg-icon [iconName]="OutlineSvgNames.SidebarFixed"
+                      [size]="24"
+                      (click)="toggleNavigationLeft()">
+            </svg-icon>
+        </div>
+    </div>
 </nav>
+
+
+<nz-dropdown-menu #currencyMenu="nzDropdownMenu">
+    <ul class="mt-3" nz-menu>
+        @for (currencyData of this.currencyDatas; track currencyData) {
+        <li nz-menu-item (click)="changeCurrency(currencyData.currency)">
+            <div class="flex items-center">
+                <svg-icon [iconName]="currencyData.iconName" 
+                            [size]="24">
+                </svg-icon>
+                <span class="ml-2">{{currencyData.title}}</span>
+            </div>
+        </li>
+        }
+    </ul>
+</nz-dropdown-menu>
+
+
+<nz-dropdown-menu #langMenu="nzDropdownMenu">
+    <ul class="mt-3" nz-menu>
+        <li nz-menu-item (click)="changeLanguage('en')">
+            <div class="flex items-center">
+                <svg-icon [iconName]="ColorSvgNames.FlagUs" 
+                            [size]="24">
+                </svg-icon>
+                <span class="ml-2">{{I18NLayoutIds.LayoutTopbarLangEn | translate}}</span>
+            </div>
+        </li>
+        <li nz-menu-item (click)="changeLanguage('vi')">
+            <div class="flex items-center">
+                <svg-icon [iconName]="ColorSvgNames.FlagVn" 
+                            [size]="24">
+                </svg-icon>
+                <span class="ml-2">{{I18NLayoutIds.LayoutTopbarLangVi | translate}}</span>
+            </div>
+        </li>
+    </ul>
+</nz-dropdown-menu>
