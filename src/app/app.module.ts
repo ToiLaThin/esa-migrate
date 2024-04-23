@@ -38,6 +38,7 @@ import { ManagementEffects } from "./management/state/management/management.effe
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import { MultiFilesTranslationLoader } from "./core/translation-loader/multi-files-translation.loader";
+import { uiShoppingFeatureKey, uiShoppingReducer } from "./shopping/state/ui/ui.reducers";
 
 registerLocaleData(en);
 
@@ -77,7 +78,8 @@ registerLocaleData(en);
             [saleCouponManagementFeatureKey]: saleCouponManagementReducer,
             [providerStockManagementFeatureKey]: providerStockManagementReducer,
             [orderManagementFeatureKey]: orderManagementReducer,
-            [orderFeatureKey]: orderReducer
+            [orderFeatureKey]: orderReducer,
+            [uiShoppingFeatureKey]: uiShoppingReducer
         }),
         EffectsModule.forRoot([
             ProductEffects,

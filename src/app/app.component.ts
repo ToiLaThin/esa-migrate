@@ -5,11 +5,6 @@ import { orderActions } from './shopping/state/order/order.actions';
 import { authActions } from './auth/state/auth.actions';
 import { TranslateService } from '@ngx-translate/core';
 import { managementActions } from './management/state/management/management.actions';
-import { selectorThemeSelected } from './management/state/management/management.selectors';
-import { managementFeatureKey } from './management/state/management/management.reducers';
-import { IManagementState } from './management/state/management/managementState.interface';
-import { ThemeType } from './core/ui-models/theme-type';
-import { tap } from 'rxjs';
 
 @Component({
     selector: 'esa-root',
@@ -35,22 +30,5 @@ export class AppComponent {
         
         this._translateService.setDefaultLang('en');
         this._store.dispatch(managementActions.loadLanguageFromStorage());
-    }
-
-    toggleTheme() {
-        let currentTheme!: ThemeType;
-        let currentThemeSub = this._store
-            .select((state) =>
-                selectorThemeSelected(state as { [managementFeatureKey]: IManagementState })
-            )
-            .pipe(tap((theme) => (currentTheme = theme)))
-            .subscribe();
-        currentThemeSub.unsubscribe();
-
-        if (currentTheme == ThemeType.LIGHT) {
-            this._store.dispatch(managementActions.changeTheme({ newTheme: ThemeType.DARK }));
-            return;
-        }
-        this._store.dispatch(managementActions.changeTheme({ newTheme: ThemeType.LIGHT }));
     }
 }

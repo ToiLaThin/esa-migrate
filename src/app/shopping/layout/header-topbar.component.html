@@ -15,7 +15,11 @@
                 {{I18NLayoutIds.LayoutTopbarHelp | translate}}
             </p>
             <p class="pr-3 border-r-2 border-solid border-gray-50 dark:border-darkPrimary sm:min-w-min">
-                {{I18NLayoutIds.LayoutTopbarOrderTracking | translate}}
+                @if ((this.authStatus$ | async) === AuthStatus.Authenticated && (this.trackingOrder$ | async) !== null) {
+                <a (click)="continueOrderingProcess()" class="hover:underline">{{I18NLayoutIds.LayoutTopbarOrderTracking | translate}}</a>
+                } @else {
+                <span class="cursor-not-allowed">{{I18NLayoutIds.LayoutTopbarOrderTracking | translate}}</span>
+                }
             </p>
             <p class="pr-3 border-r-2 border-solid border-gray-50 dark:border-darkPrimary sm:min-w-min">
                 @if (currentTheme === ThemeType.DARK) {
@@ -125,11 +129,39 @@
 </div>
 <div class=" border-b-gray-50-solid-1px dark:border-darkPrimary pb-6 mt-6 my-container">
     <div class="flex flex-row justify-between items-center">
-        <div class="bg-cover">
-            <a routerLink="/shopping/index">
-                <img src="https://demos.codezeel.com/prestashop/PRS21/PRS210502/img/logo-1691412328.jpg" 
-                     style="min-width: 240px; width: 280px ;height: auto;">
-            </a>
+        <div class="flex flex-row items-center">
+            <div class="bg-cover">
+                <a routerLink="/shopping/index">
+                    <img src="https://demos.codezeel.com/prestashop/PRS21/PRS210502/img/logo-1691412328.jpg" 
+                         style="min-width: 240px; width: 280px ;height: auto;">
+                </a>
+            </div>
+            <svg-icon [iconName]="OutlineSvgNames.Burger"
+                      [size]="24"
+                      class="ml-2 cursor-pointer block lg:hidden"
+                      (click)="toggleVerticalNav()">
+            </svg-icon>
+
+            <ng-template #verticalNavTemplate>
+                <div class="px-4 py-2 flex flex-col gap-2 bg-white dark:bg-black h-full">
+                    <div>Home</div>
+                    <div>Fashion</div>
+                    <div>New Arrivals</div>
+                    <div>All Brands</div>
+                    <div>More</div>
+                    <div>
+                        <span>Shopping Catalog</span>
+                    </div>
+                    <div class="flex flex-row">
+                        <div class="flex-auto"></div>
+                        <svg-icon [iconName]="OutlineSvgNames.CircleRightArrow" 
+                                  [size]="24"
+                                  class="cursor-pointer hover:scale-125"
+                                  (click)="closeDrawerRef()">
+                        </svg-icon>
+                    </div>
+                </div>
+            </ng-template>
         </div>
     
         <div class="flex flex-row justify-between items-center gap-2 sm:hidden md:hidden lg:hidden xl:flex">
@@ -150,8 +182,7 @@
             } @else {
             <div class="border-r-2 border-solid border-gray-300 dark:border-darkPrimary px-4 py-2 xl:block lg:block sm:hidden md:hidden">
                 <a (click)="logout()">{{I18NLayoutIds.LayoutTopbarLogout | translate}}</a>
-            </div>
-            <i class="fa fa-user xl:hidden lg:hidden sm:block md:block"></i>
+            </div>            
             <a class="flex flex-row px-2"
                [routerLink]="'/shopping/cart'"
                nz-tooltip
@@ -162,37 +193,41 @@
                 <span>({{ itemsInCartCount$ | async }})</span>
             </a>
             }
-            <div class="px-2">
-                @if ((this.authStatus$ | async) === AuthStatus.Authenticated && (this.trackingOrder$ | async) !== null) {
-                <a (click)="continueOrderingProcess()">
-                    <i class="fa fa-repeat flex items-center justifyxl:text-[32px] md:text-[20px]">
-                    </i>
-                </a>
-                } @else {
-                <a>
-                    <i class="fa fa-repeat flex items-center justifyxl:text-[32px] md:text-[20px]">
-                    </i>
-                </a>
-                }
+            <div class="px-2 flex flex-row items-center">
+                <esa-option-horizontal [optionHorizontalExpanded]="(optionHorizontalExpanded$ | async)!">
+                </esa-option-horizontal>
+                <app-button [className]="(optionHorizontalExpanded$ | async) === true ? 'btn-secondary' : 'btn-empty'"
+                            [ngClass]="(optionHorizontalExpanded$ | async) === true ? 'ml-2' : ''"
+                            [iconName]="(optionHorizontalExpanded$ | async) === true ? ColorSvgNames.OptionLessHorizontal : ColorSvgNames.OptionMoreHorizontal" 
+                            [iconSize]="24"
+                            (click)="toggleOptionHorizontal()">
+                </app-button>                
             </div>
-            <div class="px-2">
-                <a><i class="far fa-heart flex items-center justifyxl:text-[32px] md:text-[20px] font-medium"></i></a>
-            </div>
-            <div class="px-2">
-                @if ((this.authStatus$ | async) === AuthStatus.Authenticated) {
-                <a (click)="navigateToOrderList()">
-                    <svg-icon [iconName]="ColorSvgNames.ViewDetail"
-                              [size]="32">
-                    </svg-icon>
-                </a>
-                } @else {
-                <a (click)="navigateToOrderList()">
-                    <svg-icon [iconName]="ColorSvgNames.ViewDetail"
-                              [size]="32">
-                    </svg-icon>
-                </a>
-                }
-            </div>
+            @if ((this.authStatus$ | async) === AuthStatus.Authenticated) {
+                <div class="relative">
+                    <div class="px-2 flex flex-row gap-1 items-center cursor-pointer hover:scale-110" #userAvatar>
+                            <!-- (mouseover)="openOptionHorizontal()" 
+                            (mousemove)="openOptionHorizontal()" 
+                            (mouseleave)="closeOptionHorizontal()"> -->
+                        <div class="user-avatar-container user-avatar-child" 
+                             style="height: 30px; width: 30px;">
+                            <img src="../../../assets/images/user1.jpg" 
+                                 class="rounded-full fluid-img">
+                        </div>
+                        <svg-icon [iconName]="ColorSvgNames.OptionMoreVertical"
+                                  [size]="24"
+                                  class="user-avatar-child">
+                        </svg-icon>
+                    </div>
+
+                    <ng-template [ngIf]="this.optionVerticalOpened === true">
+                    <div class="absolute z-10 top-[40px] right-[5px]" #optionVertical>
+                        <esa-option-vertical>
+                        </esa-option-vertical>
+                    </div>
+                    </ng-template>
+                </div>
+            }
         </div>
     </div>
 </div>

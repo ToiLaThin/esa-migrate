@@ -12,6 +12,8 @@ export enum OutlineSvgNames {
 
     TopbarClose = 'topbar-close',
     TopbarOpen = 'topbar-open',
+    Cog = 'cog-outline',
+    Notification = 'notification-outline',
 
     ViewModeList = 'list-view-mode',
     ViewModeTable = 'table-view-mode',
@@ -50,5 +52,9 @@ export enum OutlineSvgNames {
     StocksStack = 'stocks-stack-outline',
     PriceTags = 'price-tags-outline',
     CatalogList = 'catalog-list-outline',
+
+
+    //Shopping 
+    Burger = 'burger-outline',
 
 }
