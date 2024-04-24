@@ -1,0 +1,74 @@
+<div class="flex flex-col justify-center items-center p-10 my-10">
+    <div class="flex flex-row items-center gap-3 w-full">
+        <div class="w-1/4 bg-secondary h-[400px]"></div>
+        @if (productCompareList.length > 0) {
+        <table class=" flex-1 product-compare-table">
+            <tr>
+                <th>Feature</th>
+                @for (product of productCompareList; track product) {
+                <td>
+                    <div class="item-feature relative">
+                        <svg-icon [iconName]="OutlineSvgNames.ActionDelete" 
+                                    [size]="24"
+                                    class="absolute top-5 right-5 z-20 cursor-pointer hover:scale-125"
+                                    nz-tooltip
+                                    nzTooltipTitle="Remove item from compare list"
+                                    (click)="removeProductFromCompareList(product.productId!)">
+                        </svg-icon>
+                        <div class="img-container w-full h-[400px] overflow-hidden">
+                            <img src="{{product.productCoverImage}}" 
+                                    class="fluid-img object-cover">
+                        </div>
+                        <p>{{product.productName}}</p>
+                        <p class="text-md text-textLight">{{product.productInfo?.productDescription | slice:0:120}}...</p>
+                        <span class="text-darkPrimary text-sm">{{product.productModels[0].price | rcurrency}}</span>
+                    </div>
+                </td>
+                }
+            </tr>
+            <tr>
+                <th>Brand</th>
+                @for (product of productCompareList; track product) {
+                <td><p class="text-md text-textLight">{{product.productInfo?.productBrand}}</p></td>
+                }
+            </tr>
+            <tr>
+                <th>Is On Sale</th>
+                @for (product of productCompareList; track product) {
+                    @if (product.isOnSale) {
+                        <td><p class="text-md text-darkPrimary">On Sale: {{product.productDisplayPriceOnSale! | rcurrency}}</p></td>
+                    } @else {
+                        <td><p class="text-md text-[green]">Not On Sale</p></td>
+                    }
+                }
+            </tr>
+            <tr>
+                <th>Subcatalog</th>
+                @for (product of productCompareList; track product) {
+                <td><p class="text-md text-textLight">{{product.subCatalogName | titlecase}}</p></td>
+                }
+            </tr>
+        </table>
+        } @else {
+        <div class="flex-1 flex flex-col items-center justify-center ">
+            <p class="w-1/2 border-primary dark:border-darkPrimary border-solid border bg-lightGray dark:bg-darkGray p-4 text-md text-center">No products to compare</p>
+        </div>
+        }
+    </div>
+
+    <div class="mt-4 clear-fix">
+        <a class="flex flex-row items-center float-left ml-2 hover:scale-105 hover:opacity-80" 
+            routerLink="/shopping/product-list">
+            <svg-icon [iconName]="OutlineSvgNames.CircleLeftArrow" 
+                      [size]="20"
+                      class="mr-1">
+            </svg-icon>
+            Continue Shopping
+        </a>
+        <div class="text-center float-right">
+            <!-- <button class="btn-primary uppercase text-md"
+                    (click)="clearCart()">
+                Clear Cart
+            </button> -->
+        </div>
+</div>

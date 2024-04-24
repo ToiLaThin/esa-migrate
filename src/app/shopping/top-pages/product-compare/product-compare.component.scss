@@ -1,0 +1,12 @@
+table.product-compare-table {
+    @apply border-gray-50 border-solid border-2;
+    border-collapse: collapse;
+}
+
+th, td {
+    @apply border-gray-50 border-solid border p-4;
+}
+
+.item-feature > * {
+    @apply pb-4;
+}

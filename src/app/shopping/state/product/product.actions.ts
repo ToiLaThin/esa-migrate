@@ -51,6 +51,12 @@ export const productActions = createActionGroup({
         'Product Rate Mappings Loaded Failed': props<{ error: string }>(),
 
         'Rate Product': props<{ productBusinessKey: string; userId: string; rating: string }>(),
+        'Load Product Compare Id List From Storage': emptyProps(),
+        'Product Compare Id List Loaded Successfully': props<{ productCompareIdList: string[] }>(),
+        //these 2 not affect reducer, they will be handled in effects, the validation logic in effect, the load successfull will modify the state in reducer
+        //that is more clear and easy to understand, efficient too
+        'Add Product To Compare List': props<{ productId: string }>(),
+        'Remove Product From Compare List': props<{ productId: string }>(),
         
     }
 });
