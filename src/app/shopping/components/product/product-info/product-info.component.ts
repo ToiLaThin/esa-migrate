@@ -19,6 +19,7 @@ export class ProductInfoComponent {
     @Output() productBookmarkToggled: EventEmitter<boolean> = new EventEmitter<boolean>();
     @Output() productLikeToggled: EventEmitter<boolean> = new EventEmitter<boolean>();
     @Output() productDislikeToggled: EventEmitter<boolean> = new EventEmitter<boolean>();
+    @Output() productAddedToCompareList: EventEmitter<string> = new EventEmitter<string>(); //productId
     constructor( private _store: Store) {
         console.log(this.isProductBookmarked);
         console.log(this.isProductLiked);
@@ -95,5 +96,9 @@ export class ProductInfoComponent {
         }
         console.log("toggleProductDislike:", isDisliked);
         this.productDislikeToggled.emit(isDisliked);
+    }
+
+    addProductToCompareList() {
+        this.productAddedToCompareList.emit(this.product.productId);
     }
 }

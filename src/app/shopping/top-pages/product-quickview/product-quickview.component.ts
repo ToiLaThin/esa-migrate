@@ -19,6 +19,7 @@ import { authFeatureKey } from '../../../auth/state/auth.reducers';
 import { selectorAuthStatus, selectorUserId } from '../../../auth/state/auth.selectors';
 import { productActions } from '../../state/product/product.actions';
 import { OutlineSvgNames } from '../../../share-components/svg-definitions/outline-svg-names.enum';
+import { ProductCompareService } from '../../../core/services/product-compare.service';
 
 @Component({
     selector: 'esa-product-quickview',
@@ -219,5 +220,9 @@ export class ProductQuickviewComponent implements OnInit, OnDestroy {
                 rating
             })
         );
+    }
+
+    addProductToCompareList(productId: string) {
+        this._store.dispatch(productActions.addProductToCompareList({ productId: productId }));
     }
 }

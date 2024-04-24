@@ -21,6 +21,7 @@ import { IAuthState } from '../../../auth/state/authState.interface';
 import { IComment } from '../../../core/models/order.interface';
 import { productActions } from '../../state/product/product.actions';
 import { authActions } from '../../../auth/state/auth.actions';
+import { ProductCompareService } from '../../../core/services/product-compare.service';
 
 @Component({
     selector: 'esa-product-detail',
@@ -68,11 +69,13 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
         });
         tempSubscription.unsubscribe();
 
-        tempSubscription = this._store.select(state => selectorUserId(state as {[authFeatureKey]: IAuthState})).subscribe(userId => {
-            this.currentUserId = userId;
-        });
+        tempSubscription = this._store
+            .select((state) => selectorUserId(state as { [authFeatureKey]: IAuthState }))
+            .subscribe((userId) => {
+                this.currentUserId = userId;
+            });
         tempSubscription.unsubscribe();
-        
+
         this.productComments$ = this._store.select((state) =>
             selectorProductSelectedComments(state as { [productFeatureKey]: IProductState })
         );
@@ -118,23 +121,27 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
                 return of(null);
             })
         );
-        
+
         let authStatus!: AuthStatus;
-        tempSubscription = this.authStatus$.pipe(
-            tap(status => authStatus = status)
-        ).subscribe();
+        tempSubscription = this.authStatus$
+            .pipe(tap((status) => (authStatus = status)))
+            .subscribe();
         tempSubscription.unsubscribe();
 
         if (authStatus === AuthStatus.Authenticated) {
             this._store.dispatch(
                 productActions.loadProductComments({ productBusinessKey: this.productBusinessKey })
             );
-            this._store.dispatch(productActions.loadProductBookmarkMappings({
-                userId: this.currentUserId
-            }));
-            this._store.dispatch(productActions.loadProductRateMappings({
-                userId: this.currentUserId
-            }));
+            this._store.dispatch(
+                productActions.loadProductBookmarkMappings({
+                    userId: this.currentUserId
+                })
+            );
+            this._store.dispatch(
+                productActions.loadProductRateMappings({
+                    userId: this.currentUserId
+                })
+            );
         }
 
         this.isProductRated$ = this._store.select((state) =>
@@ -158,7 +165,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
             alert('Please login to comment');
             return;
         }
-        
+
         this._store.dispatch(
             productActions.commentProduct({
                 userId: this.currentUserId,
@@ -177,7 +184,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
                 })
             );
             return;
-        } 
+        }
         this._store.dispatch(
             productActions.unbookmarkProduct({
                 productBusinessKey: this.productBusinessKey,
@@ -187,7 +194,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     }
 
     toggleProductLike(isLiked: boolean) {
-        if(isLiked === true) {
+        if (isLiked === true) {
             this._store.dispatch(
                 productActions.likeProduct({
                     productBusinessKey: this.productBusinessKey,
@@ -199,13 +206,13 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
         this._store.dispatch(
             productActions.unlikeProduct({
                 productBusinessKey: this.productBusinessKey,
-                userId: this.currentUserId,
+                userId: this.currentUserId
             })
         );
     }
 
     toggleProductDislike(isDisliked: boolean) {
-        if(isDisliked === true) {
+        if (isDisliked === true) {
             this._store.dispatch(
                 productActions.dislikeProduct({
                     productBusinessKey: this.productBusinessKey,
@@ -217,7 +224,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
         this._store.dispatch(
             productActions.unlikeProduct({
                 productBusinessKey: this.productBusinessKey,
-                userId: this.currentUserId,
+                userId: this.currentUserId
             })
         );
     }
@@ -234,5 +241,9 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
                 rating
             })
         );
+    }
+
+    addProductToCompareList(productId: string) {
+        this._store.dispatch(productActions.addProductToCompareList({ productId: productId }));
     }
 }

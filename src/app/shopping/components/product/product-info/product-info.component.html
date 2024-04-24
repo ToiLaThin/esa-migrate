@@ -90,10 +90,11 @@
             <ng-container *ngTemplateOutlet="productBookmarkTemplate">
             </ng-container>
 
-            <span class="ml-4">
+            <a class="ml-4 cursor-pointer" 
+               (click)="addProductToCompareList()">
                 <i class="far fa-copy text-lg mr-2"></i>
                 Add To Compare
-            </span>
+            </a>
 
             <ng-container *ngTemplateOutlet="productLikeTemplate">
             </ng-container>

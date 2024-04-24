@@ -53,7 +53,8 @@
                               [isProductDisliked]="isProductDisliked$ | async"
                               (productBookmarkToggled)="toggleProductBookmark($event)"
                               (productLikeToggled)="toggleProductLike($event)"
-                              (productDislikeToggled)="toggleProductDislike($event)">
+                              (productDislikeToggled)="toggleProductDislike($event)"
+                              (productAddedToCompareList)="addProductToCompareList($event)">
             </esa-product-info>
         </div>
     </div>

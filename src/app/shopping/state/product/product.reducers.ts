@@ -22,6 +22,7 @@ export const initialProductState: IProductState = {
         pageCount: 0,
         pageNumber: 0
     },
+    productCompareIdList: [],
     allCatalogs: [],
     allSubCatalogs: [],
     subCatalogsOfSelectedCatalog: [],
@@ -231,5 +232,11 @@ export const productReducer = createReducer(
             ...state,
             userProductRateMappings: action.ratedProductMappings
         }
-    })
+    }),
+    on(productActions.productCompareIdListLoadedSuccessfully, (state, action) => {
+        return {
+            ...state,
+            productCompareIdList: action.productCompareIdList
+        }
+    }),
 );

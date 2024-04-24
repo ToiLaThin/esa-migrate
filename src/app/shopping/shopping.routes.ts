@@ -11,6 +11,7 @@ import { OrderTrackingCustomerInfoComponent } from "./components/order-process/o
 import { OrderTrackingPaymentMethodsComponent } from "./components/order-process/order-tracking-payment-methods/order-tracking-payment-methods.component";
 import { OrderTrackingNotifyCustomerComponent } from "./components/order-process/order-tracking-notify-customer/order-tracking-notify-customer.component";
 import { AuthenticatedRequiredGuard } from "../core/guards/authenticated-required.guard";
+import { ProductCompareComponent } from "./top-pages/product-compare/product-compare.component";
 
 export const shoppingRoutes: Routes = [
     {
@@ -30,6 +31,10 @@ export const shoppingRoutes: Routes = [
                 // canActivate: [AuthenticatedRequiredGuard],
                 path: 'product-list',
                 component: ProductListComponent
+            },
+            {
+                path: 'product-compare',
+                component: ProductCompareComponent
             },
             {
                 path: 'product-detail/:productId',

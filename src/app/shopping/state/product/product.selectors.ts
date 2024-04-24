@@ -87,3 +87,13 @@ export const selectorSelectedSubCatalogs = createSelector(
     selectorProductFeature,
     (productState) => productState.subCatalogsOfSelectedCatalog
 );
+
+export const selectorProductCompareList = createSelector(
+    selectorProductFeature,
+    (productState) => {
+        const productCompareIdList = productState.productCompareIdList;
+        return productState.paginatedProducts.products.filter((product) =>
+            productCompareIdList.includes(product.productId!)
+        );
+    }
+);

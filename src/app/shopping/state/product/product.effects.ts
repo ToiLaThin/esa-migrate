@@ -13,6 +13,8 @@ import { ProductCommentService } from '../../../core/services/product-comment.se
 import { ProductBookmarkService } from '../../../core/services/product-bookmark.service';
 import { ProductLikeService } from '../../../core/services/product-like.service';
 import { ProductRateService } from '../../../core/services/product-rate.service';
+import { ProductCompareService } from '../../../core/services/product-compare.service';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
 
 @Injectable({ providedIn: 'root' })
 export class ProductEffects {
@@ -24,6 +26,8 @@ export class ProductEffects {
         private _productBookmarkService: ProductBookmarkService,
         private _productLikeService: ProductLikeService,
         private _productRateService: ProductRateService,
+        private _productCompareService: ProductCompareService,
+        private _notificationService: NzNotificationService,
         private _store: Store
     ) {}
 
@@ -336,4 +340,51 @@ export class ProductEffects {
             )
         )
     );
+
+    loadProductCompareIdListEffect = createEffect(() =>
+        this.actions$.pipe(
+            ofType(productActions.loadProductCompareIdListFromStorage),
+            switchMap((action) => {
+                let productCompareIdList = this._productCompareService.loadProductCompareListFromStorage();
+                return of(productActions.productCompareIdListLoadedSuccessfully({
+                    productCompareIdList: productCompareIdList
+                }));
+            }
+        )
+    ));
+
+    addProductToCompareListEffect = createEffect(() =>
+        this.actions$.pipe(
+            ofType(productActions.addProductToCompareList),
+            switchMap((action) => {
+                let productCompareIdList = this._productCompareService.loadProductCompareListFromStorage();                
+                if (productCompareIdList.includes(action.productId) === true) {
+                    this._notificationService.info('Product already in compare list', '');
+                }
+                if (productCompareIdList.length >= 3) {
+                    this._notificationService.info('Compare list is full', '');
+                }
+                productCompareIdList.push(action.productId);
+                this._productCompareService.updateProductCompareListInStorage(productCompareIdList);
+                return of(productActions.loadProductCompareIdListFromStorage()); //this will trigger load successfull and modify the state in reducer
+            }
+        )
+    ));
+    removeProductToCompareListEffect = createEffect(() =>
+        this.actions$.pipe(
+            ofType(productActions.removeProductFromCompareList),
+            switchMap((action) => {
+                let productCompareIdList = this._productCompareService.loadProductCompareListFromStorage();
+                if (productCompareIdList.includes(action.productId) === false) {
+                    this._notificationService.info('Product not in in compare list to remove', '');
+                }
+                if (productCompareIdList.length === 0) {
+                    this._notificationService.info('Compare list is empty', '');
+                }
+                productCompareIdList = productCompareIdList.filter((pId) => pId !== action.productId);
+                this._productCompareService.updateProductCompareListInStorage(productCompareIdList);
+                return of(productActions.loadProductCompareIdListFromStorage()); //this will trigger load successfull and modify the state in reducer
+            }
+        )
+    ));
 }

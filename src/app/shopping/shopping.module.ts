@@ -53,6 +53,7 @@ import { TranslateHttpLoader } from "@ngx-translate/http-loader";
 import { MultiFilesTranslationLoader } from "../core/translation-loader/multi-files-translation.loader";
 import { OptionHorizontalComponent } from "./layout/option-horizontal.component";
 import { OptionVerticalComponent } from "./layout/option-vertical.component";
+import { ProductCompareComponent } from "./top-pages/product-compare/product-compare.component";
 
 @NgModule({
     //https://github.com/ngx-translate/core/issues/1193
@@ -126,6 +127,8 @@ import { OptionVerticalComponent } from "./layout/option-vertical.component";
         ProductPolicyComponent,
         ProductCommentComponent,
         ProductCommentFormComponent,
+
+        ProductCompareComponent,
 
         CartComponent,
         OrderProcessComponent,
