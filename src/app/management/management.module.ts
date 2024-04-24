@@ -4,9 +4,9 @@ import { RouterModule } from '@angular/router';
 import { ShareComponentsModule } from '../share-components/share-components.module';
 import { CommonModule } from '@angular/common';
 import { ManagementComponent } from './management.component';
-import { ManagementTopbarComponent } from './layout/management-topbar.component';
-import { ManagementNavigationComponent } from './layout/management-navigation.component';
-import { ManagementLayoutComponent } from './layout/management-layout.component';
+import { ManagementTopbarComponent } from './layout/sidebar-mode/management-topbar.component';
+import { ManagementNavigationComponent } from './layout/sidebar-mode/management-navigation.component';
+import { ManagementLayoutComponent } from './layout/sidebar-mode/management-layout.component';
 import { ProductCatalogComponent } from './tabs/product-catalog/product-catalog.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
@@ -33,6 +33,7 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzSliderModule } from 'ng-zorro-antd/slider';
+import { NzPopoverModule } from 'ng-zorro-antd/popover';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { CouponListCouponPlaceholderComponent } from './components/sale-coupon/coupon-list-coupon-placeholder/coupon-placeholder.component';
@@ -56,6 +57,7 @@ import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 import { HttpClient } from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { ManagementNavigationHorizontalComponent } from './layout/zen-mode/management-navigation-horizontal.component';
 const importNzModules = [
     NzButtonModule,
     NzDropDownModule,
@@ -65,7 +67,8 @@ const importNzModules = [
     NzModalModule,
     NzSliderModule,
     NzLayoutModule,
-    NzDrawerModule
+    NzDrawerModule,
+    NzPopoverModule 
 ]
 @NgModule({
     imports: [
@@ -97,6 +100,7 @@ const importNzModules = [
         ManagementComponent,
         ManagementTopbarComponent,
         ManagementNavigationComponent,
+        ManagementNavigationHorizontalComponent,
         ManagementLayoutComponent,
 
         ProductCatalogComponent,

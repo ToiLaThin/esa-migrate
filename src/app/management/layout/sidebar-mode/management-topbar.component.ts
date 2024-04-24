@@ -1,17 +1,17 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { managementActions } from '../state/management/management.actions';
-import { OutlineSvgNames } from '../../share-components/svg-definitions/outline-svg-names.enum';
-import { AuthStatus } from '../../core/types/auth-status.enum';
-import { ThemeType } from '../../core/ui-models/theme-type';
-import { ColorSvgNames } from '../../share-components/svg-definitions/color-svg-names.enum';
-import { I18NLayoutIdSelector } from '../../shopping/translate-ids/i18n-layout-id';
+import { managementActions } from '../../state/management/management.actions';
+import { OutlineSvgNames } from '../../../share-components/svg-definitions/outline-svg-names.enum';
+import { AuthStatus } from '../../../core/types/auth-status.enum';
+import { ThemeType } from '../../../core/ui-models/theme-type';
+import { ColorSvgNames } from '../../../share-components/svg-definitions/color-svg-names.enum';
+import { I18NLayoutIdSelector } from '../../../shopping/translate-ids/i18n-layout-id';
 import { tap, takeUntil, Subject } from 'rxjs';
-import { managementFeatureKey } from '../state/management/management.reducers';
-import { selectorCurrencySelected, selectorThemeSelected, selectorLanguageSelected } from '../state/management/management.selectors';
-import { IManagementState } from '../state/management/managementState.interface';
-import { Currency } from '../../core/types/currency.enum';
-import { currencyDatas } from '../../core/ui-models/currency-data';
+import { managementFeatureKey } from '../../state/management/management.reducers';
+import { selectorCurrencySelected, selectorThemeSelected, selectorLanguageSelected } from '../../state/management/management.selectors';
+import { IManagementState } from '../../state/management/managementState.interface';
+import { Currency } from '../../../core/types/currency.enum';
+import { currencyDatas } from '../../../core/ui-models/currency-data';
 
 @Component({
     selector: 'esa-management-topbar',

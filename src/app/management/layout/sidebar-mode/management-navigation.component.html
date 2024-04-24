@@ -123,11 +123,58 @@
         <div>
             <svg-icon [iconName]="OutlineSvgNames.Cog" 
                       [size]="32"
-                      [fillColor]="'whitesmoke'">
+                      [fillColor]="'whitesmoke'"
+                      nz-popover 
+                      nzPopoverPlacement="rightBottom"
+                      [nzPopoverContent]="avatarPopoverContentTemplate">
             </svg-icon>
         </div>
-        <div class="user-avatar-container">
+        <div class="user-avatar-container" 
+             nz-popover 
+             nzPopoverPlacement="rightBottom"
+             [nzPopoverContent]="avatarPopoverContentTemplate">
             <img src="../../../assets/images/user1.jpg" class="rounded-full fluid-img">
         </div>
+        <ng-template #avatarPopoverContentTemplate>
+        <div class="dropdown-item-container flex flex-col">
+            <div class="flex flex-row px-3 py-1 cursor-pointer gap-2 hover:opacity-90 hover:bg-lightGray">
+                <svg-icon [iconName]="ColorSvgNames.Heart" 
+                            [fillColor]="'red'" 
+                            [size]="24">
+                </svg-icon>
+                <span>Bookmarks</span>
+            </div>
+            <div class="flex flex-row px-3 py-1 cursor-pointer gap-2 hover:opacity-90 hover:bg-lightGray">
+                <svg-icon [iconName]="ColorSvgNames.ThumbUp" 
+                            [fillColor]="'red'" 
+                            [size]="24">
+                </svg-icon>
+                <span>Likes</span>
+            </div>
+            <div class="flex flex-row px-3 py-1 cursor-pointer gap-2 hover:opacity-90 hover:bg-lightGray">
+                <svg-icon [iconName]="ColorSvgNames.Cog" 
+                            [fillColor]="'red'" 
+                            [size]="24">
+                </svg-icon>
+                <span>Settings</span>
+            </div>
+            <div class="flex flex-row px-3 py-1 cursor-pointer gap-2 hover:opacity-90 hover:bg-lightGray">
+                <svg-icon [iconName]="ColorSvgNames.ViewDetail" 
+                            [fillColor]="'red'" 
+                            [size]="24">
+                </svg-icon>
+                <span>Orders</span>
+            </div>
+            <hr class="border-b-2 border-gray-50">
+    
+            <div class="flex flex-row px-3 py-1 cursor-pointer gap-2 hover:opacity-90 hover:bg-lightGray">
+                <svg-icon [iconName]="ColorSvgNames.Logout" 
+                            [fillColor]="'red'" 
+                            [size]="24">
+                </svg-icon>
+                <span>Logout</span>
+            </div>
+        </div>
+        </ng-template>
     </div>
 </aside>

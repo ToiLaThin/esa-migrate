@@ -1,0 +1,106 @@
+<div class="relative">
+
+    <nav class="navbar-horizontal bg-primary dark:bg-darkPrimary">
+        <div class="icon-container">
+            <div class="brand">
+                <svg-icon [iconName]="'angular'"
+                          [size]="32">
+                </svg-icon>
+            </div>
+            @for (fd of featureLinkDatas; track fd) {
+                <a [routerLink]="['/management',{outlets: {primary: fd.featurePrimaryOutletLink}}]"
+                   class="tablink hover:bg-lightGray dark:hover:bg-darkGray"
+                   (click)="selectFeatureLink(fd)">
+                    <svg-icon [iconName]="fd.iconName"
+                              [fillColor]="'whitesmoke'"
+                              [size]="24">
+                    </svg-icon>
+                    <span>{{fd.featureTitle}}</span>
+                </a>
+            }
+        </div>
+        <div class="flex-auto">
+        </div>
+        <div class="flex flex-row items-center gap-4">
+            <div>
+                <svg-icon [iconName]="OutlineSvgNames.Notification" 
+                          [size]="28"
+                          [fillColor]="'whitesmoke'">
+                </svg-icon>
+            </div>
+            <div>
+                <svg-icon [iconName]="OutlineSvgNames.Cog" 
+                          [size]="32"
+                          [fillColor]="'whitesmoke'"
+                          nz-popover 
+                          nzPopoverPlacement="rightBottom"
+                          [nzPopoverContent]="avatarPopoverContentTemplate">
+                </svg-icon>
+            </div>
+            <div class="user-avatar-container" 
+                 nz-popover 
+                 nzPopoverPlacement="rightBottom"
+                 [nzPopoverContent]="avatarPopoverContentTemplate">
+                <img src="../../../assets/images/user1.jpg" class="rounded-full fluid-img">
+            </div>
+            <ng-template #avatarPopoverContentTemplate>
+            <div class="dropdown-item-container flex flex-col">
+                <div class="flex flex-row px-3 py-1 cursor-pointer gap-2 hover:opacity-90 hover:bg-lightGray">
+                    <svg-icon [iconName]="ColorSvgNames.Heart" 
+                                [fillColor]="'red'" 
+                                [size]="24">
+                    </svg-icon>
+                    <span>Bookmarks</span>
+                </div>
+                <div class="flex flex-row px-3 py-1 cursor-pointer gap-2 hover:opacity-90 hover:bg-lightGray">
+                    <svg-icon [iconName]="ColorSvgNames.ThumbUp" 
+                                [fillColor]="'red'" 
+                                [size]="24">
+                    </svg-icon>
+                    <span>Likes</span>
+                </div>
+                <div class="flex flex-row px-3 py-1 cursor-pointer gap-2 hover:opacity-90 hover:bg-lightGray">
+                    <svg-icon [iconName]="ColorSvgNames.Cog" 
+                                [fillColor]="'red'" 
+                                [size]="24">
+                    </svg-icon>
+                    <span>Settings</span>
+                </div>
+                <div class="flex flex-row px-3 py-1 cursor-pointer gap-2 hover:opacity-90 hover:bg-lightGray">
+                    <svg-icon [iconName]="ColorSvgNames.ViewDetail" 
+                                [fillColor]="'red'" 
+                                [size]="24">
+                    </svg-icon>
+                    <span>Orders</span>
+                </div>
+                <hr class="border-b-2 border-gray-50">
+        
+                <div class="flex flex-row px-3 py-1 cursor-pointer gap-2 hover:opacity-90 hover:bg-lightGray">
+                    <svg-icon [iconName]="ColorSvgNames.Logout" 
+                                [fillColor]="'red'" 
+                                [size]="24">
+                    </svg-icon>
+                    <span>Logout</span>
+                </div>
+            </div>
+            </ng-template>
+        </div>
+    </nav>
+    @if (featureLinkSelected) {
+    <div class="absolute z-10 bg-primary dark:bg-darkPrimary shadow w-[300px] p-4 overflow-hidden">
+        <div class="flex flex-row flex-wrap items-center content-stretch gap-4">
+            @for (tab of featureLinkSelected.tabs; track tab) {
+            <a [routerLink]="[tab.tabRouterLink]"
+                class="p-4 bg-lightGray dark:bg-darkGray flex flex-col items-center">
+                <svg-icon [iconName]="tab.iconName" 
+                          [size]="24" 
+                          [fillColor]="tab.fillColor">
+                </svg-icon>            
+                <span class="mt-1">{{tab.tabTitle}}</span>
+            </a>
+            }
+        </div>
+    </div>
+
+    }
+</div>

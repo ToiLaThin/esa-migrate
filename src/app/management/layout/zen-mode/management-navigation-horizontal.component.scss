@@ -1,0 +1,34 @@
+.navbar-horizontal {
+    @apply h-auto w-full flex flex-row;
+}
+
+.icon-container {
+    @apply relative py-2 flex flex-row items-center justify-center gap-4;   
+
+    a.tablink {
+        @apply flex flex-row items-center p-2 gap-1 rounded-full;
+        span {
+            @apply hidden w-0 overflow-hidden;
+            transition: width 3s linear;            
+        }
+        &:hover span {
+            @apply w-auto inline-block;
+        }
+    }
+}
+
+.brand {
+    @apply mr-4;
+}
+
+.user-avatar-container {
+    width: 30px;
+    height: 30px;
+}
+
+.sidebar-mode-toggler-container {
+    svg-icon {
+        transition: all .2s linear;
+        cursor: pointer;
+    }
+}
