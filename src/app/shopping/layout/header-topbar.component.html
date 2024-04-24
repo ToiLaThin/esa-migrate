@@ -143,15 +143,12 @@
             </svg-icon>
 
             <ng-template #verticalNavTemplate>
-                <div class="px-4 py-2 flex flex-col gap-2 bg-white dark:bg-black h-full">
+                <div class="px-4 py-2 flex flex-col gap-2 bg-white dark:bg-black h-full overflow-auto">
                     <div>Home</div>
                     <div>Fashion</div>
                     <div>New Arrivals</div>
                     <div>All Brands</div>
                     <div>More</div>
-                    <div>
-                        <span>Shopping Catalog</span>
-                    </div>
                     <div class="flex flex-row">
                         <div class="flex-auto"></div>
                         <svg-icon [iconName]="OutlineSvgNames.CircleRightArrow" 
@@ -159,6 +156,33 @@
                                   class="cursor-pointer hover:scale-125"
                                   (click)="closeDrawerRef()">
                         </svg-icon>
+                    </div>
+                    <div class="flex-auto"></div>
+                    <div class="flex flex-col bg-lightGray dark:bg-darkGray">
+                        <div class="py-2 px-2 flex flex-row" (click)="hideCatalogContainer()">
+                            <span>Shopping Catalog</span>
+                            <div class="flex-auto"></div>
+                            <svg-icon [iconName]="OutlineSvgNames.ArrowDown" 
+                                      [size]="24"
+                                      class="cursor-pointer hover:scale-125">
+                            </svg-icon>
+                        </div>
+                        <!-- over-hidden since its height dynamically set to h-0 -> h-auto and reverse -->
+                        <div class="catalogs-container overflow-hidden transition-all duration-500 ease-in-out">
+                            @for (catalog of allCatalog$ | async; track catalog) {
+                            <div class="py-4 catalog-heading cursor-pointer border-b-gray-50-solid-1px hover:border-none hover:bg-white dark:hover:bg-black" 
+                                 (click)="toggleSubCatalogsMobileSidebarVertical($event)">
+                                <span class="font-semibold text-primary dark:text-darkPrimary">
+                                    {{catalog.catalogName}}
+                                </span>
+                                <ul class="pl-5 hover:pl-8 transition-all duration-500 ease-in-out list-disc display-when-click h-0 overflow-hidden">
+                                    @for (subcatalog of catalog.subCatalogs; track subcatalog) {
+                                    <li class="text-sm">{{subcatalog.subCatalogName | titlecase}}</li>
+                                    }
+                                </ul>
+                            </div>
+                            }
+                        </div>
                     </div>
                 </div>
             </ng-template>
@@ -220,7 +244,7 @@
                         </svg-icon>
                     </div>
 
-                    <ng-template [ngIf]="this.optionVerticalOpened === true">
+                    <ng-template [ngIf]="this.optionVerticalOpened === true && windowWidth > mdScreen">
                     <div class="absolute z-10 top-[40px] right-[5px]" #optionVertical>
                         <esa-option-vertical>
                         </esa-option-vertical>
@@ -230,6 +254,14 @@
             }
         </div>
     </div>
+
+    <!-- mobile dropdown menu when screen size md, sm, not layer dropdown above -->
+    <ng-template [ngIf]="this.optionVerticalOpened === true && windowWidth <= mdScreen">
+        <div #optionVertical>
+            <esa-option-vertical>
+            </esa-option-vertical>
+        </div>
+    </ng-template>
 </div>
 
 <div class="my-container xl:block lg:block md:hidden sm:hidden">
@@ -246,7 +278,11 @@
             <p class="2xl:p-4 xl:p-1 min-w-[100px]">Fashion</p>
             <p class="2xl:p-4 xl:p-1 min-w-[130px]">New Arrivals</p>
             <p class="2xl:p-4 xl:p-1 min-w-[110px]">All Brands</p>
-            <p class="2xl:p-4 xl:p-1 min-w-[100px]">{{I18NLayoutIds.LayoutNavbarMore | translate}}</p>
+            <p class="2xl:p-4 xl:p-1 min-w-[100px] cursor-pointer hover:bg-lightGray dark:hover:bg-darkGray"
+               [ngClass]="{'bg-lightGray dark:bg-darkGray': megaMenuRendered === true}"
+               (mouseover)="renderMegaMenu(true)">
+                {{I18NLayoutIds.LayoutNavbarMore | translate}}
+            </p>
         </div>
     
         <p>
@@ -255,3 +291,25 @@
         </p>
     </div>
 </div>
+<!-- Menu for catalog -->
+<ng-template [ngIf]="megaMenuRendered === true" #megaMenuTemplate>
+<nav class="megaMenu absolute z-10 w-full h-full" 
+     (mouseenter)="renderMegaMenu(true)" 
+     (mouseleave)="renderMegaMenu(false)">
+    <div class="w-5/6 h-full mx-auto overflow-auto bg-lightGray dark:bg-darkGray">
+        <div class="flex flex-row flex-wrap p-4 gap-8">
+            <!-- 16px is the gap-4 width -->
+            @for (catalog of (allCatalog$ | async); track catalog) {
+            <div class="flex flex-col text-center" style="width: calc(20% - 32px);">
+                <div class="font-semibold text-primary dark:text-darkPrimary">{{catalog.catalogName}}</div>
+                <div class="text-left mt-4">
+                    @for (subcatalog of catalog.subCatalogs; track subcatalog) {
+                    <p class="text-md">{{subcatalog.subCatalogName | titlecase}}</p>
+                    }
+                </div>
+            </div>
+            }
+        </div>
+    </div>
+</nav>
+</ng-template>

@@ -40,6 +40,11 @@ import { IUIState } from '../state/ui/uiState.inteface';
 import { uiShoppingActions } from '../state/ui/ui.actions';
 import { OutlineSvgNames } from '../../share-components/svg-definitions/outline-svg-names.enum';
 import { NzDrawerRef, NzDrawerService } from 'ng-zorro-antd/drawer';
+import { ICatalog, ISubCatalog } from '../../core/models/catalog.interface';
+import { selectorAllCatalogs } from '../state/product/product.selectors';
+import { productFeatureKey } from '../state/product/product.reducers';
+import { IProductState } from '../state/product/productState.interface';
+import { catalogActions } from '../state/product/product.actions';
 
 @Component({
     selector: 'esa-shopping-header-topbar',
@@ -55,6 +60,7 @@ export class HeaderTopbarComponent implements OnInit, OnDestroy, AfterViewInit {
 
     optionHorizontalExpanded$!:Observable<boolean>;
     optionVerticalOpened: boolean = false;
+    megaMenuRendered = false;
     trackingOrder$!: Observable<IOrderAggregateCart | null>;
     currencyDatas = currencyDatas;
 
@@ -63,6 +69,7 @@ export class HeaderTopbarComponent implements OnInit, OnDestroy, AfterViewInit {
     selectedCurrency!: Currency;
     selectedLanguage!: string;
     rewardPoints$!: Observable<number | undefined>;
+    allCatalog$!: Observable<ICatalog[]>;
 
     @ViewChild('userAvatar', {read: ElementRef}) userAvatar!: ElementRef;
     @ViewChild('optionVertical', {read: ElementRef}) optionVertical!: ElementRef;
@@ -85,6 +92,23 @@ export class HeaderTopbarComponent implements OnInit, OnDestroy, AfterViewInit {
 
     get I18NLayoutIds() {
         return I18NLayoutIdSelector;
+    }
+
+    get xlScreen() {
+        return 1200;
+    }
+    get lgScreen() {
+        return 1024;
+    }
+    get mdScreen() {
+        return 768;
+    }
+    get smScreen() {
+        return 576;
+    }
+
+    get windowWidth() {
+        return window.innerWidth;
     }
 
     constructor(
@@ -129,6 +153,9 @@ export class HeaderTopbarComponent implements OnInit, OnDestroy, AfterViewInit {
     }
 
     ngOnInit(): void {
+        this.allCatalog$ = this._store.select((state) =>
+            selectorAllCatalogs(state as { [productFeatureKey]: IProductState })
+        );
         this.userName$ = this._store.select((state) =>
             selectorUserName(state as { [authFeatureKey]: IAuthState })
         );
@@ -191,6 +218,7 @@ export class HeaderTopbarComponent implements OnInit, OnDestroy, AfterViewInit {
 
         console.log('userId', this.userId);
 
+        this._store.dispatch(catalogActions.reloadCatalogs());
         if (this.userId && this.userId !== '') {
             this._store.dispatch(managementActions.loadUserRewardPoints({ userId: this.userId }));
         }
@@ -222,6 +250,10 @@ export class HeaderTopbarComponent implements OnInit, OnDestroy, AfterViewInit {
         this._store.dispatch(uiShoppingActions.toggleOptionHorizontalExpanded());
     }
 
+    renderMegaMenu(render: boolean) {
+        this.megaMenuRendered = render;
+    }
+
     toggleVerticalNav() {
         this.drawerRef = this._drawerService.create({
             nzClosable: false,
@@ -235,7 +267,36 @@ export class HeaderTopbarComponent implements OnInit, OnDestroy, AfterViewInit {
             }
         });
     }
+    hideCatalogContainer() {
+        let catalogsContainer = document.querySelector('.catalogs-container');
+        if (!catalogsContainer) {
+            return;
+        }
+        if (catalogsContainer.classList.contains('h-0')) {
+            catalogsContainer.classList.remove('h-0');
+            return;
+        }
+        catalogsContainer.classList.add('h-0');
+    }
+    toggleSubCatalogsMobileSidebarVertical(event: MouseEvent) {
+        let allSubCatalogContainer = document.querySelectorAll('.display-when-click');
+        allSubCatalogContainer.forEach((subCatalogContainer) => {
+            if (!subCatalogContainer.classList.contains('h-0')) {
+                subCatalogContainer.classList.add('h-0');
+            }
+        });
 
+        let targetCatalog = event.target as HTMLElement;
+        let subCatalogs = targetCatalog.querySelector('.display-when-click');
+        if (!subCatalogs) {
+            return;
+        }
+        if (subCatalogs.classList.contains('h-0')) {
+            subCatalogs.classList.remove('h-0');
+            return;
+        }
+        subCatalogs.classList.add('h-0');
+    }
     closeDrawerRef() {
         if (this.drawerRef) {
             this.drawerRef.close();
