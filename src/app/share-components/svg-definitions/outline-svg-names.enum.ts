@@ -56,5 +56,7 @@ export enum OutlineSvgNames {
 
     //Shopping 
     Burger = 'burger-outline',
+    ArrowDown = 'arrow-down-outline',
+    ArrowUp = 'arrow-up-outline',
 
 }
