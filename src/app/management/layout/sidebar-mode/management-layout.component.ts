@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { managementFeatureKey } from '../state/management/management.reducers';
-import { IManagementState } from '../state/management/managementState.interface';
+import { managementFeatureKey } from '../../state/management/management.reducers';
+import { IManagementState } from '../../state/management/managementState.interface';
 import {
     selectorSidebarFixed,
     selectorSidebarMode,
     selectorSidebarOpened
-} from '../state/management/management.selectors';
-import { managementActions } from '../state/management/management.actions';
-import { SidebarMode } from '../../core/types/sidebar-mode.enum';
-import { OutlineSvgNames } from '../../share-components/svg-definitions/outline-svg-names.enum';
+} from '../../state/management/management.selectors';
+import { managementActions } from '../../state/management/management.actions';
+import { SidebarMode } from '../../../core/types/sidebar-mode.enum';
+import { OutlineSvgNames } from '../../../share-components/svg-definitions/outline-svg-names.enum';
 
 @Component({
     selector: 'esa-management-layout',

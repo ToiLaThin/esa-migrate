@@ -12,6 +12,7 @@ import { productCatalogManagementActions } from './state/product-catalog-managem
     templateUrl: './management.component.html'
 })
 export class ManagementComponent implements OnInit {
+    managementViewMode: 'navbar' | 'sidebar' = 'navbar';
     navigationLeftOpened$!: Observable<boolean>;
     topbarOpened$!: Observable<boolean>;
 
@@ -38,5 +39,9 @@ export class ManagementComponent implements OnInit {
     interruptToggleTopvar() {
         //if mouse leave before dispatch toggleTopbar, clear timer
         clearTimeout(this.timer);
+    }
+
+    toggleViewMode() {
+        this.managementViewMode = this.managementViewMode === 'navbar' ? 'sidebar' : 'navbar';
     }
 }
