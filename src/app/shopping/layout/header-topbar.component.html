@@ -11,7 +11,8 @@
                 {{I18NLayoutIds.LayoutTopbarReward | translate}}: <span nz-tooltip nzTooltipTitle="{{I18NLayoutIds.LayoutTopbarLogin | translate}} required">?</span>
                 }
             </p>
-            <p class="pr-3 border-r-2 border-solid border-gray-50 dark:border-darkPrimary sm:min-w-min">
+            <p class="pr-3 border-r-2 border-solid border-gray-50 dark:border-darkPrimary sm:min-w-min" 
+               (click)="startTour()">
                 {{I18NLayoutIds.LayoutTopbarHelp | translate}}
             </p>
             <p class="pr-3 border-r-2 border-solid border-gray-50 dark:border-darkPrimary sm:min-w-min">
@@ -26,19 +27,19 @@
                 <app-button [iconName]="ColorSvgNames.ThemeDark"
                             [iconSize]="24"
                             (click)="changeTheme(ThemeType.LIGHT)"
-                            className="btn-secondary" nz-tooltip nzTooltipTitle="Theme light">
+                            className="{{LayoutClassName.ShoppingThemeBtn}} btn-secondary" nz-tooltip nzTooltipTitle="Theme light">
                 </app-button>
                 }
                 @if (currentTheme === ThemeType.LIGHT) {
                 <app-button [iconName]="ColorSvgNames.ThemeLight"
                             [iconSize]="24"     
                             (click)="changeTheme(ThemeType.DARK)"
-                            className="btn-secondary" nz-tooltip nzTooltipTitle="Theme dark">
+                            className="{{LayoutClassName.ShoppingThemeBtn}} btn-secondary" nz-tooltip nzTooltipTitle="Theme dark">
                 </app-button>
                 }
             </p>
             <p class="pr-3 border-r-2 border-solid border-gray-50 dark:border-darkPrimary sm:min-w-min">
-                <app-button [className]="'btn-secondary'"
+                <app-button [className]="LayoutClassName.LanguageBtn + ' btn-secondary'"
                     nz-dropdown
                     nzTrigger="click"
                     [nzDropdownMenu]="langMenu">
@@ -85,7 +86,7 @@
                 </nz-dropdown-menu>
             </p>
             <p class="sm:min-w-min">
-                <app-button [className]="'btn-secondary'"
+                <app-button [className]="LayoutClassName.CurrencyBtn +'btn-secondary'"
                     nz-dropdown
                     nzTrigger="click"
                     [nzDropdownMenu]="currencyMenu">
@@ -192,22 +193,22 @@
             <input type="text" 
                    placeholder="{{I18NLayoutIds.LayoutTopbarSearchPlaceholder | translate}}" 
                    style="min-width: 700px;" 
-                   class="border rounded border-gray-50 border-solid p-2">
-            <button class="btn-primary-uppercase txt-[13px]">
+                   class="{{LayoutClassName.GlobalSearchInput}} border rounded border-gray-50 border-solid p-2">
+            <button class="{{LayoutClassName.GlobalSearchConfirmBtn}} btn-primary-uppercase txt-[13px]">
                 {{I18NLayoutIds.LayoutTopbarSearch | translate}}
             </button>
         </div>
     
         <div class="flex flex-row justify-between items-center gap-2">
             @if ((this.authStatus$ | async) === AuthStatus.Anonymous) {
-            <div class="border-r-2 border-solid border-gray-300 dark:border-darkPrimary px-4 py-2 xl:block lg:block sm:hidden md:hidden">
+            <div class="{{LayoutClassName.LoginBtn}} border-r-2 border-solid border-gray-300 dark:border-darkPrimary px-4 py-2 xl:block lg:block sm:hidden md:hidden">
                 <a (click)="login()">{{I18NLayoutIds.LayoutTopbarLogin | translate}} / {{I18NLayoutIds.LayoutTopbarRegister | translate}}</a>
             </div>
             } @else {
-            <div class="border-r-2 border-solid border-gray-300 dark:border-darkPrimary px-4 py-2 xl:block lg:block sm:hidden md:hidden">
+            <div class="{{LayoutClassName.LogoutBtn}} border-r-2 border-solid border-gray-300 dark:border-darkPrimary px-4 py-2 xl:block lg:block sm:hidden md:hidden">
                 <a (click)="logout()">{{I18NLayoutIds.LayoutTopbarLogout | translate}}</a>
             </div>            
-            <a class="flex flex-row px-2"
+            <a class="{{LayoutClassName.CartBtn}} flex flex-row px-2"
                [routerLink]="'/shopping/cart'"
                nz-tooltip
                nzTooltipTitle="{{I18NLayoutIds.LayoutTopbarCart | translate}}">

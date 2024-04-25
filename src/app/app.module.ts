@@ -39,6 +39,9 @@ import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import { MultiFilesTranslationLoader } from "./core/translation-loader/multi-files-translation.loader";
 import { uiShoppingFeatureKey, uiShoppingReducer } from "./shopping/state/ui/ui.reducers";
+import { GuidedTourModule, GuidedTourService } from "ngx-guided-tour";
+import { TourEffects } from "./shopping/state/tour/tour.effects";
+import { tourFeatureKey, tourReducer } from "./shopping/state/tour/tour.reducers";
 
 registerLocaleData(en);
 
@@ -79,7 +82,8 @@ registerLocaleData(en);
             [providerStockManagementFeatureKey]: providerStockManagementReducer,
             [orderManagementFeatureKey]: orderManagementReducer,
             [orderFeatureKey]: orderReducer,
-            [uiShoppingFeatureKey]: uiShoppingReducer
+            [uiShoppingFeatureKey]: uiShoppingReducer,
+            [tourFeatureKey]: tourReducer
         }),
         EffectsModule.forRoot([
             ProductEffects,
@@ -91,7 +95,8 @@ registerLocaleData(en);
             ProductCatalogManagementShareEffects,
             ProviderStockManagementEffects,
             OrderManagementEffect,
-            ManagementEffects
+            ManagementEffects,
+            TourEffects
         ]),
         StoreDevtoolsModule.instrument({
             maxAge: 25,
@@ -99,11 +104,13 @@ registerLocaleData(en);
             autoPause: true,
             traceLimit: 25
         }),
-        FormsModule,        
+        FormsModule,    
+        GuidedTourModule,    
     ],
     exports: [],
     bootstrap: [AppComponent],
     providers: [
+        GuidedTourService,//ngx-guided-tour
         { provide: NZ_I18N, useValue: en_US },
         provideAnimationsAsync(),
         provideHttpClient(),

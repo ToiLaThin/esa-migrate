@@ -1,4 +1,14 @@
-import { AfterViewInit, Component, ElementRef, HostListener, OnDestroy, OnInit, Renderer2, TemplateRef, ViewChild } from '@angular/core';
+import {
+    AfterViewInit,
+    Component,
+    ElementRef,
+    HostListener,
+    OnDestroy,
+    OnInit,
+    Renderer2,
+    TemplateRef,
+    ViewChild
+} from '@angular/core';
 import { Observable, Subject, take, takeUntil, tap } from 'rxjs';
 import { AuthStatus } from '../../core/types/auth-status.enum';
 import { Store } from '@ngrx/store';
@@ -45,6 +55,8 @@ import { selectorAllCatalogs } from '../state/product/product.selectors';
 import { productFeatureKey } from '../state/product/product.reducers';
 import { IProductState } from '../state/product/productState.interface';
 import { catalogActions } from '../state/product/product.actions';
+import { LayoutClassName } from '../class/layout-class';
+import { tourActions } from '../state/tour/tour.actions';
 
 @Component({
     selector: 'esa-shopping-header-topbar',
@@ -58,7 +70,7 @@ export class HeaderTopbarComponent implements OnInit, OnDestroy, AfterViewInit {
     authStatus$!: Observable<AuthStatus>;
     itemsInCartCount$!: Observable<number>;
 
-    optionHorizontalExpanded$!:Observable<boolean>;
+    optionHorizontalExpanded$!: Observable<boolean>;
     optionVerticalOpened: boolean = false;
     megaMenuRendered = false;
     trackingOrder$!: Observable<IOrderAggregateCart | null>;
@@ -71,9 +83,13 @@ export class HeaderTopbarComponent implements OnInit, OnDestroy, AfterViewInit {
     rewardPoints$!: Observable<number | undefined>;
     allCatalog$!: Observable<ICatalog[]>;
 
-    @ViewChild('userAvatar', {read: ElementRef}) userAvatar!: ElementRef;
-    @ViewChild('optionVertical', {read: ElementRef}) optionVertical!: ElementRef;
+    @ViewChild('userAvatar', { read: ElementRef }) userAvatar!: ElementRef;
+    @ViewChild('optionVertical', { read: ElementRef }) optionVertical!: ElementRef;
     @ViewChild('verticalNavTemplate') verticalNavTemplate!: TemplateRef<any>;
+
+    get LayoutClassName() {
+        return LayoutClassName;
+    }
 
     get AuthStatus() {
         return AuthStatus;
@@ -133,19 +149,21 @@ export class HeaderTopbarComponent implements OnInit, OnDestroy, AfterViewInit {
             if (event.target === this.userAvatar.nativeElement) {
                 this.openOptionHorizontal();
                 return;
-            }    
-            if (this.optionVerticalOpened && this.optionVertical.nativeElement.contains(event.target)) {
+            }
+            if (
+                this.optionVerticalOpened &&
+                this.optionVertical.nativeElement.contains(event.target)
+            ) {
                 this.closeOptionHorizontal();
                 return;
             }
             if (this.userAvatar.nativeElement.contains(event.target)) {
                 this.openOptionHorizontal();
                 return;
-            };
+            }
             this.closeOptionHorizontal();
         });
     }
-
 
     ngOnDestroy(): void {
         this.destroy$.next();
@@ -263,7 +281,7 @@ export class HeaderTopbarComponent implements OnInit, OnDestroy, AfterViewInit {
             nzPlacement: 'left',
             nzWidth: '100%',
             nzBodyStyle: {
-                'padding': '0px'
+                padding: '0px'
             }
         });
     }
@@ -335,5 +353,9 @@ export class HeaderTopbarComponent implements OnInit, OnDestroy, AfterViewInit {
         if (this.selectedLanguage !== language) {
             this._store.dispatch(managementActions.changeLanguage({ newLanguage: language }));
         }
+    }
+
+    startTour() {
+        this._store.dispatch(tourActions.startNavBarTour());
     }
 }

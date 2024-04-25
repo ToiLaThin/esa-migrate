@@ -1,5 +1,6 @@
 import { Component, Input } from "@angular/core";
 import { ColorSvgNames } from "../../share-components/svg-definitions/color-svg-names.enum";
+import { LayoutClassName } from "../class/layout-class";
 
 @Component({
     selector: "esa-option-horizontal",
@@ -11,6 +12,9 @@ export class OptionHorizontalComponent {
         return ColorSvgNames;
     }
 
+    get LayoutClassName() {
+        return LayoutClassName;
+    }
     @Input({required: true}) optionHorizontalExpanded: boolean = false;
 
     constructor() {}

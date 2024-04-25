@@ -1,15 +1,17 @@
 <div class="rounded-xl bg-lightGray dark:bg-darkGray flex flex-row gap-3 overflow-hidden transition-all duration-1200 ease-in-out"
      [ngClass]="optionHorizontalExpanded === true ? 'w-auto py-[5px] px-[10px]': 'w-0 p-0'">
     <svg-icon [iconName]="ColorSvgNames.ViewDetail" 
-              [size]="24">
+              [size]="24"
+              class="{{LayoutClassName.YourOrders}}">
     </svg-icon>
     <svg-icon [iconName]="ColorSvgNames.Heart" 
               [fillColor]="'red'"
-              [size]="24">
+              [size]="24"
+              class="{{LayoutClassName.BookmarkProducts}}">
     </svg-icon>
-    <a routerLink="/shopping/product-compare" class="cursor-pointer hover:scale-105 hover:opacity-80">
+    <a routerLink="/shopping/product-compare" class="{{LayoutClassName.CompareList}} cursor-pointer hover:scale-105 hover:opacity-80">
         <svg-icon [iconName]="ColorSvgNames.Compare" 
-                  [size]="24">
+                  [size]="24"                  >
         </svg-icon>
     </a>
 </div>

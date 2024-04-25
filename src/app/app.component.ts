@@ -6,6 +6,7 @@ import { authActions } from './auth/state/auth.actions';
 import { TranslateService } from '@ngx-translate/core';
 import { managementActions } from './management/state/management/management.actions';
 import { productActions } from './shopping/state/product/product.actions';
+import { ProgressIndicatorLocation } from 'ngx-guided-tour';
 
 @Component({
     selector: 'esa-root',
@@ -15,6 +16,10 @@ import { productActions } from './shopping/state/product/product.actions';
 export class AppComponent {
     title = 'esa-migrate';
 
+    get ProgressIndicatorLocation() {
+        return ProgressIndicatorLocation;
+    }
+    
     constructor(private _store: Store, private _translateService: TranslateService) {
         // or we can use interval rxjs operator 
         // in auth.effects.ts startCheckSessionEffect
@@ -31,6 +36,6 @@ export class AppComponent {
         this._store.dispatch(productActions.loadProductCompareIdListFromStorage());
         
         this._translateService.setDefaultLang('en');
-        this._store.dispatch(managementActions.loadLanguageFromStorage());
+        this._store.dispatch(managementActions.loadLanguageFromStorage());        
     }
 }
