@@ -1,6 +1,7 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
 import {
     IPaginatedProduct,
+    IProduct,
     OrderType,
     SortBy
 } from './../../../core/models/product.interface';
@@ -57,6 +58,11 @@ export const productActions = createActionGroup({
         //that is more clear and easy to understand, efficient too
         'Add Product To Compare List': props<{ productId: string }>(),
         'Remove Product From Compare List': props<{ productId: string }>(),
+
+        'Search Products': props<{ searchTerm: string }>(),
+        'Products Searched Successfully': props<{ matchingProducts: IProduct[] }>(),
+        'Products Searched Failed': props<{ error: string }>(),
+        'Clear Search Products': emptyProps(),
         
     }
 });

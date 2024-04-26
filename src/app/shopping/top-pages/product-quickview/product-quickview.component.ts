@@ -63,6 +63,10 @@ export class ProductQuickviewComponent implements OnInit, OnDestroy {
         this.product$ = this._store.select((state) =>
             selectorProductSelected(this.productId)(state as { [productFeatureKey]: IProductState })
         );
+        this.product$.subscribe((product) => {
+            console.log("Product quickview product: ", product);
+        });
+            
         this.authStatus$ = this._store.select((state) =>
             selectorAuthStatus(state as { [authFeatureKey]: IAuthState })
         );
