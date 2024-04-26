@@ -20,6 +20,7 @@ import { selectorAuthStatus, selectorUserId } from '../../../auth/state/auth.sel
 import { productActions } from '../../state/product/product.actions';
 import { OutlineSvgNames } from '../../../share-components/svg-definitions/outline-svg-names.enum';
 import { ProductCompareService } from '../../../core/services/product-compare.service';
+import { ProductClassName } from '../../class/product-class';
 
 @Component({
     selector: 'esa-product-quickview',
@@ -45,6 +46,10 @@ export class ProductQuickviewComponent implements OnInit, OnDestroy {
 
     get OutlineSvgNames() {
         return OutlineSvgNames;
+    }
+
+    get ProductClassName() {
+        return ProductClassName;
     }
     
     ngOnDestroy(): void {

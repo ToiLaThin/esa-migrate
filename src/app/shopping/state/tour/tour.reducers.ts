@@ -15,4 +15,28 @@ export const tourReducer = createReducer(
             executingTour: TourType.NavBar
         }
     }),    
+    on(tourActions.startProductTour, (state, _) => {
+        return {
+            ...state,
+            executingTour: TourType.Product
+        }
+    }),
+    on(tourActions.startCartTour, (state, _) => {
+        return {
+            ...state,
+            executingTour: TourType.Cart
+        }
+    }),
+    on(tourActions.startOrderTour, (state, _) => {
+        return {
+            ...state,
+            executingTour: TourType.Order
+        }
+    }),
+    on(tourActions.endOrderTour, (state, _) => {
+        return {
+            ...state,
+            executingTour: TourType.Done
+        }
+    })
 )

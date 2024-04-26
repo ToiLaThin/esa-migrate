@@ -3,7 +3,7 @@
         <div class="md:hidden sm:hidden lg:block">Get up 50% off new season styles, limited time only</div>
 
         <div class="flex flex-row justify-between lg:gap-3 sm:gap-0 md:gap-0 sm:justify-center md:justify-center">
-            <p class="pr-3 border-r-2 border-solid border-gray-50 dark:border-darkPrimary sm:min-w-min">
+            <p class="{{LayoutClassName.LangChangedText}} pr-3 border-r-2 border-solid border-gray-50 dark:border-darkPrimary sm:min-w-min">
                 @if ((authStatus$ | async) === AuthStatus.Authenticated) {
                 {{I18NLayoutIds.LayoutTopbarReward | translate}}: <span class="text-darkPrimary font-semibold">{{ rewardPoints$ | async }}</span>
                 } 
@@ -11,7 +11,7 @@
                 {{I18NLayoutIds.LayoutTopbarReward | translate}}: <span nz-tooltip nzTooltipTitle="{{I18NLayoutIds.LayoutTopbarLogin | translate}} required">?</span>
                 }
             </p>
-            <p class="pr-3 border-r-2 border-solid border-gray-50 dark:border-darkPrimary sm:min-w-min" 
+            <p class="{{LayoutClassName.TourBtn}} pr-3 border-r-2 border-solid border-gray-50 dark:border-darkPrimary sm:min-w-min" 
                (click)="startTour()">
                 {{I18NLayoutIds.LayoutTopbarHelp | translate}}
             </p>
@@ -86,7 +86,7 @@
                 </nz-dropdown-menu>
             </p>
             <p class="sm:min-w-min">
-                <app-button [className]="LayoutClassName.CurrencyBtn +'btn-secondary'"
+                <app-button [className]="LayoutClassName.CurrencyBtn +' btn-secondary'"
                     nz-dropdown
                     nzTrigger="click"
                     [nzDropdownMenu]="currencyMenu">
@@ -131,7 +131,7 @@
 <div class=" border-b-gray-50-solid-1px dark:border-darkPrimary pb-6 mt-6 my-container">
     <div class="flex flex-row justify-between items-center">
         <div class="flex flex-row items-center">
-            <div class="bg-cover">
+            <div class="{{LayoutClassName.EsaLogo}} bg-cover">
                 <a routerLink="/shopping/index">
                     <img src="https://demos.codezeel.com/prestashop/PRS21/PRS210502/img/logo-1691412328.jpg" 
                          style="min-width: 240px; width: 280px ;height: auto;">
@@ -139,7 +139,7 @@
             </div>
             <svg-icon [iconName]="OutlineSvgNames.Burger"
                       [size]="24"
-                      class="ml-2 cursor-pointer block lg:hidden"
+                      class="{{LayoutClassName.BurgerShoppingBtnOutline}} ml-2 cursor-pointer block lg:hidden"
                       (click)="toggleVerticalNav()">
             </svg-icon>
 
@@ -221,7 +221,7 @@
             <div class="px-2 flex flex-row items-center">
                 <esa-option-horizontal [optionHorizontalExpanded]="(optionHorizontalExpanded$ | async)!">
                 </esa-option-horizontal>
-                <app-button [className]="(optionHorizontalExpanded$ | async) === true ? 'btn-secondary' : 'btn-empty'"
+                <app-button [className]="(optionHorizontalExpanded$ | async) === true ? LayoutClassName.BurgerShoppingBtnColor + ' btn-secondary' : LayoutClassName.BurgerShoppingBtnColor + ' btn-empty'"
                             [ngClass]="(optionHorizontalExpanded$ | async) === true ? 'ml-2' : ''"
                             [iconName]="(optionHorizontalExpanded$ | async) === true ? ColorSvgNames.OptionLessHorizontal : ColorSvgNames.OptionMoreHorizontal" 
                             [iconSize]="24"

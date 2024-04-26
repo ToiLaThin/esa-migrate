@@ -22,6 +22,7 @@ import { IComment } from '../../../core/models/order.interface';
 import { productActions } from '../../state/product/product.actions';
 import { authActions } from '../../../auth/state/auth.actions';
 import { ProductCompareService } from '../../../core/services/product-compare.service';
+import { ProductClassName } from '../../class/product-class';
 
 @Component({
     selector: 'esa-product-detail',
@@ -46,6 +47,10 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
 
     get AuthStatus() {
         return AuthStatus;
+    }
+
+    get ProductClassName() {
+        return ProductClassName;
     }
     constructor(private _route: ActivatedRoute, private _store: Store) {}
 

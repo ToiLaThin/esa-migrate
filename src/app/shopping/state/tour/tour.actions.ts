@@ -7,5 +7,9 @@ export const tourActions = createActionGroup({
         'End NavBar Tour': emptyProps(),
         'Start Product Tour': emptyProps(),
         'End Product Tour': emptyProps(),
+        'Start Cart Tour': emptyProps(),
+        'End Cart Tour': emptyProps(),
+        'Start Order Tour': emptyProps(),
+        'End Order Tour': emptyProps(),
     }
 })
