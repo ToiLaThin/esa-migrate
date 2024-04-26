@@ -5,6 +5,7 @@ import { cartActions } from "../../../state/cart/cart.actions";
 import { authActions } from "../../../../auth/state/auth.actions";
 import { productActions } from "../../../state/product/product.actions";
 import { ICartItem } from "../../../../core/models/cart-item.interface";
+import { ProductClassName } from "../../../class/product-class";
 
 @Component({
     selector: 'esa-product-info',
@@ -20,6 +21,11 @@ export class ProductInfoComponent {
     @Output() productLikeToggled: EventEmitter<boolean> = new EventEmitter<boolean>();
     @Output() productDislikeToggled: EventEmitter<boolean> = new EventEmitter<boolean>();
     @Output() productAddedToCompareList: EventEmitter<string> = new EventEmitter<string>(); //productId
+
+    get ProductClassName() {
+        return ProductClassName;
+    }
+    
     constructor( private _store: Store) {
         console.log(this.isProductBookmarked);
         console.log(this.isProductLiked);

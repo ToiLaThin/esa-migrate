@@ -25,6 +25,7 @@ import { IAuthState } from '../../../auth/state/authState.interface';
 import { selectorUserRewardPoints } from '../../../management/state/management/management.selectors';
 import { managementFeatureKey } from '../../../management/state/management/management.reducers';
 import { IManagementState } from '../../../management/state/management/managementState.interface';
+import { CartClassName } from '../../class/cart-class';
 
 @Component({
     selector: 'esa-cart',
@@ -45,6 +46,10 @@ export class CartComponent implements OnInit {
     @ViewChild('couponCodeApply', { read: ElementRef })
     couponCodeInputted!: ElementRef<HTMLInputElement>;
 
+    get CartClassName() {
+        return CartClassName;
+    }
+    
     constructor(private _store: Store, private _nzNotificationService: NzNotificationService) {}
 
     ngOnInit(): void {

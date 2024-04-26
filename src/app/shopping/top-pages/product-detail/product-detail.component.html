@@ -34,7 +34,7 @@
                                          [productRating]="productRating$ | async"
                                          [authStatus]="authStatus$ | async"
                                          (productRated)="rateProduct($event)" 
-                                         class="mb-3">
+                                         class="mb-3 {{ProductClassName.ProductRating}}">
                 </esa-product-info-rating>
                 <esa-product-info [product]="(product$ | async)!"
                                   [isProductBookmarked]="isProductBookmarked$ | async"

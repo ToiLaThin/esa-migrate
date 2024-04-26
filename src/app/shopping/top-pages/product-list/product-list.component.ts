@@ -17,6 +17,7 @@ import {
 } from '../../state/product/product.selectors';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { Router } from '@angular/router';
+import { ProductClassName } from '../../class/product-class';
 
 @Component({
     selector: 'esa-product-list',
@@ -49,6 +50,10 @@ export class ProductListComponent implements OnInit {
             value: OrderType[k as any]
         }));
 
+    get ProductClassName() {
+        return ProductClassName;
+    }
+    
     constructor(
         private _store: Store,
         private _notificationService: NzNotificationService,

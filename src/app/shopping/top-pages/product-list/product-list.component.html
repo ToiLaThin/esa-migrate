@@ -1,24 +1,27 @@
 <esa-breadcrumb></esa-breadcrumb>
 <div class="my-container my-10 flex flex-row items-baseline gap-4">
     <!-- align baseline la gi: no giup cac flex item ko can width nhu nhau -->
-    <div class="w-[20%] border border-solid border-gray-50 rounded">
+    <div class="w-[20%] border border-solid border-gray-50 rounded {{ProductClassName.ProductListFilterByContainer}}">
         <esa-product-filter-by></esa-product-filter-by>
     </div>
-    <div class="w-[80%]">
+    <div class="w-[80%] {{ProductClassName.ProductListContainer}}">
         <h2 class="text-2xl font-semibold">Catalog Name</h2>
         <p class="py-4 border-b-gray-50-solid-1px">Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their.</p>
         <div class="mt-6 pb-6 border-b-gray-50-solid-1px">
             <div class="flex flex-row justify-between">
                 <div class="flex flex-row items-center">
-                    <i class="fas fa-list mr-3 text-2xl" 
-                       (click)="toggleViewMode()">
+                    @if (this.productCardView === true) {
+                    <i class="fas fa-list mr-3 text-2xl {{ProductClassName.ProductListViewModeToggler}}" 
+                        (click)="toggleViewMode()">
                     </i>
-                    <i class="far fa-square mr-6 text-2xl"
-                       (click)="toggleViewMode()">
+                    } @else {
+                    <i class="far fa-square mr-6 text-2xl {{ProductClassName.ProductListViewModeToggler}}"
+                        (click)="toggleViewMode()">
                     </i>
+                    }
                     <span>There are {{displayingProductsCount$ | async}} products.</span>
                 </div>
-                <div class="flex flex-row items-center">
+                <div class="flex flex-row items-center {{ProductClassName.ProductListSortOrder}}">
                     <label for="productPerPage">Product per page:</label>
                     <select class="mx-2 border border-solid border-gray-50 rounded p-2" 
                             name="productPerPage" 
@@ -58,20 +61,20 @@
             <!-- Todo xem lai border -->
             @for (product of (displayingProducts$ | async); track displayingProducts$) {
                 @if (this.productCardView === true) {
-                <esa-product-card class="w-1/4" 
+                <esa-product-card class="{{ProductClassName.ProductCard}} w-1/4" 
                                   [product]="product"
                                   (click)="viewProductQuickView(product.productId)">
                 </esa-product-card>
                 }
                 @else {
-                <esa-product-list-card class="w-full" 
+                <esa-product-list-card class="{{ProductClassName.ProductCard}} w-full" 
                                        [product]="product"
                                        (click)="viewProductQuickView(product.productId)">
                 </esa-product-list-card>
                 }
             }
         </div>
-        <div class="flex flex-row justify-between items-center">
+        <div class="flex flex-row justify-between items-center {{ProductClassName.ProductListPagination}}">
             <span class="text-subheading">Showing 1-18 of {{displayingProductsCount$ | async}} item(s)</span>
             <div class="pagination">
                 @for (pageNum of totalPageAsArray$ | async; track pageNum) {

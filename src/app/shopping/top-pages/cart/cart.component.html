@@ -10,19 +10,19 @@
                 </div>            
                 <div class="flex flex-col cart-container gap-8 py-8">
                     @for (cartItem of (cartItems$ | async); track cartItem; let i = $index) {
-                    <div class="flex flex-row justify-between">
+                    <div class="flex flex-row justify-between {{CartClassName.CartItemCard}}">
                         <div class="border border-solid border-gray-50 rounded-md w-[150px] h-[150px] overflow-hidden">
-                            <img src="/assets/images/today-is-a-good-day-framed-poster.jpg" alt="">
+                            <img src="{{cartItem.productImage}}" alt="">
                         </div>
                         <div class="w-1/3  flex flex-col gap-2">
-                            <p>Apple AirPods Max Over-Ear Wireless Headphone</p>
+                            <p>{{cartItem.productName}}</p>
                             <p>
                                 <span class="text-subheading mr-4">{{cartItem.unitPrice | rcurrency}}</span>
                                 @if (cartItem.isOnSale) {
                                 <span class="text-primary dark:text-darkPrimary font-semibold text-lg">- {{cartItem.saleValue! | rcurrency}}</span>
                                 }
                             </p>
-                            <p class="font-bold text-sm">Color: <span class="text-subheading">Grey</span></p>
+                            <p class="font-bold text-sm">SubCatalog: <span class="text-subheading">{{cartItem.subCatalogName}}</span></p>
                             <p class="font-bold text-sm">Dimension: <span class="text-subheading">60x90cm</span></p>
                         </div>
                         <div>
@@ -53,7 +53,7 @@
                             {{cartItem.unitPrice * cartItem.quantity | rcurrency}}
                             }
                         </div>
-                        <div class="fas fa-trash text-primary dark:text-darkPrimary" 
+                        <div class="{{CartClassName.RemoveCartItemBtn}} fas fa-trash text-primary dark:text-darkPrimary" 
                              (click)="removeCartItemFromCart(i)">
                         </div>
                     </div>
@@ -64,11 +64,11 @@
                 <p class="float-left" style="transform: rotate(-90deg);">
                     <i>&#94;</i>
                 </p>
-                <a class="block float-left ml-2" 
+                <a class="{{CartClassName.ContinueShoppingBtn}} block float-left ml-2" 
                     routerLink="/shopping/product-list">
                     Continue Shopping
                 </a>
-                <div class="text-center float-right">
+                <div class="{{CartClassName.ClearCartBtn}} text-center float-right">
                     <button class="btn-primary uppercase text-md"
                             (click)="clearCart()">
                         Clear Cart
@@ -77,7 +77,7 @@
             </div>
         </div>
         <div class="w-full lg:w-1/3">
-            <div class=" border border-solid border-gray-50 rounded py-4">
+            <div class="{{CartClassName.CartSummarySection}} border border-solid border-gray-50 rounded py-4">
                 <div class="border-b border-gray-50 mt-4">
                     <div class="mx-6 my-4 font-semibold">
                         <div class="clear-fix mt-4">
@@ -126,7 +126,7 @@
                 <ng-container [ngTemplateOutlet]="removeCouponTempl">
                 </ng-container>
                 } @else {
-                <div class="mx-6">
+                <div class="mx-6" {{CartClassName.ApplyCouponSection}}>
                     <p class="underline text-primary dark:text-darkPrimary">
                         Have a promote code ?
                     </p>
@@ -144,7 +144,7 @@
                 }
                 
                 <div class="mt-12 text-center">
-                    <button class="btn-primary uppercase text-md"
+                    <button class="{{CartClassName.CartConfirmBtn}} btn-primary uppercase text-md"
                             (click)="confirmCart()">
                         Proceed To Checkout
                     </button>
@@ -168,5 +168,8 @@
 
 <ng-template #addToCartTempl>
     <h2>Please add product to cart to buy</h2>
-    <a [routerLink]="'/shopping/product-list'">Let' s go</a>
+    <a [routerLink]="'/shopping/product-list'" 
+       class="{{CartClassName.ContinueShoppingBtn}}">
+        Let' s go
+    </a>
 </ng-template>

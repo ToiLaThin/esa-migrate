@@ -5,12 +5,13 @@
     <div class="clear-fix mt-4">
         <div class="float-end">
             <button (click)="openProductDetail()"
-                    class="mr-2">
+                    class="mr-2 {{ProductClassName.ProductQuickViewExpand}}">
                 <svg-icon [iconName]="OutlineSvgNames.ActionExpand"
                           [size]="24">
                 </svg-icon>
             </button>
-            <button (click)="closeProductModal()">
+            <button (click)="closeProductModal()"
+                    class="{{ProductClassName.ProductQuickViewClose}}">
                 <svg-icon [iconName]="OutlineSvgNames.ActionClose"
                         [size]="24">
                 </svg-icon>
