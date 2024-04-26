@@ -256,9 +256,7 @@ export class ProductEffects {
             ofType(productActions.likeProduct),
             switchMap((action) =>
                 this._productLikeService.likeProduct(action.productBusinessKey, action.userId).pipe(
-                    map((_) =>
-                        productActions.loadProductLikeMappings({ userId: action.userId })
-                    ),
+                    map((_) => productActions.loadProductLikeMappings({ userId: action.userId })),
                     catchError((err) =>
                         of(productActions.productLikeMappingsLoadedFailed({ error: err }))
                     )
@@ -266,35 +264,39 @@ export class ProductEffects {
             )
         )
     );
-    
+
     dislikeProductEffect = createEffect(() =>
         this.actions$.pipe(
             ofType(productActions.dislikeProduct),
             switchMap((action) =>
-                this._productLikeService.dislikeProduct(action.productBusinessKey, action.userId).pipe(
-                    map((_) =>
-                        productActions.loadProductLikeMappings({ userId: action.userId })
-                    ),
-                    catchError((err) =>
-                        of(productActions.productLikeMappingsLoadedFailed({ error: err }))
+                this._productLikeService
+                    .dislikeProduct(action.productBusinessKey, action.userId)
+                    .pipe(
+                        map((_) =>
+                            productActions.loadProductLikeMappings({ userId: action.userId })
+                        ),
+                        catchError((err) =>
+                            of(productActions.productLikeMappingsLoadedFailed({ error: err }))
+                        )
                     )
-                )
             )
         )
     );
-    
+
     unlikeProductEffect = createEffect(() =>
         this.actions$.pipe(
             ofType(productActions.unlikeProduct),
             switchMap((action) =>
-                this._productLikeService.unlikeProduct(action.productBusinessKey, action.userId).pipe(
-                    map((_) =>
-                        productActions.loadProductLikeMappings({ userId: action.userId })
-                    ),
-                    catchError((err) =>
-                        of(productActions.productLikeMappingsLoadedFailed({ error: err }))
+                this._productLikeService
+                    .unlikeProduct(action.productBusinessKey, action.userId)
+                    .pipe(
+                        map((_) =>
+                            productActions.loadProductLikeMappings({ userId: action.userId })
+                        ),
+                        catchError((err) =>
+                            of(productActions.productLikeMappingsLoadedFailed({ error: err }))
+                        )
                     )
-                )
             )
         )
     );
@@ -345,19 +347,23 @@ export class ProductEffects {
         this.actions$.pipe(
             ofType(productActions.loadProductCompareIdListFromStorage),
             switchMap((action) => {
-                let productCompareIdList = this._productCompareService.loadProductCompareListFromStorage();
-                return of(productActions.productCompareIdListLoadedSuccessfully({
-                    productCompareIdList: productCompareIdList
-                }));
-            }
+                let productCompareIdList =
+                    this._productCompareService.loadProductCompareListFromStorage();
+                return of(
+                    productActions.productCompareIdListLoadedSuccessfully({
+                        productCompareIdList: productCompareIdList
+                    })
+                );
+            })
         )
-    ));
+    );
 
     addProductToCompareListEffect = createEffect(() =>
         this.actions$.pipe(
             ofType(productActions.addProductToCompareList),
             switchMap((action) => {
-                let productCompareIdList = this._productCompareService.loadProductCompareListFromStorage();                
+                let productCompareIdList =
+                    this._productCompareService.loadProductCompareListFromStorage();
                 if (productCompareIdList.includes(action.productId) === true) {
                     this._notificationService.info('Product already in compare list', '');
                 }
@@ -367,24 +373,43 @@ export class ProductEffects {
                 productCompareIdList.push(action.productId);
                 this._productCompareService.updateProductCompareListInStorage(productCompareIdList);
                 return of(productActions.loadProductCompareIdListFromStorage()); //this will trigger load successfull and modify the state in reducer
-            }
+            })
         )
-    ));
+    );
     removeProductToCompareListEffect = createEffect(() =>
         this.actions$.pipe(
             ofType(productActions.removeProductFromCompareList),
             switchMap((action) => {
-                let productCompareIdList = this._productCompareService.loadProductCompareListFromStorage();
+                let productCompareIdList =
+                    this._productCompareService.loadProductCompareListFromStorage();
                 if (productCompareIdList.includes(action.productId) === false) {
                     this._notificationService.info('Product not in in compare list to remove', '');
                 }
                 if (productCompareIdList.length === 0) {
                     this._notificationService.info('Compare list is empty', '');
                 }
-                productCompareIdList = productCompareIdList.filter((pId) => pId !== action.productId);
+                productCompareIdList = productCompareIdList.filter(
+                    (pId) => pId !== action.productId
+                );
                 this._productCompareService.updateProductCompareListInStorage(productCompareIdList);
                 return of(productActions.loadProductCompareIdListFromStorage()); //this will trigger load successfull and modify the state in reducer
-            }
+            })
         )
-    ));
+    );
+
+    searchProductsEffect = createEffect(() =>
+        this.actions$.pipe(
+            ofType(productActions.searchProducts),
+            switchMap((action) => {
+                return this._productService.searchProducts(action.searchTerm).pipe(
+                    map((retProducts) =>
+                        productActions.productsSearchedSuccessfully({
+                            matchingProducts: retProducts
+                        })
+                    ),
+                    catchError((err) => of(productActions.productsSearchedFailed({ error: err })))
+                );
+            })
+        )
+    );
 }

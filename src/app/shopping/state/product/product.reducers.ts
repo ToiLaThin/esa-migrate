@@ -23,6 +23,7 @@ export const initialProductState: IProductState = {
         pageNumber: 0
     },
     productCompareIdList: [],
+    productSearchMatched: null,
     allCatalogs: [],
     allSubCatalogs: [],
     subCatalogsOfSelectedCatalog: [],
@@ -239,4 +240,17 @@ export const productReducer = createReducer(
             productCompareIdList: action.productCompareIdList
         }
     }),
+    on(productActions.productsSearchedSuccessfully, (state, action) => {
+        return {
+            ...state,
+            productSearchMatched: action.matchingProducts
+        }
+    }),
+    on(productActions.clearSearchProducts, (state) => {
+        return {
+            ...state,
+            productSearchMatched: null
+        }
+    }),
+    
 );

@@ -19,9 +19,11 @@ export const selectorProductSelectedComments = createSelector(
 
 export const selectorProductSelected = (productId: string) =>
     createSelector(selectorProductFeature, (productState: IProductState) => {
-        return productState.paginatedProducts.products.find(
+        return (productState.paginatedProducts.products.find(
             (product) => product.productId == productId
-        ) as IProduct;
+        ) as IProduct) || (productState.productSearchMatched?.find(
+            (product) => product.productId == productId
+        ) as IProduct);
     });
 
 export const selectorIsSelectedProductLiked = (productBusinessKey: string) =>
@@ -96,4 +98,9 @@ export const selectorProductCompareList = createSelector(
             productCompareIdList.includes(product.productId!)
         );
     }
+);
+
+export const selectorProductMatchedSearch = createSelector(
+    selectorProductFeature,
+    (productState) => productState.productSearchMatched
 );

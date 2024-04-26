@@ -51,12 +51,13 @@ import { uiShoppingActions } from '../state/ui/ui.actions';
 import { OutlineSvgNames } from '../../share-components/svg-definitions/outline-svg-names.enum';
 import { NzDrawerRef, NzDrawerService } from 'ng-zorro-antd/drawer';
 import { ICatalog, ISubCatalog } from '../../core/models/catalog.interface';
-import { selectorAllCatalogs } from '../state/product/product.selectors';
+import { selectorAllCatalogs, selectorProductMatchedSearch } from '../state/product/product.selectors';
 import { productFeatureKey } from '../state/product/product.reducers';
 import { IProductState } from '../state/product/productState.interface';
-import { catalogActions } from '../state/product/product.actions';
+import { catalogActions, productActions } from '../state/product/product.actions';
 import { LayoutClassName } from '../class/layout-class';
 import { tourActions } from '../state/tour/tour.actions';
+import { IProduct } from '../../core/models/product.interface';
 
 @Component({
     selector: 'esa-shopping-header-topbar',
@@ -83,6 +84,7 @@ export class HeaderTopbarComponent implements OnInit, OnDestroy, AfterViewInit {
     rewardPoints$!: Observable<number | undefined>;
     allCatalog$!: Observable<ICatalog[]>;
 
+    matchingProductsSearched$!: Observable<IProduct[] | null>;
     @ViewChild('userAvatar', { read: ElementRef }) userAvatar!: ElementRef;
     @ViewChild('optionVertical', { read: ElementRef }) optionVertical!: ElementRef;
     @ViewChild('verticalNavTemplate') verticalNavTemplate!: TemplateRef<any>;
@@ -234,6 +236,9 @@ export class HeaderTopbarComponent implements OnInit, OnDestroy, AfterViewInit {
             selectorUserRewardPoints(state as { [managementFeatureKey]: IManagementState })
         );
 
+        this.matchingProductsSearched$ = this._store.select((state) =>
+            selectorProductMatchedSearch(state as { [productFeatureKey]: IProductState })
+        );
         console.log('userId', this.userId);
 
         this._store.dispatch(catalogActions.reloadCatalogs());
@@ -357,5 +362,22 @@ export class HeaderTopbarComponent implements OnInit, OnDestroy, AfterViewInit {
 
     startTour() {
         this._store.dispatch(tourActions.startNavBarTour());
+    }
+
+    searchProduct() {
+        let searchInput = document.querySelector('.' + LayoutClassName.GlobalSearchInput) as HTMLInputElement;
+        if (!searchInput) {
+            return;
+        }
+        let searchValue = searchInput.value;
+        this._store.dispatch(productActions.searchProducts({ searchTerm: searchValue }));
+    }
+
+    clearSearch() {
+        this._store.dispatch(productActions.clearSearchProducts());
+    }
+
+    openProductDetail(productId: string) {
+        this._router.navigate(['shopping', 'product-quickview', productId]);
     }
 }
