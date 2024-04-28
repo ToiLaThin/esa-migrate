@@ -1,6 +1,6 @@
 <div class=" py-2 border-b-gray-50-solid-1px dark:border-darkPrimary my-container">
     <div class="flex flex-row justify-between items-center text-secondary dark:text-darkSecondary">
-        <div class="md:hidden sm:hidden lg:block">Get up 50% off new season styles, limited time only</div>
+        <div class="md:hidden sm:hidden lg:block">{{I18NLayoutIds.LayoutTopbarWelcome | translate}}</div>
 
         <div class="flex flex-row justify-between lg:gap-3 sm:gap-0 md:gap-0 sm:justify-center md:justify-center">
             <p class="{{LayoutClassName.LangChangedText}} pr-3 border-r-2 border-solid border-gray-50 dark:border-darkPrimary sm:min-w-min">
@@ -11,7 +11,7 @@
                 {{I18NLayoutIds.LayoutTopbarReward | translate}}: <span nz-tooltip nzTooltipTitle="{{I18NLayoutIds.LayoutTopbarLogin | translate}} required">?</span>
                 }
             </p>
-            <p class="{{LayoutClassName.TourBtn}} pr-3 border-r-2 border-solid border-gray-50 dark:border-darkPrimary sm:min-w-min" 
+            <p class="{{LayoutClassName.TourBtn}} pr-3 border-r-2 border-solid border-gray-50 dark:border-darkPrimary sm:min-w-min hover:underline cursor-pointer" 
                (click)="startTour()">
                 {{I18NLayoutIds.LayoutTopbarHelp | translate}}
             </p>
@@ -133,8 +133,14 @@
         <div class="flex flex-row items-center">
             <div class="{{LayoutClassName.EsaLogo}} bg-cover">
                 <a routerLink="/shopping/index">
-                    <img src="https://demos.codezeel.com/prestashop/PRS21/PRS210502/img/logo-1691412328.jpg" 
-                         style="min-width: 240px; width: 280px ;height: auto;">
+                    @if (currentTheme === ThemeType.LIGHT) {
+                    <img src= "../../../assets/images/esa-logo-light.png" 
+                         style="min-width: 180px; width: 220px ;height: 100px; object-fit: cover;">
+                    }
+                    @if (currentTheme === ThemeType.DARK) {
+                    <img src= "../../../assets/images/esa-logo-dark.png" 
+                         style="min-width: 180px; width: 220px ;height: 100px; object-fit: cover;">
+                    }
                 </a>
             </div>
             <svg-icon [iconName]="OutlineSvgNames.Burger"
@@ -145,11 +151,12 @@
 
             <ng-template #verticalNavTemplate>
                 <div class="px-4 py-2 flex flex-col gap-2 bg-white dark:bg-black h-full overflow-auto">
-                    <div>Home</div>
-                    <div>Fashion</div>
-                    <div>New Arrivals</div>
-                    <div>All Brands</div>
-                    <div>More</div>
+                    <div class="cursor-pointer hover:underline">{{I18NLayoutIds.LayoutNavbarHome | translate}}</div>
+                    <div class="cursor-pointer hover:underline">{{I18NLayoutIds.LayoutNavbarSales | translate}}</div>
+                    <div class="cursor-pointer hover:underline">{{I18NLayoutIds.LayoutNavbarNewArrivals | translate}}</div>
+                    <div class="cursor-pointer hover:underline">{{I18NLayoutIds.LayoutNavbarAllBrands | translate}}</div>
+                    <div class="cursor-pointer hover:underline">{{I18NLayoutIds.LayoutNavbarAbout | translate}}</div>
+                    <div class="cursor-pointer hover:underline">{{I18NLayoutIds.LayoutNavbarMore | translate}}</div>
                     <div class="flex flex-row">
                         <div class="flex-auto"></div>
                         <svg-icon [iconName]="OutlineSvgNames.CircleRightArrow" 
@@ -161,7 +168,7 @@
                     <div class="flex-auto"></div>
                     <div class="flex flex-col bg-lightGray dark:bg-darkGray">
                         <div class="py-2 px-2 flex flex-row" (click)="hideCatalogContainer()">
-                            <span>Shopping Catalog</span>
+                            <span>{{I18NLayoutIds.LayoutNavbarShopCatalog | translate}}</span>
                             <div class="flex-auto"></div>
                             <svg-icon [iconName]="OutlineSvgNames.ArrowDown" 
                                       [size]="24"
@@ -302,28 +309,31 @@
 
 <div class="my-container xl:block lg:block md:hidden sm:hidden">
     <div class="flex flex-row justify-between items-center font-medium">
-        <p class="uppercase">
-            <i class="fa fa-star mr-2"></i>
+        <p class="uppercase flex flex-row items-center gap-2 hover:bg-lightGray dark:hover:bg-darkGray cursor-pointer"
+           [ngClass]="{'bg-lightGray dark:bg-darkGray': megaMenuRendered === true}"
+           (mouseover)="renderMegaMenu(true)">
+            <svg-icon [iconName]="OutlineSvgNames.Burger" 
+                      [size]="24">
+            </svg-icon>
             {{I18NLayoutIds.LayoutNavbarShopCatalog| translate}}
         </p>
     
         <div class="xl:flex lg:hidden flex-row justify-between text-center"> 
-            <p class="2xl:p-4 xl:p-1 min-w-[100px]">
+            <p class="2xl:p-4 xl:p-1 min-w-[100px] cursor-pointer hover:underline">
                 <a routerLink="/shopping/index">{{I18NLayoutIds.LayoutNavbarHome | translate}}</a>
             </p> 
-            <p class="2xl:p-4 xl:p-1 min-w-[100px]">Fashion</p>
-            <p class="2xl:p-4 xl:p-1 min-w-[130px]">New Arrivals</p>
-            <p class="2xl:p-4 xl:p-1 min-w-[110px]">All Brands</p>
-            <p class="2xl:p-4 xl:p-1 min-w-[100px] cursor-pointer hover:bg-lightGray dark:hover:bg-darkGray"
-               [ngClass]="{'bg-lightGray dark:bg-darkGray': megaMenuRendered === true}"
-               (mouseover)="renderMegaMenu(true)">
-                {{I18NLayoutIds.LayoutNavbarMore | translate}}
-            </p>
+            <p class="2xl:p-4 xl:p-1 min-w-[100px] cursor-pointer hover:underline">{{I18NLayoutIds.LayoutNavbarSales | translate}}</p>
+            <p class="2xl:p-4 xl:p-1 min-w-[130px] cursor-pointer hover:underline">{{I18NLayoutIds.LayoutNavbarNewArrivals | translate}}</p>
+            <p class="2xl:p-4 xl:p-1 min-w-[110px] cursor-pointer hover:underline">{{I18NLayoutIds.LayoutNavbarAllBrands | translate}}</p>
+            <p class="2xl:p-4 xl:p-1 min-w-[110px] cursor-pointer hover:underline">{{I18NLayoutIds.LayoutNavbarAbout | translate}}</p>
+            <p class="2xl:p-4 xl:p-1 min-w-[100px] cursor-pointer">{{I18NLayoutIds.LayoutNavbarMore | translate}}</p>
         </div>
     
-        <p>
-            <i class="fa fa-star mr-2"></i>
-            Free International Shipping
+        <p class="flex flex-row gap-2">
+            <svg-icon [iconName]="OutlineSvgNames.Shipping" 
+                      [size]="24">
+            </svg-icon>
+            {{I18NLayoutIds.LayoutNavbarFreeShipping | translate}}
         </p>
     </div>
 </div>

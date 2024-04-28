@@ -1,13 +1,18 @@
 {
     "layout": {
 		"nav": {
+			"home": "Trang chủ",
+			"sales": "Khuyến mãi",
+			"new_arrivals": "Hàng mới về",
+			"all_brands": "Các nhãn hiệu",
 			"about": "Về chúng tôi",
 			"contact": "Thông tin liên hệ",
-			"home": "Trang chủ",
 			"more": "Thêm",
-			"shop_catalog": "Danh mục mua sắm"
+			"shop_catalog": "Danh mục mua sắm",
+			"free_shipping": "Miến phí vận chuyển"
 		},
 		"topbar": {
+			"welcome": "Chào mừng tới cửa hàng!, hy vọng quý khách mua sắm vui vẻ!",
 			"cart": "Giỏ hàng",
 			"currency": "Currency",
 			"help": "Trung tâm hỗ trợ",
@@ -21,6 +26,40 @@
 			"reward": "Điểm thưởng",
 			"search": "Tìm kiếm",
 			"search_placeholder": "Tìm kiếm sản phẩm..."
+		},
+		"footer": {
+			"contact_us": {
+				"heading": "Liên hệ với chúng tôi",
+				"address": "123 Đường Tràn Phú, Quận 8, TP. Hồ Chí Minh, Việt Nam",
+				"phone": "Phone: (800) 123-4567",
+				"email": "sales&#64;yourcompany.com",
+				"chat": "Tư vấn online<span class='block'>Nhờ chuyên viên tư vấn</span>"
+			},
+			"product": {
+				"heading": "Sản phẩm",
+				"price_drops": "Biến động giá",
+				"new_products": "Các mặt hàng mới",
+				"best_sales": "Các mặt hàng bán chạy nhất",
+				"contact_us": "Liên hệ với chúng tôi",
+				"sitemap": "Sơ đồ trang web",
+                "stores": "Hệ thống các cửa hàng"
+			},
+			"our_company": {
+				"heading": "Công ty chúng tối",
+				"delivery": "Chính sách vận chuyển",
+				"legal_notice": "Thông báo pháp lý",
+				"terms_and_conditions": "Điêu khoản và điều kiện sử dụng",
+				"about_us": "Về chúng tôi",
+				"secure_payment": "Thanh toán an toàn",
+				"privacy_policy": "Chính sách bảo mật"
+			},
+			"subscribe_to_newsletter": {
+				"heading": "Đăng ký nhận thư thông báo của chúng tôi",
+				"description": "Đăng ký nhận thư thông báo về chính sách khuyến mãi, giảm giá mới nhất",
+				"email_placeholder": "Nhập email của bạn",
+				"subscribe": "Đăng ký",
+				"agree_term_conditions": "Tôi đồng ý với các điều kiện và điều khoản và chính sách bảo mật"
+			}
 		}
 	}
 }

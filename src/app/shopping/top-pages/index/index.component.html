@@ -2,14 +2,18 @@
 <div class="my-container mt-18">
     <div class="border-4 border-solid rounded border-primary dark:border-darkPrimary p-4 lg:p-10">
         <div class="flex flex-col lg:flex-row gap-4 lg:gap-0 justify-between items-center">
-            <p class="font-semibold text-[24px] xl:text-[35px]">
-                <i class="fa fa-star mr-3"></i>
-                <span class="uppercase">free shipping</span>
+            <p class="flex flex-row gap-4 items-center font-semibold text-[24px] xl:text-[35px]">
+                <svg-icon [iconName]="OutlineSvgNames.Shipping" 
+                          [size]="40">
+                </svg-icon>
+                <span class="uppercase">{{I18NIndexIds.BodyFreeShipping | translate}}</span>
             </p>
-            <p class="text-base">
-                Free Delivery Now On Your First Order and over $200
+            <p class="text-base" 
+               [innerHTML]="I18NIndexIds.BodyFreeShippingDesc | translate: {price: 100000 | rcurrency}">
             </p>
-            <p class="font-semibold uppercase text-[24px] xl:text-[35px]">- only $200*</p>
+            <p class="font-semibold uppercase text-[24px] xl:text-[35px]" 
+               [innerHTML]="I18NIndexIds.BodyOnlyPrice | translate: {price: 100000 | rcurrency}">
+            </p>
         </div>
     </div>
 </div>
@@ -19,42 +23,42 @@
         <div class="relative lg:w-1/3">
             <div class="w-[98%] h-[90%] overflow-hidden">
                 <!-- overflow-hidden de width height ko bi lo ra khi img scale -->
-                <img src="/assets/images/sub-banner-1.jpg" class="fluid-img rounded-md">
+                <img src="../../../../assets/images/ad/banner-1.png" class="fluid-img rounded-md">
             </div>
             <div class="absolute top-10 left-6 lg:top-2 lg:left-2 
                         flex flex-col justify-between gap-4 lg:gap-1">
-                <p class="font-semibold text-2xl lg:text-lg">
-                    Samsung Gear<span class="block">VR Camera</span>
+                <p class="font-semibold text-2xl lg:text-lg" 
+                   [innerHTML]="I18NIndexIds.Banner4Top | translate">
                 </p>
-                <p class="text-primary dark:text-darkPrimary font-medium text-xl">$129.00</p>
+                <p class="text-primary dark:text-darkPrimary font-medium text-xl">{{100000 | rcurrency}}</p>
                 <p class="uppercase underline">{{I18NCommonIds.CommonActionShopNow | translate}}</p>
             </div>
         </div>
         <div class="relative lg:w-1/3">
             <div class="w-[98%] h-[90%] overflow-hidden">
-                <img src="/assets/images/sub-banner-1.jpg" 
+                <img src="../../../../assets/images/ad/banner-3.png" 
                      class="fluid-img rounded-md bg-cover">
             </div>
             <div class="absolute top-10 left-6 lg:top-2 lg:left-2 flex flex-col justify-between gap-4 lg:gap-1">
-                <p class="font-semibold text-2xl lg:text-lg">
-                    Samsung Gear<span class="block">VR Camera</span>
+                <p class="font-semibold text-2xl lg:text-lg" 
+                   [innerHTML]="I18NIndexIds.Banner5Top | translate">
                 </p>
-                <p class="text-primary dark:text-darkPrimary font-medium text-xl">$129.00</p>
+                <p class="text-primary dark:text-darkPrimary font-medium text-xl">{{100000 | rcurrency}}</p>
                 <p class="uppercase underline">{{I18NCommonIds.CommonActionShopNow | translate}}</p>
             </div>
         </div>
         <div class="relative lg:w-1/3">
             <div class="w-[98%] h-[90%] overflow-hidden">
-                <img src="/assets/images/sub-banner-2.jpg" 
+                <img src="../../../../assets/images/ad/banner-2.png" 
                      class="fluid-img rounded-md bg-cover">
             </div>
             <div class="absolute top-10 right-6 lg:top-2 lg:right-4 
                         flex flex-col justify-between gap-4 lg:gap-1">
-                <p class="font-semibold text-2xl lg:text-lg">
-                    Marcel Dining<span class="block">Room Chair</span>
+                <p class="font-semibold text-2xl lg:text-lg text-black" 
+                   [innerHTML]="I18NIndexIds.Banner6Top | translate">
                 </p>
                 <p class="{{LayoutClassName.CurrencyChanged}} text-primary dark:text-darkPrimary font-medium text-xl">{{129000 | rcurrency}} </p>
-                <p class="uppercase underline">{{I18NCommonIds.CommonActionShopNow | translate}}</p>
+                <p class="uppercase underline text-black">{{I18NCommonIds.CommonActionShopNow | translate}}</p>
             </div>
         </div>
     </div>
@@ -62,9 +66,11 @@
 
 <div class="my-container py-8 mt-18">
     <div class="flex flex-row justify-start  gap-4">
-        <p class="heading text-secondary dark:text-darkSecondary">fashion</p>
-        <p class="heading text-secondary dark:text-darkSecondary">electronic</p>
-        <p class="heading text-secondary dark:text-darkSecondary">furniture</p>
+        <p class="heading text-secondary dark:text-darkSecondary">{{I18NIndexIds.TabFreshFood | translate}}</p>
+        <p class="heading text-secondary dark:text-darkSecondary">{{I18NIndexIds.TabDailyProduct | translate}}</p>
+        <p class="heading text-secondary dark:text-darkSecondary">{{I18NIndexIds.TabDrinks | translate}}</p>
+        <p class="heading text-secondary dark:text-darkSecondary">{{I18NIndexIds.TabMilks | translate}}</p>
+        <p class="heading text-secondary dark:text-darkSecondary">{{I18NIndexIds.TabHomeAppliance | translate}}</p>
     </div>
     <div class="flex flex-row justify-start overflow-hidden">
         <!-- <esa-product-card></esa-product-card>
@@ -79,21 +85,25 @@
     <div class="flex flex-col gap-8 lg:flex-row">
         <div class="relative w-full lg:w-1/2">
             <div class="w-[98%] h-[98%] overflow-hidden">
-                <img src="/assets/images/cms-banner-5.jpg" 
+                <img src="../../../../assets/images/ad/banner-4.png" 
                      class="fluid-img rounded-md" 
                      style="height: auto;">
             </div>
             <div class="absolute flex flex-col justify-between gap-2 top-2 left-2 
                         xl:top-6 xl:left-6 xl:gap-6
                         md:top-6 md:left-6 md:gap-6">
-                <p class="font-normal text-md xl:text-xl">Save Up To 20% Off</p>
-                <p class="font-medium text-xl xl:text-3xl">Samsung Gear<span class="block">VR Camera</span></p>
+                <p class="font-normal text-md xl:text-xl" 
+                   [innerHTML]="I18NIndexIds.Banner7Top | translate">
+                </p>
+                <p class="font-medium text-xl xl:text-3xl" 
+                   [innerHTML]="I18NIndexIds.Banner7Mid | translate">
+                </p>
                 <p class="btn-primary uppercase text-center self-start">{{I18NCommonIds.CommonActionShopNow | translate}}</p>
             </div>
         </div>
         <div class="relative w-full lg:w-1/2">
             <div class="w-[98%] h-[98%] overflow-hidden">
-                <img src="/assets/images/cms-banner-4.jpg" 
+                <img src="../../../../assets/images/ad/banner-5.png" 
                      class="fluid-img rounded-md" 
                      style="height: auto;"> 
                 <!-- h-auto override h-full in fluid-img class -->
@@ -101,8 +111,12 @@
             <div class="absolute flex flex-col justify-between gap-2 top-2 left-2 
                         xl:top-6 xl:left-6 xl:gap-6
                         md:top-6 md:left-6 md:gap-6">
-                <p class="font-normal text-md xl:text-xl">Best Online Discount</p>
-                <p class="font-medium text-xl xl:text-3xl">Samsung Gear<span class="block">VR Camera</span></p>
+                <p class="font-normal text-md xl:text-xl" 
+                   [innerHTML]="I18NIndexIds.Banner8Top | translate">
+                </p>
+                <p class="font-medium text-xl xl:text-3xl" 
+                   [innerHTML]="I18NIndexIds.Banner8Mid | translate">
+                </p>
                 <p class="btn-primary uppercase text-center self-start">{{I18NCommonIds.CommonActionShopNow | translate}}</p>
             </div>
         </div>
@@ -137,9 +151,11 @@
 </div>
 <div class="my-container py-8">
     <div class="flex flex-row justify-start  gap-4">
-        <p class="heading text-secondary dark:text-darkSecondary">fashion</p>
-        <p class="heading text-secondary dark:text-darkSecondary">electronic</p>
-        <p class="heading text-secondary dark:text-darkSecondary">furniture</p>
+        <p class="heading text-secondary dark:text-darkSecondary">{{I18NIndexIds.TabFreshFood | translate}}</p>
+        <p class="heading text-secondary dark:text-darkSecondary">{{I18NIndexIds.TabDailyProduct | translate}}</p>
+        <p class="heading text-secondary dark:text-darkSecondary">{{I18NIndexIds.TabDrinks | translate}}</p>
+        <p class="heading text-secondary dark:text-darkSecondary">{{I18NIndexIds.TabMilks | translate}}</p>
+        <p class="heading text-secondary dark:text-darkSecondary">{{I18NIndexIds.TabHomeAppliance | translate}}</p>
     </div>
     <div class="flex flex-row justify-start overflow-hidden">
         <!-- product card co min-width => overflow => hidden de tránh lộ phần đó ra -->

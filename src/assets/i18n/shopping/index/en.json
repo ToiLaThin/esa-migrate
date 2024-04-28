@@ -1,0 +1,29 @@
+{
+    "index": {
+        "banner": {
+            "banner1_top": "Big sales on Holidays",
+            "banner1_mid": "Shop now to have <span class='block'>fun</span>",
+            "banner1_bottom": "Starting at only <span class='text-primary dark:text-darkPrimary lg:text-3xl font-medium'>{{price}}</span>",
+    
+            "banner2_top": "Snacks, fast food<span class='block'> and more</span",
+            "banner3_top": "Household appliances<span class='block'> and more</span"
+        },
+        "body": {
+            "free_shipping": "Free Shipping",
+            "free_shipping_desc": "Free delivery on all order over {{price}}",
+            "only_price": "Only for {{price}}",
+            "banner4_top": "Meats, <span class='block'>Vegetables ...</span>",
+            "banner5_top": "Water, Minerals, Milk,<span class='block'> Soft drinks...</span>",
+            "banner6_top": "Daily products<span class='block'> and more</span>",
+            "banner7_top": "Save Up To 20% Off",
+            "banner7_mid": "Special drinks<span class='block'>for special diet needs</span>",
+            "banner8_top": "Best online discount",
+            "banner8_mid": "Special foods<span class='block'>for special diet needs</span>",
+            "tab_daily_product": "Daily Products",
+            "tab_drinks": "Drinks",
+            "tab_milks": "Milks",
+            "tab_fresh_food": "Fresh Foods",
+            "tab_home_appliance": "Home Appliances"
+        }
+    }
+}
