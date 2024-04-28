@@ -1,0 +1,29 @@
+{
+    "index": {
+        "banner": {
+            "banner1_top": "Khuyến mãi lớn vào các ngày lễ",
+            "banner1_mid": "Hãy mua săm ngay để <span class='block'>vui vẻ</span>",
+            "banner1_bottom": "Bắt đầu chỉ từ <span class='text-primary dark:text-darkPrimary lg:text-3xl font-medium'>{{price}}</span>",
+
+            "banner2_top": "Đồ ăn vặt, đồ ăn nhanh<span class='block'> và hơn thế nữa</span>",
+            "banner3_top": "Vật dụng, thiết bị gia dụng<span class='block'> và hơn thế nữa</span>"
+        },
+        "body": {
+            "free_shipping": "Miến phí vận chuyển",
+            "free_shipping_desc": "Miến phí vận chuyển với tất cả đơn hàng có giá trên {{price}}",
+            "only_price": "Chỉ với giá {{price}}",
+            "banner4_top": "Thực phẩm tươi sống,<span class='block'> rau củ quả, ...</span>",
+            "banner5_top": "Nước giải khát, sữa,<span class='block'> các loại nước khoáng, ...</span>",
+            "banner6_top": "Sản phẩm<span class='block'> hàng ngày</span>",
+            "banner7_top": "Tiết kiệm lên tới 20%",
+            "banner7_mid": "Các loại thức uống đặc biệt<span class='block'> dành riêng cho người có nhu cầu dinh dưỡng đặc biệt</span>",
+            "banner8_top": "Chương trình khuyến mãi cực đặc biệt",
+            "banner8_mid": "Các loại thực phẩm đặc biệt<span class='block'> dành riêng cho người có nhu cầu dinh dưỡng đặc biệt</span>",
+            "tab_daily_product": "Sản phẩm hằng ngày",
+            "tab_drinks": "Đồ uống",
+            "tab_milks": "Sữa",
+            "tab_fresh_food": "Thực phẩm tươi sống",
+            "tab_home_appliance": "Đồ gia dụng"
+        }
+    }
+}

@@ -2,58 +2,57 @@
     <div class="my-container">
         <div class="flex flex-col gap-12 justify-between lg:flex-row lg:gap-6">
             <div class="hidden lg:block">
-                <h3 class="text-heading">Contact Us</h3>
+                <h3 class="text-heading">{{I18NLayoutIds.FooterContactUsHeading | translate}}</h3>
                 <div class="text-subheading">
-                    <p class="mt-6">Classyshop - Mega Super Store</p>
-                    <p>507-Union Trade Centre<br>France</p>
+                    <p class="mt-6">Esa - EShop Analysis</p>
+                    <p [innerHTML]="I18NLayoutIds.FooterContactUsAddress | translate"></p>
                     <p class="mt-5">sales&#64;yourcompany.com</p>
                     <p class="mt-6 text-primary dark:text-darkPrimary text-xl font-semibold">(+91) 9876-543-210</p>
                     <div class="flex flex-row items-center gap-4 mt-5">
                         <i class="far fa-comment text-3xl text-primary dark:text-darkPrimary font-medium"></i>
-                        <p class="text-heading font-medium">
-                            Online Chat
-                            <span class="block">Get Expert Help</span>
+                        <p class="text-heading font-medium" 
+                           [innerHTML]="I18NLayoutIds.FooterContactUsChat | translate">
                         </p>
                     </div>
                 </div>
             </div>
             <div>
-                <h3 class="text-heading">Products</h3>
+                <h3 class="text-heading">{{I18NLayoutIds.FooterProductHeading | translate}}</h3>
                 <div class="text-subheading mt-6 flex flex-col gap-2">
-                    <p>Prices Drop</p>
-                    <p>New Products</p>
-                    <p>Best Sales</p>
-                    <p>Contact Us</p>
-                    <p>Sitemap</p>
-                    <p>Stores</p>
+                    <p>{{I18NLayoutIds.FooterProductPriceDrops | translate}}</p>
+                    <p>{{I18NLayoutIds.FooterProductBestSales | translate}}</p>
+                    <p>{{I18NLayoutIds.FooterProductNewProducts | translate}}</p>
+                    <p>{{I18NLayoutIds.FooterProductContactUs | translate}}</p>
+                    <p>{{I18NLayoutIds.FooterProductSitemap | translate}}</p>
+                    <p>{{I18NLayoutIds.FooterProductStores | translate}}</p>
                 </div>
             </div>
             <div>
-                <h3 class="text-heading">Our Company</h3>
+                <h3 class="text-heading">{{I18NLayoutIds.FooterOurCompanyHeading | translate}}</h3>
                 <div class="flex flex-col gap-2 mt-6 text-subheading ">
-                    <p>Delivery</p>
-                    <p>Legal Notice</p>
-                    <p>Term And Conditions Of Use</p>
-                    <p>About Us</p>
-                    <p>Secure Payment</p>
-                    <p>Login</p>
+                    <p>{{I18NLayoutIds.FooterOurCompanyDelivery | translate}}</p>
+                    <p>{{I18NLayoutIds.FooterOurCompanyLegalNotice | translate}}</p>
+                    <p>{{I18NLayoutIds.FooterOurCompanyTermAndConditions | translate}}</p>
+                    <p>{{I18NLayoutIds.FooterOurCompanyAboutUs | translate}}</p>
+                    <p>{{I18NLayoutIds.FooterOurCompanySecurePayment | translate}}</p>
+                    <p>{{I18NLayoutIds.FooterOurCompanyPrivacyPolicy | translate}}</p>
                 </div>
             </div>
             <div>
-                <h3 class="text-heading">Subscribe To Newsletter</h3>
+                <h3 class="text-heading">{{I18NLayoutIds.FooterSubscribeToNewsletterHeading | translate}}</h3>
                 <div class="flex flex-col gap-6 mt-6 text-subheading">
-                    <p>Subscribe to our latest newsletter to get news about special discount</p>
+                    <p>{{I18NLayoutIds.FooterSubscribeToNewsletterDescription | translate}}</p>
                     <input type="text" 
-                           placeholder="Your Email Address"
+                           placeholder="{{I18NLayoutIds.FooterSubscribeToNewsletterEmailPlaceholder | translate}}"
                            class="border border-solid border-gray-200 dark:border-darkPrimary rounded p-3 w-auto">
-                    <button class="btn-primary inline-block self-start ">Subscribe</button>
+                    <button class="btn-primary inline-block self-start ">{{I18NLayoutIds.FooterSubscribeToNewsletterSubscribe | translate}}</button>
                     <div>
                         <input type="checkbox" 
                                id="agreement" 
                                name="agreement">
                         <label for="agreement" 
                                class="ml-3">
-                            I agree to the terms and conditions and the private policy
+                               {{I18NLayoutIds.FooterSubscribeToNewsletterAgreeTermConditions | translate}}
                         </label>
                     </div>
                 </div>

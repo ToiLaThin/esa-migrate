@@ -1,13 +1,18 @@
 {
     "layout": {
 		"nav": {
-			"about": "About",
-			"contact": "Contact",
 			"home": "Home",
+			"sales": "Sales",
+			"new_arrivals": "New Arrivals",
+			"all_brands": "All Brands",
+			"about": "About Us",
+			"contact": "Contact",
 			"more": "More",
-			"shop_catalog": "Shop By Catalog"
+			"shop_catalog": "Shop By Catalog",
+			"free_shipping": "Free Shipping"
 		},
 		"topbar": {
+			"welcome": "Welcome to our store! Enjoy your shopping!",
 			"cart": "Cart",
 			"currency": "Currency",
 			"help": "Help Center",
@@ -21,6 +26,40 @@
 			"reward": "Reward Points",
 			"search": "Search",
 			"search_placeholder": "Search for products..."
+		},
+		"footer": {
+			"contact_us": {
+				"heading": "Contact Us",
+				"address": "123 Tran Phu Street, Dist 8, Ho Chi Minh city, Vietnam",
+				"phone": "Phone: (800) 123-4567",
+				"email": "sales&#64;yourcompany.com",
+				"chat": "Online Chat<span class='block'>Get Expert Help</span>"
+			},
+			"product": {
+				"heading": "Products",
+				"price_drops": "Price Drops",
+				"new_products": "New Products",
+				"best_sales": "Best Sales",
+				"contact_us": "Contact Us",
+				"sitemap": "Sitemap",
+                "stores": "Stores"
+			},
+			"our_company": {
+				"heading": "Our Company",
+				"delivery": "Delivery Policy",
+				"legal_notice": "Legal Notice",
+				"terms_and_conditions": "Term And Conditions Of Use",
+				"about_us": "About Us",
+				"secure_payment": "Secure Payment",
+				"privacy_policy": "Privacy Policy"
+			},
+			"subscribe_to_newsletter": {
+				"heading": "Subscribe To Newsletter",
+				"description": "Subscribe to our latest newsletter to get news about special discount",
+				"email_placeholder": "Your email address",
+				"subscribe": "Đăng ký ngay",
+				"agree_term_conditions": " I agree to the terms and conditions and the private policy"
+			}
 		}
 	}
 }

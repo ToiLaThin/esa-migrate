@@ -59,5 +59,6 @@ export enum OutlineSvgNames {
     ArrowDown = 'arrow-down-outline',
     ArrowUp = 'arrow-up-outline',
     CircleLeftArrow = 'circle-left-arrow-outline',
+    Shipping = 'shipping-outline',
 
 }
