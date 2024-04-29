@@ -8,6 +8,7 @@ export interface IProductState {
     paginatedProducts: IPaginatedProduct,
     allCatalogs: ICatalog[],
     allSubCatalogs: ISubCatalog[]
+    selectedCatalogId: string,
     subCatalogsOfSelectedCatalog: ISubCatalog[],
 
     selectedProductComments: IComment[],

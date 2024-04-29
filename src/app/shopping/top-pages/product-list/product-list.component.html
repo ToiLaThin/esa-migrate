@@ -5,24 +5,25 @@
         <esa-product-filter-by></esa-product-filter-by>
     </div>
     <div class="w-[80%] {{ProductClassName.ProductListContainer}}">
-        <h2 class="text-2xl font-semibold">Catalog Name</h2>
-        <p class="py-4 border-b-gray-50-solid-1px">Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their.</p>
+        <h2 class="text-2xl font-semibold">{{ (selectedCatalog$ |async)?.catalogName }}</h2>
+        <p class="py-4 border-b-gray-50-solid-1px">{{(selectedCatalog$ |async)?.catalogDescription}}</p>
         <div class="mt-6 pb-6 border-b-gray-50-solid-1px">
             <div class="flex flex-row justify-between">
                 <div class="flex flex-row items-center">
                     @if (this.productCardView === true) {
-                    <i class="fas fa-list mr-3 text-2xl {{ProductClassName.ProductListViewModeToggler}}" 
-                        (click)="toggleViewMode()">
+                    <i class="cursor-pointer hover:scale-105 fas fa-list mr-3 text-2xl {{ProductClassName.ProductListViewModeToggler}}" 
+                       (click)="toggleViewMode()" nz-tooltip nzTooltipTitle="{{I18NProductIds.ProductListTopFilterViewModeCard | translate}}">
                     </i>
                     } @else {
-                    <i class="far fa-square mr-6 text-2xl {{ProductClassName.ProductListViewModeToggler}}"
-                        (click)="toggleViewMode()">
+                    <i class="cursor-pointer hover:scale-105 far fa-square mr-6 text-2xl {{ProductClassName.ProductListViewModeToggler}}"
+                       (click)="toggleViewMode()" nz-tooltip nzTooltipTitle="{{I18NProductIds.ProductListTopFilterViewModeList | translate}}">
                     </i>
                     }
-                    <span>There are {{displayingProductsCount$ | async}} products.</span>
+                    <span [innerHTML]="I18NProductIds.ProductListTopFilterNumProductsDisplaying | translate: {num: displayingProductsCount$ | async}">
+                    </span>
                 </div>
                 <div class="flex flex-row items-center {{ProductClassName.ProductListSortOrder}}">
-                    <label for="productPerPage">Product per page:</label>
+                    <label for="productPerPage">{{I18NProductIds.ProductListTopFilterProductPerPage | translate}}:</label>
                     <select class="mx-2 border border-solid border-gray-50 rounded p-2" 
                             name="productPerPage" 
                             id="productPerPage" 
@@ -33,7 +34,7 @@
                         }
                     </select>
                     <!-- Het 1 select -->
-                    <label for="sortBy">Sort By:</label>
+                    <label for="sortBy">{{I18NProductIds.ProductListTopFilterSortBy | translate}}:</label>
                     <select class="mx-2 border border-solid border-gray-50 rounded p-2" 
                             name="sortBy" 
                             id="sortBy" 
@@ -44,7 +45,7 @@
                         }
                     </select>
                     <!-- Het 1 select -->
-                    <label for="orderType">Order Type:</label>
+                    <label for="orderType">{{I18NProductIds.ProductListTopFilterOrderType | translate}}:</label>
                     <select class="mx-2 border border-solid border-gray-50 rounded p-2" 
                             name="orderType" 
                             id="orderType" 
@@ -75,7 +76,8 @@
             }
         </div>
         <div class="flex flex-row justify-between items-center {{ProductClassName.ProductListPagination}}">
-            <span class="text-subheading">Showing 1-18 of {{displayingProductsCount$ | async}} item(s)</span>
+            <span class="text-subheading" [innerHTML]="I18NProductIds.ProductListTopFilterNumProductsDisplayingEnd | translate: {num: displayingProductsCount$ | async,start: 1,end: 16}">
+            </span>
             <div class="pagination">
                 @for (pageNum of totalPageAsArray$ | async; track pageNum) {
                 <div class="btn-primary"

@@ -25,7 +25,9 @@
 			"order_tracking": "Order Tracking",
 			"reward": "Reward Points",
 			"search": "Search",
-			"search_placeholder": "Search for products..."
+			"search_placeholder": "Search for products...",
+			"theme_dark": "Dark Theme",
+			"theme_light": "Light Theme"
 		},
 		"footer": {
 			"contact_us": {

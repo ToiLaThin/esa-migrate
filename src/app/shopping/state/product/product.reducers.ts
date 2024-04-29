@@ -26,6 +26,7 @@ export const initialProductState: IProductState = {
     productSearchMatched: null,
     allCatalogs: [],
     allSubCatalogs: [],
+    selectedCatalogId: '',
     subCatalogsOfSelectedCatalog: [],
 
     selectedProductComments: [],
@@ -113,9 +114,13 @@ export const productReducer = createReducer(
         ...state,
         allCatalogs: action.loadedCatalogs
     })),
+    on(catalogActions.loadSubCatalogsOfCatalog, (state, action) => ({
+        ...state,
+        selectedCatalogId: action.catalogId
+    })),
     on(catalogActions.subCatalogOfCatalogLoadedSuccessfull, (state, action) => ({
         ...state,
-        subCatalogsOfSelectedCatalog: action.loadedSubCatalogOfCatalog
+        subCatalogsOfSelectedCatalog: action.loadedSubCatalogOfCatalog,
     })),
     on(catalogActions.subCatalogSelected, (state, action) => {
         const filteredBySub = state.productLazyLoadRequest.filterRequests.find(

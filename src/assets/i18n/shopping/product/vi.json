@@ -1,0 +1,37 @@
+{
+    "product": {
+        "list": {
+            "top_filter": {
+                "num_products_displaying": "Có {{num}} sản phẩm đang được hiển thị.",
+                "product_per_page": "Số sản phẩm mỗi trang",
+                "sort_by": "Sắp xếp theo",
+                "order_type": "Thứ tự tăng giảm",
+                "num_products_displaying_end": "Đang hiển thị sản phẩm thứ {{start}}-{{end}} trong tổng {{num}}.",
+                "view_mode_card": "Chế độ hiển thị: thẻ",
+                "view_mode_list": "Chế độ hiển thị: danh sách"
+            },
+            "left_filter": {
+                "filter_by": "Lọc theo danh mục",
+                "subcatalog": "Danh mục phụ",
+                "empty_catalog": "Hãy chọn danh mục để lọc với danh mục phụ",
+                "price_range": "Khoảng giá"
+            }
+        },
+        "info": {
+            "condition": "Tình trạng",
+            "brand": "Thương hiệu",
+            "reference": "Tham chiếu sản phẩm",
+            "available_in_stock": "Còn hàng",
+            "item_num": "{{num}} sản phẩm",
+            "hurry_up": "Nhân chân! Chỉ còn <span class='text-[red]'>{{num}}</span> sản phẩm trong kho.",
+            "size": "Kích cỡ",
+            "color": "Màu sắc",
+            "free_shipping": "Miễn phí vận chuyển, (Ước lượng thời gian giao hàng 2-3 ngày)",
+            "add_to_cart": "Thêm vào giỏ",
+            "add_to_compare": "Thêm vào danh sách so sánh",
+            "add_to_wishlist": "Thêm vào danh sách yêu thích",
+            "remove_from_wishlist": "Bỏ khỏi danh sách yêu thích",
+            "login_required": "Yêu cầu đăng nhập"
+        }
+    }
+}

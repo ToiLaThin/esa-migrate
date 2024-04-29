@@ -10,6 +10,7 @@ import { productFeatureKey } from '../../../state/product/product.reducers';
 import { IProductState } from '../../../state/product/productState.interface';
 import { selectorIsSelectedProductRated, selectorSelectedProductRating } from '../../../state/product/product.selectors';
 import { authActions } from '../../../../auth/state/auth.actions';
+import { I18NProductIdSelector } from '../../../translate-ids/i18n-product-id';
 
 @Component({
     selector: 'esa-product-info-rating',
@@ -31,6 +32,10 @@ export class ProductInfoRatingComponent {
 
     get AuthStatus() {
         return AuthStatus;
+    }
+
+    get I18NProductIds() {
+        return I18NProductIdSelector;
     }
 
     constructor(private _store: Store) {}

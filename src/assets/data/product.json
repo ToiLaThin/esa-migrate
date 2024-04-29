@@ -1,0 +1,102 @@
+[
+    {
+        "productId": "ae5cde37-94ab-4a09-9807-093e7d6906e6",
+        "productName": "Egg x 30",
+        "subCatalogName": "Daily Essentials",
+        "productCoverImage": "https://www.shadygrovefertility.com/wp-content/uploads/2023/07/Egg-supply-blog.png",
+        "businessKey": "2920c048-2d0d-43b9-b4de-133415466248",
+        "productInfo": {
+            "productDescription": "Egg with high quality will serve you a good breakfast",
+            "productBrand": "Bao Xiang"
+        },
+        "productModels": [
+            {
+                "productModelId": "ae5cde37-94ab-4a09-9807-093e7d6906e6",
+                "productModelThumbnails": [],
+                "price": 20000,
+                "isOnSaleModel": false,
+                "saleType": 2
+            }
+        ]
+    },
+    {
+        "productId": "ae5cde37-94ab-4a09-9807-093e7d6906e6",
+        "productName": "Fresh clean salad",
+        "subCatalogName": "Vegetables",
+        "productCoverImage": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Salad_platter.jpg/1200px-Salad_platter.jpg",
+        "businessKey": "2920c048-2d0d-43b9-b4de-133415466248",
+        "productInfo": {
+            "productDescription": "Fresh salad with high quality will serve you a good meal",
+            "productBrand": "Cho Xiang"
+        },
+        "productModels": [
+            {
+                "productModelId": "ae5cde37-94ab-4a09-9807-093e7d6906e6",
+                "productModelThumbnails": [],
+                "price": 5000,
+                "isOnSaleModel": false,
+                "saleType": 2
+            }
+        ]
+    },
+    {
+        "productId": "ae5cde37-94ab-4a09-9807-093e7d6906e6",
+        "productName": "Fresh tomato x 5",
+        "subCatalogName": "Vegetables",
+        "productCoverImage": "https://i5.walmartimages.com/seo/Fresh-Slicing-Tomato-Each_a1e8e44a-2b82-48ab-9c09-b68420f6954c.04f6e0e87807fc5457f57e3ec0770061.jpeg?odnHeight=768&odnWidth=768&odnBg=FFFFFF",
+        "businessKey": "2920c048-2d0d-43b9-b4de-133415466248",
+        "productInfo": {
+            "productDescription": "Fresh tomato with high quality will serve you a good meal",
+            "productBrand": "Cho Xiang"
+        },
+        "productModels": [
+            {
+                "productModelId": "ae5cde37-94ab-4a09-9807-093e7d6906e6",
+                "productModelThumbnails": [],
+                "price": 20000,
+                "isOnSaleModel": false,
+                "saleType": 2
+            }
+        ]
+    },
+    {
+        "productId": "ae5cde37-94ab-4a09-9807-093e7d6906e6",
+        "productName": "Cheese x .2kg",
+        "subCatalogName": "Daily Essentials",
+        "productCoverImage": "https://cloudfront-us-east-1.images.arcpublishing.com/advancelocal/H56LVTZ7HJEKJHF6USUICQJUHM.png",
+        "businessKey": "2920c048-2d0d-43b9-b4de-133415466248",
+        "productInfo": {
+            "productDescription": "Cheese with high quality will serve you a good meal",
+            "productBrand": "Bao Xiang"
+        },
+        "productModels": [
+            {
+                "productModelId": "ae5cde37-94ab-4a09-9807-093e7d6906e6",
+                "productModelThumbnails": [],
+                "price": 20000,
+                "isOnSaleModel": false,
+                "saleType": 2
+            }
+        ]
+    },
+    {
+        "productId": "ae5cde37-94ab-4a09-9807-093e7d6906e6",
+        "productName": "Meadow Fresh Milk 1L",
+        "subCatalogName": "Daily Essentials",
+        "productCoverImage": "https://gutafood.vn/wp-content/uploads/2020/09/sua-tuoi-tiet-trung-nguyen-kem-meadow-fresh-hop-1-lit.jpg",
+        "businessKey": "2920c048-2d0d-43b9-b4de-133415466248",
+        "productInfo": {
+            "productDescription": "Good nice milk for your children breakfast and growth",
+            "productBrand": "Meadow Fresh"
+        },
+        "productModels": [
+            {
+                "productModelId": "ae5cde37-94ab-4a09-9807-093e7d6906e6",
+                "productModelThumbnails": [],
+                "price": 50000,
+                "isOnSaleModel": false,
+                "saleType": 2
+            }
+        ]
+    }
+]

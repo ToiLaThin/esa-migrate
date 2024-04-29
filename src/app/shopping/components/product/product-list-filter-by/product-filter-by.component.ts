@@ -10,6 +10,7 @@ import {
 } from '../../../state/product/product.selectors';
 import { productFeatureKey } from '../../../state/product/product.reducers';
 import { IProductState } from '../../../state/product/productState.interface';
+import { I18NProductIdSelector } from '../../../translate-ids/i18n-product-id';
 
 @Component({
     selector: 'esa-product-filter-by',
@@ -23,6 +24,10 @@ export class ProductFilterByComponent implements OnInit {
     fromPrice: number = 0;
     toPrice: number = 10000000;
 
+    get I18NProductIds() {
+        return I18NProductIdSelector;
+    }
+    
     constructor(private _store: Store) {
         this._store.dispatch(catalogActions.reloadCatalogs());
     }

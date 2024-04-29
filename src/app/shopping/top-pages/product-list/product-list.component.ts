@@ -13,11 +13,14 @@ import { IProductState } from '../../state/product/productState.interface';
 import {
     selectorDisplayingProductCount,
     selectorDisplayingProducts,
-    selectorPageCount
+    selectorPageCount,
+    selectorSelectedCatalog
 } from '../../state/product/product.selectors';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { Router } from '@angular/router';
 import { ProductClassName } from '../../class/product-class';
+import { ICatalog } from '../../../core/models/catalog.interface';
+import { I18NProductIdSelector } from '../../translate-ids/i18n-product-id';
 
 @Component({
     selector: 'esa-product-list',
@@ -28,6 +31,7 @@ export class ProductListComponent implements OnInit {
     productCardView: boolean = true;
     displayingProducts$!: Observable<IProduct[]>;
     displayingProductsCount$!: Observable<number>;
+    selectedCatalog$!: Observable<ICatalog | undefined>;
     totalPage$!: Observable<number>;
     totalPageAsArray$!: Observable<number[]>;
 
@@ -52,6 +56,10 @@ export class ProductListComponent implements OnInit {
 
     get ProductClassName() {
         return ProductClassName;
+    }
+
+    get I18NProductIds() {
+        return I18NProductIdSelector;
     }
     
     constructor(
@@ -78,6 +86,9 @@ export class ProductListComponent implements OnInit {
         );
         this.displayingProductsCount$ = this._store.select((state) =>
             selectorDisplayingProductCount(state as { [productFeatureKey]: IProductState })
+        );
+        this.selectedCatalog$ = this._store.select((state) =>
+            selectorSelectedCatalog(state as { [productFeatureKey]: IProductState })
         );
     }
 
