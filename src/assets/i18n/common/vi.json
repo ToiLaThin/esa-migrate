@@ -12,7 +12,11 @@
 			"save": "Lưu trữ",
 			"search": "Tìm kiếm",
 			"submit": "Gửi đi",
-			"shop-now": "Bắt đầu mua sắm"
+			"shop-now": "Bắt đầu mua sắm",
+			"like": "Thích",
+			"unlike": "Bỏ thích",
+			"dislike": "Không thích",
+			"undislike": "Bỏ không thích"
 		}
 	}
 }

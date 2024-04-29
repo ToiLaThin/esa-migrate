@@ -12,7 +12,11 @@
 			"save": "Save",
 			"search": "Search",
 			"submit": "Submit",
-			"shop-now": "Shop Now"
+			"shop-now": "Shop Now",
+			"like": "Like",
+			"unlike": "Unlike",
+			"dislike": "Dislike",
+			"undislike": "Undislike"
 		}
 	}
 }

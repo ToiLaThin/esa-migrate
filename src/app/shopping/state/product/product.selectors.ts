@@ -85,6 +85,12 @@ export const selectorAllCatalogs = createSelector(
     selectorProductFeature,
     (productState) => productState.allCatalogs
 );
+
+export const selectorSelectedCatalog = createSelector(selectorProductFeature, (productState) => {
+    return productState.allCatalogs.find(
+        (catalog) => catalog.catalogId === productState.selectedCatalogId
+    );
+});
 export const selectorSelectedSubCatalogs = createSelector(
     selectorProductFeature,
     (productState) => productState.subCatalogsOfSelectedCatalog

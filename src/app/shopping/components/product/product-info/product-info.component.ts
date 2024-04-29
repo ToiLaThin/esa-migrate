@@ -6,6 +6,8 @@ import { authActions } from "../../../../auth/state/auth.actions";
 import { productActions } from "../../../state/product/product.actions";
 import { ICartItem } from "../../../../core/models/cart-item.interface";
 import { ProductClassName } from "../../../class/product-class";
+import { I18NProductIdSelector } from "../../../translate-ids/i18n-product-id";
+import { I18NCommonIdSelector } from "../../../../core/translation-loader/i18n-common-id";
 
 @Component({
     selector: 'esa-product-info',
@@ -24,6 +26,14 @@ export class ProductInfoComponent {
 
     get ProductClassName() {
         return ProductClassName;
+    }
+    
+    get I18NProductIds() {
+        return I18NProductIdSelector;
+    }
+
+    get I18NCommonIds() {
+        return I18NCommonIdSelector;
     }
     
     constructor( private _store: Store) {

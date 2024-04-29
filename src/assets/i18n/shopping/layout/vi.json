@@ -25,7 +25,9 @@
 			"order_tracking": "Theo dõi đơn hàng",
 			"reward": "Điểm thưởng",
 			"search": "Tìm kiếm",
-			"search_placeholder": "Tìm kiếm sản phẩm..."
+			"search_placeholder": "Tìm kiếm sản phẩm...",
+			"theme_dark": "Chế độ tương phản cao",
+			"theme_light": "Chế độ thông thường"
 		},
 		"footer": {
 			"contact_us": {

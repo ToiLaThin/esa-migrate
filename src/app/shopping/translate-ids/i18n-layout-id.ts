@@ -14,6 +14,8 @@ export enum I18NLayoutIdSelector {
     LayoutTopbarReward = 'layout.topbar.reward',
     LayoutTopbarLangVi = 'layout.topbar.lang.vi',
     LayoutTopbarLangEn = 'layout.topbar.lang.en',
+    LayoutTopbarThemeDark = 'layout.topbar.theme_dark',
+    LayoutTopbarThemeLight = 'layout.topbar.theme_light',
 
     //Navbar
     LayoutNavbarHome = 'layout.nav.home',

@@ -1,0 +1,37 @@
+{
+    "product": {
+        "list": {
+            "top_filter": {
+                "num_products_displaying": "There are {{num}} products displaying.",
+                "product_per_page": "Products per page",
+                "sort_by": "Sort by",
+                "order_type": "Order type",
+                "num_products_displaying_end": "Showing {{start}}-{{end}} of {{num}} item(s).",
+                "view_mode_card": "View mode: card",
+                "view_mode_list": "View mode: list"
+            },
+            "left_filter": {
+                "filter_by": "Filter by",
+                "subcatalog": "Subcatalog",
+                "empty_subcatalog": "Please select catalog to filter",
+                "price_range": "Price range"
+            }
+        },
+        "info": {
+            "condition": "Condition",
+            "brand": "Brand",
+            "reference": "Reference",
+            "available_in_stock": "Available in stock",
+            "item_num": "{{num}} items",
+            "hurry_up": "Hurry up! only <span class='text-[red]'>{{num}}</span> items left in stock!",
+            "size": "Size",
+            "color": "Color",
+            "free_shipping": "Free Shipping (Est. Delivery Time 2-3 Days)",
+            "add_to_cart": "Add to cart",
+            "add_to_compare": "Add to compare",
+            "add_to_wishlist": "Add to wishlist",
+            "remove_from_wishlist": "Remove from wishlist",
+            "login_required": "Login required"
+        }
+    }
+}
