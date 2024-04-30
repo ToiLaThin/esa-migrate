@@ -1,0 +1,19 @@
+{
+    "cart": {
+        "summary": {
+            "subtotal_heading": "Tổng cộng",
+            "discount_by_sale_heading": "Giảm giá (bởi khuyến mãi)",
+            "discount_by_coupon_heading": "Giảm giá (bởi mã giảm giá)",
+            "grant_total_after_sale_heading": "Tổng giá trị sau khuyến mãi",
+            "grant_total_after_coupon_heading": "Tổng giá trị sau khuyến mãi sau áp mã giảm giá",
+            "grant_total_final_heading": "Tổng giá trị cuối cùng",
+            "have_promotion_code_question": "Bạn có mã giảm giá?",
+            "promotion_code_placeholder": "Nhập mã giảm giá",
+            "proceed_to_checkout": "Tiếp tục thanh toán",
+            "remove_coupon": "Loại bỏ mã giảm giá",
+            "coupon_applied_successfully": "Mã giảm giá đã được áp dụng thành công",
+            "please_add_product_to_cart": "Vui lòng thêm sản phẩm vào giỏ hàng",
+            "lets_go": "Đi thôi!"
+        }
+    }
+}

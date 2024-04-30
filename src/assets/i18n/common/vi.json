@@ -16,7 +16,9 @@
 			"like": "Thích",
 			"unlike": "Bỏ thích",
 			"dislike": "Không thích",
-			"undislike": "Bỏ không thích"
+			"undislike": "Bỏ không thích",
+			"continue_shopping": "Tiếp tục mua sắm",
+			"apply_coupon": "Áp dụng"
 		}
 	}
 }

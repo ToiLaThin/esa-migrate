@@ -1,4 +1,4 @@
-import { Component, Input } from "@angular/core";
+import { Component, EventEmitter, Input, Output } from "@angular/core";
 import { ColorSvgNames } from "../../share-components/svg-definitions/color-svg-names.enum";
 import { LayoutClassName } from "../class/layout-class";
 
@@ -16,6 +16,11 @@ export class OptionHorizontalComponent {
         return LayoutClassName;
     }
     @Input({required: true}) optionHorizontalExpanded: boolean = false;
-
+    @Output() orderListNavigated: EventEmitter<void> = new EventEmitter<void>();
+    
     constructor() {}
+
+    navigateToOrderList() {
+        this.orderListNavigated.emit();
+    }
 }

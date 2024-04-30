@@ -11,6 +11,7 @@ import { IManagementState } from '../../state/management/managementState.interfa
 import { managementFeatureKey } from '../../state/management/management.reducers';
 import { OutlineSvgNames } from '../../../share-components/svg-definitions/outline-svg-names.enum';
 import { ColorSvgNames } from '../../../share-components/svg-definitions/color-svg-names.enum';
+import { authActions } from '../../../auth/state/auth.actions';
 
 @Component({
     selector: 'esa-management-navigation',
@@ -62,5 +63,9 @@ export class ManagementNavigationComponent {
                 newSidebarMode: SidebarMode.OVER
             })
         );
+    }
+
+    logout() {
+        this._store.dispatch(authActions.logoutAttempted());
     }
 }

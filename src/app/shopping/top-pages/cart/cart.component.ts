@@ -26,6 +26,8 @@ import { selectorUserRewardPoints } from '../../../management/state/management/m
 import { managementFeatureKey } from '../../../management/state/management/management.reducers';
 import { IManagementState } from '../../../management/state/management/managementState.interface';
 import { CartClassName } from '../../class/cart-class';
+import { I18NCartIdSelector } from '../../translate-ids/i18n-cart-id';
+import { I18NCommonIdSelector } from '../../../core/translation-loader/i18n-common-id';
 
 @Component({
     selector: 'esa-cart',
@@ -48,6 +50,14 @@ export class CartComponent implements OnInit {
 
     get CartClassName() {
         return CartClassName;
+    }
+
+    get I18NCartIds() {
+        return I18NCartIdSelector;
+    }
+
+    get I18NCommonIds() {
+        return I18NCommonIdSelector;
     }
     
     constructor(private _store: Store, private _nzNotificationService: NzNotificationService) {}

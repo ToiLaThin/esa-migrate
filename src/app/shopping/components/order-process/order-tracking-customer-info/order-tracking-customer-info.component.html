@@ -55,22 +55,22 @@
               (ngSubmit)="confirmCustomerInfo()"
               class="add-catalog-form">
             <div class="form-group">
-                <label for="customer-phone" 
+                <label for="{{OrderIdName.CustomerPhoneInput}}" 
                        class="label">
                     Customer phone
                 </label>
-                <input id="customer-phone"
+                <input id="{{OrderIdName.CustomerPhoneInput}}"
                        class="form-input" required
                        placeholder="Receiver phone:"
                        type="tel" pattern="[0][0-9]{9}"
                        maxlength="10" [formControl]="customerInfoForm.controls.phoneNumberInput">
             </div>
             <div class="form-group mt-3">
-                <label for="customer-address" 
+                <label for="{{OrderIdName.CustomerAddressInput}}" 
                        class="label">
                        Deliver to
                 </label>
-                <input id="customer-address"
+                <input id="{{OrderIdName.CustomerAddressInput}}"
                        class="form-input" 
                        placeholder="Drop order address:"
                        [formControl]="customerInfoForm.controls.addressInput"
@@ -107,16 +107,16 @@
                 </textarea>
             </div>
             <div class="form-group mt-3">
-                <app-button className="btn-primary mr-2"
+                <app-button className="{{OrderClassName.ConfirmCustomerInfoBtn}} btn-primary mr-2"
                             type="submit">
                     Confirm
                 </app-button>
-                <app-button className="btn-primary mr-2"
+                <app-button className="{{OrderClassName.UseSavedLocationBtn}} btn-primary mr-2"
                             type="button"
                             (click)="useSavedLocation()">
                     Use saved location
                 </app-button>
-                <app-button className="btn-secondary mr-2"
+                <app-button className="{{OrderClassName.ClearCustomerInfoBtn}} btn-secondary mr-2"
                             type="button"
                             (click)="clearAll()">
                     Clear

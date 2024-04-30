@@ -24,7 +24,8 @@
         <div class="flex flex-row p-3 gap-2 hover:opacity-90 hover:bg-lightGray dark:hover:bg-black">
             <svg-icon [iconName]="ColorSvgNames.ViewDetail" 
                       [fillColor]="'red'" 
-                      [size]="24">
+                      [size]="24"
+                      (click)="navigateToOrderList()">
             </svg-icon>
             <span>Orders</span>
         </div>

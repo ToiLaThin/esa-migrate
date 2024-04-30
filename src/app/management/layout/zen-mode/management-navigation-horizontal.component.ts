@@ -3,6 +3,7 @@ import { Store } from '@ngrx/store';
 import { OutlineSvgNames } from '../../../share-components/svg-definitions/outline-svg-names.enum';
 import { ColorSvgNames } from '../../../share-components/svg-definitions/color-svg-names.enum';
 import { IFeatureLinkData, featureLinkDatas } from './ui-navigation.interface';
+import { authActions } from '../../../auth/state/auth.actions';
 
 @Component({
     selector: 'esa-management-navigation-horizontal',
@@ -25,5 +26,9 @@ export class ManagementNavigationHorizontalComponent {
 
     selectFeatureLink(featureLink: IFeatureLinkData): void {
         this.featureLinkSelected = featureLink;
+    }
+
+    logout() {
+        this._store.dispatch(authActions.logoutAttempted());
     }
 }

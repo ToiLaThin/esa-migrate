@@ -1,0 +1,19 @@
+{
+    "cart": {
+        "summary": {
+            "subtotal_heading": "Subtotal",
+            "discount_by_sale_heading": "Discount amount (by sale)",
+            "discount_by_coupon_heading": "Discount amount (by coupon)",
+            "grant_total_after_sale_heading": "Grant total after sale",
+            "grant_total_after_coupon_heading": "Grant total after coupon applied",
+            "grant_total_final_heading": "Grant total",
+            "have_promotion_code_question": "Have a promote code?",
+            "promotion_code_placeholder": "Promotion code",
+            "proceed_to_checkout": "Proceed to checkout",
+            "remove_coupon": "Remove",
+            "coupon_applied_successfully": "Mã giảm giá đã được áp dụng thành công",
+            "please_add_product_to_cart": "Please add product to cart",
+            "lets_go": "Let 's go!"
+        }
+    }
+}

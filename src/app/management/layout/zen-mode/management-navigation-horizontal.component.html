@@ -77,8 +77,9 @@
         
                 <div class="flex flex-row px-3 py-1 cursor-pointer gap-2 hover:opacity-90 hover:bg-lightGray">
                     <svg-icon [iconName]="ColorSvgNames.Logout" 
-                                [fillColor]="'red'" 
-                                [size]="24">
+                              [fillColor]="'red'" 
+                              [size]="24" 
+                              (click)="logout()">
                     </svg-icon>
                     <span>Logout</span>
                 </div>

@@ -66,12 +66,12 @@
                 </p>
                 <a class="{{CartClassName.ContinueShoppingBtn}} block float-left ml-2" 
                     routerLink="/shopping/product-list">
-                    Continue Shopping
+                    {{I18NCommonIds.CommonActionContinueShopping | translate}}
                 </a>
                 <div class="{{CartClassName.ClearCartBtn}} text-center float-right">
                     <button class="btn-primary uppercase text-md"
                             (click)="clearCart()">
-                        Clear Cart
+                            {{I18NCommonIds.CommonActionClear | translate}}
                     </button>
                 </div>
             </div>
@@ -81,21 +81,27 @@
                 <div class="border-b border-gray-50 mt-4">
                     <div class="mx-6 my-4 font-semibold">
                         <div class="clear-fix mt-4">
-                            <p class="float-left text-sm">Sub total</p>
+                            <p class="float-left text-sm">
+                                {{I18NCartIds.CartSummarySubTotalHeading| translate}}
+                            </p>
                             <p class="float-right text-primary dark:text-darkPrimary text-md">
                                 {{ subItemsPrice$ | async | rcurrency}}
                             </p>
                         </div>
             
                         <div class="clear-fix mt-2">
-                            <p class="float-left text-sm">Discount amount (by sale)</p>
+                            <p class="float-left text-sm">
+                                {{I18NCartIds.CartSummaryDiscountBySaleHeading| translate}}
+                            </p>
                             <p class="float-right text-primary dark:text-darkPrimary text-md">
                                 {{ this.discountAmountSale$ | async | rcurrency}}
                             </p>
                         </div>
 
                         <div class="clear-fix mt-2">
-                            <p class="float-left text-sm">Discount amount (by coupon)</p>
+                            <p class="float-left text-sm">
+                                {{I18NCartIds.CartSummaryDiscountByCouponHeading| translate}}
+                            </p>
                             <p class="float-right text-primary dark:text-darkPrimary text-md">
                                 {{ this.discountAmountCoupon$ | async | rcurrency}}
                             </p>
@@ -104,18 +110,24 @@
                 </div>
                 <div class="mx-6 my-4 font-semibold">
                     <div class="clear-fix mt-4">
-                        <p class="float-left text-sm">Grand total after sale</p>
+                        <p class="float-left text-sm">
+                            {{I18NCartIds.CartSummaryGrantTotalAfterSaleHeading| translate}}
+                        </p>
                         <p class="float-right text-primary dark:text-darkPrimary text-md">{{ subItemsAfterSalePrice$ | async | rcurrency}}</p>                        
                     </div>
         
                     <div class="clear-fix mt-2">
-                        <p class="float-left text-sm">Grand total after coupon applied</p>
+                        <p class="float-left text-sm">
+                            {{I18NCartIds.CartSummaryGrantTotalAfterCouponHeading| translate}}
+                        </p>
                         <p class="float-right text-primary dark:text-darkPrimary text-md">
                             {{ subItemsAfterSaleThenCouponPrice$ | async | rcurrency}}
                         </p>
                     </div>
                     <div class="clear-fix mt-2">
-                        <p class="float-left text-sm">Grand total</p>
+                        <p class="float-left text-sm">
+                            {{I18NCartIds.CartSummaryGrantTotalFinalHeading| translate}}
+                        </p>
                         <p class="float-right text-primary dark:text-darkPrimary text-md">
                             {{ subItemsAfterSaleThenCouponPrice$ | async | rcurrency}}
                         </p>
@@ -126,18 +138,18 @@
                 <ng-container [ngTemplateOutlet]="removeCouponTempl">
                 </ng-container>
                 } @else {
-                <div class="mx-6" {{CartClassName.ApplyCouponSection}}>
+                <div class="mx-6 {{CartClassName.ApplyCouponSection}}">
                     <p class="underline text-primary dark:text-darkPrimary">
-                        Have a promote code ?
+                        {{I18NCartIds.CartSummaryHavePromotionCodeQuestion | translate}}
                     </p>
                     <div class="flex flex-row gap-4">
                         <input type="text" 
                                 #couponCodeApply
                                 class="border border-solid border-gray-50 rounded w-3/4 p-2" 
-                                placeholder="Promote Code">
+                                placeholder="{{I18NCartIds.CartSummaryPromotionCodePlaceholder | translate}}">
                         <button class="btn-primary uppercase text-md"
                                 (click)="applyCoupon()">
-                            Apply
+                            {{I18NCommonIds.CommonActionApply | translate}}
                         </button>
                     </div>
                 </div>
@@ -146,7 +158,7 @@
                 <div class="mt-12 text-center">
                     <button class="{{CartClassName.CartConfirmBtn}} btn-primary uppercase text-md"
                             (click)="confirmCart()">
-                        Proceed To Checkout
+                            {{I18NCartIds.CartSummaryProceedToCheckout | translate}}
                     </button>
                 </div>
             </div>
@@ -158,18 +170,20 @@
 </div>
 <ng-template #removeCouponTempl>
     <div class="totals-item">
-        <label>Coupon Applied successfully</label>
+        <label>
+            {{I18NCartIds.CartSummaryCouponAppliedSuccessfully | translate}}
+        </label>
         <button (click)="removeCoupon()"
                 class="btn-primary uppercase text-md cursor-pointer">
-            Remove
+                {{I18NCartIds.CartSummaryRemoveCoupon| translate}}
         </button>
     </div>
 </ng-template>
 
 <ng-template #addToCartTempl>
-    <h2>Please add product to cart to buy</h2>
+    <h2>{{I18NCartIds.CartSummaryPleaseAddProductToCart | translate}}</h2>
     <a [routerLink]="'/shopping/product-list'" 
        class="{{CartClassName.ContinueShoppingBtn}}">
-        Let' s go
+       {{I18NCartIds.CartSummaryLetsGo | translate}}
     </a>
 </ng-template>
