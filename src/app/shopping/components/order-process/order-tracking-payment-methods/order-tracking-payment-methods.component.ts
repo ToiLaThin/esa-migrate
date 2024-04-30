@@ -8,6 +8,7 @@ import { IOrderState } from '../../../state/order/orderState.interface';
 import { IOrderAggregateCart } from '../../../../core/models/order.interface';
 import { orderActions } from '../../../state/order/order.actions';
 import { PaymentMethod } from '../../../../core/types/payment-method.enum';
+import { OrderClassName, OrderIdName } from '../../../class/order-class';
 
 @Component({
     selector: 'esa-order-tracking-payment-methods',
@@ -23,6 +24,13 @@ export class OrderTrackingPaymentMethodsComponent implements OnInit {
         return PaymentMethod;
     }
 
+    get OrderClassName() {
+        return OrderClassName;
+    }
+
+    get OrderIdName() {
+        return OrderIdName;
+    }
     paymentMethodChoosen: 'none' | PaymentMethod = 'none';
     paymentMethodKeyArr = Object.keys(PaymentMethod)
         .map((p) => parseInt(p))

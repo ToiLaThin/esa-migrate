@@ -81,6 +81,11 @@ import { ProductCompareComponent } from "./top-pages/product-compare/product-com
                                 prefix: 'assets/i18n/shopping',
                                 suffix: 'product',
                                 extension: 'json'
+                            },
+                            {
+                                prefix: 'assets/i18n/shopping',
+                                suffix: 'cart',
+                                extension: 'json'
                             }
                         ],
                         includeCommonFile: true,

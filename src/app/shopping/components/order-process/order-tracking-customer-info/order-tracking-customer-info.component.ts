@@ -15,6 +15,7 @@ import {
 } from '../../../../core/models/customer-order-info.interface';
 import { orderActions } from '../../../state/order/order.actions';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { OrderClassName, OrderIdName } from '../../../class/order-class';
 
 @Component({
     selector: 'esa-order-tracking-customer-info',
@@ -39,6 +40,14 @@ export class OrderTrackingCustomerInfoComponent implements OnInit {
 
     get ColorSvgNames() {
         return ColorSvgNames;
+    }
+
+    get OrderClassName() {
+        return OrderClassName;
+    }
+
+    get OrderIdName() {
+        return OrderIdName;
     }
 
     constructor(private _store: Store, private _fb: FormBuilder) {
