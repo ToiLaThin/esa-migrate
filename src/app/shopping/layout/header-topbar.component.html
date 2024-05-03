@@ -280,7 +280,7 @@
                             (mouseleave)="closeOptionHorizontal()"> -->
                         <div class="user-avatar-container user-avatar-child" 
                              style="height: 30px; width: 30px;">
-                            <img src="../../../assets/images/user1.jpg" 
+                            <img src="{{(userInfo$ | async)?.avatarUrl}}" 
                                  class="rounded-full fluid-img">
                         </div>
                         <svg-icon [iconName]="ColorSvgNames.OptionMoreVertical"

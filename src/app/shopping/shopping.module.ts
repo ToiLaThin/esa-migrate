@@ -54,6 +54,7 @@ import { MultiFilesTranslationLoader } from "../core/translation-loader/multi-fi
 import { OptionHorizontalComponent } from "./layout/option-horizontal.component";
 import { OptionVerticalComponent } from "./layout/option-vertical.component";
 import { ProductCompareComponent } from "./top-pages/product-compare/product-compare.component";
+import { AccountComponent } from "./top-pages/account/account.component";
 
 @NgModule({
     //https://github.com/ngx-translate/core/issues/1193
@@ -160,7 +161,10 @@ import { ProductCompareComponent } from "./top-pages/product-compare/product-com
         OrderListNumPerPageComponent,
         OrderListPaginationComponent,
         OrderDetailDrawerComponent,
-        OrderDetailModalComponent
+        OrderDetailModalComponent,
+
+
+        AccountComponent
     ],
     exports: []
 })

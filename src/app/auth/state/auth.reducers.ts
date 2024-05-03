@@ -5,7 +5,8 @@ import { authActions } from './auth.actions';
 
 export const initialAuthState: IAuthState = {
     user: null,
-    authStatus: AuthStatus.Anonymous
+    authStatus: AuthStatus.Anonymous,
+    userInfo: null
 };
 
 export const authFeatureKey = 'authFeature';
@@ -22,7 +23,8 @@ export const authReducer = createReducer(
         return {
             ...state,
             user: null,
-            authStatus: AuthStatus.Anonymous
+            authStatus: AuthStatus.Anonymous,
+            userInfo: null
         };
     }),
     on(authActions.userUpdated, (state, action) => {
@@ -35,6 +37,12 @@ export const authReducer = createReducer(
         return {
             ...state,
             authStatus: AuthStatus.Authenticated
+        };
+    }),
+    on(authActions.loadUserInfoSuccessfull, (state, action) => {
+        return {
+            ...state,
+            userInfo: action.userInfo
         };
     }),
 );

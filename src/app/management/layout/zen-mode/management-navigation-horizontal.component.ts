@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { OutlineSvgNames } from '../../../share-components/svg-definitions/outline-svg-names.enum';
 import { ColorSvgNames } from '../../../share-components/svg-definitions/color-svg-names.enum';
 import { IFeatureLinkData, featureLinkDatas } from './ui-navigation.interface';
 import { authActions } from '../../../auth/state/auth.actions';
+import { IUserInfo } from '../../../core/models/account.interface';
 
 @Component({
     selector: 'esa-management-navigation-horizontal',
@@ -21,6 +22,7 @@ export class ManagementNavigationHorizontalComponent {
 
     featureLinkDatas: IFeatureLinkData[] = featureLinkDatas;
     featureLinkSelected!: IFeatureLinkData;
+    @Input() userInfo!: IUserInfo;
     constructor(private _store: Store) {
     }
 

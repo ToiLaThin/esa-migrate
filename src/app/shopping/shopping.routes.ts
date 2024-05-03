@@ -12,6 +12,7 @@ import { OrderTrackingPaymentMethodsComponent } from "./components/order-process
 import { OrderTrackingNotifyCustomerComponent } from "./components/order-process/order-tracking-notify-customer/order-tracking-notify-customer.component";
 import { AuthenticatedRequiredGuard } from "../core/guards/authenticated-required.guard";
 import { ProductCompareComponent } from "./top-pages/product-compare/product-compare.component";
+import { AccountComponent } from "./top-pages/account/account.component";
 
 export const shoppingRoutes: Routes = [
     {
@@ -52,6 +53,10 @@ export const shoppingRoutes: Routes = [
             {
                 path: 'order-list',
                 component: OrderListComponent
+            },
+            {
+                path: 'account',
+                component: AccountComponent
             },
             {
                 path: 'order-process',

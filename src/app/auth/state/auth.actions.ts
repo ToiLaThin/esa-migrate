@@ -1,5 +1,6 @@
 import { createActionGroup, emptyProps, props } from "@ngrx/store";
 import { User } from "oidc-client";
+import { IUserEnvelope, IUserInfo } from "../../core/models/account.interface";
 
 export const authActions = createActionGroup({
     source: 'Auth Events In Auth Module',
@@ -20,5 +21,10 @@ export const authActions = createActionGroup({
         'User Updated': props<{updatedUser: User}>(),
 
         'Bootstrap Auth': emptyProps(),
+
+        'Load User Info': props<{userId: string}>(),
+        'Load User Info Successfull': props<{userInfo: IUserInfo}>(),
+        'Load User Info Failed': props<{error: any}>(),
+        'Update User Info': props<{userEnvelope: IUserEnvelope}>(),
     }
 })

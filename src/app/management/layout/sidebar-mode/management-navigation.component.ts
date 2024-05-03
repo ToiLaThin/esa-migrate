@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { managementActions } from '../../state/management/management.actions';
 import { SidebarMode } from '../../../core/types/sidebar-mode.enum';
@@ -12,6 +12,7 @@ import { managementFeatureKey } from '../../state/management/management.reducers
 import { OutlineSvgNames } from '../../../share-components/svg-definitions/outline-svg-names.enum';
 import { ColorSvgNames } from '../../../share-components/svg-definitions/color-svg-names.enum';
 import { authActions } from '../../../auth/state/auth.actions';
+import { IUserInfo } from '../../../core/models/account.interface';
 
 @Component({
     selector: 'esa-management-navigation',
@@ -20,6 +21,7 @@ import { authActions } from '../../../auth/state/auth.actions';
 })
 export class ManagementNavigationComponent {
     sidebarMode$!: Observable<SidebarMode>;
+    @Input() userInfo!: IUserInfo;
     get SidebarMode() {
         return SidebarMode;
     }

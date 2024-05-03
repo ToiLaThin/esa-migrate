@@ -14,13 +14,14 @@
             </svg-icon>
             <span>Likes</span>
         </div>
-        <div class="flex flex-row p-3 gap-2 hover:opacity-90 hover:bg-lightGray dark:hover:bg-black">
+        <a class="flex flex-row p-3 gap-2 hover:opacity-90 hover:bg-lightGray dark:hover:bg-black"
+           routerLink="/shopping/account">
             <svg-icon [iconName]="ColorSvgNames.Cog" 
                       [fillColor]="'red'" 
                       [size]="24">
             </svg-icon>
             <span>Settings</span>
-        </div>
+        </a>
         <div class="flex flex-row p-3 gap-2 hover:opacity-90 hover:bg-lightGray dark:hover:bg-black">
             <svg-icon [iconName]="ColorSvgNames.ViewDetail" 
                       [fillColor]="'red'" 

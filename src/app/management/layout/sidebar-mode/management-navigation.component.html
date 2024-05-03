@@ -133,7 +133,7 @@
              nz-popover 
              nzPopoverPlacement="rightBottom"
              [nzPopoverContent]="avatarPopoverContentTemplate">
-            <img src="../../../assets/images/user1.jpg" class="rounded-full fluid-img">
+            <img src="{{userInfo.avatarUrl}}" class="rounded-full fluid-img">
         </div>
         <ng-template #avatarPopoverContentTemplate>
         <div class="dropdown-item-container flex flex-col">
@@ -151,13 +151,14 @@
                 </svg-icon>
                 <span>Likes</span>
             </div>
-            <div class="flex flex-row px-3 py-1 cursor-pointer gap-2 hover:opacity-90 hover:bg-lightGray">
+            <a class="flex flex-row px-3 py-1 cursor-pointer gap-2 hover:opacity-90 hover:bg-lightGray"
+               [routerLink]="'/shopping/account'">
                 <svg-icon [iconName]="ColorSvgNames.Cog" 
                             [fillColor]="'red'" 
                             [size]="24">
                 </svg-icon>
-                <span>Settings</span>
-            </div>
+                <span>Account Settings</span>
+            </a>
             <div class="flex flex-row px-3 py-1 cursor-pointer gap-2 hover:opacity-90 hover:bg-lightGray">
                 <svg-icon [iconName]="ColorSvgNames.ViewDetail" 
                             [fillColor]="'red'" 
