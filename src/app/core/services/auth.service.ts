@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, ObservableLike } from 'rxjs';
 import { AuthStatus } from '../types/auth-status.enum';
 import { environment as env } from '../../../environments/environment.development';
 import { UserManager, User, UserManagerSettings, WebStorageStateStore } from 'oidc-client';
@@ -10,6 +10,8 @@ import { selectorCurrentUser } from '../../auth/state/auth.selectors';
 import { IAuthState } from '../../auth/state/authState.interface';
 import { authFeatureKey } from '../../auth/state/auth.reducers';
 import { managementActions } from '../../management/state/management/management.actions';
+import { IUserEnvelope, IUserInfo } from '../models/account.interface';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
     providedIn: 'root'
@@ -29,7 +31,11 @@ export class AuthService {
         };
     }
 
-    constructor(private _notificationService: NzNotificationService, private _store: Store) {
+    constructor(
+        private _notificationService: NzNotificationService,
+        private _store: Store,
+        private _http: HttpClient
+    ) {
         this._userManager = new UserManager(this.idpSettings);
         // this.checkLoginStatus(); if we f5, the store does not have currUser, so it gurantee we always logout, so we must use bootstrapAuth, then this checkLoginStatus will be called only in checkSession each interval
         //this._store.dispatch(authActions.checkSession()); if use this then even if we logged in, it will only display after 5 seconds
@@ -111,7 +117,15 @@ export class AuthService {
             //necessary to remove the user (oidc.sub) from the local storage to avoid the user to be logged in again when checking session)
             this._notificationService.success('Logout successfully', '');
             this._store.dispatch(authActions.logoutSuccessfull());
-            this._store.dispatch(managementActions.clearUserRewardPointsAfterLoggedOut()) //clear the reward points in the store
+            this._store.dispatch(managementActions.clearUserRewardPointsAfterLoggedOut()); //clear the reward points in the store
         });
+    }
+
+    getUserInfo(userId: string): Observable<IUserInfo> {
+        return this._http.get<IUserInfo>(`${env.IDPAUTHORITY}Auth/GetUserInfo/?userId=${userId}`);
+    }
+
+    updateUserInfo(esaUserEnvelope: IUserEnvelope) {
+        return this._http.post<IUserInfo>(`${env.IDPAUTHORITY}Auth/UpdateUserInfo`, esaUserEnvelope);
     }
 }

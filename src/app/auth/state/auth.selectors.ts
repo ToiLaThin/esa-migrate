@@ -2,6 +2,7 @@ import { createSelector } from '@ngrx/store';
 import { authFeatureKey } from './auth.reducers';
 import { IAuthState } from './authState.interface';
 import { jwtDecode } from 'jwt-decode';
+import { IUserEnvelope, IUserInfo } from '../../core/models/account.interface';
 
 export const selectorAuthFeature = (state: { [authFeatureKey]: IAuthState }) =>
     state[authFeatureKey];
@@ -68,3 +69,9 @@ export const selectorUserRole = createSelector(selectorAuthFeature, (authState) 
     let decodedIdToken: object = jwtDecode(idToken as string);
     return (decodedIdToken as any).role;
 });
+
+export const selectorUserInfo = createSelector(
+    selectorAuthFeature,
+    (authState) => authState.userInfo
+);
+

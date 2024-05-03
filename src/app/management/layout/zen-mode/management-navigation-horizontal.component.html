@@ -41,7 +41,7 @@
                  nz-popover 
                  nzPopoverPlacement="rightBottom"
                  [nzPopoverContent]="avatarPopoverContentTemplate">
-                <img src="../../../assets/images/user1.jpg" class="rounded-full fluid-img">
+                <img src="{{userInfo.avatarUrl}}" class="rounded-full fluid-img">
             </div>
             <ng-template #avatarPopoverContentTemplate>
             <div class="dropdown-item-container flex flex-col">

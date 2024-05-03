@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { authActions } from './auth.actions';
-import { interval, map, of, switchMap, tap } from 'rxjs';
+import { catchError, interval, map, of, switchMap, tap } from 'rxjs';
 import { AuthService } from '../../core/services/auth.service';
 import { Router } from '@angular/router';
 import { SignalrService } from '../../core/services/signalr.service';
@@ -89,5 +89,39 @@ export class AuthEffects {
             ofType(authActions.bootstrapAuth),
             tap(() => this._authService.bootstrapAuth())
         ), { dispatch: false }
+    );
+
+    //the loadUserInfo action should be dispatch after loginSuccessfull as an effect
+    loadUserInfoEffect = createEffect(() =>
+        this.actions$.pipe(
+            ofType(authActions.loadUserInfo),
+            switchMap((action) => {
+                return this._authService.getUserInfo(action.userId).pipe(
+                    map((userInfo) => authActions.loadUserInfoSuccessfull({ userInfo })),
+                    catchError(error => of(authActions.loadUserInfoFailed({ error })))
+                );
+            })
+        )
+    );
+
+    loginSuccessfullEffect = createEffect(() =>
+        this.actions$.pipe(
+            ofType(authActions.loginSuccessfull),
+            switchMap((action) => {
+                return of(authActions.loadUserInfo({ userId: action.returnedUser.profile.sub }));
+            })
+        )
+    );  
+
+    updateUserInfoEffect = createEffect(() =>
+        this.actions$.pipe(
+            ofType(authActions.updateUserInfo),
+            switchMap((action) => {
+                return this._authService.updateUserInfo(action.userEnvelope).pipe(
+                    map(() => authActions.loadUserInfo({ userId: action.userEnvelope.userId })),
+                    catchError(error => of(authActions.loadUserInfoFailed({ error })))
+                );
+            })
+        )
     );
 }

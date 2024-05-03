@@ -15,6 +15,7 @@ import { Store } from '@ngrx/store';
 import {
     selectorAuthStatus,
     selectorUserId,
+    selectorUserInfo,
     selectorUserName,
     selectorUserRole
 } from '../../auth/state/auth.selectors';
@@ -58,6 +59,7 @@ import { catalogActions, productActions } from '../state/product/product.actions
 import { LayoutClassName } from '../class/layout-class';
 import { tourActions } from '../state/tour/tour.actions';
 import { IProduct } from '../../core/models/product.interface';
+import { IUserInfo } from '../../core/models/account.interface';
 
 @Component({
     selector: 'esa-shopping-header-topbar',
@@ -66,6 +68,7 @@ import { IProduct } from '../../core/models/product.interface';
 export class HeaderTopbarComponent implements OnInit, OnDestroy, AfterViewInit {
     userName$!: Observable<string>;
     userRole$!: Observable<string>;
+    userInfo$!: Observable<IUserInfo | null>;
     userId!: string;
     currentTheme!: ThemeType;
     authStatus$!: Observable<AuthStatus>;
@@ -181,6 +184,9 @@ export class HeaderTopbarComponent implements OnInit, OnDestroy, AfterViewInit {
         );
         this.userRole$ = this._store.select((state) =>
             selectorUserRole(state as { [authFeatureKey]: IAuthState })
+        );
+        this.userInfo$ = this._store.select((state) =>
+            selectorUserInfo(state as { [authFeatureKey]: IAuthState })
         );
         this.authStatus$ = this._store.select((state) =>
             selectorAuthStatus(state as { [authFeatureKey]: IAuthState })

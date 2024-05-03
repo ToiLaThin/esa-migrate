@@ -1,0 +1,53 @@
+<div class="my-6">
+    <div class="py-6 px-8 flex flex-row items-center justify-center">
+        <form class="w-[600px] px-4 py-3 rounded-md bg-white dark:bg-black shadow-md flex flex-col gap-3"
+              [formGroup]="accountForm"
+              (ngSubmit)="updateUserInfo()">
+            <h2 class="px-4 py-2 bg-lightGray dark:bg-darkGray ">
+                Account
+            </h2>
+            <div class="flex flex-row">
+                <div class="label w-[100px]">Profile Picture</div>
+                <div class="w-[100px] h-[100px] overflow-hidden rounded-full">
+                    <img src="{{userInfo?.avatarUrl}}" class="fluid-img object-cover">
+                </div>                
+            </div>
+            <div class="flex flex-row justify-between">
+                <div class="label w-[100px]">Avatar Url</div>
+                <div class="flex-1">
+                    <input type="text" 
+                           class="form-input" 
+                           [formControlName]="'avatarUrl'">
+                </div>         
+            </div>
+            <div class="flex flex-row justify-between">
+                <div class="label w-[100px]">Username: </div>
+                <div class="flex-1">
+                    <input type="text" 
+                           class="form-input"
+                           [formControlName]="'username'">
+                </div>         
+            </div>
+            <div class="flex flex-row justify-between">
+                <div class="label w-[100px]">Email: </div>
+                <div class="flex-1">
+                    <input type="text" 
+                           class="form-input"
+                           [formControlName]="'email'">
+                </div>         
+            </div>
+            <div class="flex flex-row">
+                <div class="flex-auto">
+                </div>
+                <app-button [type]="'submit'">
+                    Save
+                </app-button>
+                <app-button className="btn-secondary"
+                            (click)="resetForm()">
+                    Clear
+                </app-button>
+            </div>
+        </form>
+
+    </div>
+</div>

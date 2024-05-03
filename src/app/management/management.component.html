@@ -13,7 +13,8 @@
     </ng-template>
     }
     <div class="flex flex-row">
-        <esa-management-navigation [hidden]="!(this.navigationLeftOpened$ | async)">
+        <esa-management-navigation [hidden]="!(this.navigationLeftOpened$ | async)"
+                                   [userInfo]="userInfo!">
         </esa-management-navigation>
     
         <!-- Tabs components goes into here, they will have the layout component with header -->
@@ -23,7 +24,7 @@
 } @else {
     <esa-management-topbar>
     </esa-management-topbar>
-    <esa-management-navigation-horizontal>
+    <esa-management-navigation-horizontal [userInfo]="userInfo!">
     </esa-management-navigation-horizontal>
     <router-outlet></router-outlet>
 }
