@@ -5,6 +5,8 @@ export interface IStockItemRequestMeta {
     productModelId: string;
     businessKey: string;
     unitRequestPrice: number;
+    quantityToRequestMoreFromProvider: number;
+    quantityToNotify: number;
 }
 
 export interface IProviderRequirement {
@@ -33,6 +35,8 @@ export interface IProductModelInfoWithStockAggregate {
     price: number;
     unitRequestPrice: number;
     currentQuantity: number;
+    quantityToRequestMoreFromProvider: number;
+    quantityToNotify: number;
 }
 
 export interface IStockItemRequest {
@@ -41,7 +45,10 @@ export interface IStockItemRequest {
     businessKey: string;
     unitRequestPrice: number;
     itemQuantity: number;
-    totalItemRequestPrice: number
+    totalItemRequestPrice: number;
+    currentItemQuantityInStockBeforeThisStockRequest: number;
+    distanceToReachNotifyQuantityLevelBeforeThisStockRequest: number;
+    distanceToReachOrderMoreQuantityLevelBeforeThisStockRequest: number;
 }
 
 export interface IProductModelInfoMergeStockItemRequest {
@@ -53,6 +60,8 @@ export interface IProductModelInfoMergeStockItemRequest {
     price: number;
     unitRequestPrice: number;
     currentQuantity: number;
+    quantityToRequestMoreFromProvider: number;
+    quantityToNotify: number;
     itemQuantity: number;
     totalItemRequestPrice: number;
     afterRequestQuantity: number;

@@ -14,6 +14,7 @@ export enum LayoutClassName {
     GlobalSearchConfirmBtn = 'global-search-confirm-btn',
     GlobalSearchCloseBtn = 'global-search-close-btn',
     ProductSearchCard = 'product-search-card',
+    ProductSearchCardTitle = 'product-search-card-title',
     ViewSearchBtn = 'view-search-btn',
     LangChangedText = 'lang-changed-text',
     CurrencyChanged = 'currency-changed',    
