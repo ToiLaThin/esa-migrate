@@ -119,6 +119,7 @@
                     <th>Provider</th>
                     <th style="text-align: center;">Request</th>
                     <th>Current</th>
+                    <th>QtyMustOrder</th>
                     <th>After</th>
                     <th>Subtotal</th>
                 </tr>
@@ -155,6 +156,7 @@
                         </div>
                     </td>
                     <td class="text-[red]">{{productModelMergeStock.currentQuantity}}</td>
+                    <td class="text-[orange]">{{productModelMergeStock.quantityToRequestMoreFromProvider}}</td>
                     <td class="text-[green] font-bold">{{productModelMergeStock.afterRequestQuantity}}</td>
                     <td>{{productModelMergeStock.totalItemRequestPrice | rcurrency}}</td>
                 </tr>

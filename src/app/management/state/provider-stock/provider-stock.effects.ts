@@ -112,6 +112,8 @@ export class ProviderStockManagementEffects {
                                         currentQuantity: productModelInfoWithStock.currentQuantity, //current quantity we are having in stock, not the number we request
                                         unitRequestPrice:
                                             productModelInfoWithStock.unitRequestPrice,
+                                        quantityToRequestMoreFromProvider: productModelInfoWithStock.quantityToRequestMoreFromProvider,
+                                        quantityToNotify: productModelInfoWithStock.quantityToNotify,
                                         itemQuantity: 0, //the number we request
                                         totalItemRequestPrice: 0,
                                         afterRequestQuantity:
@@ -189,7 +191,10 @@ export class ProviderStockManagementEffects {
                             businessKey: mergedItem.businessKey,
                             unitRequestPrice: mergedItem.unitRequestPrice,
                             itemQuantity: mergedItem.itemQuantity,
-                            totalItemRequestPrice: mergedItem.totalItemRequestPrice
+                            totalItemRequestPrice: mergedItem.totalItemRequestPrice,
+                            currentItemQuantityInStockBeforeThisStockRequest: mergedItem.currentQuantity,
+                            distanceToReachNotifyQuantityLevelBeforeThisStockRequest: mergedItem.currentQuantity - mergedItem.quantityToNotify,
+                            distanceToReachOrderMoreQuantityLevelBeforeThisStockRequest: mergedItem.currentQuantity - mergedItem.quantityToRequestMoreFromProvider
                         } as IStockItemRequest;
                         return stockItemReq;
                     });
