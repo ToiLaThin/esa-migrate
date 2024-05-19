@@ -31,7 +31,7 @@ export interface IProductModelInfoWithStockAggregate {
     productId: string;
     businessKey: string;
     productModelName: string;
-    productCoverImage: number;
+    productCoverImage: string;
     price: number;
     unitRequestPrice: number;
     currentQuantity: number;

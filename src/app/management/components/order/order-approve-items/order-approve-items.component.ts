@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
-import { IItemStock } from "../../../../core/models/order-approve.model";
+import { IStockLookupItem } from "../../../../core/models/order-approve.model";
 import { OutlineSvgNames } from "../../../../share-components/svg-definitions/outline-svg-names.enum";
 
 @Component({
@@ -8,7 +8,7 @@ import { OutlineSvgNames } from "../../../../share-components/svg-definitions/ou
     styleUrls: ['./order-approve-items.component.scss']
 })
 export class OrderApproveItemsManagementComponent implements OnInit{
-    @Input({required: true}) itemStockLookUp!: IItemStock[];
+    @Input({required: true}) itemStockLookUp!: IStockLookupItem[];
     @Input({required: true}) displayMode: 'table' | 'list' = 'table';
     @Output() displayModeToggled: EventEmitter<void> = new EventEmitter<void>();
 

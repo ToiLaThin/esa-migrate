@@ -5,7 +5,7 @@ import { IItemStock } from '../../../core/models/order-approve.model';
 
 export const orderManagementFeatureKey = 'orderManagementFeature';
 export const initialOrderManagementState: IOrderManagementState = {
-    itemStockLookUp: new Map<string, number>(),
+    itemStockLookUp: [],
     ordersToApprove: [],
     ordersApprovedTypeIOrderItem: [],
     ordersApproved: [],
@@ -15,14 +15,12 @@ export const initialOrderManagementState: IOrderManagementState = {
 export const orderManagementReducer = createReducer(
     initialOrderManagementState,
     on(orderManagementActions.ordersToApproveLoaded, (state, action) => {
-        if (action.loadedOrderItemsAndStock) {
+        if (action.loadedOrderItemsAndStockLookup) {
             return {
                 ...state,
-                itemStockLookUp: new Map<string, number>(
-                    Object.entries(action.loadedOrderItemsAndStock.itemsStock)
-                ),
+                itemStockLookUp: action.loadedOrderItemsAndStockLookup.stockLookupItems,
                 ordersApprovedTypeIOrderItem: [],
-                ordersToApprove: action.loadedOrderItemsAndStock.orderItems,
+                ordersToApprove: action.loadedOrderItemsAndStockLookup.orderItems,
                 ordersApproved: []
             };
         }
@@ -38,15 +36,23 @@ export const orderManagementReducer = createReducer(
             return state;
         }
         let orderItemsQty: IItemStock[] = orderToApprove.orderItemsQty;
-        let itemsStockLookUpTemp = new Map(state.itemStockLookUp);
+        let itemsStockLookUpTemp = state.itemStockLookUp;
         let allItemsIsValid: boolean | undefined = undefined;
         orderItemsQty.forEach((itemInOrder) => {
-            let stockCurrentQty = itemsStockLookUpTemp.get(itemInOrder.productModelId);
+            let stockCurrentQty = itemsStockLookUpTemp.find((i) => i.productModelId === itemInOrder.productModelId)?.currentQuantity;
             if (!stockCurrentQty || stockCurrentQty < itemInOrder.quantity) {
                 allItemsIsValid = false;
             }
             allItemsIsValid = true;
-            itemsStockLookUpTemp.set(itemInOrder.productModelId, stockCurrentQty! - itemInOrder.quantity);
+            itemsStockLookUpTemp = itemsStockLookUpTemp.map((i) => {
+                if (i.productModelId === itemInOrder.productModelId) {
+                    return {
+                        ...i,
+                        currentQuantity: i.currentQuantity - itemInOrder.quantity
+                    };
+                }
+                return i;
+            });
         });
 
         if (allItemsIsValid! === false) {
@@ -90,10 +96,18 @@ export const orderManagementReducer = createReducer(
             return state;
         }
         let orderItemsQty: IItemStock[] = orderToApprove.orderItemsQty;
-        let itemsStockLookUpTemp = new Map(state.itemStockLookUp);
+        let itemsStockLookUpTemp = state.itemStockLookUp;
         orderItemsQty.forEach((itemInOrder) => {
-            let stockCurrentQty = itemsStockLookUpTemp.get(itemInOrder.productModelId);
-            itemsStockLookUpTemp.set(itemInOrder.productModelId, stockCurrentQty! + itemInOrder.quantity);
+            let stockCurrentQty = itemsStockLookUpTemp.find((i) => i.productModelId === itemInOrder.productModelId)?.currentQuantity;
+            itemsStockLookUpTemp = itemsStockLookUpTemp.map((i) => {
+                if (i.productModelId === itemInOrder.productModelId) {
+                    return {
+                        ...i,
+                        currentQuantity: stockCurrentQty! + itemInOrder.quantity
+                    };
+                }
+                return i;
+            });
         });
 
         return {

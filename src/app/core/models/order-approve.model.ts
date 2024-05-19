@@ -1,9 +1,13 @@
 import { OrderStatus } from "../types/order-status.enum";
 import { PaymentMethod } from "../types/payment-method.enum";
+import { IProductModelInfoWithStockAggregate } from "./provider.interface";
 
 export interface IItemStock {
     productModelId: string;
     quantity: number;
+}
+
+export interface IStockLookupItem extends IProductModelInfoWithStockAggregate {
 }
 
 export interface IOrderItems {
@@ -14,9 +18,9 @@ export interface IOrderItems {
     totalPriceFinal: number;
 }
 
-export interface IOrderItemsAndStockAggregate {
+export interface IOrderItemsAndStockLookupAggregate {
     orderItems: IOrderItems[];
-    itemsStock: Map<string, number>;//dictionary<string, int>
+    stockLookupItems: IStockLookupItem[];
 }
 
 //sent to aggregator to sequential update order status, then update stock quantity

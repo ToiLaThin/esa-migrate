@@ -58,9 +58,9 @@ export class OrderManagementEffect {
             switchMap(() =>
                 this._orderApproveService.getBatchOrderApprove().pipe(
                     map(
-                        (orderItemsAndStockAggregate) =>
+                        (orderItemsAndStockLookupAggregate) =>
                             orderManagementActions.ordersToApproveLoaded({
-                                loadedOrderItemsAndStock: orderItemsAndStockAggregate
+                                loadedOrderItemsAndStockLookup: orderItemsAndStockLookupAggregate
                             }),
 
                         catchError((error) => {

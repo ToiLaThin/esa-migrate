@@ -1,27 +1,14 @@
 import { orderManagementFeatureKey } from './order.reducers';
 import { IOrderManagementState } from './orderManagementState,interface';
 import { createSelector } from '@ngrx/store';
-import { IItemStock, IOrderItems } from '../../../core/models/order-approve.model';
-import { state } from '@angular/animations';
 
 export const selectOrderManagementFeature = (state: {
     [orderManagementFeatureKey]: IOrderManagementState;
 }) => state[orderManagementFeatureKey];
 
-export const selectorItemStockLookUpMap = createSelector(
+export const selectorItemStockLookUp = createSelector(
     selectOrderManagementFeature,
     state => state.itemStockLookUp
-)
-
-export const selectorItemStockLookUp = createSelector(
-    selectorItemStockLookUpMap,
-    itemStockLookUp => {
-        let result: IItemStock[] = [];
-        itemStockLookUp.forEach((value, key) => {
-            result.push({productModelId: key, quantity: value});
-        });
-        return result;
-    }
 )
 
 export const selectorOrdersToApprove = createSelector(

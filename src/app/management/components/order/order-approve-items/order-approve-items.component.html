@@ -19,33 +19,50 @@
 <table class="bg-white dark:bg-darkGray">
     <tr>
         <th style="text-align: center;">ID</th>
+        <th style="text-align: center;">ProductName</th>
+        <th style="text-align: center;">ProductImage</th>
         <th>Qty</th>
+        <th>OrderMoreLev</th>
+        <th>Request Price</th>
     </tr>
     @for (itemStock of this.itemStockLookUp; track itemStock) {
     <tr>
         <td>
             #{{itemStock.productModelId | slice:0:8 | uppercase}}
         </td>
-        <td>
-            {{itemStock.quantity}}
+        <td>{{itemStock.productModelName}}</td>
+        <td class="flex flex-row items-center justify-center">
+            <img src="{{itemStock.productCoverImage}}" 
+                     width="60" height="60" 
+                     class="object-cover rounded-md">
         </td>
+        <td>{{itemStock.currentQuantity}}</td>
+        <td>{{itemStock.quantityToRequestMoreFromProvider}}</td>
+        <td>{{itemStock.unitRequestPrice}}</td>
     </tr>    
     }
 </table>
 </ng-template>
 <ng-template #listMode>
 <div class="flex flex-row gap-2 flex-wrap">
-    @for (itemStock of this.itemStockLookUp; track itemStock) {
+    @for (itemStockWithInfo of this.itemStockLookUp; track itemStockWithInfo) {
         <div class="item bg-white dark:bg-darkGray clear-fix">
             <div class="float-left mr-2">
-                <img src="../../../../../assets/images/no-image.png" 
-                     width="60" height="60" 
-                     class="object-cover rounded-md">
+                @if (itemStockWithInfo.productCoverImage == null || itemStockWithInfo.productCoverImage == '') {
+                    <img src="../../../../../assets/images/no-image.png" 
+                         width="60" height="60" 
+                         class="object-cover rounded-md">
+                } @else {
+                    <img src="{{itemStockWithInfo.productCoverImage}}" 
+                         width="60" height="60" 
+                         class="object-cover rounded-md">
+                }
             </div>
             <div class="info float-left">
-                <p>Item name - #{{itemStock.productModelId | slice:0:8 | uppercase}}</p>
-                <p>Qty: {{itemStock.quantity}}</p>
-                <p>Price: 8$</p>
+                <p>Item name - #{{itemStockWithInfo.productModelId | slice:0:8 | uppercase}}</p>
+                <p>Current Qty: {{itemStockWithInfo.currentQuantity}}</p>
+                <p>Request More Qty: {{itemStockWithInfo.quantityToRequestMoreFromProvider}}</p>
+                <p>Request Price: {{itemStockWithInfo.unitRequestPrice | rcurrency}}</p>
             </div>
         </div>
     }
