@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment as env } from '../../../environments/environment.development';
-import { IOrderApprovedAggregate, IOrderItemsAndStockAggregate } from '../models/order-approve.model';
+import { IOrderApprovedAggregate, IOrderItemsAndStockLookupAggregate } from '../models/order-approve.model';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +12,7 @@ export class OrderApproveService {
   }
 
   public getBatchOrderApprove() {
-    return this._http.get<IOrderItemsAndStockAggregate>(`${env.BASEURL}/api/Aggregate/ReadAggregator/GetOrderToApproveWithStock`);
+    return this._http.get<IOrderItemsAndStockLookupAggregate>(`${env.BASEURL}/api/Aggregate/ReadAggregator/GetOrderToApproveWithStock`);
   }
 
   confirmApprovedOrders(approvedOrders: IOrderApprovedAggregate[]) {

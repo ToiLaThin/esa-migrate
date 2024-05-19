@@ -1,12 +1,12 @@
 import { createActionGroup, emptyProps, props } from "@ngrx/store";
-import { IOrderApprovedAggregate, IOrderItemsAndStockAggregate } from "../../../core/models/order-approve.model";
+import { IOrderApprovedAggregate, IOrderItemsAndStockLookupAggregate } from "../../../core/models/order-approve.model";
 import { IOrderAggregateCart } from "../../../core/models/order.interface";
 
 export const orderManagementActions = createActionGroup({
     source: 'Order Actions In Management Module',
     events: {
         'Reload Orders To Approve': emptyProps(),
-        'Orders To Approve Loaded': props<{loadedOrderItemsAndStock: IOrderItemsAndStockAggregate}>(),
+        'Orders To Approve Loaded': props<{loadedOrderItemsAndStockLookup: IOrderItemsAndStockLookupAggregate}>(),
         'Orders To Approve Load Failed': props<{error: any}>(),
 
         'Approve Order': props<{orderId: string}>(),

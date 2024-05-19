@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { Observable, Subscription, tap } from 'rxjs';
 import { orderManagementActions } from '../../../state/order/order.actions';
 import {
-    IItemStock,
+    IStockLookupItem,
     IOrderApprovedAggregate,
     IOrderItems
 } from '../../../../core/models/order-approve.model';
@@ -28,7 +28,7 @@ import { OrderDetailDrawerManagementComponent } from '../order-detail-drawer-man
 export class OrderApproveManagementComponent implements OnInit, OnDestroy {
     displayModeItems: 'table' | 'list' = 'table';
     displayModeOrders: 'table' | 'kanban' = 'kanban';
-    itemStockLookUp$!: Observable<IItemStock[]>;
+    itemStockLookUp$!: Observable<IStockLookupItem[]>;
 
     ordersApprovedTypeIOrderItem$!: Observable<IOrderItems[]>;
     ordersApproved$!: Observable<IOrderApprovedAggregate[]>;
