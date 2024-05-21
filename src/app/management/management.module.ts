@@ -58,6 +58,7 @@ import { HttpClient } from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { ManagementNavigationHorizontalComponent } from './layout/zen-mode/management-navigation-horizontal.component';
+import { AddStockManagementComponent } from './components/provider-stock/add-stock/add-stock.component';
 const importNzModules = [
     NzButtonModule,
     NzDropDownModule,
@@ -128,6 +129,7 @@ const importNzModules = [
         ProviderStockComponent,
         ProviderListManagementComponent,
         ProviderDetailManagementComponent,
+        AddStockManagementComponent,
 
         OrderComponent,
         OrderApproveManagementComponent,

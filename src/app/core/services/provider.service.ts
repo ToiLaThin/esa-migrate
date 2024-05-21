@@ -28,6 +28,12 @@ export class ProviderService {
         );
     }
 
+    public getProductModelInfosWithStockRequestRequire() {
+        return this._http.get<IProductModelInfoWithStockAggregate[]>(
+            `${env.BASEURL}/api/Aggregate/ReadAggregator/GetProductModelInfosWithStockRequestRequire`
+        );
+    }
+
     public confirmStockRequestToProvider(requestBody: IStockRequestTransaction) {
         return this._http.post(`${env.BASEURL}/api/Aggregate/WriteAggregator/AddStockReqTransAndIncreaseStockItems`, requestBody);
     }

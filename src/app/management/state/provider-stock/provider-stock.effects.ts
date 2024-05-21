@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { Actions, createEffect } from '@ngrx/effects';
 import { ProviderService } from '../../../core/services/provider.service';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { providerStockManagementActions } from './provider-stock.actions';
@@ -12,11 +12,12 @@ import {
     IStockRequestTransaction
 } from '../../../core/models/provider.interface';
 import {
+    selectorProductModelsInfoMergeStockItemRequestsDisplaying,
     selectorSelectedProviderRequirement,
-    selectorProductModelsInfoMergeStockItemRequestsOfProvider
 } from './provider-stock.selectors';
 import { providerStockManagementFeatureKey } from './provider-stock.reducers';
 import { IProviderStockManagementState } from './providerStockManageState.interface';
+import { ofType } from '@ngrx/effects';
 
 @Injectable({ providedIn: 'root' })
 export class ProviderStockManagementEffects {
@@ -39,6 +40,19 @@ export class ProviderStockManagementEffects {
             })
         )
     );
+
+    //clear all stock requests for require request (add-stock page)
+    clearAllStockRequestsRequireRequestEffect = createEffect(() =>
+        this.actions$.pipe(
+            ofType(providerStockManagementActions.clearAllStockRequestsRequireRequest),
+            switchMap((_) => {
+                return of(
+                    providerStockManagementActions.loadAllRequestRequireProductModelsWithStockSub()
+                );
+            })
+        )
+    );
+
     loadAllProviderRequirementsEffect = createEffect(() =>
         this.actions$.pipe(
             ofType(providerStockManagementActions.loadAllProviderRequirements),
@@ -141,6 +155,58 @@ export class ProviderStockManagementEffects {
         )
     );
 
+    loadRequestRequireProductModelInfosWithStockEffect = createEffect(() =>
+        this.actions$.pipe(
+            ofType(providerStockManagementActions.loadAllRequestRequireProductModelsWithStockSub),
+            switchMap((_) =>
+                this._providerService.getProductModelInfosWithStockRequestRequire().pipe(
+                    map((productModelInfosWithStock) =>
+                        providerStockManagementActions.afterLoadAllRequestRequireProductModelInfosWithStockSubAndTransformToProductModelMergeStockItemRequestSuccess(
+                            {
+                                loadedProductModelsInfoWithStock: productModelInfosWithStock,
+                                transformedProductModelInfoMergeStockItemReqs: productModelInfosWithStock.map(
+                                    (productModelInfoWithStock) => {
+                                        let productModelInfoMergeStockItemReq = {
+                                            productId: productModelInfoWithStock.productId,
+                                            productModelId: productModelInfoWithStock.productModelId,
+                                            businessKey: productModelInfoWithStock.businessKey,
+                                            productModelName: productModelInfoWithStock.productModelName,
+                                            productCoverImage: productModelInfoWithStock.productCoverImage,
+                                            price: productModelInfoWithStock.price,
+                                            currentQuantity: productModelInfoWithStock.currentQuantity,
+                                            unitRequestPrice: productModelInfoWithStock.unitRequestPrice,
+                                            quantityToRequestMoreFromProvider: productModelInfoWithStock.quantityToRequestMoreFromProvider,
+                                            quantityToNotify: productModelInfoWithStock.quantityToNotify,
+                                            itemQuantity: 0,
+                                            totalItemRequestPrice: 0,
+                                            afterRequestQuantity: productModelInfoWithStock.currentQuantity
+                                        } as unknown as IProductModelInfoMergeStockItemRequest;
+                                        return productModelInfoMergeStockItemReq;
+                                    }
+                                )
+                            }
+                        )
+                    ),
+                    tap(() =>
+                        this._notificationService.create(
+                            'success',
+                            'All request require product models with stock loaded successfully',
+                            ''
+                        )
+                    ),
+                    catchError((err) => {
+                        this._notificationService.create('error', `Error: ${err.title}`, '');
+                        return of(
+                            providerStockManagementActions.afterLoadAllRequestRequireProductModelInfosWithStockSubAndTransformToProductModelMergeStockItemRequestFailed(
+                                { error: err }
+                            )
+                        );
+                    })
+                )
+            )
+        )
+    );
+
     confirmStockRequestToProviderEffect = createEffect(() =>
         this.actions$.pipe(
             ofType(providerStockManagementActions.confirmStockRequestToProvider),
@@ -165,7 +231,7 @@ export class ProviderStockManagementEffects {
                     .subscribe();
                 let allStockItemReqsSubscription = this._store
                     .select((state) =>
-                        selectorProductModelsInfoMergeStockItemRequestsOfProvider(
+                        selectorProductModelsInfoMergeStockItemRequestsDisplaying(
                             state as {
                                 [providerStockManagementFeatureKey]: IProviderStockManagementState;
                             }
