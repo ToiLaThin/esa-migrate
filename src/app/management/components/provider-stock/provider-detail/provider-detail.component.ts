@@ -7,7 +7,7 @@ import {
 } from '../../../../core/models/provider.interface';
 import {
     selectorGrandTotalPriceStockItemRequests,
-    selectorProductModelsInfoMergeStockItemRequestsOfProvider,
+    selectorProductModelsInfoMergeStockItemRequestsDisplaying,
     selectorSelectedProviderRequirement
 } from '../../../state/provider-stock/provider-stock.selectors';
 import { providerStockManagementFeatureKey } from '../../../state/provider-stock/provider-stock.reducers';
@@ -28,6 +28,7 @@ export class ProviderDetailManagementComponent implements OnInit, OnDestroy {
     grandTotalPriceStockItemRequests$!: Observable<number>;
 
     selectedProviderRequirementId!: string;
+    qtyChange: string = '1'; //can only be 1, 50, 100
 
     get OutlineSvgNames() {
         return OutlineSvgNames;
@@ -54,7 +55,7 @@ export class ProviderDetailManagementComponent implements OnInit, OnDestroy {
         );
         this.selectedProviderRequirementAllProductModelInfosMergeStockItemRequests$ =
             this._store.select((state) =>
-                selectorProductModelsInfoMergeStockItemRequestsOfProvider(
+                selectorProductModelsInfoMergeStockItemRequestsDisplaying(
                     state as { [providerStockManagementFeatureKey]: IProviderStockManagementState }
                 )
             );
@@ -67,17 +68,23 @@ export class ProviderDetailManagementComponent implements OnInit, OnDestroy {
     }
 
     increaseQty(productModelId: string) {
+        console.log(this.qtyChange);
+        console.log(typeof(this.qtyChange));
+        
         this._store.dispatch(
             providerStockManagementActions.increaseStockRequestQuantity({
-                productModelId: productModelId
+                productModelId: productModelId,
+                quantityChange: parseInt(this.qtyChange)
             })
         );
     }
 
     decreaseQty(productModelId: string) {
+        console.log(this.qtyChange);
         this._store.dispatch(
             providerStockManagementActions.decreaseStockRequestQuantity({
-                productModelId: productModelId
+                productModelId: productModelId,
+                quantityChange: parseInt(this.qtyChange)
             })
         );
     }

@@ -64,7 +64,7 @@ export const featureLinkDatas: IFeatureLinkData[] = [
                 fillColor: '#000'
             },
             {
-                tabRouterLink: 'provider-stock/abc-list',
+                tabRouterLink: 'provider-stock/add-stock',
                 tabTitle: 'Add Stock',
                 iconName: OutlineSvgNames.StocksOpen,
                 fillColor: '#000'

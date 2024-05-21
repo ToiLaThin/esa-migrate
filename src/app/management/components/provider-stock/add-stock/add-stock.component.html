@@ -1,20 +1,9 @@
 
 <div class="bg-white dark:bg-black px-2 py-4 xl:flex xl:flex-row xl:gap-5">
     <div class="bg-lightGray dark:bg-darkGray rounded-sm px-2 py-2 overflow-auto self-start">
-        <div class="flex flex-col md:flex-row items-stretch md:items-center justify-stretch gap-4">
-            <div class="tab flex-1 px-8 py-3 bg-primary dark:bg-darkPrimary text-white text-center font-semibold text-[17px] rounded-[4px]">
-                Category
-            </div>
-            <div class="tab flex-1 px-8 py-3 bg-primary dark:bg-darkPrimary text-white text-center font-semibold text-[17px] rounded-[4px]">
-                Brand
-            </div>
-            <div class="tab flex-1 px-8 py-3 bg-primary dark:bg-darkPrimary text-white text-center font-semibold text-[17px] rounded-[4px]">
-                Featured
-            </div>
-        </div>
         <!-- the parent overflow must also be overflow-auto -->
         <div class="flex flex-row flex-start flex-wrap mt-4" style="min-width: 400px; overflow: auto;">     
-            @for (productModelMergeStock of this.selectedProviderRequirementAllProductModelInfosMergeStockItemRequests$ | async; track productModelMergeStock) {
+            @for (productModelMergeStock of this.selectedRequestRequireProductModelInfosMergeStockItemReqs$ | async; track productModelMergeStock) {
             <div class="item py-5 px-10 border border-solid border-[#ddd] text-center border-collapse max-w-[200px]">
                 <img src="{{productModelMergeStock.productCoverImage}}" 
                         class="w-[80px] h-[78px] object-cover">
@@ -33,54 +22,6 @@
     </div>
 
     <div class="mt-8 flex flex-col">
-        <div class="flex flex-row md:flex-col justify-start md:justify-between">
-            <div class="mb-6 text-[18px] flex-1 mr-4 md:mr-0">
-                <p class="font-medium font-tailwick" 
-                   style="letter-spacing: 0; word-spacing: -1px">
-                   Provider Id
-                </p>
-                <input type="text" 
-                       value="#{{(selectedProviderRequirement$ | async)?.providerBusinessKey | slice:0:8 | uppercase}}" 
-                       placeholder="Any id" 
-                       class="input-here">
-            </div>
-            <div class="mb-6 text-[18px] flex-1">
-                <p class="font-medium font-tailwick" 
-                   style="letter-spacing: 0; word-spacing: -1px">
-                   Provider Name
-                </p>
-                <input type="text" 
-                       value="{{(selectedProviderRequirement$ | async)?.providerName | titlecase}}" 
-                       placeholder="Name of provider" 
-                       class="input-here">
-            </div>
-        </div>
-        <div class="flex flex-row md:flex-col justify-start md:justify-between">
-            <div class="mb-6 text-[18px] flex-1 mr-4 md:mr-0">
-                <p class="font-medium font-tailwick" 
-                   style="letter-spacing: 0; word-spacing: -1px">
-                   Catalogs
-                </p>
-                <select class="input-here">
-                    <option value="1">Cat 1</option>
-                    <option value="2">Cat 2</option>
-                    <option value="3">Cat 3</option>
-                </select>
-            </div>
-            <div class="mb-6 text-[18px] flex-1">
-                <p class="font-medium font-tailwick" 
-                   style="letter-spacing: 0; word-spacing: -1px">
-                   Qty Change
-                </p>
-                <select class="input-here" [(ngModel)]="qtyChange">
-                    <option value="1" [selected]="this.qtyChange === '1'">1 qty</option>
-                    <option value="50">50 qty</option>
-                    <option value="100">100 qty</option>
-                </select>
-            </div>
-
-        </div>
-
         <!-- Search input here -->
         <div class="mb-3 text-[18px]">
             <p class="font-medium font-tailwick" 
@@ -104,7 +45,7 @@
         <div class="table-container bg-white dark:bg-black">
             <div class="flex flex-row gap-2">
                 <h2 class="uppercase font-bold text-xl">Selected Products</h2>
-                <app-button (click)="clearAllStockRequests()"
+                <app-button (click)="clearAllStockRequestsRequireRequest()"
                             [iconName]="OutlineSvgNames.ActionReset"
                             nz-tooltip
                             nzTooltipTitle="Reset all approved orders"
@@ -123,7 +64,7 @@
                     <th>After</th>
                     <th>Subtotal</th>
                 </tr>
-                @for (productModelMergeStock of this.selectedProviderRequirementAllProductModelInfosMergeStockItemRequests$ | async; track productModelMergeStock) {
+                @for (productModelMergeStock of this.selectedRequestRequireProductModelInfosMergeStockItemReqs$ | async; track productModelMergeStock) {
                 <tr class="text-[#ddd]">
                     <td nz-tooltip 
                         nzTooltipTitle="{{productModelMergeStock.productModelName}}">
@@ -146,7 +87,7 @@
                             </span>
                             <input type="number" 
                                    id="qtyInput-{{productModelMergeStock.productModelId}}"
-                                   step="qtyChange"
+                                   step="1"
                                    value="{{productModelMergeStock.itemQuantity}}"
                                    min="0">
                             <span class="incr-btn"
@@ -171,7 +112,7 @@
 
                     <div class="flex-1 flex flex-row justify-between">
                         <p>Total Item</p>
-                        <p class="font-bold">{{(selectedProviderRequirementAllProductModelInfosMergeStockItemRequests$ | async)?.length}}</p>
+                        <p class="font-bold">{{(selectedRequestRequireProductModelInfosMergeStockItemReqs$ | async)?.length}}</p>
                     </div>
                     <div class="flex-1 flex flex-row justify-between">
                         <p>Total Cost</p>
@@ -184,18 +125,6 @@
                 </div>
                 <hr class="text-secondary dark:text-darkSecondary">
                 <div class="flex flex-col xl:flex-row xl:gap-4 xl:justify-between">
-                    <div class="flex-1 flex flex-row justify-between">
-                        <p>Min Qty Accept</p>
-                        <p class="font-bold">
-                            {{(this.selectedProviderRequirement$ | async)?.minQuantityToBeAccepted}}
-                        </p>
-                    </div>
-                    <div class="flex-1 flex flex-row justify-between">
-                        <p>Min Price Accept</p>
-                        <p class="font-bold">
-                            {{(this.selectedProviderRequirement$ | async)?.minPriceToBeAccepted}}
-                        </p>
-                    </div>
                     <div class="flex-1 flex flex-row justify-between">
                         <p>Shipping</p>
                         <p class="font-bold">00.00</p>

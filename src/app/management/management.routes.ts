@@ -13,6 +13,7 @@ import { ProviderListManagementComponent } from "./components/provider-stock/pro
 import { ProviderDetailManagementComponent } from "./components/provider-stock/provider-detail/provider-detail.component";
 import { OrderComponent } from "./tabs/order/order.component";
 import { OrderApproveManagementComponent } from "./components/order/order-approve/order-approve.component";
+import { AddStockManagementComponent } from "./components/provider-stock/add-stock/add-stock.component";
 
 export const managementRoutes: Routes = [
     {
@@ -93,6 +94,11 @@ export const managementRoutes: Routes = [
                         component: ProviderDetailManagementComponent,
                         outlet: 'primary'
                     },
+                    {
+                        path: 'add-stock',
+                        component: AddStockManagementComponent,
+                        outlet: 'primary'
+                    }
                 ]
             }, 
             {

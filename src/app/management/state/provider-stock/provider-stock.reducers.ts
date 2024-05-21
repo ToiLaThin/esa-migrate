@@ -6,8 +6,9 @@ export const providerStockManagementFeatureKey = 'providerStockManagementFeature
 export const initialProviderStockManagementState: IProviderStockManagementState = {
     allProviderRequirements: [],
     selectedProviderRequirement: null,
-    allSelectedProviderProductModelInfosWithStockSub: [],
-    allProductModelInfoMergeStockItemReqs: []
+    //make it more generic, so we can use this same state for 2 page add stock and provider detail
+    displayingProductModelInfosWithStockSub: [],
+    displayingProductModelInfoMergeStockItemReqs: [],
 };
 
 export const providerStockManagementReducer = createReducer(
@@ -32,17 +33,17 @@ export const providerStockManagementReducer = createReducer(
         providerStockManagementActions.afterSelectLoadedProductModelsWithStockOfProviderAndTransformToProductModelMergeStockItemRequestSuccess,
         (state, action) => ({
             ...state,
-            allSelectedProviderProductModelInfosWithStockSub:
+            displayingProductModelInfosWithStockSub:
                 action.loadedProductModelsInfoWithStock,
-            allProductModelInfoMergeStockItemReqs:
+            displayingProductModelInfoMergeStockItemReqs:
                 action.transformedProductModelInfoMergeStockItemReqs
         })
     ),
     on(providerStockManagementActions.decreaseStockRequestQuantity, (state, action) => {
-        if (state.allProductModelInfoMergeStockItemReqs.length === 0 || state.allProductModelInfoMergeStockItemReqs === null) {
+        if (state.displayingProductModelInfoMergeStockItemReqs.length === 0 || state.displayingProductModelInfoMergeStockItemReqs === null) {
             return state;
         }
-        let mergedItem = state.allProductModelInfoMergeStockItemReqs.filter((mergedItem) => mergedItem.productModelId === action.productModelId);
+        let mergedItem = state.displayingProductModelInfoMergeStockItemReqs.filter((mergedItem) => mergedItem.productModelId === action.productModelId);
         if (mergedItem.length !== 1) { 
             alert("Product model id is duplicate") 
             return state;
@@ -52,16 +53,20 @@ export const providerStockManagementReducer = createReducer(
             return state;
         }
         console.log("Quantity before decrease:", mergedItem[0].itemQuantity);
-        console.log("Quantity after decrease:", mergedItem[0].itemQuantity - 1);
+        console.log("Quantity after decrease:", mergedItem[0].itemQuantity - action.quantityChange);
+        if (mergedItem[0].itemQuantity - action.quantityChange < 0) {
+            alert("Quantity request cannot be negative");
+            return state;
+        }
         return {
             ...state,
-            allProductModelInfoMergeStockItemReqs: state.allProductModelInfoMergeStockItemReqs.map((item) => {
+            displayingProductModelInfoMergeStockItemReqs: state.displayingProductModelInfoMergeStockItemReqs.map((item) => {
                 if (item.productModelId === action.productModelId) {
                     return {
                         ...item,
-                        itemQuantity: item.itemQuantity - 1,
-                        totalItemRequestPrice: item.unitRequestPrice * (item.itemQuantity - 1),
-                        afterRequestQuantity: item.currentQuantity + (item.itemQuantity - 1)
+                        itemQuantity: item.itemQuantity - action.quantityChange,
+                        totalItemRequestPrice: item.unitRequestPrice * (item.itemQuantity - action.quantityChange),
+                        afterRequestQuantity: item.currentQuantity + (item.itemQuantity - action.quantityChange)
                     };
                 }
                 return item;
@@ -70,29 +75,37 @@ export const providerStockManagementReducer = createReducer(
     }),
 
     on(providerStockManagementActions.increaseStockRequestQuantity, (state, action) => {
-        if (state.allProductModelInfoMergeStockItemReqs.length === 0 || state.allProductModelInfoMergeStockItemReqs === null) {
+        if (state.displayingProductModelInfoMergeStockItemReqs.length === 0 || state.displayingProductModelInfoMergeStockItemReqs === null) {
             return state;
         }
-        let mergedItem = state.allProductModelInfoMergeStockItemReqs.filter((mergedItem) => mergedItem.productModelId === action.productModelId);
+        let mergedItem = state.displayingProductModelInfoMergeStockItemReqs.filter((mergedItem) => mergedItem.productModelId === action.productModelId);
         if (mergedItem.length !== 1) { 
             alert("Product model id is duplicate") 
             return state;
         }
         console.log("Quantity before increase:", mergedItem[0].itemQuantity);
-        console.log("Quantity after increase:", mergedItem[0].itemQuantity - 1);
+        console.log("Quantity after increase:", mergedItem[0].itemQuantity + action.quantityChange);
         return {
             ...state,
-            allProductModelInfoMergeStockItemReqs: state.allProductModelInfoMergeStockItemReqs.map((item) => {
+            displayingProductModelInfoMergeStockItemReqs: state.displayingProductModelInfoMergeStockItemReqs.map((item) => {
                 if (item.productModelId === action.productModelId) {
                     return {
                         ...item,
-                        itemQuantity: item.itemQuantity + 1,
-                        totalItemRequestPrice: item.unitRequestPrice * (item.itemQuantity + 1),
-                        afterRequestQuantity: item.currentQuantity + (item.itemQuantity + 1)
+                        itemQuantity: item.itemQuantity + action.quantityChange,
+                        totalItemRequestPrice: item.unitRequestPrice * (item.itemQuantity + action.quantityChange),
+                        afterRequestQuantity: item.currentQuantity + (item.itemQuantity + action.quantityChange)
                     };
                 }
                 return item;
             })
         };
-    })
+    }),
+
+    on(providerStockManagementActions.afterLoadAllRequestRequireProductModelInfosWithStockSubAndTransformToProductModelMergeStockItemRequestSuccess, 
+        (state, action) => ({
+            ...state,
+            displayingProductModelInfosWithStockSub: action.loadedProductModelsInfoWithStock,
+            displayingProductModelInfoMergeStockItemReqs: action.transformedProductModelInfoMergeStockItemReqs
+        })
+    )
 );

@@ -3,6 +3,6 @@ import { IProductModelInfoMergeStockItemRequest, IProductModelInfoWithStockAggre
 export interface IProviderStockManagementState {
     allProviderRequirements: IProviderRequirement[];
     selectedProviderRequirement: IProviderRequirement | null;
-    allSelectedProviderProductModelInfosWithStockSub: IProductModelInfoWithStockAggregate[];
-    allProductModelInfoMergeStockItemReqs: IProductModelInfoMergeStockItemRequest[];
+    displayingProductModelInfosWithStockSub: IProductModelInfoWithStockAggregate[];
+    displayingProductModelInfoMergeStockItemReqs: IProductModelInfoMergeStockItemRequest[];
 }
