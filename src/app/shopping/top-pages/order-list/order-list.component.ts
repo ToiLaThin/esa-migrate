@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { IOrderAggregateCart } from '../../../core/models/order.interface';
 import { ColorSvgNames } from '../../../share-components/svg-definitions/color-svg-names.enum';
 import { Store } from '@ngrx/store';
@@ -8,24 +8,29 @@ import {
     OrdersSortType
 } from '../../../core/ui-models/order-filter-data';
 import { orderActions } from '../../state/order/order.actions';
-import { Observable, map } from 'rxjs';
+import { Observable, Subscription, map } from 'rxjs';
 import {
     selectorCurrentPageNumOrderAggregateCartFilteredSortedPaginated,
     selectorOrderAggregateCartFilteredSortedPaginatedList,
-    selectorPageCountOrderAggregateCartFilteredSortedPaginated
+    selectorPageCountOrderAggregateCartFilteredSortedPaginated,
+    selectorProductsForReorder
 } from '../../state/order/order.selectors';
 import { orderFeatureKey } from '../../state/order/order.reducers';
 import { IOrderState } from '../../state/order/orderState.interface';
 import { OrderStatus } from '../../../core/types/order-status.enum';
 import { selectorOrderListFilterSortPaginateAggregateState } from './../../state/order/order.selectors';
 import { PaymentMethod } from '../../../core/types/payment-method.enum';
+import { IProduct } from '../../../core/models/product.interface';
+import { cartActions } from '../../state/cart/cart.actions';
+import { ICartItem } from '../../../core/models/cart-item.interface';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'esa-order-list',
     templateUrl: './order-list.component.html',
     styleUrls: ['./order-list.component.scss']
 })
-export class OrderListComponent implements OnInit {
+export class OrderListComponent implements OnInit, OnDestroy {
     @ViewChild('cardContainer', { read: ElementRef<HTMLDivElement> })
     cardContainer!: ElementRef<HTMLDivElement>;
     isCardContainerOverflowing = false;
@@ -82,6 +87,8 @@ export class OrderListComponent implements OnInit {
     currentPageNum$!: Observable<number>;
     totalPagesAsArray$!: Observable<number[]>;
 
+    productsForReorder$!: Observable<IProduct[]>;
+    productsForReorderSubscription!: Subscription;
     currentWindowWidth!: number;
     get ColorSvgNames() {
         return ColorSvgNames;
@@ -100,7 +107,11 @@ export class OrderListComponent implements OnInit {
     get smScreen() {
         return 576;
     }
-    constructor(private _store: Store) {}
+    constructor(private _store: Store, private _router: Router) {}
+
+    ngOnDestroy(): void {
+        this.productsForReorderSubscription.unsubscribe();
+    }
 
     ngOnInit(): void {
         this.currentWindowWidth = window.innerWidth;
@@ -140,15 +151,24 @@ export class OrderListComponent implements OnInit {
                 state as { [orderFeatureKey]: IOrderState }
             )
         );
-        this.totalPagesAsArray$ = this._store.select((state) =>
-            selectorPageCountOrderAggregateCartFilteredSortedPaginated(state as { [orderFeatureKey]: IOrderState })
-        ).pipe(
-            map((totalPage) =>
-                Array(totalPage)
-                    .fill(1)
-                    .map((x, i) => i + 1)
+        this.totalPagesAsArray$ = this._store
+            .select((state) =>
+                selectorPageCountOrderAggregateCartFilteredSortedPaginated(
+                    state as { [orderFeatureKey]: IOrderState }
+                )
             )
+            .pipe(
+                map((totalPage) =>
+                    Array(totalPage)
+                        .fill(1)
+                        .map((x, i) => i + 1)
+                )
+            );
+
+        this.productsForReorder$ = this._store.select((state) =>
+            selectorProductsForReorder(state as { [orderFeatureKey]: IOrderState })
         );
+
         //for each 1 in the array len totalPage, map 1 => idx + 1
         this._store.dispatch(orderActions.loadOrderFitlerdSortedPaginatedList());
     }
@@ -194,10 +214,63 @@ export class OrderListComponent implements OnInit {
         );
     }
 
-    changePageNum(pageNum: number) {
-        this._store.dispatch(orderActions.selectPageNumber({ selectedPageNum: pageNum}))
+    reOrder(productBusinessKeys: string[]) {
+        //clear cart first
+        this._store.dispatch(cartActions.cartClear());
+
+        //after this is loaded, the state contain products for reorder
+        this._store.dispatch(orderActions.loadProductsWithBusinessKeys({ productBusinessKeys }));
+
+        this.productsForReorderSubscription = this.productsForReorder$.subscribe(
+            (productsForReorder) => {
+                productsForReorder.forEach((product) => {
+                    let model = product.productModels[0];
+                    let cartItem = {
+                        productId: product?.productId,
+                        productModelId: model.productModelId,
+                        businessKey: product?.businessKey,
+                        quantity: 1,
+                        isOnSale: model.isOnSaleModel,
+                        saleItemId: model.saleItemId,
+                        saleType: model.saleType,
+                        saleValue: model.saleValueModel,
+                        unitPrice: model.price,
+                        finalPrice: model.price * 1,
+                        unitAfterSalePrice:
+                            model.isOnSaleModel === false ? undefined : model.priceOnSaleModel,
+                        finalAfterSalePrice:
+                            model.isOnSaleModel === false
+                                ? undefined
+                                : model.priceOnSaleModel === undefined
+                                ? undefined
+                                : model.priceOnSaleModel * 1,
+                        productName: product.productName,
+                        productImage: product.productCoverImage,
+                        subCatalogName: product.subCatalogName
+                    };
+
+                    this._store.dispatch(
+                        cartActions.cartItemUpsert({ upsertCartItem: cartItem as ICartItem })
+                    );
+                });
+            }
+        );
+
+        //wait until the cart is loaded, then navigate to cart page, clear the productsForReorder
+        //do not use while + setTimeout, it will break the app, use setInterval instead
+        let itemsInCartKey = 'itemsInCart'; //must match the key in cart service
+        let timer = setInterval(() => {
+            if (localStorage.getItem(itemsInCartKey) !== null) {
+                clearInterval(timer);
+                this._store.dispatch(orderActions.allProductsForReorderAddedToCart());
+            }
+        }, 200);
     }
-    
+
+    changePageNum(pageNum: number) {
+        this._store.dispatch(orderActions.selectPageNumber({ selectedPageNum: pageNum }));
+    }
+
     @HostListener('window:resize', ['$event'])
     onResize(event: any) {
         this.currentWindowWidth = event.target.innerWidth;

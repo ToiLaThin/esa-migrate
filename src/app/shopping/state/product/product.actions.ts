@@ -20,7 +20,7 @@ export const productActions = createActionGroup({
         'Products Order Type Changed': props<{ selectedOrderType: OrderType }>(),
         'Page Changed': props<{ selectedPage: number }>(),
         'Price Range Changed': props<{ fromPrice: number; toPrice: number }>(),
-
+        
         'Load Product Comments': props<{ productBusinessKey: string }>(),
         'Product Comments Loaded Successfully': props<{ comments: IComment[] }>(),
         'Product Comments Loaded Failed': props<{ error: string }>(),

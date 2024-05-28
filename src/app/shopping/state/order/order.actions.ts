@@ -7,6 +7,7 @@ import {
 import { OrderStatus } from '../../../core/types/order-status.enum';
 import { OrdersSortBy, OrdersSortType } from '../../../core/ui-models/order-filter-data';
 import { PaymentMethod } from '../../../core/types/payment-method.enum';
+import { IProduct } from '../../../core/models/product.interface';
 
 export const orderActions = createActionGroup({
     source: 'Order Events In Shopping Module',
@@ -55,5 +56,11 @@ export const orderActions = createActionGroup({
             newOrderListPaymentMethod: PaymentMethod | null;
         }>(),
         'Select Page Number': props<{ selectedPageNum: number }>(),
+
+        //for reordering
+        'Load Products With Business Keys': props<{ productBusinessKeys: string[] }>(), //since product id, model id can changed for one product (if price updated)
+        'Load Products With Business Keys Successfull': props<{ products: IProduct[] }>(),
+        'Load Products With Business Keys Failed': props<{ error: string }>(),
+        'All Products For Reorder Added To Cart': emptyProps(),
     }
 });

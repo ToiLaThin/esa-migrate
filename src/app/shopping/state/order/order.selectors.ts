@@ -58,3 +58,8 @@ export const selectorCurrentPageNumOrderAggregateCartFilteredSortedPaginated = c
     selectOrderState,
     (state) => state.orderListPageNum
 )
+
+export const selectorProductsForReorder = createSelector(
+    selectOrderState,
+    (state) => state.productsForReorder
+)

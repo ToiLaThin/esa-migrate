@@ -16,13 +16,14 @@ import { OrderStatus } from '../../../core/types/order-status.enum';
 import { IAuthState } from '../../../auth/state/authState.interface';
 import { authFeatureKey } from '../../../auth/state/auth.reducers';
 import { selectorUserId } from '../../../auth/state/auth.selectors';
-import { OrdersSortBy, OrdersSortType } from '../../../core/ui-models/order-filter-data';
+import { ProductService } from '../../../core/services/product.service';
 
 @Injectable({ providedIn: 'root' })
 export class OrderEffects {
     constructor(
         private actions$: Actions,
         private _orderService: OrderService,
+        private _productService: ProductService,
         private _store: Store,
         private _router: Router
     ) {}
@@ -346,7 +347,8 @@ export class OrderEffects {
                         ),
                         map((returnedResult) =>
                             orderActions.loadOrderFitlerdSortedPaginatedListSuccess({
-                                orderAggregateCartFilteredSortedPaginatedList: returnedResult.orderAggregateCartViewModels,
+                                orderAggregateCartFilteredSortedPaginatedList:
+                                    returnedResult.orderAggregateCartViewModels,
                                 totalOrdersAfterOnlyFilteredCount: returnedResult.totalOrdersCount
                             })
                         ),
@@ -373,5 +375,33 @@ export class OrderEffects {
                 return of(orderActions.loadOrderFitlerdSortedPaginatedList());
             })
         )
+    );
+
+    //for reordering
+    loadProductsWithBusinessKeysEffect = createEffect(() =>
+        this.actions$.pipe(
+            ofType(orderActions.loadProductsWithBusinessKeys),
+            switchMap((action) =>
+                this._productService.getProductsWithBusinessKeys(action.productBusinessKeys).pipe(
+                    map((products) =>
+                        orderActions.loadProductsWithBusinessKeysSuccessfull({ products })
+                    ),
+                    catchError((err) =>
+                        of(orderActions.loadProductsWithBusinessKeysFailed({ error: err }))
+                    )
+                )
+            )
+        )
+    );
+
+    productForReorderAddedToCartEffect = createEffect(
+        () =>
+            this.actions$.pipe(
+                ofType(orderActions.allProductsForReorderAddedToCart),
+                tap((action) => {
+                    this._router.navigate(['/shopping/cart']);
+                })
+            ),
+        { dispatch: false }
     );
 }
