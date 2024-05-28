@@ -8,6 +8,7 @@ import { ICartItem } from "../../../../core/models/cart-item.interface";
 import { ProductClassName } from "../../../class/product-class";
 import { I18NProductIdSelector } from "../../../translate-ids/i18n-product-id";
 import { I18NCommonIdSelector } from "../../../../core/translation-loader/i18n-common-id";
+import { Router } from "@angular/router";
 
 @Component({
     selector: 'esa-product-info',
@@ -36,7 +37,7 @@ export class ProductInfoComponent {
         return I18NCommonIdSelector;
     }
     
-    constructor( private _store: Store) {
+    constructor( private _store: Store, private _router: Router) {
         console.log(this.isProductBookmarked);
         console.log(this.isProductLiked);
         console.log(this.isProductDisliked);
@@ -84,6 +85,55 @@ export class ProductInfoComponent {
                 upsertCartItem: cartItem as ICartItem //try to type assertion so if there is a missing field / undefined, it will throw an error
             })
         );
+    }
+
+    buyNowModel(event: Event, model: IProductModel) {
+        //clear the old items in cart and local storage first
+        this._store.dispatch(cartActions.cartClear());
+
+        //get the quantity from the input
+        console.log("buy now product model");
+        event.preventDefault();
+        let submitBtn = event.target as HTMLButtonElement;
+        let modelContainer = submitBtn.parentElement?.closest('div') as HTMLDivElement;
+        let modelQuantity = modelContainer.querySelector(
+            'input[name="quantity"]'
+        ) as HTMLInputElement;
+
+        //construct the cartItem to buy now, then redirect to cart page immediately
+        let cartItem = {
+            productId: this.product?.productId,
+            productModelId: model.productModelId,
+            businessKey: this.product?.businessKey,
+            quantity: 1,
+            isOnSale: model.isOnSaleModel,
+            saleItemId: model.saleItemId,
+            saleType: model.saleType,
+            saleValue: model.saleValueModel,
+            unitPrice: model.price,
+            finalPrice: model.price,
+            unitAfterSalePrice: model.isOnSaleModel === false ? undefined : model.priceOnSaleModel,
+            finalAfterSalePrice:
+                model.isOnSaleModel === false
+                    ? undefined
+                    : model.priceOnSaleModel === undefined
+                    ? undefined
+                    : model.priceOnSaleModel * 1,
+            productName: this.product.productName,
+            productImage: this.product.productCoverImage,
+            subCatalogName: this.product.subCatalogName,
+        };
+
+        //reset the quantity input
+        modelQuantity.value = '1';
+
+        this._store.dispatch(
+            cartActions.cartItemUpsert({
+                upsertCartItem: cartItem as ICartItem //try to type assertion so if there is a missing field / undefined, it will throw an error
+            })
+        );
+
+        this._router.navigateByUrl('/shopping/cart');
     }
 
     login() {

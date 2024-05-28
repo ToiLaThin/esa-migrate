@@ -25,6 +25,7 @@ export enum OutlineSvgNames {
 
     //Actions, some can also be used in others like tab management sidebar
     ActionExpand = 'expand-outline',
+    ActionBuyNow = 'buynow-outline',
     ActionClose = 'times-outline',
     ActionAdd = 'add-outline',
     ActionEdit = 'edit-outline',

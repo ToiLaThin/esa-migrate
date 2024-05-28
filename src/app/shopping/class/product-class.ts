@@ -21,5 +21,6 @@ export enum ProductClassName {
 
     ProductInfoQtyInput = 'product-info-qty-input',
     ProductInfoAddToCartBtn = 'product-info-add-to-cart-btn',
+    ProductInfoBuyNowBtn = 'product-info-buy-now-btn',
 
 }

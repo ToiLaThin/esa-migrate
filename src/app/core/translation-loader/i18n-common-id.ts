@@ -16,5 +16,6 @@ export enum I18NCommonIdSelector {
     CommonActionUnlike = 'common.actions.unlike',
     CommonActionUndislike = 'common.actions.undislike',
     CommonActionContinueShopping = 'common.actions.continue_shopping',
-    CommonActionApply = 'common.actions.apply_coupon'
+    CommonActionApply = 'common.actions.apply_coupon',
+    CommonActionBuyNow = 'common.actions.buy_now'
 }

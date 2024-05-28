@@ -24,6 +24,7 @@ export enum I18NProductIdSelector {
     ProductInfoColor = 'product.info.color',
     ProductInfoFreeShipping = 'product.info.free_shipping',
     ProductInfoAddToCart = 'product.info.add_to_cart',
+    ProductInfoBuyNow = 'product.info.buy_now',
     ProductInfoAddToCompare = 'product.info.add_to_compare',
     ProductInfoAddToWishlist = 'product.info.add_to_wishlist',
     ProductInfoRemoveFromWishlist = 'product.info.remove_from_wishlist',
