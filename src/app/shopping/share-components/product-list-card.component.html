@@ -18,20 +18,26 @@
         <div class="absolute -top-48 right-2 z-10 group-hover:top-4 transition-all">
             <div class="flex flex-col gap-2">
                 <p class="flex justify-center items-center 
-                          border border-solid border-gray-50 rounded-full w-10 h-10">
+                          border border-solid border-gray-50 rounded-full w-10 h-10 cursor-pointer">
                     <i class="far fa-heart text-xl"></i>
                 </p>
                 <p class="flex justify-center items-center 
-                          border border-solid border-gray-50 rounded-full w-10 h-10">
+                          border border-solid border-gray-50 rounded-full w-10 h-10 cursor-pointer">
                     <i class="fas fa-expand text-xl"></i>
                 </p>
                 <p class="flex justify-center items-center 
-                          border border-solid border-gray-50 rounded-full w-10 h-10">
+                          border border-solid border-gray-50 rounded-full w-10 h-10 cursor-pointer">
                     <i class="fas fa-link text-xl"></i>
                 </p>
                 <p class="flex justify-center items-center 
-                          border border-solid border-gray-50 rounded-full w-10 h-10">
-                    <i class="far fa-heart text-xl"></i>
+                          border border-solid border-gray-50 rounded-full w-10 h-10 cursor-pointer"
+                   (click)="buyNow()"
+                   nz-tooltip
+                   nzTooltipTitle="{{I18NCommonIds.CommonActionBuyNow | translate}}"
+                   nzTooltipPlacement="right">
+                    <svg-icon [iconName]="OutlineSvgNames.ActionBuyNow"
+                              [size]="20">
+                    </svg-icon>
                 </p>
             </div>
         </div>

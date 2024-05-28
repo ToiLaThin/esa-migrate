@@ -82,6 +82,10 @@
                         (click)="addModelToCart($event, product.productModels[0])">
                         {{I18NProductIds.ProductInfoAddToCart | translate}}
                 </button>
+                <button class="{{ProductClassName.ProductInfoBuyNowBtn}} btn-primary w-[90%] uppercase"
+                        (click)="buyNowModel($event, product.productModels[0])">
+                        {{I18NProductIds.ProductInfoBuyNow | translate}}
+                </button>
             </div>
         </div>   
         <div class="mt-4 text-subheading {{ProductClassName.ProductInfoInteractionContainer}}">
