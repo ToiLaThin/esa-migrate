@@ -17,5 +17,5 @@ export interface IProductState {
     userProductRateMappings: IRateProduct[],
 
     productCompareIdList: string[],
-    productSearchMatched: IProduct[] | null,
+    productSearchMatched: IProduct[] | null,    
 }

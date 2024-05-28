@@ -70,7 +70,8 @@
              #cardContainer>
              <!-- style will override lg:flex-row if overflow -->
             @for (orderAggregateCart of (this.orderAggregateCartsFilteredSortedPaginated$ | async); track $index) {
-            <esa-order-list-card [orderAggregateCart]="orderAggregateCart">
+            <esa-order-list-card [orderAggregateCart]="orderAggregateCart" 
+                                 (reOrdered)="reOrder($event)">
             </esa-order-list-card>
             }
         </div>

@@ -1,4 +1,4 @@
-import { Component, Input } from "@angular/core";
+import { Component, EventEmitter, Input, Output } from "@angular/core";
 import { IOrderAggregateCart } from "../../../../core/models/order.interface";
 import { ColorSvgNames } from "../../../../share-components/svg-definitions/color-svg-names.enum";
 import { OrderStatus } from "../../../../core/types/order-status.enum";
@@ -12,6 +12,7 @@ import { OrderDetailDrawerComponent } from "../order-detail-drawer/order-detail-
 })
 export class OrderListCardComponent {
     @Input({required: true}) orderAggregateCart!: IOrderAggregateCart;
+    @Output() reOrdered = new EventEmitter<string[]>();
     get ColorSvgNames() {
         return ColorSvgNames;
     }
@@ -33,5 +34,11 @@ export class OrderListCardComponent {
                 orderAggregateCart: this.orderAggregateCart
             }
         });
+    }
+
+    reOrder() {
+        //output for parent component to handle reorder
+        let productBusinessKeys = this.orderAggregateCart.cart.items.map(orderItem => orderItem.cartItemBusinessKey as string);
+        this.reOrdered.emit(productBusinessKeys);
     }
 }

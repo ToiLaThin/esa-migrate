@@ -66,7 +66,7 @@ export class ProductEffects {
             })
         )
     );
-
+    
     filterProductEffect = createEffect(() =>
         this.actions$.pipe(
             ofType(

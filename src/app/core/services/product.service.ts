@@ -19,4 +19,11 @@ export class ProductService {
             `${env.BASEURL}/api/ProductCatalog/ProductAPI/SearchProductByName?searchPhrase=${searchTerm}`
         );
     }
+
+    getProductsWithBusinessKeys(productBusinessKeys: string[]) {
+        return this.http.post<IProduct[]>(
+            `${env.BASEURL}/api/ProductCatalog/ProductAPI/GetProductsWithBusinessKeys`,
+            productBusinessKeys
+        );
+    }
 }

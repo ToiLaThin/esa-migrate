@@ -13,6 +13,7 @@ export enum ColorSvgNames {
     Phone = 'color-phone',
     Location = 'color-location',
     SaleTag = 'color-sale-tag',
+    Reload = 'color-reload', //used for reordering
 
     SortTypeSymbol = 'color-sort-type-symbol',
     SortTypeDesc = 'color-sort-type-desc',

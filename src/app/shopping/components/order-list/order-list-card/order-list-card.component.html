@@ -28,12 +28,13 @@
             }
         </div>
         <div class="ml-2">
-            <div class="text-lg">Order<span class="font-semibold text-sm italic">#{{orderAggregateCart.orderId| slice:0:8 | uppercase}}</span></div>
-            <div class="flex flex-row mt-2">
+            <div class="text-lg">
+                Order<span class="font-semibold text-sm italic">#{{orderAggregateCart.orderId| slice:0:8 | uppercase}}</span>
+            </div>            
+            <div class="flex flex-row mt-2 gap-2">
                 @if (orderAggregateCart.cart.totalSaleDiscountAmount !== 0) {
                 <svg-icon [iconName]="ColorSvgNames.SaleTag"
-                            [size]="28"
-                            class="mr-2">
+                          [size]="28">
                 </svg-icon>
                 <div class="pill-container pill-danger text-xs">
                     <p>-{{orderAggregateCart.cart.totalSaleDiscountAmount | rcurrency}}</p>
@@ -44,6 +45,13 @@
                     <p>No Coupon</p>
                 </div>
                 }
+                <svg-icon [iconName]="ColorSvgNames.Reload"
+                          [size]="28"
+                          class="cursor-pointer"
+                          nz-tooltip
+                          nzTooltipTitle="Reorder"
+                          (click)="reOrder()">
+                </svg-icon>
             </div>
         </div>
     </div>

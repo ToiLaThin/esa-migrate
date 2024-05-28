@@ -18,6 +18,7 @@ export const initialOrderState: IOrderState = {
     
     orderAggregateCartFilteredSortedPaginatedList: [],
     totalOrdersAfterFilteredCount: 0,//not paginated count, but all after filter
+    productsForReorder: []
 }
 
 export const orderReducer = createReducer(
@@ -115,4 +116,14 @@ export const orderReducer = createReducer(
             orderListPageNum: action.selectedPageNum
         };
     }),
+    on(orderActions.loadProductsWithBusinessKeysSuccessfull, (state, action) => ({
+        ...state,
+        productsForReorder: action.products
+    })),
+
+    //clear when done using it
+    on(orderActions.allProductsForReorderAddedToCart, (state, action) => ({
+        ...state,
+        productsForReorder: []
+    }))
 );

@@ -21,7 +21,7 @@ export const initialProductState: IProductState = {
         products: [],
         pageCount: 0,
         pageNumber: 0
-    },
+    },    
     productCompareIdList: [],
     productSearchMatched: null,
     allCatalogs: [],
@@ -41,7 +41,7 @@ export const productReducer = createReducer(
     on(productActions.productsLoadedSuccessfull, (state, action) => ({
         ...state,
         paginatedProducts: action.paginatedProducts
-    })),
+    })),    
     on(productActions.numProductsPerPageChanged, (state, action) => ({
         ...state,
         productLazyLoadRequest: {
