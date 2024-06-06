@@ -31,6 +31,43 @@ export class ProductEffects {
         private _store: Store
     ) {}
 
+    loadProductRecommendationsEffect = createEffect(() =>
+        this.actions$.pipe(
+            ofType(productActions.loadProductRecommendationsOfUser),
+            switchMap((action) =>
+                this._productService.getProductRecommendationsOfUser(action.userId).pipe(
+                    map((recommendations) =>
+                        productActions.productRecommendationsOfUserLoadedSuccessfully({
+                            productRecommendations: recommendations
+                        })
+                    ),
+                    catchError((err) =>
+                        of(productActions.productBookmarkMappingsLoadedFailed({ error: err }))
+                    )
+                )
+            )
+        )
+    );
+
+    loadProductRecommendationsSuccessfullEffect = createEffect(() =>
+        this.actions$.pipe(
+            ofType(productActions.productRecommendationsOfUserLoadedSuccessfully),
+            switchMap((action) =>
+                this._productService
+                    .getProductsWithBusinessKeys(
+                        action.productRecommendations.map((pR) => pR.product_key)
+                    )
+                    .pipe(
+                        map((products) =>
+                            productActions.recommendedProductLoadedSuccessfully({
+                                products: products
+                            })
+                        )
+                    )
+            )
+        )
+    );
+
     loadProductEffect = createEffect(() =>
         this.actions$.pipe(
             ofType(productActions.reloadProducts),
@@ -66,7 +103,7 @@ export class ProductEffects {
             })
         )
     );
-    
+
     filterProductEffect = createEffect(() =>
         this.actions$.pipe(
             ofType(

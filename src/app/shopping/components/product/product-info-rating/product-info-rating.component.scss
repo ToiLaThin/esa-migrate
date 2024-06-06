@@ -19,7 +19,8 @@
     /* add padding and positioning to half star labels */
     .rating__label--half {
         padding-right: 0;
-        margin-right: -1.16em;
+        // margin-right: -1.16em; when not running python interact script, use this so that half star is not visible
+        margin-right: 0; // when running python interact script, use this so that the half star is different from the full star (when clicked)
         z-index: 2;
     }
 

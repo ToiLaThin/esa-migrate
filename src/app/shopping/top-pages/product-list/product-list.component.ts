@@ -7,13 +7,14 @@ import {
     ProductPerPage,
     SortBy
 } from '../../../core/models/product.interface';
-import { Observable, map } from 'rxjs';
+import { Observable, Subject, map, takeUntil, tap } from 'rxjs';
 import { productFeatureKey } from '../../state/product/product.reducers';
 import { IProductState } from '../../state/product/productState.interface';
 import {
     selectorDisplayingProductCount,
     selectorDisplayingProducts,
     selectorPageCount,
+    selectorRecommendedProducts,
     selectorSelectedCatalog
 } from '../../state/product/product.selectors';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
@@ -21,6 +22,9 @@ import { Router } from '@angular/router';
 import { ProductClassName } from '../../class/product-class';
 import { ICatalog } from '../../../core/models/catalog.interface';
 import { I18NProductIdSelector } from '../../translate-ids/i18n-product-id';
+import { selectorUserId } from '../../../auth/state/auth.selectors';
+import { authFeatureKey } from '../../../auth/state/auth.reducers';
+import { IAuthState } from '../../../auth/state/authState.interface';
 
 @Component({
     selector: 'esa-product-list',
@@ -34,6 +38,9 @@ export class ProductListComponent implements OnInit {
     selectedCatalog$!: Observable<ICatalog | undefined>;
     totalPage$!: Observable<number>;
     totalPageAsArray$!: Observable<number[]>;
+    recommendedProducts$!: Observable<IProduct[]>;
+    userId!: string;
+    destroy$ = new Subject<void>();
 
     numProductPerPageEnums = Object.keys(ProductPerPage)
         .filter((k) => !isNaN(parseInt(k)))
@@ -90,6 +97,22 @@ export class ProductListComponent implements OnInit {
         this.selectedCatalog$ = this._store.select((state) =>
             selectorSelectedCatalog(state as { [productFeatureKey]: IProductState })
         );
+
+        this.recommendedProducts$ = this._store.select((state) =>
+            selectorRecommendedProducts(state as { [productFeatureKey]: IProductState })
+        );
+        this._store.select(state => selectorUserId(state as {[authFeatureKey]: IAuthState})).pipe(
+            takeUntil(this.destroy$),
+            tap(uId => {
+                this.userId = uId;
+            })
+        ).subscribe();
+
+        if (this.userId) {
+            this._store.dispatch(productActions.loadProductRecommendationsOfUser({ userId: this.userId }));
+        }
+
+        
     }
 
     toggleViewMode() {

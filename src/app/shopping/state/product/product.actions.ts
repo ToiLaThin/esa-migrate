@@ -2,6 +2,7 @@ import { createActionGroup, emptyProps, props } from '@ngrx/store';
 import {
     IPaginatedProduct,
     IProduct,
+    IProductRecommendation,
     OrderType,
     SortBy
 } from './../../../core/models/product.interface';
@@ -63,7 +64,11 @@ export const productActions = createActionGroup({
         'Products Searched Successfully': props<{ matchingProducts: IProduct[] }>(),
         'Products Searched Failed': props<{ error: string }>(),
         'Clear Search Products': emptyProps(),
-        
+
+        'Load Product Recommendations Of User': props<{ userId: string }>(),
+        'Product Recommendations Of User Loaded Successfully': props<{ productRecommendations: IProductRecommendation[] }>(), //only load the productBussinessKeys of recommend products
+        'Product Recommendations Of User Loaded Failed': props<{ error: string }>(),
+        'Recommended Product Loaded Successfully': props<{ products: IProduct[] }>(), //this action officially load products to the state
     }
 });
 
