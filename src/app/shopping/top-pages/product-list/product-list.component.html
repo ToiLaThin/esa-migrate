@@ -89,3 +89,16 @@
         </div>
     </div>
 </div>
+<h2 class="mt-4">
+    Recommended For You
+</h2>
+<div class="flex flex-wrap mb-6 border-collapse border border-solid border-gray-50 rounded">
+    @for (p of recommendedProducts$ | async; track p) {
+    <esa-product-card class="{{ProductClassName.ProductCard}} w-1/4" 
+                        [product]="p"
+                        (click)="viewProductQuickView(p.productId)">
+    </esa-product-card>
+    } @empty {
+    <p>No recommended products</p>
+    }
+</div>

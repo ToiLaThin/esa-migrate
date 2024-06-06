@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { IPaginatedProduct, IProduct, IProductLazyLoadRequest } from '../models/product.interface';
+import { IPaginatedProduct, IProduct, IProductLazyLoadRequest, IProductRecommendation } from '../models/product.interface';
 import { environment as env } from './../../../environments/environment.development';
 import { Injectable } from '@angular/core';
 
@@ -24,6 +24,12 @@ export class ProductService {
         return this.http.post<IProduct[]>(
             `${env.BASEURL}/api/ProductCatalog/ProductAPI/GetProductsWithBusinessKeys`,
             productBusinessKeys
+        );
+    }
+
+    getProductRecommendationsOfUser(userId: string) {
+        return this.http.get<IProductRecommendation[]>(
+            `${env.FLASKURL}/recommend?user_id=${userId}`
         );
     }
 }

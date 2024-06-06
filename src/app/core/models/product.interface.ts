@@ -92,3 +92,8 @@ export interface IPaginatedProduct {
     pageNumber: number;
     pageCount: number;
 }
+
+export interface IProductRecommendation {
+    product_key: string;
+    rating: number;
+}

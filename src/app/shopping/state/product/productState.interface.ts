@@ -18,4 +18,5 @@ export interface IProductState {
 
     productCompareIdList: string[],
     productSearchMatched: IProduct[] | null,    
+    recommendedProducts: IProduct[]
 }

@@ -110,3 +110,8 @@ export const selectorProductMatchedSearch = createSelector(
     selectorProductFeature,
     (productState) => productState.productSearchMatched
 );
+
+export const selectorRecommendedProducts = createSelector(
+    selectorProductFeature,
+    (productState) => productState.recommendedProducts
+);
