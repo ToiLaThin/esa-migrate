@@ -109,7 +109,9 @@ export class ProductListComponent implements OnInit {
         ).subscribe();
 
         if (this.userId) {
-            this._store.dispatch(productActions.loadProductRecommendationsOfUser({ userId: this.userId }));
+            this._store.dispatch(
+                productActions.loadProductRecommendationMetaDatasOfUser({ userId: this.userId })
+            );
         }
 
         

@@ -33,7 +33,8 @@ export const initialProductState: IProductState = {
     userProductBookmarkMappings: [],
     userProductLikeMappings: [],
     userProductRateMappings: [],
-    recommendedProducts: []
+    recommendedProducts: [],
+    crossSellingProducts: []
 };
 
 export const productFeatureKey = 'productFeature';
@@ -264,5 +265,12 @@ export const productReducer = createReducer(
             ...state,
             recommendedProducts: action.products
         }
-    })
+    }),
+
+    on(productActions.crossSellingProductsLoadedSuccessfully, (state, action) => {
+        return {
+            ...state,
+            crossSellingProducts: action.loadedProducts
+        }
+    }),
 );

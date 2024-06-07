@@ -2,7 +2,7 @@ import { createActionGroup, emptyProps, props } from '@ngrx/store';
 import {
     IPaginatedProduct,
     IProduct,
-    IProductRecommendation,
+    IProductRecommendationMetaData,
     OrderType,
     SortBy
 } from './../../../core/models/product.interface';
@@ -65,10 +65,15 @@ export const productActions = createActionGroup({
         'Products Searched Failed': props<{ error: string }>(),
         'Clear Search Products': emptyProps(),
 
-        'Load Product Recommendations Of User': props<{ userId: string }>(),
-        'Product Recommendations Of User Loaded Successfully': props<{ productRecommendations: IProductRecommendation[] }>(), //only load the productBussinessKeys of recommend products
-        'Product Recommendations Of User Loaded Failed': props<{ error: string }>(),
+        'Load Product Recommendation Meta Datas Of User': props<{ userId: string }>(),
+        'Product Recommendations Meta Data Of User Loaded Successfully': props<{ productRecommendationMetaDatas: IProductRecommendationMetaData[] }>(), //only load the productBussinessKeys of recommend products
+        'Product Recommendations Meta Data Of User Loaded Failed': props<{ error: string }>(),
         'Recommended Product Loaded Successfully': props<{ products: IProduct[] }>(), //this action officially load products to the state
+
+        'Load Cross Selling Products Meta Data Of Products In Cart': props<{ cartProductBusinessKeys: string[] }>(),
+        'Load Cross Selling Products Meta Data Successfully': props<{ crossSellingProductBusinessKeys: string[] }>(),
+        'Load Cross Selling Products Meta Data Failed': props<{ error: string }>(),
+        'Cross Selling Products Loaded Successfully': props<{ loadedProducts: IProduct[] }>(),
     }
 });
 

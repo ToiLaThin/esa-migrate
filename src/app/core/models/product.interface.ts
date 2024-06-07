@@ -93,7 +93,7 @@ export interface IPaginatedProduct {
     pageCount: number;
 }
 
-export interface IProductRecommendation {
+export interface IProductRecommendationMetaData {
     product_key: string;
     rating: number;
 }

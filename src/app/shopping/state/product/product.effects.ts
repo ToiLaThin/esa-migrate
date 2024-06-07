@@ -31,14 +31,49 @@ export class ProductEffects {
         private _store: Store
     ) {}
 
-    loadProductRecommendationsEffect = createEffect(() =>
+    loadProductCrossSellingMetaDataEffect = createEffect(() =>
         this.actions$.pipe(
-            ofType(productActions.loadProductRecommendationsOfUser),
+            ofType(productActions.loadCrossSellingProductsMetaDataOfProductsInCart),
             switchMap((action) =>
-                this._productService.getProductRecommendationsOfUser(action.userId).pipe(
-                    map((recommendations) =>
-                        productActions.productRecommendationsOfUserLoadedSuccessfully({
-                            productRecommendations: recommendations
+                this._productService.getProductCrossSellingMetaDatas(action.cartProductBusinessKeys).pipe(
+                    map((crossSellingProductBusinessKeys) =>
+                        productActions.loadCrossSellingProductsMetaDataSuccessfully({
+                            crossSellingProductBusinessKeys: crossSellingProductBusinessKeys
+                        })
+                    ),
+                    catchError((err) =>
+                        of(productActions.loadCrossSellingProductsMetaDataFailed({ error: err }))
+                    )
+                )
+            )
+        )
+    );
+
+    loadCrossSellingProductMetaDatasSuccessfullEffect = createEffect(() =>
+        this.actions$.pipe(
+            ofType(productActions.loadCrossSellingProductsMetaDataSuccessfully),
+            switchMap((action) =>
+                this._productService
+                    .getProductsWithBusinessKeys(action.crossSellingProductBusinessKeys)
+                    .pipe(
+                        map((products) =>
+                            productActions.crossSellingProductsLoadedSuccessfully({
+                                loadedProducts: products
+                            })
+                        )
+                    )
+            )
+        )
+    );
+
+    loadProductRecommendationMetaDatasEffect = createEffect(() =>
+        this.actions$.pipe(
+            ofType(productActions.loadProductRecommendationMetaDatasOfUser),
+            switchMap((action) =>
+                this._productService.getProductRecommendationMetaDatasOfUser(action.userId).pipe(
+                    map((recommendationMetaDatas) =>
+                        productActions.productRecommendationsMetaDataOfUserLoadedSuccessfully({
+                            productRecommendationMetaDatas: recommendationMetaDatas
                         })
                     ),
                     catchError((err) =>
@@ -51,11 +86,11 @@ export class ProductEffects {
 
     loadProductRecommendationsSuccessfullEffect = createEffect(() =>
         this.actions$.pipe(
-            ofType(productActions.productRecommendationsOfUserLoadedSuccessfully),
+            ofType(productActions.productRecommendationsMetaDataOfUserLoadedSuccessfully),
             switchMap((action) =>
                 this._productService
                     .getProductsWithBusinessKeys(
-                        action.productRecommendations.map((pR) => pR.product_key)
+                        action.productRecommendationMetaDatas.map((pR) => pR.product_key)
                     )
                     .pipe(
                         map((products) =>

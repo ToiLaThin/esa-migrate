@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ICartConfirmRequest, ICartItem } from '../../../core/models/cart-item.interface';
-import { Observable, Subscription, tap } from 'rxjs';
+import { Observable, Subscription, tap, map } from 'rxjs';
 import { Store } from '@ngrx/store';
 import {
     selectorAllActiveCouponsNotUsedByUser,
@@ -28,6 +28,13 @@ import { IManagementState } from '../../../management/state/management/managemen
 import { CartClassName } from '../../class/cart-class';
 import { I18NCartIdSelector } from '../../translate-ids/i18n-cart-id';
 import { I18NCommonIdSelector } from '../../../core/translation-loader/i18n-common-id';
+import { productActions } from '../../state/product/product.actions';
+import { IProduct } from '../../../core/models/product.interface';
+import { selectorCrossSellingProducts } from '../../state/product/product.selectors';
+import { productFeatureKey } from '../../state/product/product.reducers';
+import { IProductState } from '../../state/product/productState.interface';
+import { Router } from '@angular/router';
+import { ProductClassName } from '../../class/product-class';
 
 @Component({
     selector: 'esa-cart',
@@ -36,6 +43,8 @@ import { I18NCommonIdSelector } from '../../../core/translation-loader/i18n-comm
 })
 export class CartComponent implements OnInit {
     cartItems$!: Observable<ICartItem[]>;
+    crossSellingProducts$!: Observable<IProduct[]>;
+
     subItemsPrice$!: Observable<number>;
     subItemsAfterSalePrice$!: Observable<number>;
     discountAmountSale$!: Observable<number>;
@@ -59,8 +68,16 @@ export class CartComponent implements OnInit {
     get I18NCommonIds() {
         return I18NCommonIdSelector;
     }
-    
-    constructor(private _store: Store, private _nzNotificationService: NzNotificationService) {}
+
+    get ProductClassName() {
+        return ProductClassName;
+    }
+
+    constructor(
+        private _store: Store,
+        private _nzNotificationService: NzNotificationService,
+        private _router: Router
+    ) {}
 
     ngOnInit(): void {
         this._store.dispatch(cartActions.loadActiveCouponsNotUsedByUser());
@@ -68,6 +85,11 @@ export class CartComponent implements OnInit {
         this.cartItems$ = this._store.select((state) =>
             selectorItemsInCart(state as { [cartFeatureKey]: ICartState })
         );
+
+        this.crossSellingProducts$ = this._store.select((state) =>
+            selectorCrossSellingProducts(state as { [productFeatureKey]: IProductState })
+        );
+
         this.subItemsPrice$ = this._store.select((state) =>
             selectorSubItemsPrice(state as { [cartFeatureKey]: ICartState })
         );
@@ -89,6 +111,24 @@ export class CartComponent implements OnInit {
         this.subItemsAfterSaleThenCouponPrice$ = this._store.select((state) =>
             selectorSubItemsAfterSaleThenCouponPrice(state as { [cartFeatureKey]: ICartState })
         );
+
+        let cartItemSubscription = this.cartItems$.subscribe((cartItems) => {
+            if (cartItems.length > 0 && cartItems !== null && cartItems !== undefined) {
+                let productInCartBusinessKeys = cartItems.map(
+                    (cartItem) => cartItem.businessKey
+                ) as string[];
+                this._store.dispatch(
+                    productActions.loadCrossSellingProductsMetaDataOfProductsInCart({
+                        cartProductBusinessKeys: productInCartBusinessKeys
+                    })
+                );
+            }
+        });
+        cartItemSubscription.unsubscribe();
+    }
+
+    viewProductQuickView(productId: string | undefined) {
+        this._router.navigate(['shopping', 'product-quickview', productId]);
     }
 
     clearCart() {
@@ -157,7 +197,7 @@ export class CartComponent implements OnInit {
         };
         //undefined if no coupon applied and  will not have couponCode field in CartConfirmRequestDTO in backend
         console.log('cartRequest', cartConfirmReq);
-        this._store.dispatch(cartActions.confirmCart({ cartConfirmRequest: cartConfirmReq}));
+        this._store.dispatch(cartActions.confirmCart({ cartConfirmRequest: cartConfirmReq }));
     }
 
     applyCoupon() {
@@ -202,10 +242,13 @@ export class CartComponent implements OnInit {
     private checkUserRewardPointValidForCoupon(coupon: ICoupon): boolean {
         let currentUserRewardPoint: number | undefined;
         let tempSubscription: Subscription;
-        tempSubscription = this._store.select(state => selectorUserRewardPoints(state as { [managementFeatureKey]: IManagementState })).pipe(
-            tap((rewardPoint) => currentUserRewardPoint = rewardPoint),
-        ).subscribe();
-        tempSubscription.unsubscribe(); 
+        tempSubscription = this._store
+            .select((state) =>
+                selectorUserRewardPoints(state as { [managementFeatureKey]: IManagementState })
+            )
+            .pipe(tap((rewardPoint) => (currentUserRewardPoint = rewardPoint)))
+            .subscribe();
+        tempSubscription.unsubscribe();
 
         if (currentUserRewardPoint === undefined) {
             this._nzNotificationService.error('User reward point is not valid', '');
