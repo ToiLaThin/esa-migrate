@@ -115,3 +115,8 @@ export const selectorRecommendedProducts = createSelector(
     selectorProductFeature,
     (productState) => productState.recommendedProducts
 );
+
+export const selectorCrossSellingProducts = createSelector(
+    selectorProductFeature,
+    (productState) => productState.crossSellingProducts
+)

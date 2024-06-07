@@ -18,5 +18,6 @@ export interface IProductState {
 
     productCompareIdList: string[],
     productSearchMatched: IProduct[] | null,    
-    recommendedProducts: IProduct[]
+    recommendedProducts: IProduct[],
+    crossSellingProducts: IProduct[]
 }

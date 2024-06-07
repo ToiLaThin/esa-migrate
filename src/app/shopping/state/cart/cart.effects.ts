@@ -16,6 +16,7 @@ import { managementActions } from '../../../management/state/management/manageme
 import { selectorUserId } from '../../../auth/state/auth.selectors';
 import { authFeatureKey } from '../../../auth/state/auth.reducers';
 import { IAuthState } from '../../../auth/state/authState.interface';
+import { productActions } from '../product/product.actions';
 
 @Injectable({ providedIn: 'root' })
 export class CartEffects {
@@ -58,6 +59,28 @@ export class CartEffects {
                     .pipe(
                         tap((itemsInCart) => {
                             afterRemoveUpsertItemsInCart = itemsInCart;
+                            if (
+                                afterRemoveUpsertItemsInCart.length === 0 ||
+                                afterRemoveUpsertItemsInCart === null ||
+                                afterRemoveUpsertItemsInCart === undefined
+                            ) {
+                                this._store.dispatch(
+                                    productActions.loadCrossSellingProductsMetaDataOfProductsInCart(
+                                        { cartProductBusinessKeys: [] }
+                                    )
+                                );
+                            } else {
+                                this._store.dispatch(
+                                    productActions.loadCrossSellingProductsMetaDataOfProductsInCart(
+                                        {
+                                            cartProductBusinessKeys:
+                                                afterRemoveUpsertItemsInCart.map(
+                                                    (item) => item.businessKey
+                                                ) as string[]
+                                        }
+                                    )
+                                );
+                            }
                             this._cartService.updateCartItemsInStorage(
                                 afterRemoveUpsertItemsInCart
                             );
@@ -73,6 +96,13 @@ export class CartEffects {
     clearCartItems = createEffect(() =>
         this.actions$.pipe(
             ofType(cartActions.cartClear),
+            tap((_) => {
+                this._store.dispatch(
+                    productActions.loadCrossSellingProductsMetaDataOfProductsInCart({
+                        cartProductBusinessKeys: []
+                    })
+                );
+            }),
             switchMap((_) => {
                 this._cartService.clearCartInStorage();
                 return of(cartActions.cartItemUpsertRemoveChangeQuantityClearSuccessful());
@@ -133,7 +163,9 @@ export class CartEffects {
                 tap((_) => {
                     let currentUserId!: string;
                     let tempSubscription = this._store
-                        .select((state) => selectorUserId(state as { [authFeatureKey]: IAuthState }))
+                        .select((state) =>
+                            selectorUserId(state as { [authFeatureKey]: IAuthState })
+                        )
                         .pipe(
                             tap((uid) => {
                                 currentUserId = uid;
@@ -142,7 +174,9 @@ export class CartEffects {
                         .subscribe();
                     tempSubscription.unsubscribe();
                     if (currentUserId && currentUserId !== '') {
-                        this._store.dispatch(managementActions.loadUserRewardPoints({userId: currentUserId}));
+                        this._store.dispatch(
+                            managementActions.loadUserRewardPoints({ userId: currentUserId })
+                        );
                     }
 
                     this._notificationService.create('success', 'Order confirmed', '');
