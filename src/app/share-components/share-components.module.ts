@@ -7,6 +7,8 @@ import { PillComponent } from "./pill/pill.component";
 import { InputComponent } from "./input/input.component";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { FullPageNotificationComponent } from "./full-page-notification/full-page-notification.component";
+import { DashboardLayoutComponent } from "./dashboard-layout/dashboard-layout.component";
+import { NzModalModule } from "ng-zorro-antd/modal";
 
 const sharedComponents = [
     SvgIconComponent,
@@ -14,11 +16,12 @@ const sharedComponents = [
     ButtonComponent,
     PillComponent,
     InputComponent,
-    FullPageNotificationComponent
+    FullPageNotificationComponent,
+    DashboardLayoutComponent
 ]
 @NgModule({
     declarations: [sharedComponents],
-    imports: [CommonModule, FormsModule, ReactiveFormsModule],
+    imports: [CommonModule, FormsModule, ReactiveFormsModule, NzModalModule],
     exports: [sharedComponents]
 })
 export class ShareComponentsModule {

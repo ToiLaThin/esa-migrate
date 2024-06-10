@@ -103,4 +103,23 @@ export const featureLinkDatas: IFeatureLinkData[] = [
             }
         ]
     },
+    {
+        featurePrimaryOutletLink: 'dashboard',
+        featureTitle: 'Dashboards',
+        iconName: OutlineSvgNames.Clipboard,
+        tabs: [
+            {
+                tabRouterLink: 'dashboard/cart-item-dashboard',
+                tabTitle: 'Cart Item Dashboard',
+                iconName: OutlineSvgNames.StocksStack,
+                fillColor: '#000'
+            },
+            {
+                tabRouterLink: 'dashboard/cart-order-dashboard',
+                tabTitle: 'Cart Order Dashboard',
+                iconName: OutlineSvgNames.StocksStack,
+                fillColor: '#000'
+            }
+        ]
+    },
 ];
