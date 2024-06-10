@@ -59,6 +59,9 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { ManagementNavigationHorizontalComponent } from './layout/zen-mode/management-navigation-horizontal.component';
 import { AddStockManagementComponent } from './components/provider-stock/add-stock/add-stock.component';
+import { DashboardComponent } from './tabs/dashboard/dashboard.component';
+import { CartItemDashboardManagementComponent } from './components/dashboard/cart-item-dashboard/cart-item-dashboard.component';
+import { CartOrderDashboardManagementComponent } from './components/dashboard/cart-order-dashboard/cart-order-dashboard.component';
 const importNzModules = [
     NzButtonModule,
     NzDropDownModule,
@@ -140,7 +143,11 @@ const importNzModules = [
 
         ProductListPaginationComponent,
         ProductListFilterComponent,
-        ProductListAdvanceFilterComponent
+        ProductListAdvanceFilterComponent,
+
+        DashboardComponent,
+        CartItemDashboardManagementComponent,
+        CartOrderDashboardManagementComponent
     ],
     exports: []
 })

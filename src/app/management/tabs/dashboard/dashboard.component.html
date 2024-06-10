@@ -1,0 +1,22 @@
+<esa-management-layout>
+    <a [routerLink]="['cart-item-dashboard']"
+       class="flex flex-row items-center mt-2">
+        <span class="mr-2">
+            <svg-icon [iconName]="OutlineSvgNames.CartCheck" 
+                    [size]="24" 
+                    [fillColor]="'#000'">
+            </svg-icon>            
+        </span>
+        Cart Item Dashboard
+    </a>
+    <a [routerLink]="['cart-order-dashboard']"
+       class="flex flex-row items-center mt-2">
+        <span class="mr-2">
+            <svg-icon [iconName]="OutlineSvgNames.StocksStack" 
+                    [size]="24" 
+                    [fillColor]="'#000'">
+            </svg-icon>            
+        </span>
+        Cart Order Dashboard
+    </a>
+</esa-management-layout>

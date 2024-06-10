@@ -49,6 +49,17 @@
                       (click)="toggleSideBar()">
             </svg-icon>
         </a>
+        <a [routerLink]="['/management',{outlets: {primary: 'dashboard'}}]"
+           nz-tooltip
+           nzTooltipPlacement="right"
+           nzTooltipTitle="Dashboards"
+           nzTooltipTrigger="hover">
+            <svg-icon [iconName]="OutlineSvgNames.Clipboard"
+                      [fillColor]="'whitesmoke'"
+                      [size]="24"
+                      (click)="toggleSideBar()">
+            </svg-icon>
+        </a>
     </div>
     <div class="flex-auto">
     </div>

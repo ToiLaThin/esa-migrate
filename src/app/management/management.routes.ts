@@ -14,6 +14,9 @@ import { ProviderDetailManagementComponent } from "./components/provider-stock/p
 import { OrderComponent } from "./tabs/order/order.component";
 import { OrderApproveManagementComponent } from "./components/order/order-approve/order-approve.component";
 import { AddStockManagementComponent } from "./components/provider-stock/add-stock/add-stock.component";
+import { DashboardComponent } from "./tabs/dashboard/dashboard.component";
+import { CartItemDashboardManagementComponent } from "./components/dashboard/cart-item-dashboard/cart-item-dashboard.component";
+import { CartOrderDashboardManagementComponent } from "./components/dashboard/cart-order-dashboard/cart-order-dashboard.component";
 
 export const managementRoutes: Routes = [
     {
@@ -116,6 +119,28 @@ export const managementRoutes: Routes = [
                         component: OrderApproveManagementComponent,
                         outlet: 'primary'
                     },
+                ]
+            },
+            {
+                path: 'dashboard',
+                component: DashboardComponent,
+                outlet: 'primary',
+                children: [
+                    {
+                        path: '',
+                        redirectTo: 'cart-item-dashboard',
+                        pathMatch: 'full'
+                    },
+                    {
+                        path: 'cart-item-dashboard',
+                        component: CartItemDashboardManagementComponent,
+                        outlet: 'primary'
+                    },
+                    {
+                        path: 'cart-order-dashboard',
+                        component: CartOrderDashboardManagementComponent,
+                        outlet: 'primary'
+                    }
                 ]
             }
         ]

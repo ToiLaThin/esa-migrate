@@ -1,0 +1,65 @@
+<div class="container relative">
+    @if (currentDashboardLayoutMode == DashBoardLayout.Rows) {
+        <div class="mt-8 flex flex-wrap flex-row justify-center items-center gap-5">
+            @if (dashboardType == 'cartItem') {
+                <!-- due to xss, we cannot interpolate iframe url to src in iframe tag TODO, fix this -->
+                <div class="p-2 bg-secondary" 
+                     (click)="selectDashboard($event)">
+                    <iframe title="Sample Report Demo" 
+                            width="1300" 
+                            height="541.25" 
+                            src="https://app.powerbi.com/reportEmbed?reportId=9f262807-6be7-4f9e-98e0-0c9f2d5372ea&autoAuth=true&embeddedDemo=true" 
+                            frameborder="0" 
+                            allowFullScreen="true">
+                    </iframe>
+                </div>
+                <div class="p-2 bg-secondary" 
+                     (click)="selectDashboard($event)">
+                    <iframe title="Sample Report Demo" 
+                            width="1300" 
+                            height="541.25" 
+                            src="https://app.powerbi.com/reportEmbed?reportId=08defa4f-feb6-4bc6-b492-a028351af8c7&autoAuth=true&embeddedDemo=true" 
+                            frameborder="0" 
+                            allowFullScreen="true">
+                    </iframe>
+                </div>
+                <div class="p-2 bg-secondary" 
+                     (click)="selectDashboard($event)">
+                    <iframe title="Sample Report Demo" 
+                            width="1300" 
+                            height="541.25" 
+                            src="https://app.powerbi.com/reportEmbed?reportId=52757851-c42b-4728-bd7c-78458dd0743b&autoAuth=true&embeddedDemo=true" 
+                            frameborder="0" 
+                            allowFullScreen="true">
+                    </iframe>
+                </div>
+            } 
+            @else if (dashboardType == 'cartOrder') {
+                <div class="p-2 bg-secondary" 
+                     (click)="selectDashboard($event)">
+                    <iframe title="Sample Report Demo" 
+                            width="1300" 
+                            height="541.25" 
+                            src="https://app.powerbi.com/reportEmbed?reportId=d13c27ae-1495-4930-b4f4-cb2c326c0258&autoAuth=true&embeddedDemo=true" 
+                            frameborder="0" 
+                            allowFullScreen="true">
+                    </iframe>
+                </div>
+                <div class="p-2 bg-secondary" 
+                     (click)="selectDashboard($event)">
+                    <iframe title="Sample Report Demo" 
+                            width="1300" 
+                            height="541.25" 
+                            src="https://app.powerbi.com/reportEmbed?reportId=65033f44-926c-479b-8fd6-b065af4cfbf3&autoAuth=true&embeddedDemo=true" 
+                            frameborder="0" 
+                            allowFullScreen="true">
+                    </iframe>
+                </div>
+            }
+        </div>
+    }
+    <ng-template #selectedDashboardTemplate>
+        <div [innerText]="this.selectedDashboard">
+        </div>
+    </ng-template>
+</div>
