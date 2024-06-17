@@ -1,4 +1,4 @@
-import { Component, Input, TemplateRef, ViewChild } from "@angular/core";
+import { Component, EmbeddedViewRef, Input, TemplateRef, ViewChild, ViewContainerRef, viewChild } from "@angular/core";
 import { DashboardLayout } from "../../core/ui-models/dashboard-layout-type";
 import { NzModalService } from "ng-zorro-antd/modal";
 
@@ -10,8 +10,6 @@ import { NzModalService } from "ng-zorro-antd/modal";
 export class DashboardLayoutComponent {
     currentDashboardLayoutMode: DashboardLayout = DashboardLayout.Rows;
     @Input({required: true}) dashboardType!: 'cartItem' | 'cartOrder';
-    @ViewChild('selectedDashboardTemplate') selectedDashboardTemplate!: TemplateRef<any>;
-    selectedDashboard: HTMLIFrameElement | null = null;
     // <iframe title="esaDistrictCartOrderReport" width="1140" height="541.25" src="https://app.powerbi.com/reportEmbed?reportId=d13c27ae-1495-4930-b4f4-cb2c326c0258&autoAuth=true&embeddedDemo=true" frameborder="0" allowFullScreen="true"></iframe>
     cartItemDashboardIrameUrls = [
         'https://app.powerbi.com/reportEmbed?reportId=9f262807-6be7-4f9e-98e0-0c9f2d5372ea&autoAuth=true&embeddedDemo=true',
@@ -29,16 +27,4 @@ export class DashboardLayoutComponent {
     }
 
     constructor(private _modalService: NzModalService) {}
-    
-    selectDashboard(event: Event) {
-        const selectedDashboard = ((event.target as HTMLDivElement).querySelector('iframe') as HTMLIFrameElement);
-        this.selectedDashboard = selectedDashboard;
-        this._modalService.create({
-            nzTitle: '',
-            nzContent: selectedDashboard.innerHTML, //TODO: fix this
-            nzFooter: null,
-            nzClosable: true,
-            nzWidth: '98%',
-        });
-    }
 }
