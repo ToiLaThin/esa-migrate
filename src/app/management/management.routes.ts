@@ -17,9 +17,11 @@ import { AddStockManagementComponent } from "./components/provider-stock/add-sto
 import { DashboardComponent } from "./tabs/dashboard/dashboard.component";
 import { CartItemDashboardManagementComponent } from "./components/dashboard/cart-item-dashboard/cart-item-dashboard.component";
 import { CartOrderDashboardManagementComponent } from "./components/dashboard/cart-order-dashboard/cart-order-dashboard.component";
+import { RoleAdminGuard } from "../core/guards/role-admin.guard";
 
 export const managementRoutes: Routes = [
     {
+        canActivate: [RoleAdminGuard],
         path: '',
         component: ManagementComponent,
         children: [

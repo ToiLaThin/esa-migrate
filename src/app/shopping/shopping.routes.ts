@@ -13,6 +13,7 @@ import { OrderTrackingNotifyCustomerComponent } from "./components/order-process
 import { AuthenticatedRequiredGuard } from "../core/guards/authenticated-required.guard";
 import { ProductCompareComponent } from "./top-pages/product-compare/product-compare.component";
 import { AccountComponent } from "./top-pages/account/account.component";
+import { RoleAdminGuard } from "../core/guards/role-admin.guard";
 
 export const shoppingRoutes: Routes = [
     {
@@ -28,8 +29,7 @@ export const shoppingRoutes: Routes = [
                 path: 'index',
                 component: IndexComponent
             },
-            {
-                // canActivate: [AuthenticatedRequiredGuard],
+            {                
                 path: 'product-list',
                 component: ProductListComponent
             },
@@ -51,14 +51,17 @@ export const shoppingRoutes: Routes = [
                 component: CartComponent
             },
             {
+                canActivate: [AuthenticatedRequiredGuard, RoleAdminGuard],
                 path: 'order-list',
                 component: OrderListComponent
             },
             {
+                canActivate: [AuthenticatedRequiredGuard],
                 path: 'account',
                 component: AccountComponent
             },
             {
+                canActivate: [AuthenticatedRequiredGuard],
                 path: 'order-process',
                 component: OrderProcessComponent,
                 children: [

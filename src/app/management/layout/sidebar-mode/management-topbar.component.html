@@ -91,6 +91,7 @@
                 <svg-icon [iconName]="OutlineSvgNames.SidebarLayout"
                           [size]="24"
                           (click)="changeManagementViewMode()"
+                          [fillColor]="'currentColor'"
                           nz-tooltip
                           nzTooltipTitle="click to change to top bar mode">
                 </svg-icon>
@@ -98,6 +99,7 @@
             @if (this.currentManagementViewMode === 'navbar') {
                 <svg-icon [iconName]="OutlineSvgNames.TopbarLayout"
                           [size]="24"
+                          [fillColor]="'currentColor'"
                           (click)="changeManagementViewMode()"
                           nz-tooltip
                           nzTooltipTitle="click to change to side bar mode">
