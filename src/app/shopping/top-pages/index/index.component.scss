@@ -1,0 +1,18 @@
+@import '../../../core/styles/animations';
+.to-reveal { opacity: 0; }
+.to-reveal.revealed { opacity: 1; }
+.fade-right.revealed { 
+    @include animation-config(slideFadeRight, 2s);
+}
+
+.fade-down.revealed { 
+    @include animation-config(slideFadeDown, 2s);
+}
+
+.fade-down-high.revealed { 
+    @include animation-config(slideFadeDownHigh, 2s);
+}
+
+.infinite-scale {
+    @include animation-config(scale, 1s, ease-in-out, 0, infinite);
+}

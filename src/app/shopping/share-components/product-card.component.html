@@ -7,8 +7,11 @@
 <div class="border border-gray-50 dark:border-none border-solid">
     <div class="overflow-hidden relative group max-h-[350px]">
         <!-- Style child base on parent state with group -->
-        <img src="{{product.productCoverImage}}" 
-             class="fluid-img object-cover">
+         <div class="h-[200px] overflow-hidden">
+             <img src="{{product.productCoverImage}}" 
+                  class="fluid-img object-cover" 
+                  style="width: 400px; min-width: 100px;">
+         </div>
         @if (product.isOnSale) {
         <div class="absolute top-4 left-2 z-10 ">
             <p class="inline-block bg-[red] text-white text-sm px-2 py-[2px] rounded">- {{product.productModels[0].saleValueModel}}%</p>

@@ -65,14 +65,14 @@
 </div>
 
 <div class="my-container py-8 mt-18">
-    <div class="flex flex-row justify-start  gap-4">
+    <div class="flex flex-row justify-start gap-4 to-reveal fade-down">
         <p class="heading text-secondary dark:text-darkSecondary">{{I18NIndexIds.TabFreshFood | translate}}</p>
         <p class="heading text-secondary dark:text-darkSecondary">{{I18NIndexIds.TabDailyProduct | translate}}</p>
         <p class="heading text-secondary dark:text-darkSecondary">{{I18NIndexIds.TabDrinks | translate}}</p>
         <p class="heading text-secondary dark:text-darkSecondary">{{I18NIndexIds.TabMilks | translate}}</p>
         <p class="heading text-secondary dark:text-darkSecondary">{{I18NIndexIds.TabHomeAppliance | translate}}</p>
     </div>
-    <div class="mt-5 flex flex-row justify-start overflow-hidden">
+    <div class="mt-5 flex flex-row justify-start overflow-hidden to-reveal fade-right">
         @for (productPlaceholder of this.placeholderProducts; track productPlaceholder) {
         <esa-product-card [product]="productPlaceholder">
         </esa-product-card>
@@ -88,7 +88,7 @@
                      class="fluid-img rounded-md" 
                      style="height: auto;">
             </div>
-            <div class="absolute flex flex-col justify-between gap-2 top-2 left-2 
+            <div class="absolute flex flex-col justify-between gap-2 top-2 left-4 
                         xl:top-6 xl:left-6 xl:gap-6
                         md:top-6 md:left-6 md:gap-6">
                 <p class="font-normal text-md xl:text-xl" 
@@ -97,7 +97,11 @@
                 <p class="font-medium text-xl xl:text-3xl" 
                    [innerHTML]="I18NIndexIds.Banner7Mid | translate">
                 </p>
-                <p class="btn-primary uppercase text-center self-start">{{I18NCommonIds.CommonActionShopNow | translate}}</p>
+                <!-- CTA button -->
+                <a routerLink="/shopping/product-list" 
+                   class="btn-primary uppercase text-center self-start infinite-scale">
+                   {{I18NCommonIds.CommonActionShopNow | translate}}
+                </a>
             </div>
         </div>
         <div class="relative w-full lg:w-1/2">
@@ -107,7 +111,7 @@
                      style="height: auto;"> 
                 <!-- h-auto override h-full in fluid-img class -->
             </div>
-            <div class="absolute flex flex-col justify-between gap-2 top-2 left-2 
+            <div class="absolute flex flex-col justify-between gap-2 top-2 left-4 
                         xl:top-6 xl:left-6 xl:gap-6
                         md:top-6 md:left-6 md:gap-6">
                 <p class="font-normal text-md xl:text-xl" 
@@ -116,13 +120,17 @@
                 <p class="font-medium text-xl xl:text-3xl" 
                    [innerHTML]="I18NIndexIds.Banner8Mid | translate">
                 </p>
-                <p class="btn-primary uppercase text-center self-start">{{I18NCommonIds.CommonActionShopNow | translate}}</p>
+                <!-- CTA button -->
+                <a routerLink="/shopping/product-list" 
+                   class="btn-primary uppercase text-center self-start infinite-scale">
+                   {{I18NCommonIds.CommonActionShopNow | translate}}
+                </a>
             </div>
         </div>
     </div>
 </div>
 
-<div class="my-container my-18">
+<div class="my-container my-18 to-reveal fade-down">
     <p class="text-heading">What Our Clients Say</p>
     <div class="flex flex-col lg:flex-row justify-between mt-5">
         <esa-testimonial-card class="w-full lg:w-[32%]"
@@ -149,14 +157,14 @@
     </div>
 </div>
 <div class="my-container py-8">
-    <div class="flex flex-row justify-start  gap-4">
+    <div class="flex flex-row justify-start  gap-4 to-reveal fade-right">
         <p class="heading text-secondary dark:text-darkSecondary">{{I18NIndexIds.TabFreshFood | translate}}</p>
         <p class="heading text-secondary dark:text-darkSecondary">{{I18NIndexIds.TabDailyProduct | translate}}</p>
         <p class="heading text-secondary dark:text-darkSecondary">{{I18NIndexIds.TabDrinks | translate}}</p>
         <p class="heading text-secondary dark:text-darkSecondary">{{I18NIndexIds.TabMilks | translate}}</p>
         <p class="heading text-secondary dark:text-darkSecondary">{{I18NIndexIds.TabHomeAppliance | translate}}</p>
     </div>
-    <div class="mt-5 flex flex-row justify-start overflow-hidden">
+    <div class="mt-5 flex flex-row justify-start overflow-hidden to-reveal fade-down">
         <!-- product card co min-width => overflow => hidden de tránh lộ phần đó ra -->
         @for (productPlaceholder of this.placeholderProducts; track productPlaceholder) {
         <esa-product-card [product]="productPlaceholder">
@@ -164,7 +172,7 @@
         }
     </div>
 </div>
-<div class="my-container my-18">
+<div class="my-container my-18 to-reveal fade-down-high">
     <div class="flex flex-row flex-wrap justify-between">
         <!-- Normal (mobile first is 1/2 lg is 1/5 but on tight screen when reach 220px it wrap) -->
         <esa-feature class="w-[50%] min-w-[220px] lg:w-[20%]"
