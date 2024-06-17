@@ -10,7 +10,8 @@ import { Subscription } from "rxjs";
 
 @Component({
     selector: 'esa-index',
-    templateUrl: './index.component.html'
+    templateUrl: './index.component.html',
+    styleUrls: ['./index.component.scss']
 
 })
 export class IndexComponent implements OnInit, OnDestroy {
