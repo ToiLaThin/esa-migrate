@@ -3,8 +3,7 @@
         <div class="mt-8 flex flex-wrap flex-row justify-center items-center gap-5">
             @if (dashboardType == 'cartItem') {
                 <!-- due to xss, we cannot interpolate iframe url to src in iframe tag TODO, fix this -->
-                <div class="p-2 bg-secondary" 
-                     (click)="selectDashboard($event)">
+                <div class="p-2 bg-secondary">
                     <iframe title="Sample Report Demo" 
                             width="1300" 
                             height="541.25" 
@@ -13,8 +12,7 @@
                             allowFullScreen="true">
                     </iframe>
                 </div>
-                <div class="p-2 bg-secondary" 
-                     (click)="selectDashboard($event)">
+                <div class="p-2 bg-secondary">
                     <iframe title="Sample Report Demo" 
                             width="1300" 
                             height="541.25" 
@@ -23,8 +21,7 @@
                             allowFullScreen="true">
                     </iframe>
                 </div>
-                <div class="p-2 bg-secondary" 
-                     (click)="selectDashboard($event)">
+                <div class="p-2 bg-secondary">
                     <iframe title="Sample Report Demo" 
                             width="1300" 
                             height="541.25" 
@@ -35,8 +32,7 @@
                 </div>
             } 
             @else if (dashboardType == 'cartOrder') {
-                <div class="p-2 bg-secondary" 
-                     (click)="selectDashboard($event)">
+                <div class="p-2 bg-secondary">
                     <iframe title="Sample Report Demo" 
                             width="1300" 
                             height="541.25" 
@@ -45,8 +41,7 @@
                             allowFullScreen="true">
                     </iframe>
                 </div>
-                <div class="p-2 bg-secondary" 
-                     (click)="selectDashboard($event)">
+                <div class="p-2 bg-secondary">
                     <iframe title="Sample Report Demo" 
                             width="1300" 
                             height="541.25" 
@@ -58,8 +53,4 @@
             }
         </div>
     }
-    <ng-template #selectedDashboardTemplate>
-        <div [innerText]="this.selectedDashboard">
-        </div>
-    </ng-template>
 </div>
