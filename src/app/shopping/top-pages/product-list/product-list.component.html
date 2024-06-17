@@ -1,8 +1,27 @@
 <esa-breadcrumb></esa-breadcrumb>
 <div class="my-container my-10 flex flex-row items-baseline gap-4">
     <!-- align baseline la gi: no giup cac flex item ko can width nhu nhau -->
-    <div class="w-[20%] border border-solid border-gray-50 rounded {{ProductClassName.ProductListFilterByContainer}}">
-        <esa-product-filter-by></esa-product-filter-by>
+    <div class="w-[20%]">
+        <div class="border border-solid border-gray-50 rounded {{ProductClassName.ProductListFilterByContainer}}">
+            <esa-product-filter-by></esa-product-filter-by>
+        </div>
+        
+
+        <div class="mt-4 p-4">
+            <h3 class="mb-4">Recommend for you</h3>
+            @for (p of recommendedProducts$ | async | slice:0:4; track p) {
+                <esa-product-card class="{{ProductClassName.ProductCard}}" 
+                                    [product]="p"
+                                    (click)="viewProductQuickView(p.productId)">
+                </esa-product-card>
+            } @empty {
+            <p>No recommended products</p>
+            }
+        </div>
+        
+
+        <div class="mt-4 p-4">
+        </div>
     </div>
     <div class="w-[80%] {{ProductClassName.ProductListContainer}}">
         <h2 class="text-2xl font-semibold">{{ (selectedCatalog$ |async)?.catalogName }}</h2>
@@ -88,17 +107,4 @@
             </div>
         </div>
     </div>
-</div>
-<h2 class="mt-4">
-    Recommended For You
-</h2>
-<div class="flex flex-wrap mb-6 border-collapse border border-solid border-gray-50 rounded">
-    @for (p of recommendedProducts$ | async; track p) {
-    <esa-product-card class="{{ProductClassName.ProductCard}} w-1/4" 
-                        [product]="p"
-                        (click)="viewProductQuickView(p.productId)">
-    </esa-product-card>
-    } @empty {
-    <p>No recommended products</p>
-    }
 </div>
