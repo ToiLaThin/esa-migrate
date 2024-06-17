@@ -57,7 +57,7 @@ export class ManagementComponent implements OnInit, OnDestroy {
         clearTimeout(this.timer);
     }
 
-    toggleViewMode() {
-        this.managementViewMode = this.managementViewMode === 'navbar' ? 'sidebar' : 'navbar';
+    changeMangementViewMode(newManagementViewMode: 'navbar' | 'sidebar') {
+        this.managementViewMode = newManagementViewMode;
     }
 }

@@ -106,7 +106,7 @@ export const featureLinkDatas: IFeatureLinkData[] = [
     {
         featurePrimaryOutletLink: 'dashboard',
         featureTitle: 'Dashboards',
-        iconName: OutlineSvgNames.Clipboard,
+        iconName: OutlineSvgNames.Dashboard,
         tabs: [
             {
                 tabRouterLink: 'dashboard/cart-item-dashboard',

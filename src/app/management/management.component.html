@@ -1,7 +1,7 @@
-<button (click)="toggleViewMode()">Toggle View Mode</button>
 @if (this.managementViewMode === 'sidebar') {
     @if ((this.topbarOpened$ | async) === true) {
-    <esa-management-topbar>
+    <esa-management-topbar [currentManagementViewMode]="this.managementViewMode"
+                            (managementViewModeChangedTo)="changeMangementViewMode($event)">
     </esa-management-topbar>
     } @else {
     <ng-container [ngTemplateOutlet]="topbarHoverRevealerTempl"></ng-container>
@@ -22,7 +22,8 @@
     </div>
 
 } @else {
-    <esa-management-topbar>
+    <esa-management-topbar [currentManagementViewMode]="this.managementViewMode"
+                           (managementViewModeChangedTo)="changeMangementViewMode($event)">
     </esa-management-topbar>
     <esa-management-navigation-horizontal [userInfo]="userInfo!">
     </esa-management-navigation-horizontal>
