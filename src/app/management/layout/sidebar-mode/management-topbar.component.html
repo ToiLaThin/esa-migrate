@@ -74,7 +74,7 @@
         <svg-icon [iconName]="moreLayoutOptionTopbarExpanded === true ? ColorSvgNames.OptionLessHorizontal : ColorSvgNames.OptionMoreHorizontal" 
                    [size]="24"
                    (click)="toggleMoreLayoutOptionTopbar()">
-        </svg-icon>
+        </svg-icon>        
         <div class="flex flex-row gap-1 overflow-hidden transition-all duration-1200 ease-in-out"
              [ngClass]="moreLayoutOptionTopbarExpanded === true ? 'w-auto px-[6px]': 'w-0 px-0'">
             <svg-icon [iconName]="OutlineSvgNames.SidebarNotFixed"
@@ -86,6 +86,23 @@
                       [size]="24"
                       (click)="toggleNavigationLeft()">
             </svg-icon>
+            
+            @if (this.currentManagementViewMode === 'sidebar') {
+                <svg-icon [iconName]="OutlineSvgNames.SidebarLayout"
+                          [size]="24"
+                          (click)="changeManagementViewMode()"
+                          nz-tooltip
+                          nzTooltipTitle="click to change to top bar mode">
+                </svg-icon>
+            }
+            @if (this.currentManagementViewMode === 'navbar') {
+                <svg-icon [iconName]="OutlineSvgNames.TopbarLayout"
+                          [size]="24"
+                          (click)="changeManagementViewMode()"
+                          nz-tooltip
+                          nzTooltipTitle="click to change to side bar mode">
+                </svg-icon>
+            }
         </div>
     </div>
 </nav>

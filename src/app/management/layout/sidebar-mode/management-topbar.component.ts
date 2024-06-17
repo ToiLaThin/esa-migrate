@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { managementActions } from '../../state/management/management.actions';
 import { OutlineSvgNames } from '../../../share-components/svg-definitions/outline-svg-names.enum';
@@ -19,6 +19,8 @@ import { currencyDatas } from '../../../core/ui-models/currency-data';
     styleUrls: ['./management-topbar.component.scss']
 })
 export class ManagementTopbarComponent implements OnInit, OnDestroy {
+    @Input({required: true}) currentManagementViewMode: 'navbar' | 'sidebar' = 'navbar';
+    @Output() managementViewModeChangedTo: EventEmitter<'navbar' | 'sidebar'> = new EventEmitter<'navbar' | 'sidebar'>();
     get AuthStatus() {
         return AuthStatus;
     } //for template to use enum
@@ -120,5 +122,10 @@ export class ManagementTopbarComponent implements OnInit, OnDestroy {
         if (this.selectedLanguage !== language) {
             this._store.dispatch(managementActions.changeLanguage({ newLanguage: language }));
         }
+    }
+
+    changeManagementViewMode() {
+        let newManagementViewMode: 'navbar' | 'sidebar' = this.currentManagementViewMode === 'navbar' ? 'sidebar' : 'navbar';
+        this.managementViewModeChangedTo.emit(newManagementViewMode);
     }
 }

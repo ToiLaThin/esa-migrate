@@ -3,6 +3,8 @@ export enum OutlineSvgNames {
     Cube = 'cube-outline',
     Discount = 'discount-outline',
     Clipboard = 'clipboard-outline',
+    Dashboard = 'dashboard-outline',
+    
 
     //Sidebar
     SidebarOverlay = 'sidebar-overlay',
@@ -15,6 +17,12 @@ export enum OutlineSvgNames {
     Cog = 'cog-outline',
     Notification = 'notification-outline',
 
+
+    //Layout
+    TopbarLayout = 'navbar-layout',
+    SidebarLayout = 'sidebar-layout',
+
+    //View mode
     ViewModeList = 'list-view-mode',
     ViewModeTable = 'table-view-mode',
     ViewModeKanban = 'kanban-view-mode',
