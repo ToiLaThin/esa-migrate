@@ -72,6 +72,11 @@ export const selectorDisplayingProducts = createSelector(
     selectorProductFeature,
     (productState) => productState.paginatedProducts.products
 );
+export const selectorIsLoadingProducts = createSelector(
+    selectorProductFeature,
+    (productState) => productState.isLoadingProducts
+);
+
 export const selectorPageCount = createSelector(
     selectorProductFeature,
     (productState) => productState.paginatedProducts.pageCount
@@ -114,6 +119,10 @@ export const selectorProductMatchedSearch = createSelector(
 export const selectorRecommendedProducts = createSelector(
     selectorProductFeature,
     (productState) => productState.recommendedProducts
+);
+export const selectorIsLoadingRecommendedProducts = createSelector(
+    selectorProductFeature,
+    (productState) => productState.isLoadingRecommendedProducts
 );
 
 export const selectorCrossSellingProducts = createSelector(

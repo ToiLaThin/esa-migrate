@@ -9,14 +9,19 @@
 
         <div class="mt-4 p-4">
             <h3 class="mb-4">Recommend for you</h3>
-            @for (p of recommendedProducts$ | async | slice:0:4; track p) {
-                <esa-product-card class="{{ProductClassName.ProductCard}}" 
-                                    [product]="p"
-                                    (click)="viewProductQuickView(p.productId)">
-                </esa-product-card>
-            } @empty {
-            <p>No recommended products</p>
-            }
+            @if ((isLoadingRecommendedProduct$ | async) === true) {
+                <esa-loader-spinner [isLoading]="true" [isFullPage]="false">
+                </esa-loader-spinner>
+            } @else {
+                @for (p of recommendedProducts$ | async | slice:0:4; track p) {
+                    <esa-product-card class="{{ProductClassName.ProductCard}}" 
+                                        [product]="p"
+                                        (click)="viewProductQuickView(p.productId)">
+                    </esa-product-card>
+                } @empty {
+                <p>No recommended products</p>
+                }
+            }            
         </div>
         
 
@@ -77,23 +82,30 @@
                 </div>
             </div>
         </div>
-        <div class="flex flex-wrap mb-6 border-collapse border border-solid border-gray-50 rounded">
-            <!-- Todo xem lai border -->
-            @for (product of (displayingProducts$ | async); track displayingProducts$) {
-                @if (this.productCardView === true) {
-                <esa-product-card class="{{ProductClassName.ProductCard}} w-1/2 lg:w-1/4" 
-                                  [product]="product"
-                                  (click)="viewProductQuickView(product.productId)">
-                </esa-product-card>
+        @if ((isLoadingProductsToDisplay$ | async) === true) {
+            <!-- even if it is placed here, it can still display full page if isFullPage === true -->
+            <esa-loader-spinner [isLoading]="true" 
+                                [isFullPage]="true">
+            </esa-loader-spinner>
+        } @else {
+            <div class="flex flex-wrap mb-6 border-collapse border border-solid border-gray-50 rounded">
+                <!-- Todo xem lai border -->
+                @for (product of (displayingProducts$ | async); track displayingProducts$) {
+                    @if (this.productCardView === true) {
+                    <esa-product-card class="{{ProductClassName.ProductCard}} w-1/2 lg:w-1/4" 
+                                      [product]="product"
+                                      (click)="viewProductQuickView(product.productId)">
+                    </esa-product-card>
+                    }
+                    @else {
+                    <esa-product-list-card class="{{ProductClassName.ProductCard}} w-full" 
+                                           [product]="product"
+                                           (click)="viewProductQuickView(product.productId)">
+                    </esa-product-list-card>
+                    }
                 }
-                @else {
-                <esa-product-list-card class="{{ProductClassName.ProductCard}} w-full" 
-                                       [product]="product"
-                                       (click)="viewProductQuickView(product.productId)">
-                </esa-product-list-card>
-                }
-            }
-        </div>
+            </div>
+        }
         <div class="flex flex-row justify-between items-center {{ProductClassName.ProductListPagination}}">
             <span class="text-subheading" [innerHTML]="I18NProductIds.ProductListTopFilterNumProductsDisplayingEnd | translate: {num: displayingProductsCount$ | async,start: 1,end: 16}">
             </span>

@@ -17,6 +17,7 @@ export const initialProductState: IProductState = {
         orderType: OrderType.Ascending,
         filterRequests: []
     },
+    isLoadingProducts: false,
     paginatedProducts: {
         products: [],
         pageCount: 0,
@@ -34,14 +35,20 @@ export const initialProductState: IProductState = {
     userProductLikeMappings: [],
     userProductRateMappings: [],
     recommendedProducts: [],
+    isLoadingRecommendedProducts: false,
     crossSellingProducts: []
 };
 
 export const productFeatureKey = 'productFeature';
 export const productReducer = createReducer(
     initialProductState,
+    on(productActions.reloadProducts, (state) => ({
+        ...state,
+        isLoadingProducts: true
+    })),
     on(productActions.productsLoadedSuccessfull, (state, action) => ({
         ...state,
+        isLoadingProducts: false,
         paginatedProducts: action.paginatedProducts
     })),    
     on(productActions.numProductsPerPageChanged, (state, action) => ({
@@ -260,10 +267,17 @@ export const productReducer = createReducer(
         }
     }),
     
+    on(productActions.loadProductRecommendationMetaDatasOfUser, (state, action) => {
+        return {
+            ...state,
+            isLoadingRecommendedProducts: true
+        }
+    }),
     on(productActions.recommendedProductLoadedSuccessfully, (state, action) => {
         return {
             ...state,
-            recommendedProducts: action.products
+            recommendedProducts: action.products,
+            isLoadingRecommendedProducts: false
         }
     }),
 

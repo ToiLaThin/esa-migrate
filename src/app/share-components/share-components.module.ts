@@ -9,6 +9,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { FullPageNotificationComponent } from "./full-page-notification/full-page-notification.component";
 import { DashboardLayoutComponent } from "./dashboard-layout/dashboard-layout.component";
 import { NzModalModule } from "ng-zorro-antd/modal";
+import { LoaderSpinnerComponent } from "./loader/loader-spinner.component";
 
 const sharedComponents = [
     SvgIconComponent,
@@ -16,6 +17,7 @@ const sharedComponents = [
     ButtonComponent,
     PillComponent,
     InputComponent,
+    LoaderSpinnerComponent,
     FullPageNotificationComponent,
     DashboardLayoutComponent
 ]
