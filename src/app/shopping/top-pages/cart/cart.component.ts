@@ -30,7 +30,7 @@ import { I18NCartIdSelector } from '../../translate-ids/i18n-cart-id';
 import { I18NCommonIdSelector } from '../../../core/translation-loader/i18n-common-id';
 import { productActions } from '../../state/product/product.actions';
 import { IProduct } from '../../../core/models/product.interface';
-import { selectorCrossSellingProducts } from '../../state/product/product.selectors';
+import { selectorCrossSellingProducts, selectorIsLoadingCrossSellingProducts } from '../../state/product/product.selectors';
 import { productFeatureKey } from '../../state/product/product.reducers';
 import { IProductState } from '../../state/product/productState.interface';
 import { Router } from '@angular/router';
@@ -44,6 +44,7 @@ import { ProductClassName } from '../../class/product-class';
 export class CartComponent implements OnInit {
     cartItems$!: Observable<ICartItem[]>;
     crossSellingProducts$!: Observable<IProduct[]>;
+    isLoadingCrossSellingProducts$!: Observable<boolean>;
 
     subItemsPrice$!: Observable<number>;
     subItemsAfterSalePrice$!: Observable<number>;
@@ -88,6 +89,9 @@ export class CartComponent implements OnInit {
 
         this.crossSellingProducts$ = this._store.select((state) =>
             selectorCrossSellingProducts(state as { [productFeatureKey]: IProductState })
+        );
+        this.isLoadingCrossSellingProducts$ = this._store.select((state) =>
+            selectorIsLoadingCrossSellingProducts(state as { [productFeatureKey]: IProductState })
         );
 
         this.subItemsPrice$ = this._store.select((state) =>

@@ -5,6 +5,8 @@ import { Observable, Subscription, combineLatest, of, switchMap, tap } from 'rxj
 import { AuthStatus } from '../../../core/types/auth-status.enum';
 import { Store } from '@ngrx/store';
 import {
+    selectorCrossSellingProducts,
+    selectorIsLoadingCrossSellingProducts,
     selectorIsSelectedProductBookmarked,
     selectorIsSelectedProductDisliked,
     selectorIsSelectedProductLiked,
@@ -39,6 +41,8 @@ export class ProductQuickviewComponent implements OnInit, OnDestroy {
     productBusinessKey!: string;
     currUserId!: string;
 
+    crossSellingProducts$!: Observable<IProduct[]>;
+    isLoadingCrossSellingProducts$!: Observable<boolean>;
     productRating$!: Observable<number | undefined | null>;
     isProductRated$!: Observable<boolean>;
     
@@ -60,8 +64,22 @@ export class ProductQuickviewComponent implements OnInit, OnDestroy {
         this.routeParamsSubscription = this._route.params.subscribe((params) => {
             this.productId = params['productId'];
         });
+        this.crossSellingProducts$ = this._store.select((state) =>
+            selectorCrossSellingProducts(state as { [productFeatureKey]: IProductState })
+        );
+        this.isLoadingCrossSellingProducts$ = this._store.select((state) =>
+            selectorIsLoadingCrossSellingProducts(state as { [productFeatureKey]: IProductState })
+        );
         this.product$ = this._store.select((state) =>
             selectorProductSelected(this.productId)(state as { [productFeatureKey]: IProductState })
+        ).pipe(
+            tap((product) => {
+                this._store.dispatch(
+                    productActions.loadCrossSellingProductsMetaDataOfProductsInCart({
+                        cartProductBusinessKeys: [product.businessKey as string] //not in cart but we want to see
+                    })
+                );
+            })
         );
         this.product$.subscribe((product) => {
             console.log("Product quickview product: ", product);

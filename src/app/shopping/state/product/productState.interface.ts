@@ -21,5 +21,6 @@ export interface IProductState {
     productSearchMatched: IProduct[] | null,    
     recommendedProducts: IProduct[],
     isLoadingRecommendedProducts: boolean,
-    crossSellingProducts: IProduct[]
+    crossSellingProducts: IProduct[];
+    isLoadingCrossSellingProducts: boolean;
 }

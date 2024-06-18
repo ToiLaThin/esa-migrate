@@ -36,7 +36,8 @@ export const initialProductState: IProductState = {
     userProductRateMappings: [],
     recommendedProducts: [],
     isLoadingRecommendedProducts: false,
-    crossSellingProducts: []
+    crossSellingProducts: [],
+    isLoadingCrossSellingProducts: false
 };
 
 export const productFeatureKey = 'productFeature';
@@ -130,6 +131,13 @@ export const productReducer = createReducer(
     on(catalogActions.subCatalogOfCatalogLoadedSuccessfull, (state, action) => ({
         ...state,
         subCatalogsOfSelectedCatalog: action.loadedSubCatalogOfCatalog,
+        productLazyLoadRequest: {
+            ...state.productLazyLoadRequest,
+            //remove all filter requests of previous subcatalogs of previous catalog
+            filterRequests: state.productLazyLoadRequest.filterRequests.filter(
+                (filterRequest) => filterRequest.filterBy != FilterBy.SubCatalogs
+            )
+        }
     })),
     on(catalogActions.subCatalogSelected, (state, action) => {
         const filteredBySub = state.productLazyLoadRequest.filterRequests.find(
@@ -281,9 +289,16 @@ export const productReducer = createReducer(
         }
     }),
 
+    on(productActions.loadCrossSellingProductsMetaDataOfProductsInCart, (state) => {
+        return {
+            ...state,
+            isLoadingCrossSellingProducts: true
+        }
+    }),
     on(productActions.crossSellingProductsLoadedSuccessfully, (state, action) => {
         return {
             ...state,
+            isLoadingCrossSellingProducts: false,
             crossSellingProducts: action.loadedProducts
         }
     }),

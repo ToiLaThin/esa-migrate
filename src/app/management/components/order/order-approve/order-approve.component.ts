@@ -9,6 +9,8 @@ import {
 } from '../../../../core/models/order-approve.model';
 import { orderManagementFeatureKey } from '../../../state/order/order.reducers';
 import {
+    selectorIsConfirmingApprovedOrders,
+    selectorIsLoadingOrdersToApprove,
     selectorItemStockLookUp,
     selectorOrderAggregateCartDetail,
     selectorOrdersApprovedAggregate,
@@ -34,7 +36,10 @@ export class OrderApproveManagementComponent implements OnInit, OnDestroy {
     ordersApproved$!: Observable<IOrderApprovedAggregate[]>;
     ordersApprovedSubscription!: Subscription;
     ordersApproved!: IOrderApprovedAggregate[];
+    isConfirmingApprovedOrders$!: Observable<boolean>;
+
     ordersToApprove$!: Observable<IOrderItems[]>;
+    isLoadingOrdersToApprove$!: Observable<boolean>;
 
     orderDetailSubscription!: Subscription;
     constructor(private _store: Store, private _drawerService: NzDrawerService) {
@@ -53,6 +58,11 @@ export class OrderApproveManagementComponent implements OnInit, OnDestroy {
         this.ordersToApprove$ = this._store.select((state) =>
             selectorOrdersToApprove(state as { [orderManagementFeatureKey]: IOrderManagementState })
         );
+        this.isLoadingOrdersToApprove$ = this._store.select((state) =>
+            selectorIsLoadingOrdersToApprove(
+                state as { [orderManagementFeatureKey]: IOrderManagementState }
+            )
+        );
         this.ordersApprovedTypeIOrderItem$ = this._store.select((state) =>
             selectorOrdersApprovedTypeIOrderItem(
                 state as { [orderManagementFeatureKey]: IOrderManagementState }
@@ -60,6 +70,11 @@ export class OrderApproveManagementComponent implements OnInit, OnDestroy {
         );
         this.ordersApproved$ = this._store.select((state) =>
             selectorOrdersApprovedAggregate(
+                state as { [orderManagementFeatureKey]: IOrderManagementState }
+            )
+        );
+        this.isConfirmingApprovedOrders$ = this._store.select((state) =>
+            selectorIsConfirmingApprovedOrders(
                 state as { [orderManagementFeatureKey]: IOrderManagementState }
             )
         );

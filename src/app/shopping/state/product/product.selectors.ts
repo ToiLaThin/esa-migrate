@@ -129,3 +129,7 @@ export const selectorCrossSellingProducts = createSelector(
     selectorProductFeature,
     (productState) => productState.crossSellingProducts
 )
+export const selectorIsLoadingCrossSellingProducts = createSelector(
+    selectorProductFeature,
+    (productState) => productState.isLoadingCrossSellingProducts
+)

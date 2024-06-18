@@ -7,18 +7,20 @@
                 <!-- để quay carousel image xuống dưới image lớn -->
                 <div class="min-w-[120px] flex flex-row justify-between items-center self-start gap-2 xl:flex-col">
                     <button class="py-2 px-4 bg-gray-300 self-stretch text-lg">&#94;</button>
-                    <div class="border border-solid border-gray-50 rounded-md">
-                        <img src="/assets/images/today-is-a-good-day-framed-poster.jpg" alt="">
-                    </div>
-                    <div class="border border-solid border-gray-50 rounded">
-                        <img src="/assets/images/today-is-a-good-day-framed-poster-2.jpg" alt="">
-                    </div>
-                    <div class="border border-solid border-gray-50 rounded">
-                        <img src="/assets/images/today-is-a-good-day-framed-poster-3.jpg" alt="">
-                    </div>
-                    <div class="border border-solid border-gray-50 rounded">
-                        <img src="/assets/images/today-is-a-good-day-framed-poster-4.jpg" alt="">
-                    </div>
+                    @if (isLoadingCrossSellingProducts$ | async) {
+                        <esa-loader-spinner [isLoading]="true" 
+                                            [isFullPage]="false">
+                        </esa-loader-spinner>
+                    } @else {
+                        @for (p of this.crossSellingProducts$ | async | slice:0:4; track $index) {
+                        <div class="border border-solid border-gray-50 rounded">
+                            <img src="{{p.productCoverImage}}">
+                        </div>
+                        }
+                        @empty {
+                            No cross selling products
+                        }
+                    }
                     <button class="py-2 px-4 bg-gray-300 self-stretch text-lg" style="transform: rotate(180deg);">&#94;</button>
                 </div>
                 <div class="border border-solid border-gray-50 rounded self-start  overflow-hidden
