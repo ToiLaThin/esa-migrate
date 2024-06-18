@@ -28,16 +28,20 @@
             <div class="flex flex-row justify-between items-center gap-1">
                 <!-- chinh lai height khoi nay  -->
                 <!-- <button class="py-2 px-4 bg-gray-300 self-stretch text-lg">&#94;</button> -->
-                <div class="border border-solid border-gray-50 rounded-md">
-                    <img src="/assets/images/today-is-a-good-day-framed-poster.jpg" alt="">
-                </div>
-                <div class="border border-solid border-gray-50 rounded">
-                    <img src="/assets/images/today-is-a-good-day-framed-poster-2.jpg" alt="">
-                </div>
-                <div class="border border-solid border-gray-50 rounded">
-                    <img src="/assets/images/today-is-a-good-day-framed-poster-3.jpg" alt="">
-                </div>
-                <!-- <button class="py-2 px-4 bg-gray-300 self-stretch text-lg" style="transform: rotate(180deg);">&#94;</button> -->
+                @if (isLoadingCrossSellingProducts$ | async) {
+                    <esa-loader-spinner [isLoading]="true" 
+                                        [isFullPage]="false">
+                    </esa-loader-spinner>
+                } @else {
+                    @for (p of this.crossSellingProducts$ | async | slice:0:3; track $index) {
+                        <div class="border border-solid border-gray-50 rounded">                            
+                            <img src="{{p.productCoverImage}}">
+                        </div>
+                    }
+                    @empty {
+                        No cross selling products
+                    }
+                }
             </div>
         </div>
         <div class="w-full lg:w-1/2">

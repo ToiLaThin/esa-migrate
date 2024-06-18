@@ -13,7 +13,7 @@
             "left_filter": {
                 "filter_by": "Filter by",
                 "subcatalog": "Subcatalog",
-                "empty_subcatalog": "Please select catalog to filter",
+                "empty_catalog": "Please select catalog to filter",
                 "price_range": "Price range"
             }
         },

@@ -1,3 +1,8 @@
+@if ((this.isConfirmingApprovedOrders$ | async) === true) {
+    <esa-loader-spinner [isLoading]="true" 
+                        [isFullPage]="true">
+    </esa-loader-spinner>   
+}
 <div class="flex flex-row justify-between">
     <div>
        There are {{(itemStockLookUp$ | async)?.length}} items involved in {{(ordersToApprove$ | async)?.length}} orders to approve
@@ -6,24 +11,40 @@
 </div>
 <div class="flex flex-col lg:flex-row gap-4 mt-2">
     <div class=" flex-1 px-4 py-4 bg-light dark:bg-black">
+        @if ((this.isLoadingOrdersToApprove$ | async) === true) {
+        <div class="flex justify-center items-center h-64">
+            <esa-loader-spinner [isLoading]="true" 
+                                [isFullPage]="false">
+            </esa-loader-spinner>
+        </div>
+        } @else {
         <esa-management-order-approve-items [displayMode]="this.displayModeItems"
                                             [itemStockLookUp]="(itemStockLookUp$ | async)!"
                                             (displayModeToggled)="toggleDisplayModeItems()"
                                             class="sticky top-1 mr-3">
         </esa-management-order-approve-items>
+        }
     </div>
 
     <div class="flex-1">
+        @if ((this.isLoadingOrdersToApprove$ | async) === true) {
+        <div class="flex justify-center items-center h-64">
+            <esa-loader-spinner [isLoading]="true" 
+                                [isFullPage]="false">
+            </esa-loader-spinner>
+        </div>
+        } @else {
         <esa-management-order-approve-list [displayMode]="displayModeOrders"
-                                           [ordersToApprove]="(ordersToApprove$ | async)!"
-                                           [ordersApproved]="(ordersApprovedTypeIOrderItem$ | async)!"
-                                           (displayModeToggled)="toggleDisplayModeOrders()"
-                                           (orderApproved)="approveOrder($event)"
-                                           (resettedApprovedOrders)="resetApprovedOrders()"
-                                           (confirmedApprovedOrders)="confirmApprovedOrders()"
-                                           (removedOrderApproved)="removeOrderApproved($event)"
-                                           (droppedOrder)="drop($event)"
-                                           (viewedDetailOrder)="viewDetailOrder($event)">
+                                            [ordersToApprove]="(ordersToApprove$ | async)!"
+                                            [ordersApproved]="(ordersApprovedTypeIOrderItem$ | async)!"
+                                            (displayModeToggled)="toggleDisplayModeOrders()"
+                                            (orderApproved)="approveOrder($event)"
+                                            (resettedApprovedOrders)="resetApprovedOrders()"
+                                            (confirmedApprovedOrders)="confirmApprovedOrders()"
+                                            (removedOrderApproved)="removeOrderApproved($event)"
+                                            (droppedOrder)="drop($event)"
+                                            (viewedDetailOrder)="viewDetailOrder($event)">
         </esa-management-order-approve-list>
+        }
     </div>
 </div>

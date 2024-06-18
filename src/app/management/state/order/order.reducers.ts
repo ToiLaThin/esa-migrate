@@ -7,13 +7,21 @@ export const orderManagementFeatureKey = 'orderManagementFeature';
 export const initialOrderManagementState: IOrderManagementState = {
     itemStockLookUp: [],
     ordersToApprove: [],
+    isLoadingOrdersToApprove: false,
     ordersApprovedTypeIOrderItem: [],
+    isConfirmingApprovedOrders: false,
     ordersApproved: [],
     orderDetail: null
 };
 
 export const orderManagementReducer = createReducer(
     initialOrderManagementState,
+    on(orderManagementActions.reloadOrdersToApprove, (state) => {
+        return {
+            ...state,
+            isLoadingOrdersToApprove: true
+        };
+    }),
     on(orderManagementActions.ordersToApproveLoaded, (state, action) => {
         if (action.loadedOrderItemsAndStockLookup) {
             return {
@@ -21,6 +29,7 @@ export const orderManagementReducer = createReducer(
                 itemStockLookUp: action.loadedOrderItemsAndStockLookup.stockLookupItems,
                 ordersApprovedTypeIOrderItem: [],
                 ordersToApprove: action.loadedOrderItemsAndStockLookup.orderItems,
+                isLoadingOrdersToApprove: false,
                 ordersApproved: []
             };
         }
@@ -81,12 +90,18 @@ export const orderManagementReducer = createReducer(
             ]
         };
     }),
-
+    on(orderManagementActions.confirmApprovedOrders, (state) => {
+        return {
+            ...state,
+            isConfirmingApprovedOrders: true
+        };
+    }),
     on(orderManagementActions.confirmApprovedOrdersSuccess, (state) => {
         return {
             ...state,
             ordersApprovedTypeIOrderItem: [],
-            ordersApproved: []
+            ordersApproved: [],
+            isConfirmingApprovedOrders: false
         };
     }),
 

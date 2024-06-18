@@ -4,6 +4,8 @@ import { Observable, Subscription, combineLatest, of, switchMap, tap } from 'rxj
 import { IProduct, IProductModel } from '../../../core/models/product.interface';
 import { Store } from '@ngrx/store';
 import {
+    selectorCrossSellingProducts,
+    selectorIsLoadingCrossSellingProducts,
     selectorIsSelectedProductBookmarked,
     selectorIsSelectedProductDisliked,
     selectorIsSelectedProductLiked,
@@ -44,6 +46,8 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
 
     productRating$!: Observable<number | undefined>;
     isProductRated$!: Observable<boolean>;
+    crossSellingProducts$!: Observable<IProduct[]>;
+    isLoadingCrossSellingProducts$!: Observable<boolean>;
 
     get AuthStatus() {
         return AuthStatus;
@@ -62,6 +66,12 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
         this.routeParamsSubscription = this._route.params.subscribe((params) => {
             this.productId = params['productId'];
         });
+        this.crossSellingProducts$ = this._store.select((state) =>
+            selectorCrossSellingProducts(state as { [productFeatureKey]: IProductState })
+        );
+        this.isLoadingCrossSellingProducts$ = this._store.select((state) =>
+            selectorIsLoadingCrossSellingProducts(state as { [productFeatureKey]: IProductState })
+        );
         this.product$ = this._store.select((state) =>
             selectorProductSelected(this.productId)(state as { [productFeatureKey]: IProductState })
         );
