@@ -1,0 +1,14 @@
+@if (this.isLoading === true && this.isFullPage === true) {
+    <!-- the container is the shade layer covering full page -->
+    <section class="spinner__container">
+        <div class="spinner__container--flex">
+            <div class="spinner">
+            </div>
+        </div>
+    </section>
+} @else if (this.isLoading === true && this.isFullPage === false) {
+    <div class="spinner__container--flex">
+        <div class="spinner border-[12px] border-[#ccc] border-t-[12px] border-solid border-t-primary dark:border-t-darkPrimary">
+        </div>
+    </div>
+}

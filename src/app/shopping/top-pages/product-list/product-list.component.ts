@@ -13,6 +13,8 @@ import { IProductState } from '../../state/product/productState.interface';
 import {
     selectorDisplayingProductCount,
     selectorDisplayingProducts,
+    selectorIsLoadingProducts,
+    selectorIsLoadingRecommendedProducts,
     selectorPageCount,
     selectorRecommendedProducts,
     selectorSelectedCatalog
@@ -34,11 +36,13 @@ import { IAuthState } from '../../../auth/state/authState.interface';
 export class ProductListComponent implements OnInit {
     productCardView: boolean = true;
     displayingProducts$!: Observable<IProduct[]>;
+    isLoadingProductsToDisplay$!: Observable<boolean>;
     displayingProductsCount$!: Observable<number>;
     selectedCatalog$!: Observable<ICatalog | undefined>;
     totalPage$!: Observable<number>;
     totalPageAsArray$!: Observable<number[]>;
     recommendedProducts$!: Observable<IProduct[]>;
+    isLoadingRecommendedProduct$!: Observable<boolean>;
     userId!: string;
     destroy$ = new Subject<void>();
 
@@ -81,6 +85,9 @@ export class ProductListComponent implements OnInit {
         this.displayingProducts$ = this._store.select((state) =>
             selectorDisplayingProducts(state as { [productFeatureKey]: IProductState })
         );
+        this.isLoadingProductsToDisplay$ = this._store.select((state) =>
+            selectorIsLoadingProducts(state as { [productFeatureKey]: IProductState })
+        );
         this.totalPage$ = this._store.select((state) =>
             selectorPageCount(state as { [productFeatureKey]: IProductState })
         );
@@ -101,6 +108,10 @@ export class ProductListComponent implements OnInit {
         this.recommendedProducts$ = this._store.select((state) =>
             selectorRecommendedProducts(state as { [productFeatureKey]: IProductState })
         );
+        this.isLoadingRecommendedProduct$ = this._store.select((state) =>
+            selectorIsLoadingRecommendedProducts(state as { [productFeatureKey]: IProductState })
+        );
+
         this._store.select(state => selectorUserId(state as {[authFeatureKey]: IAuthState})).pipe(
             takeUntil(this.destroy$),
             tap(uId => {
@@ -112,9 +123,7 @@ export class ProductListComponent implements OnInit {
             this._store.dispatch(
                 productActions.loadProductRecommendationMetaDatasOfUser({ userId: this.userId })
             );
-        }
-
-        
+        }                
     }
 
     toggleViewMode() {

@@ -5,6 +5,7 @@ import { IPaginatedProduct, IProduct, IProductLazyLoadRequest } from "../../../c
 
 export interface IProductState {
     productLazyLoadRequest: IProductLazyLoadRequest;
+    isLoadingProducts: boolean;
     paginatedProducts: IPaginatedProduct,
     allCatalogs: ICatalog[],
     allSubCatalogs: ISubCatalog[]
@@ -19,5 +20,6 @@ export interface IProductState {
     productCompareIdList: string[],
     productSearchMatched: IProduct[] | null,    
     recommendedProducts: IProduct[],
+    isLoadingRecommendedProducts: boolean,
     crossSellingProducts: IProduct[]
 }
