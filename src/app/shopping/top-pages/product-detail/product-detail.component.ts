@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subscription, combineLatest, of, switchMap, tap } from 'rxjs';
 import { IProduct, IProductModel } from '../../../core/models/product.interface';
 import { Store } from '@ngrx/store';
@@ -25,6 +25,9 @@ import { productActions } from '../../state/product/product.actions';
 import { authActions } from '../../../auth/state/auth.actions';
 import { ProductCompareService } from '../../../core/services/product-compare.service';
 import { ProductClassName } from '../../class/product-class';
+import { GgAnalyticsService } from '../../../core/services/gg-analytics.service';
+import { ICartItem } from '../../../core/models/cart-item.interface';
+import { cartActions } from '../../state/cart/cart.actions';
 
 @Component({
     selector: 'esa-product-detail',
@@ -35,6 +38,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     routeParamsSubscription!: Subscription;
     productId!: string;
     productBusinessKey!: string;
+    product!: IProduct; //for gg analytics to send add to wishlist event
     product$!: Observable<IProduct>;
     authStatus$!: Observable<AuthStatus>;
     currentUserId!: string;
@@ -56,7 +60,12 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     get ProductClassName() {
         return ProductClassName;
     }
-    constructor(private _route: ActivatedRoute, private _store: Store) {}
+    constructor(
+        private _route: ActivatedRoute,
+        private _router: Router,
+        private _store: Store,
+        private _analyticsService: GgAnalyticsService
+    ) {}
 
     ngOnDestroy(): void {
         this.routeParamsSubscription.unsubscribe();
@@ -82,6 +91,15 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
         let tempSubscription = this.product$.subscribe((product) => {
             this.productBusinessKey = product.businessKey!;
         });
+        tempSubscription.unsubscribe();
+        tempSubscription = this.product$
+            .pipe(
+                tap((product) => {
+                    this._analyticsService.viewProduct(product);
+                    this.product = product;
+                })
+            )
+            .subscribe();
         tempSubscription.unsubscribe();
 
         tempSubscription = this._store
@@ -192,6 +210,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
 
     toggleProductBookmark(isBookmarked: boolean) {
         if (isBookmarked) {
+            this._analyticsService.addToWishList(this.product);
             this._store.dispatch(
                 productActions.bookmarkProduct({
                     productBusinessKey: this.productBusinessKey,
@@ -260,5 +279,24 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
 
     addProductToCompareList(productId: string) {
         this._store.dispatch(productActions.addProductToCompareList({ productId: productId }));
+    }
+
+    addToCart(cartItem: ICartItem) {
+        this._store.dispatch(
+            cartActions.cartItemUpsert({
+                upsertCartItem: cartItem
+            })
+        );
+        this._analyticsService.addToCart(cartItem);
+    }
+
+    buyNow(cartItem: ICartItem) {
+        this._store.dispatch(
+            cartActions.cartItemUpsert({
+                upsertCartItem: cartItem
+            })
+        );
+        this._analyticsService.addToCart(cartItem);
+        this._router.navigateByUrl('/shopping/cart');
     }
 }

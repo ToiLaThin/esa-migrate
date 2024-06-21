@@ -35,6 +35,7 @@ import { productFeatureKey } from '../../state/product/product.reducers';
 import { IProductState } from '../../state/product/productState.interface';
 import { Router } from '@angular/router';
 import { ProductClassName } from '../../class/product-class';
+import { GgAnalyticsService } from '../../../core/services/gg-analytics.service';
 
 @Component({
     selector: 'esa-cart',
@@ -77,7 +78,8 @@ export class CartComponent implements OnInit {
     constructor(
         private _store: Store,
         private _nzNotificationService: NzNotificationService,
-        private _router: Router
+        private _router: Router,
+        private _analyticsService: GgAnalyticsService
     ) {}
 
     ngOnInit(): void {
@@ -201,6 +203,7 @@ export class CartComponent implements OnInit {
         };
         //undefined if no coupon applied and  will not have couponCode field in CartConfirmRequestDTO in backend
         console.log('cartRequest', cartConfirmReq);
+        this._analyticsService.beginCheckout(cartConfirmReq);
         this._store.dispatch(cartActions.confirmCart({ cartConfirmRequest: cartConfirmReq }));
     }
 

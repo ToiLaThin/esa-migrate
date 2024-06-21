@@ -3,7 +3,6 @@ import { IProduct, IProductModel } from "../../../../core/models/product.interfa
 import { Store } from "@ngrx/store";
 import { cartActions } from "../../../state/cart/cart.actions";
 import { authActions } from "../../../../auth/state/auth.actions";
-import { productActions } from "../../../state/product/product.actions";
 import { ICartItem } from "../../../../core/models/cart-item.interface";
 import { ProductClassName } from "../../../class/product-class";
 import { I18NProductIdSelector } from "../../../translate-ids/i18n-product-id";
@@ -24,7 +23,8 @@ export class ProductInfoComponent {
     @Output() productLikeToggled: EventEmitter<boolean> = new EventEmitter<boolean>();
     @Output() productDislikeToggled: EventEmitter<boolean> = new EventEmitter<boolean>();
     @Output() productAddedToCompareList: EventEmitter<string> = new EventEmitter<string>(); //productId
-
+    @Output() modelAddedToCart: EventEmitter<ICartItem> = new EventEmitter<ICartItem>();
+    @Output() modelBuyedNow: EventEmitter<ICartItem> = new EventEmitter<ICartItem>();
     get ProductClassName() {
         return ProductClassName;
     }
@@ -37,7 +37,7 @@ export class ProductInfoComponent {
         return I18NCommonIdSelector;
     }
     
-    constructor( private _store: Store, private _router: Router) {
+    constructor( private _store: Store) {
         console.log(this.isProductBookmarked);
         console.log(this.isProductLiked);
         console.log(this.isProductDisliked);
@@ -79,12 +79,7 @@ export class ProductInfoComponent {
 
         //reset the quantity input
         modelQuantity.value = '1';
-
-        this._store.dispatch(
-            cartActions.cartItemUpsert({
-                upsertCartItem: cartItem as ICartItem //try to type assertion so if there is a missing field / undefined, it will throw an error
-            })
-        );
+        this.modelAddedToCart.emit(cartItem as ICartItem); //try to type assertion so if there is a missing field / undefined, it will throw an error        
     }
 
     buyNowModel(event: Event, model: IProductModel) {
@@ -126,14 +121,7 @@ export class ProductInfoComponent {
 
         //reset the quantity input
         modelQuantity.value = '1';
-
-        this._store.dispatch(
-            cartActions.cartItemUpsert({
-                upsertCartItem: cartItem as ICartItem //try to type assertion so if there is a missing field / undefined, it will throw an error
-            })
-        );
-
-        this._router.navigateByUrl('/shopping/cart');
+        this.modelBuyedNow.emit(cartItem as ICartItem); //try to type assertion so if there is a missing field / undefined, it will throw an error        
     }
 
     login() {

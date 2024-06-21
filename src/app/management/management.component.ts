@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable, Subject, takeUntil, tap } from 'rxjs';
-import { selectorNavigationLeftOpened, selectorTopbarOpened } from './state/management/management.selectors';
+import { selectorLanguageSelected, selectorNavigationLeftOpened, selectorTopbarOpened } from './state/management/management.selectors';
 import { managementFeatureKey } from './state/management/management.reducers';
 import { IManagementState } from './state/management/managementState.interface';
 import { managementActions } from './state/management/management.actions';
@@ -10,6 +10,7 @@ import { IUserInfo } from '../core/models/account.interface';
 import { authFeatureKey } from '../auth/state/auth.reducers';
 import { selectorUserInfo } from '../auth/state/auth.selectors';
 import { IAuthState } from '../auth/state/authState.interface';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
     selector: 'esa-management',
@@ -20,10 +21,11 @@ export class ManagementComponent implements OnInit, OnDestroy {
     navigationLeftOpened$!: Observable<boolean>;
     topbarOpened$!: Observable<boolean>;
     userInfo!: IUserInfo | null;
+    selectedLang!: 'en' | 'vi';
 
     timer!: any;
     destroy$ = new Subject<void>();
-    constructor(private _store: Store) {}
+    constructor(private _translationService: TranslateService, private _store: Store) {}
 
     ngOnDestroy(): void {
         this.destroy$.next();
@@ -44,6 +46,16 @@ export class ManagementComponent implements OnInit, OnDestroy {
         this.topbarOpened$ = this._store.select((state) =>
             selectorTopbarOpened(state as { [managementFeatureKey]: IManagementState })
         );
+
+        this._store.select((state) => 
+            selectorLanguageSelected(state as { [managementFeatureKey]: IManagementState })
+        ).pipe(
+            takeUntil(this.destroy$)
+        ).subscribe((newLanguage) => {
+            this.selectedLang = newLanguage;
+            console.log("newLanguage in lazy load module", this.selectedLang);
+            this._translationService.use(newLanguage);
+        })
     }
 
     toggleTopbar() {        

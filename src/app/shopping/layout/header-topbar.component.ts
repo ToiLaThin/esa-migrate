@@ -60,6 +60,7 @@ import { LayoutClassName } from '../class/layout-class';
 import { tourActions } from '../state/tour/tour.actions';
 import { IProduct } from '../../core/models/product.interface';
 import { IUserInfo } from '../../core/models/account.interface';
+import { GgAnalyticsService } from '../../core/services/gg-analytics.service';
 
 @Component({
     selector: 'esa-shopping-header-topbar',
@@ -136,7 +137,8 @@ export class HeaderTopbarComponent implements OnInit, OnDestroy, AfterViewInit {
         private _store: Store,
         private _router: Router,
         private _renderer: Renderer2,
-        private _drawerService: NzDrawerService
+        private _drawerService: NzDrawerService,
+        private _analyticsService: GgAnalyticsService
     ) {}
 
     ngAfterViewInit(): void {
@@ -376,6 +378,10 @@ export class HeaderTopbarComponent implements OnInit, OnDestroy, AfterViewInit {
             return;
         }
         let searchValue = searchInput.value;
+        if (searchValue === '') {
+            return;
+        }
+        this._analyticsService.searchFor(searchValue);
         this._store.dispatch(productActions.searchProducts({ searchTerm: searchValue }));
     }
 

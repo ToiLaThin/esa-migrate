@@ -23,6 +23,9 @@ import { productActions } from '../../state/product/product.actions';
 import { OutlineSvgNames } from '../../../share-components/svg-definitions/outline-svg-names.enum';
 import { ProductCompareService } from '../../../core/services/product-compare.service';
 import { ProductClassName } from '../../class/product-class';
+import { GgAnalyticsService } from '../../../core/services/gg-analytics.service';
+import { ICartItem } from '../../../core/models/cart-item.interface';
+import { cartActions } from '../../state/cart/cart.actions';
 
 @Component({
     selector: 'esa-product-quickview',
@@ -32,6 +35,7 @@ import { ProductClassName } from '../../class/product-class';
 export class ProductQuickviewComponent implements OnInit, OnDestroy {
     routeParamsSubscription!: Subscription;
     productId!: string;
+    product!: IProduct; //for gg analytics to send add to wishlist event
     product$!: Observable<IProduct>;
     authStatus$!: Observable<AuthStatus>;
     isProductBookmarked$!: Observable<boolean | null>;
@@ -45,8 +49,13 @@ export class ProductQuickviewComponent implements OnInit, OnDestroy {
     isLoadingCrossSellingProducts$!: Observable<boolean>;
     productRating$!: Observable<number | undefined | null>;
     isProductRated$!: Observable<boolean>;
-    
-    constructor(private _route: ActivatedRoute, private _router: Router, private _store: Store) {}
+
+    constructor(
+        private _route: ActivatedRoute,
+        private _router: Router,
+        private _store: Store,
+        private _analyticsService: GgAnalyticsService
+    ) {}
 
     get OutlineSvgNames() {
         return OutlineSvgNames;
@@ -55,12 +64,13 @@ export class ProductQuickviewComponent implements OnInit, OnDestroy {
     get ProductClassName() {
         return ProductClassName;
     }
-    
+
     ngOnDestroy(): void {
         this.routeParamsSubscription.unsubscribe();
     }
 
     ngOnInit(): void {
+        
         this.routeParamsSubscription = this._route.params.subscribe((params) => {
             this.productId = params['productId'];
         });
@@ -70,21 +80,28 @@ export class ProductQuickviewComponent implements OnInit, OnDestroy {
         this.isLoadingCrossSellingProducts$ = this._store.select((state) =>
             selectorIsLoadingCrossSellingProducts(state as { [productFeatureKey]: IProductState })
         );
-        this.product$ = this._store.select((state) =>
-            selectorProductSelected(this.productId)(state as { [productFeatureKey]: IProductState })
-        ).pipe(
-            tap((product) => {
-                this._store.dispatch(
-                    productActions.loadCrossSellingProductsMetaDataOfProductsInCart({
-                        cartProductBusinessKeys: [product.businessKey as string] //not in cart but we want to see
-                    })
-                );
-            })
-        );
-        this.product$.subscribe((product) => {
-            console.log("Product quickview product: ", product);
-        });
-            
+        this.product$ = this._store
+            .select((state) =>
+                selectorProductSelected(this.productId)(
+                    state as { [productFeatureKey]: IProductState }
+                )
+            )
+            .pipe(
+                tap((product) => {
+                    this.product = product; //for gg analytics to send add to wishlist event
+                    this._store.dispatch(
+                        productActions.loadCrossSellingProductsMetaDataOfProductsInCart({
+                            cartProductBusinessKeys: [product.businessKey as string] //not in cart but we want to see
+                        })
+                    );
+                    //this is how we log the view_item event to google analytics
+                    this._analyticsService.viewProduct(product);
+                })
+            );
+        // this.product$.subscribe((product) => {
+        //     console.log('Product quickview product: ', product);
+        // });
+
         this.authStatus$ = this._store.select((state) =>
             selectorAuthStatus(state as { [authFeatureKey]: IAuthState })
         );
@@ -142,22 +159,28 @@ export class ProductQuickviewComponent implements OnInit, OnDestroy {
         tempSubscription.unsubscribe();
 
         let authStatus!: AuthStatus;
-        tempSubscription = this.authStatus$.pipe(
-            tap(status => authStatus = status)
-        ).subscribe();
+        tempSubscription = this.authStatus$
+            .pipe(tap((status) => (authStatus = status)))
+            .subscribe();
         tempSubscription.unsubscribe();
 
         if (authStatus === AuthStatus.Authenticated) {
-            this._store.dispatch(productActions.loadProductBookmarkMappings({
-                userId: this.currUserId
-            }));
-    
-            this._store.dispatch(productActions.loadProductLikeMappings({
-                userId: this.currUserId,
-            }));
-            this._store.dispatch(productActions.loadProductRateMappings({
-                userId: this.currUserId
-            }));
+            this._store.dispatch(
+                productActions.loadProductBookmarkMappings({
+                    userId: this.currUserId
+                })
+            );
+
+            this._store.dispatch(
+                productActions.loadProductLikeMappings({
+                    userId: this.currUserId
+                })
+            );
+            this._store.dispatch(
+                productActions.loadProductRateMappings({
+                    userId: this.currUserId
+                })
+            );
         }
 
         this.isProductRated$ = this._store.select((state) =>
@@ -170,7 +193,6 @@ export class ProductQuickviewComponent implements OnInit, OnDestroy {
                 state as { [productFeatureKey]: IProductState }
             )
         );
-        
     }
 
     closeProductModal() {
@@ -183,6 +205,7 @@ export class ProductQuickviewComponent implements OnInit, OnDestroy {
 
     toggleProductBookmark(isBookmarked: boolean) {
         if (isBookmarked) {
+            this._analyticsService.addToWishList(this.product);
             this._store.dispatch(
                 productActions.bookmarkProduct({
                     productBusinessKey: this.productBusinessKey,
@@ -190,7 +213,7 @@ export class ProductQuickviewComponent implements OnInit, OnDestroy {
                 })
             );
             return;
-        } 
+        }
         this._store.dispatch(
             productActions.unbookmarkProduct({
                 productBusinessKey: this.productBusinessKey,
@@ -200,7 +223,7 @@ export class ProductQuickviewComponent implements OnInit, OnDestroy {
     }
 
     toggleProductLike(isLiked: boolean) {
-        if(isLiked === true) {
+        if (isLiked === true) {
             this._store.dispatch(
                 productActions.likeProduct({
                     productBusinessKey: this.productBusinessKey,
@@ -212,13 +235,13 @@ export class ProductQuickviewComponent implements OnInit, OnDestroy {
         this._store.dispatch(
             productActions.unlikeProduct({
                 productBusinessKey: this.productBusinessKey,
-                userId: this.currUserId,
+                userId: this.currUserId
             })
         );
     }
 
     toggleProductDislike(isDisliked: boolean) {
-        if(isDisliked === true) {
+        if (isDisliked === true) {
             this._store.dispatch(
                 productActions.dislikeProduct({
                     productBusinessKey: this.productBusinessKey,
@@ -230,7 +253,7 @@ export class ProductQuickviewComponent implements OnInit, OnDestroy {
         this._store.dispatch(
             productActions.unlikeProduct({
                 productBusinessKey: this.productBusinessKey,
-                userId: this.currUserId,
+                userId: this.currUserId
             })
         );
     }
@@ -251,5 +274,24 @@ export class ProductQuickviewComponent implements OnInit, OnDestroy {
 
     addProductToCompareList(productId: string) {
         this._store.dispatch(productActions.addProductToCompareList({ productId: productId }));
+    }
+
+    addToCart(cartItem: ICartItem) {
+        this._store.dispatch(
+            cartActions.cartItemUpsert({
+                upsertCartItem: cartItem
+            })
+        );
+        this._analyticsService.addToCart(cartItem);
+    }
+
+    buyNow(cartItem: ICartItem) {
+        this._store.dispatch(
+            cartActions.cartItemUpsert({
+                upsertCartItem: cartItem
+            })
+        );
+        this._analyticsService.addToCart(cartItem);
+        this._router.navigateByUrl('/shopping/cart');
     }
 }

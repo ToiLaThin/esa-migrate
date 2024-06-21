@@ -9,6 +9,7 @@ import { IOrderAggregateCart } from '../../../../core/models/order.interface';
 import { orderActions } from '../../../state/order/order.actions';
 import { PaymentMethod } from '../../../../core/types/payment-method.enum';
 import { OrderClassName, OrderIdName } from '../../../class/order-class';
+import { GgAnalyticsService } from '../../../../core/services/gg-analytics.service';
 
 @Component({
     selector: 'esa-order-tracking-payment-methods',
@@ -42,7 +43,7 @@ export class OrderTrackingPaymentMethodsComponent implements OnInit {
         };
     });
 
-    constructor(private _store: Store) {}
+    constructor(private _store: Store, private _analyticsService: GgAnalyticsService) {}
 
     ngOnInit() {
         console.log(this.paymentMethodKeyValueArr);
@@ -107,12 +108,15 @@ export class OrderTrackingPaymentMethodsComponent implements OnInit {
         switch (selectedPaymentMethod?.key) {
             case PaymentMethod.COD:
                 //TODO: add an route guard before navigating to this component to make sure that the orderId is not undefined
+                this._analyticsService.addPaymentInfo(currentTrackingOrder as IOrderAggregateCart, 'COD');
                 this._store.dispatch(orderActions.pickPaymentMethodCOD());
                 break;
             case PaymentMethod.Momo:
+                this._analyticsService.addPaymentInfo(currentTrackingOrder as IOrderAggregateCart, 'Momo');
                 this._store.dispatch(orderActions.pickPaymentMethodEWallet());
                 break;
             case PaymentMethod.CreditCard:
+                this._analyticsService.addPaymentInfo(currentTrackingOrder as IOrderAggregateCart, 'CreditCard');
                 this._store.dispatch(orderActions.pickPaymentMethodCreditCard());
                 break;
         }
