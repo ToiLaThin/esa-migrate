@@ -35,7 +35,7 @@
                                          [isProductRated]="isProductRated$ | async"
                                          [productRating]="productRating$ | async"
                                          [authStatus]="authStatus$ | async"
-                                         (productRated)="rateProduct($event)" 
+                                         (productRated)="rateProduct($event)"                                          
                                          class="mb-3 {{ProductClassName.ProductRating}}">
                 </esa-product-info-rating>
                 <esa-product-info [product]="(product$ | async)!"
@@ -45,7 +45,9 @@
                                   (productBookmarkToggled)="toggleProductBookmark($event)"
                                   (productLikeToggled)="toggleProductLike($event)"
                                   (productDislikeToggled)="toggleProductDislike($event)"
-                                  (productAddedToCompareList)="addProductToCompareList($event)">
+                                  (productAddedToCompareList)="addProductToCompareList($event)"
+                                  (modelAddedToCart)="addToCart($event)"
+                                  (modelBuyedNow)="buyNow($event)">
                 </esa-product-info>
                 <esa-product-policy></esa-product-policy>
             </div>

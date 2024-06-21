@@ -62,6 +62,7 @@ import { AddStockManagementComponent } from './components/provider-stock/add-sto
 import { DashboardComponent } from './tabs/dashboard/dashboard.component';
 import { CartItemDashboardManagementComponent } from './components/dashboard/cart-item-dashboard/cart-item-dashboard.component';
 import { CartOrderDashboardManagementComponent } from './components/dashboard/cart-order-dashboard/cart-order-dashboard.component';
+import { MultiFilesTranslationLoader } from '../core/translation-loader/multi-files-translation.loader';
 const importNzModules = [
     NzButtonModule,
     NzDropDownModule,
@@ -82,7 +83,16 @@ const importNzModules = [
             loader: {
                 provide: TranslateLoader,
                 useFactory: (http: HttpClient) => {
-                    return new TranslateHttpLoader(http);
+                    return new MultiFilesTranslationLoader(http, {
+                        transfiles: [
+                            {
+                                prefix: 'assets/i18n/shopping',
+                                suffix: 'layout',
+                                extension: 'json'
+                            }
+                        ],
+                        includeCommonFile: true,
+                    });
                 },
                 deps: [HttpClient]
             }

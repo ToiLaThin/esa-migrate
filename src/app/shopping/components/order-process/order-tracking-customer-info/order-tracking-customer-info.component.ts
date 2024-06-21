@@ -16,6 +16,8 @@ import {
 import { orderActions } from '../../../state/order/order.actions';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { OrderClassName, OrderIdName } from '../../../class/order-class';
+import { GgAnalyticsService } from '../../../../core/services/gg-analytics.service';
+import { IOrderAggregateCart } from '../../../../core/models/order.interface';
 
 @Component({
     selector: 'esa-order-tracking-customer-info',
@@ -24,6 +26,7 @@ import { OrderClassName, OrderIdName } from '../../../class/order-class';
 })
 export class OrderTrackingCustomerInfoComponent implements OnInit {
     orderId!: string;
+    trackingOrder!: IOrderAggregateCart | null; //for gg analytics to send event
     usingSavedLocation: boolean = true;
 
     inputtedPhoneNumber$!: Observable<string>;
@@ -50,7 +53,7 @@ export class OrderTrackingCustomerInfoComponent implements OnInit {
         return OrderIdName;
     }
 
-    constructor(private _store: Store, private _fb: FormBuilder) {
+    constructor(private _store: Store, private _fb: FormBuilder, private _analyticsService: GgAnalyticsService) {
         this._store.dispatch(orderActions.loadAddressFromStorage());
     }
 
@@ -63,6 +66,7 @@ export class OrderTrackingCustomerInfoComponent implements OnInit {
                         return;
                     }
                     this.orderId = order.orderId;
+                    this.trackingOrder = order;
                 })
             )
             .subscribe();
@@ -150,6 +154,7 @@ export class OrderTrackingCustomerInfoComponent implements OnInit {
                 };
             })
             .unsubscribe();
+        this._analyticsService.addShippingInfo(this.trackingOrder!);
         this._store.dispatch(
             orderActions.customerOrderInfoConfirmed({
                 customerOrderInfoConfirmedRequest: this.customerOrderInfoConfirmRequest
