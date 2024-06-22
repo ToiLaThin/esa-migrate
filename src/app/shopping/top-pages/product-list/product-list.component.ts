@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { productActions } from '../../state/product/product.actions';
 import {
@@ -27,13 +27,14 @@ import { I18NProductIdSelector } from '../../translate-ids/i18n-product-id';
 import { selectorUserId } from '../../../auth/state/auth.selectors';
 import { authFeatureKey } from '../../../auth/state/auth.reducers';
 import { IAuthState } from '../../../auth/state/authState.interface';
+import { GgAnalyticsService } from '../../../core/services/gg-analytics.service';
 
 @Component({
     selector: 'esa-product-list',
     templateUrl: './product-list.component.html',
     styleUrls: ['./product-list.component.scss']
 })
-export class ProductListComponent implements OnInit {
+export class ProductListComponent implements OnInit, AfterViewChecked, AfterViewInit {
     productCardView: boolean = true;
     displayingProducts$!: Observable<IProduct[]>;
     isLoadingProductsToDisplay$!: Observable<boolean>;
@@ -73,12 +74,41 @@ export class ProductListComponent implements OnInit {
         return I18NProductIdSelector;
     }
     
+    viewedRecommendationsSentToGA: boolean = false;
+    @ViewChild('recommendedProductsContainer') recommendedProductsContainer!: ElementRef<HTMLDivElement>;
     constructor(
         private _store: Store,
         private _notificationService: NzNotificationService,
-        private _router: Router
+        private _router: Router,
+        private _analyticsService: GgAnalyticsService
     ) {
         this._store.dispatch(productActions.reloadProducts());
+    }
+
+    //no view child is rendered yet, cause this is only run once
+    ngAfterViewInit(): void {        
+    }
+
+
+    //this method is called for multiple times, so it's not a good practice to put heavy logic here, and have some flag so it only executed once
+    ngAfterViewChecked(): void {    
+        if (this.viewedRecommendationsSentToGA === true) {
+            return;
+        }
+
+        if (this.recommendedProductsContainer && this.recommendedProductsContainer.nativeElement.checkVisibility() === true) {
+            console.log('Recommended products container is visible now, sending to GA view recommeded products event...');
+            let recommendedProducts: IProduct[] = [];
+            this.recommendedProducts$.pipe(
+                takeUntil(this.destroy$)
+            ).subscribe((products) => {
+                recommendedProducts = products.slice(0, 4);
+            });
+            //make sure it sync with frontend, the top 4 displayed products
+            console.log('Recommended products: ', recommendedProducts);
+            this._analyticsService.viewRecommendedProducts(recommendedProducts);
+            this.viewedRecommendationsSentToGA = true;
+        }
     }
 
     ngOnInit(): void {
@@ -159,5 +189,10 @@ export class ProductListComponent implements OnInit {
 
     viewProductQuickView(productId: string | undefined) {
         this._router.navigate(['shopping', 'product-quickview', productId]);
+    }
+
+    engageWithThisRecommendedProduct(selectedProduct: IProduct) {
+        console.log('Engage with this recommended product: ', selectedProduct);
+        this._analyticsService.selectRecommendedProduct(selectedProduct);
     }
 }

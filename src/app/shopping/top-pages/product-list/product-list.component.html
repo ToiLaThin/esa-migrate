@@ -13,14 +13,18 @@
                 <esa-loader-spinner [isLoading]="true" [isFullPage]="false">
                 </esa-loader-spinner>
             } @else {
-                @for (p of recommendedProducts$ | async | slice:0:4; track p) {
+                <div *ngIf="recommendedProducts$ | async | slice:0:4 as top4RecommendedProduct" #recommendedProductsContainer>
+                    <!-- this is for storing result of async to a template local variable -->
+                    @for (p of recommendedProducts$ | async | slice:0:4; track p) {
                     <esa-product-card class="{{ProductClassName.ProductCard}}" 
                                         [product]="p"
-                                        (click)="viewProductQuickView(p.productId)">
+                                        (click)="viewProductQuickView(p.productId)"
+                                        (click)="engageWithThisRecommendedProduct(p)">
                     </esa-product-card>
-                } @empty {
-                <p>No recommended products</p>
-                }
+                    } @empty {
+                    <p>No recommended products</p>
+                    }
+                </div>
             }            
         </div>
         
