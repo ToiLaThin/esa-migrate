@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewChecked, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ICartConfirmRequest, ICartItem } from '../../../core/models/cart-item.interface';
 import { Observable, Subscription, tap, map } from 'rxjs';
 import { Store } from '@ngrx/store';
@@ -42,7 +42,7 @@ import { GgAnalyticsService } from '../../../core/services/gg-analytics.service'
     templateUrl: './cart.component.html',
     styleUrls: ['./cart.component.scss']
 })
-export class CartComponent implements OnInit {
+export class CartComponent implements OnInit, AfterViewChecked {
     cartItems$!: Observable<ICartItem[]>;
     crossSellingProducts$!: Observable<IProduct[]>;
     isLoadingCrossSellingProducts$!: Observable<boolean>;
@@ -58,6 +58,8 @@ export class CartComponent implements OnInit {
 
     @ViewChild('couponCodeApply', { read: ElementRef })
     couponCodeInputted!: ElementRef<HTMLInputElement>;
+
+    @ViewChild('crossSellingProductsContainer', { read: ElementRef }) crossSellingProductsContainer!: ElementRef<HTMLDivElement>;
 
     get CartClassName() {
         return CartClassName;
@@ -75,12 +77,33 @@ export class CartComponent implements OnInit {
         return ProductClassName;
     }
 
+    viewedCrossSellingProductsSentToGA: boolean = false;
+
     constructor(
         private _store: Store,
         private _nzNotificationService: NzNotificationService,
         private _router: Router,
         private _analyticsService: GgAnalyticsService
     ) {}
+
+    ngAfterViewChecked(): void {
+        if (this.viewedCrossSellingProductsSentToGA === true) {
+            return;
+        }
+
+        if (this.crossSellingProductsContainer && this.crossSellingProductsContainer.nativeElement.checkVisibility() === true) {
+            console.log('Cross Selling products container is visible now, sending to GA view crossSelling products event...');
+            let crossSellingProducts: IProduct[] = [];
+            let tempSubscription: Subscription;
+            tempSubscription = this.crossSellingProducts$.subscribe((products) => {
+                crossSellingProducts = products;
+            });
+            //make sure it sync with frontend, the top 4 displayed products
+            console.log('crossSelling products: ', crossSellingProducts);
+            this._analyticsService.viewCrossSellingProducts(crossSellingProducts);
+            this.viewedCrossSellingProductsSentToGA = true;
+        }
+    }
 
     ngOnInit(): void {
         this._store.dispatch(cartActions.loadActiveCouponsNotUsedByUser());
@@ -303,5 +326,10 @@ export class CartComponent implements OnInit {
                 })
             );
         }
+    }
+
+    engageWithThisCrossSellingProduct(selectedProduct: IProduct) {
+        console.log('Engage with this CrossSelling product: ', selectedProduct);
+        this._analyticsService.selectCrossSellingProduct(selectedProduct);
     }
 }

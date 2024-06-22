@@ -145,4 +145,70 @@ export class GgAnalyticsService {
             search_term: searchTerm
         });
     }
+
+    selectRecommendedProduct(selectedProduct: IProduct) {
+        gtag('event', 'select_item', {
+            item_list_id: 'products_for_you',
+            item_list_name: 'Products for you',
+            //only one item in the list will be selected if multiple item in items
+            items: [{
+                item_id: selectedProduct.businessKey,
+                item_name: selectedProduct.productName,
+                item_brand: selectedProduct.productInfo?.productBrand,
+                item_category: selectedProduct.subCatalogName,
+                price: selectedProduct.productModels[0].price,
+                quantity: 1
+            }]
+        });
+    }
+
+    viewRecommendedProducts(recommendedProducts: IProduct[]) {
+        gtag('event', 'view_item_list', {
+            item_list_id: 'products_for_you',
+            item_list_name: 'Products for you',
+            items: recommendedProducts.map(product => {
+                return {
+                    item_id: product.businessKey,
+                    item_name: product.productName,
+                    item_brand: product.productInfo?.productBrand,
+                    item_category: product.subCatalogName,
+                    price: product.productModels[0].price,
+                    quantity: 1
+                }
+            })
+        });
+    }
+
+    selectCrossSellingProduct(selectedProduct: IProduct) {
+        gtag('event', 'select_item', {
+            item_list_id: 'cross_selling_products',
+            item_list_name: 'Cross selling products',
+            //only one item in the list will be selected if multiple item in items
+            items: [{
+                item_id: selectedProduct.businessKey,
+                item_name: selectedProduct.productName,
+                item_brand: selectedProduct.productInfo?.productBrand,
+                item_category: selectedProduct.subCatalogName,
+                price: selectedProduct.productModels[0].price,
+                quantity: 1
+            }]
+        });
+    }
+
+    viewCrossSellingProducts(crossSellingProducts: IProduct[]) {
+        gtag('event', 'view_item_list', {
+            item_list_id: 'cross_selling_products',
+            item_list_name: 'Cross selling products',
+            items: crossSellingProducts.map(product => {
+                return {
+                    item_id: product.businessKey,
+                    item_name: product.productName,
+                    item_brand: product.productInfo?.productBrand,
+                    item_category: product.subCatalogName,
+                    price: product.productModels[0].price,
+                    quantity: 1
+                }
+            })
+        });
+    }
 }
