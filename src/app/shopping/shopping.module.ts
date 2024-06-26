@@ -55,6 +55,7 @@ import { OptionHorizontalComponent } from "./layout/option-horizontal.component"
 import { OptionVerticalComponent } from "./layout/option-vertical.component";
 import { ProductCompareComponent } from "./top-pages/product-compare/product-compare.component";
 import { AccountComponent } from "./top-pages/account/account.component";
+import { ProductWishListComponent } from "./top-pages/product-wishlist/product-wishlist.component";
 
 @NgModule({
     //https://github.com/ngx-translate/core/issues/1193
@@ -145,6 +146,7 @@ import { AccountComponent } from "./top-pages/account/account.component";
         ProductCommentFormComponent,
 
         ProductCompareComponent,
+        ProductWishListComponent,
 
         CartComponent,
         OrderProcessComponent,

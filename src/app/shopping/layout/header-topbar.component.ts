@@ -344,6 +344,11 @@ export class HeaderTopbarComponent implements OnInit, OnDestroy, AfterViewInit {
         this._router.navigate(['/shopping/order-list']);
     }
 
+    navigateToProductWishList() {
+        console.log('navigateToProductWishList');
+        this._router.navigate(['/shopping/product-wishlist']);
+    }
+
     changeTheme(newTheme: ThemeType) {
         if (this.currentTheme !== newTheme) {
             this._store.dispatch(managementActions.changeTheme({ newTheme: newTheme }));

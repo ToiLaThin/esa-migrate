@@ -14,6 +14,7 @@ export interface IProductState {
 
     selectedProductComments: IComment[],
     userProductBookmarkMappings: IBookmarkProduct[],
+    userProductWishList: IProduct[],
     userProductLikeMappings: ILikeProduct[],
     userProductRateMappings: IRateProduct[],
 

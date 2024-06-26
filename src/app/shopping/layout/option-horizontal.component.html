@@ -5,11 +5,13 @@
               class="{{LayoutClassName.YourOrders}}"
               (click)="navigateToOrderList()">
     </svg-icon>
-    <svg-icon [iconName]="ColorSvgNames.Heart" 
-              [fillColor]="'red'"
-              [size]="24"
-              class="{{LayoutClassName.BookmarkProducts}}">
-    </svg-icon>
+    <a (click)="navigateToProductWishList()">
+        <svg-icon [iconName]="ColorSvgNames.Heart" 
+                  [fillColor]="'red'"
+                  [size]="24"
+                  class="{{LayoutClassName.BookmarkProducts}}">
+        </svg-icon>
+    </a>
     <a routerLink="/shopping/product-compare" class="{{LayoutClassName.CompareList}} cursor-pointer hover:scale-105 hover:opacity-80">
         <svg-icon [iconName]="ColorSvgNames.Compare" 
                   [size]="24"

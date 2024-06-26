@@ -68,6 +68,11 @@ export const selectorIsSelectedProductBookmarked = (productBusinessKey: string) 
             .includes(productBusinessKey)
     );
 
+export const selectorProductWishList = createSelector(
+    selectorProductFeature,
+    (productState) => productState.userProductWishList
+);
+
 export const selectorDisplayingProducts = createSelector(
     selectorProductFeature,
     (productState) => productState.paginatedProducts.products

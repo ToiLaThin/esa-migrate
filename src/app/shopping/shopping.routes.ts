@@ -14,6 +14,7 @@ import { AuthenticatedRequiredGuard } from "../core/guards/authenticated-require
 import { ProductCompareComponent } from "./top-pages/product-compare/product-compare.component";
 import { AccountComponent } from "./top-pages/account/account.component";
 import { RoleAdminGuard } from "../core/guards/role-admin.guard";
+import { ProductWishListComponent } from "./top-pages/product-wishlist/product-wishlist.component";
 
 export const shoppingRoutes: Routes = [
     {
@@ -36,6 +37,11 @@ export const shoppingRoutes: Routes = [
             {
                 path: 'product-compare',
                 component: ProductCompareComponent
+            },
+            {
+                canActivate: [AuthenticatedRequiredGuard],
+                path: 'product-wishlist',
+                component: ProductWishListComponent
             },
             {
                 path: 'product-detail/:productId',
