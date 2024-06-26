@@ -17,10 +17,15 @@ export class OptionHorizontalComponent {
     }
     @Input({required: true}) optionHorizontalExpanded: boolean = false;
     @Output() orderListNavigated: EventEmitter<void> = new EventEmitter<void>();
+    @Output() productWishListNavigated: EventEmitter<void> = new EventEmitter<void>();
     
     constructor() {}
 
     navigateToOrderList() {
         this.orderListNavigated.emit();
+    }
+
+    navigateToProductWishList() {
+        this.productWishListNavigated.emit();
     }
 }

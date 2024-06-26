@@ -32,6 +32,7 @@ export const initialProductState: IProductState = {
 
     selectedProductComments: [],
     userProductBookmarkMappings: [],
+    userProductWishList: [],
     userProductLikeMappings: [],
     userProductRateMappings: [],
     recommendedProducts: [],
@@ -240,6 +241,13 @@ export const productReducer = createReducer(
         return {
             ...state,
             userProductBookmarkMappings: action.bookmarkedProductMappings
+        }
+    }),
+
+    on(productActions.productWishListLoadedSuccessfully, (state, action) => {
+        return {
+            ...state,
+            userProductWishList: action.productWishList
         }
     }),
 

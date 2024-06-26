@@ -35,16 +35,22 @@ export class ProductEffects {
         this.actions$.pipe(
             ofType(productActions.loadCrossSellingProductsMetaDataOfProductsInCart),
             switchMap((action) =>
-                this._productService.getProductCrossSellingMetaDatas(action.cartProductBusinessKeys).pipe(
-                    map((crossSellingProductBusinessKeys) =>
-                        productActions.loadCrossSellingProductsMetaDataSuccessfully({
-                            crossSellingProductBusinessKeys: crossSellingProductBusinessKeys
-                        })
-                    ),
-                    catchError((err) =>
-                        of(productActions.loadCrossSellingProductsMetaDataFailed({ error: err }))
+                this._productService
+                    .getProductCrossSellingMetaDatas(action.cartProductBusinessKeys)
+                    .pipe(
+                        map((crossSellingProductBusinessKeys) =>
+                            productActions.loadCrossSellingProductsMetaDataSuccessfully({
+                                crossSellingProductBusinessKeys: crossSellingProductBusinessKeys
+                            })
+                        ),
+                        catchError((err) =>
+                            of(
+                                productActions.loadCrossSellingProductsMetaDataFailed({
+                                    error: err
+                                })
+                            )
+                        )
                     )
-                )
             )
         )
     );
@@ -259,6 +265,26 @@ export class ProductEffects {
                     )
                 )
             )
+        )
+    );
+
+    loadProductWishListSuccessfullEffect = createEffect(() =>
+        this.actions$.pipe(
+            ofType(productActions.productBookmarkMappingsLoadedSuccessfully),
+            switchMap((action) => {
+                let bookmarkedProductBusinessKeys = action.bookmarkedProductMappings.map(
+                    (bookmarkProductMapping) => bookmarkProductMapping.productBusinessKey
+                );
+                return this._productService
+                    .getProductsWithBusinessKeys(bookmarkedProductBusinessKeys)
+                    .pipe(
+                        map((loadedProducts) =>
+                            productActions.productWishListLoadedSuccessfully({
+                                productWishList: loadedProducts
+                            })
+                        )
+                    );
+            })
         )
     );
 

@@ -11,7 +11,7 @@ export class OptionVerticalComponent {
     }
 
     @Output() orderListNavigated: EventEmitter<void> = new EventEmitter<void>();
-    
+    @Output() productWishListNavigated: EventEmitter<void> = new EventEmitter<void>();
     constructor() {}
 
     log() {
@@ -20,6 +20,10 @@ export class OptionVerticalComponent {
 
     navigateToOrderList() {
         this.orderListNavigated.emit();
+    }
+
+    navigateToProductWishList() {
+        this.productWishListNavigated.emit();
     }
 
 }

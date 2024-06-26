@@ -263,7 +263,8 @@
             }
             <div class="px-2 flex flex-row items-center">
                 <esa-option-horizontal [optionHorizontalExpanded]="(optionHorizontalExpanded$ | async)!" 
-                                       (orderListNavigated)="navigateToOrderList()">
+                                       (orderListNavigated)="navigateToOrderList()"
+                                       (productWishListNavigated)="navigateToProductWishList()">
                 </esa-option-horizontal>
                 <app-button [className]="(optionHorizontalExpanded$ | async) === true ? LayoutClassName.BurgerShoppingBtnColor + ' btn-secondary' : LayoutClassName.BurgerShoppingBtnColor + ' btn-empty'"
                             [ngClass]="(optionHorizontalExpanded$ | async) === true ? 'ml-2' : ''"
@@ -291,7 +292,8 @@
 
                     <ng-template [ngIf]="this.optionVerticalOpened === true && windowWidth > mdScreen">
                     <div class="absolute z-10 top-[40px] right-[5px]" #optionVertical>
-                        <esa-option-vertical (orderListNavigated)="navigateToOrderList()">
+                        <esa-option-vertical (orderListNavigated)="navigateToOrderList()"
+                                             (productWishListNavigated)="navigateToProductWishList()">
                         </esa-option-vertical>
                     </div>
                     </ng-template>

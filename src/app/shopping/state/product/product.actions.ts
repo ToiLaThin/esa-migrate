@@ -39,6 +39,7 @@ export const productActions = createActionGroup({
         'Product Bookmark Mappings Loaded Failed': props<{ error: string }>(),
         'Bookmark Product': props<{ productBusinessKey: string; userId: string }>(),
         'Unbookmark Product': props<{ productBusinessKey: string; userId: string }>(),
+        'Product Wish List Loaded Successfully': props<{productWishList: IProduct[]}>(),
 
         'Load Product Like Mappings': props<{ userId: string }>(),
         'Product Like Mappings Loaded Successfully': props<{ likedProductMappings: ILikeProduct[] }>(),
