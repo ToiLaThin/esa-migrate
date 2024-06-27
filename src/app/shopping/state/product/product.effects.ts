@@ -30,6 +30,40 @@ export class ProductEffects {
         private _notificationService: NzNotificationService,
         private _store: Store
     ) {}
+    loadProductRelatedMetaDatasEffect = createEffect(() =>
+        this.actions$.pipe(
+            ofType(productActions.loadRelatedProductsMetaDataOfProduct),
+            switchMap((action) =>
+                this._productService.getProductRelatedMetaDatas(action.productBusinessKey).pipe(
+                    map((relatedProductBusinessKeys) =>
+                        productActions.loadRelatedProductsMetaDataOfProductSuccessfully({
+                            relatedProductBusinessKeys: relatedProductBusinessKeys
+                        })
+                    ),
+                    catchError((err) =>
+                        of(productActions.loadRelatedProductsMetaDataOfProductFailed({ error: err }))
+                    )
+                )
+            )
+        )
+    );
+
+    loadRelatedProductMetaDatasSuccessfullEffect = createEffect(() =>
+        this.actions$.pipe(
+            ofType(productActions.loadRelatedProductsMetaDataOfProductSuccessfully),
+            switchMap((action) =>
+                this._productService
+                    .getProductsWithBusinessKeys(action.relatedProductBusinessKeys)
+                    .pipe(
+                        map((products) =>
+                            productActions.relatedProductsLoadedSuccessfully({
+                                loadedProducts: products
+                            })
+                        )
+                    )
+            )
+        )
+    );
 
     loadProductCrossSellingMetaDataEffect = createEffect(() =>
         this.actions$.pipe(

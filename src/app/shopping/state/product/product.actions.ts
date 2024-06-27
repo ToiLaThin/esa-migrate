@@ -66,15 +66,23 @@ export const productActions = createActionGroup({
         'Products Searched Failed': props<{ error: string }>(),
         'Clear Search Products': emptyProps(),
 
+        //collaborative filtering
         'Load Product Recommendation Meta Datas Of User': props<{ userId: string }>(),
         'Product Recommendations Meta Data Of User Loaded Successfully': props<{ productRecommendationMetaDatas: IProductRecommendationMetaData[] }>(), //only load the productBussinessKeys of recommend products
         'Product Recommendations Meta Data Of User Loaded Failed': props<{ error: string }>(),
         'Recommended Product Loaded Successfully': props<{ products: IProduct[] }>(), //this action officially load products to the state
 
+        //association rule based filtering
         'Load Cross Selling Products Meta Data Of Products In Cart': props<{ cartProductBusinessKeys: string[] }>(),
         'Load Cross Selling Products Meta Data Successfully': props<{ crossSellingProductBusinessKeys: string[] }>(),
         'Load Cross Selling Products Meta Data Failed': props<{ error: string }>(),
         'Cross Selling Products Loaded Successfully': props<{ loadedProducts: IProduct[] }>(),
+
+        //content based filtering
+        'Load Related Products Meta Data Of Product': props<{ productBusinessKey: string }>(),
+        'Load Related Products Meta Data Of Product Successfully': props<{ relatedProductBusinessKeys: string[] }>(),
+        'Load Related Products Meta Data Of Product Failed': props<{ error: string }>(),
+        'Related Products Loaded Successfully': props<{ loadedProducts: IProduct[] }>(),
     }
 });
 

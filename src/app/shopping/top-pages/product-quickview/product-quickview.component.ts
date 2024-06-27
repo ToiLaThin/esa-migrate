@@ -5,13 +5,13 @@ import { Observable, Subscription, combineLatest, of, switchMap, tap } from 'rxj
 import { AuthStatus } from '../../../core/types/auth-status.enum';
 import { Store } from '@ngrx/store';
 import {
-    selectorCrossSellingProducts,
-    selectorIsLoadingCrossSellingProducts,
+    selectorIsLoadingRelatedProducts,
     selectorIsSelectedProductBookmarked,
     selectorIsSelectedProductDisliked,
     selectorIsSelectedProductLiked,
     selectorIsSelectedProductRated,
     selectorProductSelected,
+    selectorRelatedProducts,
     selectorSelectedProductRating
 } from '../../state/product/product.selectors';
 import { IProductState } from '../../state/product/productState.interface';
@@ -45,8 +45,8 @@ export class ProductQuickviewComponent implements OnInit, OnDestroy {
     productBusinessKey!: string;
     currUserId!: string;
 
-    crossSellingProducts$!: Observable<IProduct[]>;
-    isLoadingCrossSellingProducts$!: Observable<boolean>;
+    relatedProducts$!: Observable<IProduct[]>;
+    isLoadingRelatedProducts$!: Observable<boolean>;
     productRating$!: Observable<number | undefined | null>;
     isProductRated$!: Observable<boolean>;
 
@@ -74,11 +74,11 @@ export class ProductQuickviewComponent implements OnInit, OnDestroy {
         this.routeParamsSubscription = this._route.params.subscribe((params) => {
             this.productId = params['productId'];
         });
-        this.crossSellingProducts$ = this._store.select((state) =>
-            selectorCrossSellingProducts(state as { [productFeatureKey]: IProductState })
+        this.relatedProducts$ = this._store.select((state) =>
+            selectorRelatedProducts(state as { [productFeatureKey]: IProductState })
         );
-        this.isLoadingCrossSellingProducts$ = this._store.select((state) =>
-            selectorIsLoadingCrossSellingProducts(state as { [productFeatureKey]: IProductState })
+        this.isLoadingRelatedProducts$ = this._store.select((state) =>
+            selectorIsLoadingRelatedProducts(state as { [productFeatureKey]: IProductState })
         );
         this.product$ = this._store
             .select((state) =>
@@ -90,8 +90,8 @@ export class ProductQuickviewComponent implements OnInit, OnDestroy {
                 tap((product) => {
                     this.product = product; //for gg analytics to send add to wishlist event
                     this._store.dispatch(
-                        productActions.loadCrossSellingProductsMetaDataOfProductsInCart({
-                            cartProductBusinessKeys: [product.businessKey as string] //not in cart but we want to see
+                        productActions.loadRelatedProductsMetaDataOfProduct({
+                            productBusinessKey: product.businessKey as string
                         })
                     );
                     //this is how we log the view_item event to google analytics

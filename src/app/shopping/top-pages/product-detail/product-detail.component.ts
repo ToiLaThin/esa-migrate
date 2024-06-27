@@ -6,12 +6,14 @@ import { Store } from '@ngrx/store';
 import {
     selectorCrossSellingProducts,
     selectorIsLoadingCrossSellingProducts,
+    selectorIsLoadingRelatedProducts,
     selectorIsSelectedProductBookmarked,
     selectorIsSelectedProductDisliked,
     selectorIsSelectedProductLiked,
     selectorIsSelectedProductRated,
     selectorProductSelected,
     selectorProductSelectedComments,
+    selectorRelatedProducts,
     selectorSelectedProductRating
 } from '../../state/product/product.selectors';
 import { productFeatureKey } from '../../state/product/product.reducers';
@@ -50,8 +52,8 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
 
     productRating$!: Observable<number | undefined>;
     isProductRated$!: Observable<boolean>;
-    crossSellingProducts$!: Observable<IProduct[]>;
-    isLoadingCrossSellingProducts$!: Observable<boolean>;
+    relatedProducts$!: Observable<IProduct[]>;
+    isLoadingRelatedProducts$!: Observable<boolean>;
 
     get AuthStatus() {
         return AuthStatus;
@@ -75,11 +77,11 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
         this.routeParamsSubscription = this._route.params.subscribe((params) => {
             this.productId = params['productId'];
         });
-        this.crossSellingProducts$ = this._store.select((state) =>
-            selectorCrossSellingProducts(state as { [productFeatureKey]: IProductState })
+        this.relatedProducts$ = this._store.select((state) =>
+            selectorRelatedProducts(state as { [productFeatureKey]: IProductState })
         );
-        this.isLoadingCrossSellingProducts$ = this._store.select((state) =>
-            selectorIsLoadingCrossSellingProducts(state as { [productFeatureKey]: IProductState })
+        this.isLoadingRelatedProducts$ = this._store.select((state) =>
+            selectorIsLoadingRelatedProducts(state as { [productFeatureKey]: IProductState })
         );
         this.product$ = this._store.select((state) =>
             selectorProductSelected(this.productId)(state as { [productFeatureKey]: IProductState })
@@ -96,6 +98,11 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
             .pipe(
                 tap((product) => {
                     this._analyticsService.viewProduct(product);
+                    this._store.dispatch(
+                        productActions.loadRelatedProductsMetaDataOfProduct({
+                            productBusinessKey: product.businessKey as string
+                        })
+                    );
                     this.product = product;
                 })
             )

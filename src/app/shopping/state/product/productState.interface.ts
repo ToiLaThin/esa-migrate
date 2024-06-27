@@ -20,8 +20,13 @@ export interface IProductState {
 
     productCompareIdList: string[],
     productSearchMatched: IProduct[] | null,    
+    //collaborative filtering
     recommendedProducts: IProduct[],
     isLoadingRecommendedProducts: boolean,
+    //association rule
     crossSellingProducts: IProduct[];
     isLoadingCrossSellingProducts: boolean;
+    //content based filtering
+    relatedProducts: IProduct[];
+    isLoadingRelatedProducts: boolean;
 }
