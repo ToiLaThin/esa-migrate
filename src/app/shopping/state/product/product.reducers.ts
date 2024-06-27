@@ -38,7 +38,9 @@ export const initialProductState: IProductState = {
     recommendedProducts: [],
     isLoadingRecommendedProducts: false,
     crossSellingProducts: [],
-    isLoadingCrossSellingProducts: false
+    isLoadingCrossSellingProducts: false,
+    relatedProducts: [],
+    isLoadingRelatedProducts: false
 };
 
 export const productFeatureKey = 'productFeature';
@@ -310,4 +312,18 @@ export const productReducer = createReducer(
             crossSellingProducts: action.loadedProducts
         }
     }),
+
+    on(productActions.loadRelatedProductsMetaDataOfProduct, (state) => {
+        return {
+            ...state,
+            isLoadingRelatedProducts: true
+        }
+    }),
+    on(productActions.relatedProductsLoadedSuccessfully, (state, action) => {
+        return {
+            ...state,
+            isLoadingRelatedProducts: false,
+            relatedProducts: action.loadedProducts
+        }
+    })
 );

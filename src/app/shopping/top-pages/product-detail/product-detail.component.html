@@ -7,18 +7,18 @@
                 <!-- để quay carousel image xuống dưới image lớn -->
                 <div class="min-w-[120px] flex flex-row justify-between items-center self-start gap-2 xl:flex-col">
                     <button class="py-2 px-4 bg-gray-300 self-stretch text-lg">&#94;</button>
-                    @if (isLoadingCrossSellingProducts$ | async) {
+                    @if (isLoadingRelatedProducts$ | async) {
                         <esa-loader-spinner [isLoading]="true" 
                                             [isFullPage]="false">
                         </esa-loader-spinner>
                     } @else {
-                        @for (p of this.crossSellingProducts$ | async | slice:0:4; track $index) {
+                        @for (p of this.relatedProducts$ | async | slice:0:4; track $index) {
                         <div class="border border-solid border-gray-50 rounded">
                             <img src="{{p.productCoverImage}}">
                         </div>
                         }
                         @empty {
-                            No cross selling products
+                            No related products
                         }
                     }
                     <button class="py-2 px-4 bg-gray-300 self-stretch text-lg" style="transform: rotate(180deg);">&#94;</button>

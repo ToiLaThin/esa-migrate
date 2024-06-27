@@ -29,7 +29,7 @@ export class ProductService {
 
     getProductRecommendationMetaDatasOfUser(userId: string) {
         return this.http.get<IProductRecommendationMetaData[]>(
-            `${env.FLASKURL}/recommend?user_id=${userId}`
+            `${env.FLASKURL}/recommend_collab?user_id=${userId}`
         );
     }
 
@@ -39,6 +39,12 @@ export class ProductService {
             {
                 product_keys: productBusinessKeys
             }
+        );
+    }
+
+    getProductRelatedMetaDatas(productBusinessKey: string) {
+        return this.http.get<string[]>(
+            `${env.FLASKURL}/recommend_content?product_key=${productBusinessKey}`
         );
     }
 }
