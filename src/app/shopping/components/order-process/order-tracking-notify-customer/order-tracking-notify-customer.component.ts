@@ -5,6 +5,8 @@ import { selectorTrackingOrder } from '../../../state/order/order.selectors';
 import { orderFeatureKey } from '../../../state/order/order.reducers';
 import { IOrderState } from '../../../state/order/orderState.interface';
 import { tap } from 'rxjs';
+import { ColorSvgNames } from '../../../../share-components/svg-definitions/color-svg-names.enum';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'esa-order-tracking-notify-customer',
@@ -12,7 +14,15 @@ import { tap } from 'rxjs';
     styleUrls: ['./order-tracking-notify-customer.component.scss']
 })
 export class OrderTrackingNotifyCustomerComponent implements OnInit {
-    constructor(private _analyticsService: GgAnalyticsService, private _store: Store) {}
+    get ColorSvgNames() {
+        return ColorSvgNames;
+    }
+
+    constructor(
+        private _analyticsService: GgAnalyticsService,
+        private _store: Store,
+        private _router: Router
+    ) {}
     ngOnInit() {
         let tempSubscription = this._store
             .select((state) => selectorTrackingOrder(state as { [orderFeatureKey]: IOrderState }))
@@ -27,5 +37,9 @@ export class OrderTrackingNotifyCustomerComponent implements OnInit {
             )
             .subscribe();
         tempSubscription.unsubscribe();
+    }
+
+    returnProductListPage() {
+        this._router.navigate(['/shopping/product-list']);
     }
 }

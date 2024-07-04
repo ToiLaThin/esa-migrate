@@ -5,6 +5,7 @@ import { I18NIndexIdSelector } from "../../../translate-ids/i18n-index-id";
 
 @Component({
     selector: 'esa-banner',
+    styleUrls: ['./banner.component.scss'], 
     templateUrl: './banner.component.html'
 })
 export class BannerComponent {
