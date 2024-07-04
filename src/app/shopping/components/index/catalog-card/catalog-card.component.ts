@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, Input } from "@angular/core";
 
 @Component({
     selector: 'esa-catalog-card',
@@ -7,4 +7,6 @@ import { Component } from "@angular/core";
 })
 export class CatalogCardComponent {
     // Add properties and methods here
+    @Input({required: true}) catalogImageUrl!: string;
+    @Input({required: true}) catalogTitle!: string;
 }

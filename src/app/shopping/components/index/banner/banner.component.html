@@ -4,7 +4,8 @@
             xl:flex-row xl:gap-8 
             lg:flex-col lg:gap-2 
             md:flex-col md:gap-4 
-            sm:flex-col sm:gap-4 "
+            sm:flex-col sm:gap-4 
+            to-reveal fade-down"
         >
             <div class="relative overflow-hidden xl:w-[72.85%] lg:w-full">
                 <img src="/assets/images/sample-1.jpg" class="fluid-img">
@@ -22,7 +23,7 @@
                              [innerHTML]="I18NIndexIds.Banner1Bottom | translate: {price: 100000 | rcurrency}">
                         </div>
                         <a routerLink="/shopping/product-list" 
-                           class="{{LayoutClassName.ShoppingNowBtn}} inline-block btn-primary self-start">
+                           class="{{LayoutClassName.ShoppingNowBtn}} inline-block btn-primary self-start  infinite-scale">
                             {{I18NCommonIds.CommonActionShopNow | translate}}
                         </a>
                     </div>
@@ -61,14 +62,23 @@
                 </div>
             </div>
         </div>
-        <div class="lower-banner">
+        <div class="lower-banner to-reveal fade-right">
             <div class="flex flex-row lg:gap-8 justify-between overflow-hidden">
-                <esa-catalog-card></esa-catalog-card>
-                <esa-catalog-card></esa-catalog-card>
-                <esa-catalog-card></esa-catalog-card>
-                <esa-catalog-card></esa-catalog-card>
-                <esa-catalog-card></esa-catalog-card>
-                <esa-catalog-card></esa-catalog-card>
+                <esa-catalog-card [catalogImageUrl]="'/assets/images/catalog/milk.jpg'" 
+                                  [catalogTitle]="'Milk'">
+                </esa-catalog-card>
+                <esa-catalog-card [catalogImageUrl]="'/assets/images/catalog/man-care.jpg'" 
+                                  [catalogTitle]="'Man Care'">
+                </esa-catalog-card>
+                <esa-catalog-card [catalogImageUrl]="'/assets/images/catalog/fresh-food.jpg'" 
+                                  [catalogTitle]="'Fresh Food'">
+                </esa-catalog-card>
+                <esa-catalog-card [catalogImageUrl]="'/assets/images/catalog/snacks.jpg'" 
+                                  [catalogTitle]="'Snacks'">
+                </esa-catalog-card>
+                <esa-catalog-card [catalogImageUrl]="'/assets/images/catalog/soft-drinks.png'" 
+                                  [catalogTitle]="'Soft Drinks'">
+                </esa-catalog-card>
             </div>
         </div>
     </div>

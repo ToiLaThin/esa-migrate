@@ -39,6 +39,7 @@ export enum ColorSvgNames {
     OptionMoreVertical = 'color-option-more-vertical',
     OptionLessHorizontal = 'color-option-less-horizontal',
     
+    HappyFace = 'color-happy-face',
     Heart = 'color-heart',
     Compare = 'color-compare',
     Logout = 'color-logout',
