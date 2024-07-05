@@ -80,6 +80,8 @@ export const orderManagementReducer = createReducer(
                 ...state.ordersApproved,
                 {
                     orderId: action.orderId,
+                    userId: orderToApprove.userId,
+                    orderPrice: orderToApprove.totalPriceFinal,
                     orderItemsStockToChange: orderItemsQty.map((i) => {
                         return {
                             productModelId: i.productModelId,

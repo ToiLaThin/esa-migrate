@@ -34,13 +34,13 @@ export class OrderApproveManagementComponent implements OnInit, OnDestroy {
 
     ordersApprovedTypeIOrderItem$!: Observable<IOrderItems[]>;
     ordersApproved$!: Observable<IOrderApprovedAggregate[]>;
-    ordersApprovedSubscription!: Subscription;
     ordersApproved!: IOrderApprovedAggregate[];
     isConfirmingApprovedOrders$!: Observable<boolean>;
-
+    
     ordersToApprove$!: Observable<IOrderItems[]>;
     isLoadingOrdersToApprove$!: Observable<boolean>;
-
+    
+    ordersApprovedSubscription!: Subscription;
     orderDetailSubscription!: Subscription;
     constructor(private _store: Store, private _drawerService: NzDrawerService) {
         this._store.dispatch(orderManagementActions.reloadOrdersToApprove());
@@ -126,7 +126,9 @@ export class OrderApproveManagementComponent implements OnInit, OnDestroy {
 
     confirmApprovedOrders() {
         //console.log(this.ordersApproved);
-        this._store.dispatch(orderManagementActions.confirmApprovedOrders({approvedOrders: this.ordersApproved}))
+        this._store.dispatch(
+            orderManagementActions.confirmApprovedOrders({ approvedOrders: this.ordersApproved })
+        );
     }
 
     viewDetailOrder(orderId: string) {
@@ -143,6 +145,8 @@ export class OrderApproveManagementComponent implements OnInit, OnDestroy {
             this._store.dispatch(orderManagementActions.removeApprovedOrder({orderId: orderId}))
             return;
         }
-        this._store.dispatch(orderManagementActions.approveOrder({orderId: orderId}))
+        this._store.dispatch(
+            orderManagementActions.approveOrder({ orderId: orderId })
+        );
     }
 }

@@ -12,6 +12,7 @@ export interface IStockLookupItem extends IProductModelInfoWithStockAggregate {
 
 export interface IOrderItems {
     orderId: string;
+    userId: string;
     orderStatus: OrderStatus;
     paymentMethod: PaymentMethod;
     orderItemsQty: IItemStock[];
@@ -32,5 +33,7 @@ export interface IStockDecreaseRequest {
 
 export interface IOrderApprovedAggregate {
     orderId: string;
+    userId: string;
+    orderPrice: number;
     orderItemsStockToChange: IStockDecreaseRequest[];
 }
