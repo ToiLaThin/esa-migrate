@@ -1,16 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { CouponService } from '../../../core/services/coupon.service';
 import { catchError, map, of, switchMap, tap } from 'rxjs';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { CatalogService } from '../../../core/services/catalog.service';
 import { productCatalogManagementActions } from './product-catalog-management.actions';
+import { ProductService } from '../../../core/services/product.service';
 
 @Injectable({ providedIn: 'root' })
 export class ProductCatalogManagementEffects {
     constructor(
         private actions$: Actions,
         private _catalogService: CatalogService,
+        private _productService: ProductService,
         private _notificationService: NzNotificationService
     ) {}
 
@@ -81,6 +82,31 @@ export class ProductCatalogManagementEffects {
                         this._notificationService.create('error', `Error: ${err.title}`, '');
                         return of(
                             productCatalogManagementActions.addNewSubcatalogFailed({ error: err })
+                        );
+                    })
+                )
+            )
+        )
+    );
+
+    updateProductModelPriceEffect = createEffect(() =>
+        this.actions$.pipe(
+            ofType(productCatalogManagementActions.updateProductModelPrice),
+            switchMap((action) =>
+                this._productService.updateProductModelPrice(action.updateProductModelPriceReq).pipe(
+                    map(() => productCatalogManagementActions.updateProductModelPriceSuccess()),
+                    tap(() =>
+                        this._notificationService.create(
+                            'success',
+                            'Product model price has been updated successfully',
+                            ''
+                        )
+                    ),
+                    catchError((err) => {
+                        console.log(err);
+                        this._notificationService.create('error', `Error: ${err.title} Cannot edit price`, '');
+                        return of(
+                            productCatalogManagementActions.updateProductModelPriceFailed({ error: err })
                         );
                     })
                 )

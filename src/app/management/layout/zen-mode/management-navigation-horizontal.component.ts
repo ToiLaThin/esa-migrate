@@ -21,13 +21,17 @@ export class ManagementNavigationHorizontalComponent {
     }
 
     featureLinkDatas: IFeatureLinkData[] = featureLinkDatas;
-    featureLinkSelected!: IFeatureLinkData;
+    featureLinkSelected!: IFeatureLinkData | undefined;
     @Input() userInfo!: IUserInfo;
     constructor(private _store: Store) {
     }
 
     selectFeatureLink(featureLink: IFeatureLinkData): void {
         this.featureLinkSelected = featureLink;
+    }
+
+    unselectFeatureLink(): void {
+        this.featureLinkSelected = undefined;
     }
 
     logout() {

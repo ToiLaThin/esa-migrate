@@ -28,6 +28,7 @@ import {
 } from '../../../state/management/product-catalog-share-management.selectors';
 import { ICatalog, ISubCatalog } from '../../../../core/models/catalog.interface';
 import { OutlineSvgNames } from '../../../../share-components/svg-definitions/outline-svg-names.enum';
+import { ProductUpdatePriceModalManagementComponent } from '../product-update-price-modal/product-update-price-modal.component';
 
 @Component({
     selector: 'esa-management-product-list',
@@ -121,5 +122,20 @@ export class ProductManagementListComponent implements OnInit {
 
     changePage(pageNum: number) {
         this._store.dispatch(productManagementActions.pageChanged({ selectedPage: pageNum }));
+    }
+
+    updateProductModelPrice(p: IProduct) {
+        this._modalService.create({
+            nzTitle: undefined,
+            nzContent: ProductUpdatePriceModalManagementComponent,
+            nzClosable: true,
+            nzFooter: null,
+            nzWidth: 500,
+            nzData: {
+                productId: p.productId,
+                productModelId: p.productModels[0].productModelId,
+                currPrice: p.productModels[0].price
+            }
+        });
     }
 }

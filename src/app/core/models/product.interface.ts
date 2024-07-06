@@ -97,3 +97,9 @@ export interface IProductRecommendationMetaData {
     product_key: string;
     rating: number;
 }
+
+export interface IProductModelUpdatePriceRequest {
+    productId: string;
+    productModelId: string;
+    newPrice: number;
+}

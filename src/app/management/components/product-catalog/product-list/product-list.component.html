@@ -68,7 +68,8 @@
                               [size]="24"
                               class="mr-3"
                               nz-tooltip
-                              nzTooltipTitle="Adjust product">
+                              nzTooltipTitle="Adjust product"
+                              (click)="updateProductModelPrice(product)">
                     </svg-icon>
                     <svg-icon [iconName]="OutlineSvgNames.ActionDetail" 
                               [strokeColor]="'green'"
