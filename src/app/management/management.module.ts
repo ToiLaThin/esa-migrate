@@ -63,6 +63,7 @@ import { DashboardComponent } from './tabs/dashboard/dashboard.component';
 import { CartItemDashboardManagementComponent } from './components/dashboard/cart-item-dashboard/cart-item-dashboard.component';
 import { CartOrderDashboardManagementComponent } from './components/dashboard/cart-order-dashboard/cart-order-dashboard.component';
 import { MultiFilesTranslationLoader } from '../core/translation-loader/multi-files-translation.loader';
+import { ProductUpdatePriceModalManagementComponent } from './components/product-catalog/product-update-price-modal/product-update-price-modal.component';
 const importNzModules = [
     NzButtonModule,
     NzDropDownModule,
@@ -118,6 +119,7 @@ const importNzModules = [
         ManagementLayoutComponent,
 
         ProductCatalogComponent,
+        ProductUpdatePriceModalManagementComponent,
         CatalogManagementListComponent,
         CatalogSubCatalogListManagementComponent,
         SubCatalogAddWithInputManagementComponent, //one with input and one without input (so one we go to from router, one we open from nz modal service)

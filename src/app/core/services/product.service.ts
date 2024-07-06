@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { IPaginatedProduct, IProduct, IProductLazyLoadRequest, IProductRecommendationMetaData } from '../models/product.interface';
+import { IPaginatedProduct, IProduct, IProductLazyLoadRequest, IProductModelUpdatePriceRequest, IProductRecommendationMetaData } from '../models/product.interface';
 import { environment as env } from './../../../environments/environment.development';
 import { Injectable } from '@angular/core';
 
@@ -45,6 +45,13 @@ export class ProductService {
     getProductRelatedMetaDatas(productBusinessKey: string) {
         return this.http.get<string[]>(
             `${env.FLASKURL}/recommend_content?product_key=${productBusinessKey}`
+        );
+    }
+
+    updateProductModelPrice(productModelUpdatePriceRequest: IProductModelUpdatePriceRequest) {
+        return this.http.post(
+            `${env.BASEURL}/api/ProductCatalog/ProductAPI/UpdatePriceProductModel`,
+            productModelUpdatePriceRequest
         );
     }
 }
