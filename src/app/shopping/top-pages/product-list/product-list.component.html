@@ -1,4 +1,4 @@
-<esa-breadcrumb></esa-breadcrumb>
+<!-- <esa-breadcrumb></esa-breadcrumb> -->
 <div class="my-container my-10 flex flex-row items-baseline gap-4">
     <!-- align baseline la gi: no giup cac flex item ko can width nhu nhau -->
     <div class="w-[20%]">
@@ -17,9 +17,9 @@
                     <!-- this is for storing result of async to a template local variable -->
                     @for (p of recommendedProducts$ | async | slice:0:4; track p) {
                     <esa-product-card class="{{ProductClassName.ProductCard}}" 
-                                        [product]="p"
-                                        (click)="viewProductQuickView(p.productId)"
-                                        (click)="engageWithThisRecommendedProduct(p)">
+                                      [product]="p"
+                                      (click)="viewProductQuickView(p.productId)"
+                                      (click)="engageWithThisRecommendedProduct(p)">
                     </esa-product-card>
                     } @empty {
                     <p>No recommended products</p>

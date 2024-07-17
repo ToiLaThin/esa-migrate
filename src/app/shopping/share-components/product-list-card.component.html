@@ -9,9 +9,9 @@
         <!-- Style child base on parent state with group -->
         <img src="{{product.productCoverImage}}" 
              class="fluid-img object-cover">
-        <div class="absolute top-4 left-2 z-10 ">
+        <!-- <div class="absolute top-4 left-2 z-10 ">
             <p class="inline-block bg-[red] text-white text-sm px-2 py-[2px] rounded">- 8%</p>
-        </div>
+        </div> -->
         <div class="absolute top-12 -left-12 z-10 group-hover:left-2 transition-all">
             <p class="inline-block bg-[#4cbb6c] text-white text-sm px-2 py-[2px] rounded">New</p>
         </div>
@@ -45,24 +45,24 @@
     <div class="float-left p-8 w-4/5 flex flex-col gap-2">
         <p class="text-gray-400 text-sm">{{product.subCatalogName}}</p>
         <p class="">{{product.productName}}</p>
-        <div class="star-container">
+        <!-- <div class="star-container">
             <div class="star"></div>
             <div class="star"></div>
             <div class="star"></div>
             <div class="star"></div>
             <div class="star"></div>
-        </div>
+        </div> -->
         <div>
             @if (product.isOnSale) {
-            <span class="text-secondary line-through mr-2">${{[product.productModels[0].price]}}</span>
-            <span class="font-bold text-red-600">${{product.productModels[0].priceOnSaleModel}}</span>
+            <span class="text-secondary line-through mr-2">{{[product.productModels[0].price | rcurrency]}}</span>
+            <span class="font-bold text-red-600">{{product.productModels[0].priceOnSaleModel! | rcurrency}}</span>
             } @else {
-            <span class="text-secondary">${{[product.productModels[0].price]}}</span>
+            <span class="text-secondary">{{[product.productModels[0].price | rcurrency]}}</span>
             }
         </div>
         <p class="text-gray-500 text-sm font-thin">{{product.productInfo?.productDescription}}</p>
         <div class="flex flex-row items-center gap-1">
-            <span class="inline-block rounded-full w-5 h-5 bg-[red]
+            <!-- <span class="inline-block rounded-full w-5 h-5 bg-[red]
                          border border-solid border-gray-50">
             </span>
             <span class="inline-block rounded-full w-5 h-5 bg-[black]
@@ -70,12 +70,12 @@
             </span>
             <span class="inline-block rounded-full w-5 h-5 bg-[gray] 
                          border border-solid border-gray-50">
-            </span>
+            </span> -->
             <span class="inline-block px-2 bg-[#e9f9ee]
                          border border-solid border-[#4cbb6c] text-[#4cbb6c]">
                 In Stock
             </span>
         </div>
-        <div class="btn-primary uppercase self-start">Options</div>
+        <!-- <div class="btn-primary uppercase self-start">Options</div> -->
     </div>
 </div>

@@ -6,7 +6,13 @@
         <div class="w-full lg:w-2/3">
             <div class="border border-solid border-gray-50 rounded">
                 <div class="border-b-gray-50-solid-1px p-3">
-                    <p class="text-lg font-medium">Shopping Cart</p>
+                    <div class="flex flex-row justify-between mx-14">
+                        <p class="text-lg font-medium">Shopping Cart</p>
+                        <div class="flex flex-row justify-start gap-4">
+                            <p class="text-lg font-medium">Unit Price</p>
+                            <p class="text-lg font-medium">SubTotal</p>
+                        </div>
+                    </div>
                 </div>            
                 <div class="flex flex-col cart-container gap-8 py-8">
                     @for (cartItem of (cartItems$ | async); track cartItem; let i = $index) {
@@ -23,7 +29,7 @@
                                 }
                             </p>
                             <p class="font-bold text-sm">SubCatalog: <span class="text-subheading">{{cartItem.subCatalogName}}</span></p>
-                            <p class="font-bold text-sm">Dimension: <span class="text-subheading">60x90cm</span></p>
+                            <!-- <p class="font-bold text-sm">Dimension: <span class="text-subheading">60x90cm</span></p> -->
                         </div>
                         <div>
                             <input class="w-[80px] h-[60px] border border-solid border-gray-50 rounded pl-2"
