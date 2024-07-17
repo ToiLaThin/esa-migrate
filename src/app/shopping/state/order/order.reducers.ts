@@ -8,6 +8,7 @@ export const orderFeatureKey = 'orderFeature';
 export const initialOrderState: IOrderState = {
     trackingOrder: null,
     customerOrderInfo: null,
+    isLoadingInOrderState: false,
 
     orderListFilterOrderStatus: null,
     orderListFilterPaymentMethod: null,
@@ -35,29 +36,76 @@ export const orderReducer = createReducer(
             trackingOrder: action.loadedTrackingOrder
         }
     }),
+    on(orderActions.clearTrackingOrder, (state) => {
+        return {
+            ...state,
+            trackingOrder: null
+        }
+    }),
     on(orderActions.customerOrderInfoSetted, (state, action) => {
         return {
             ...state,
             customerOrderInfo: action.customerOrderInfo
         }
     }),
+    on(orderActions.customerOrderInfoConfirmed, (state) => {
+        return {
+            ...state,
+            isLoadingInOrderState: true
+        }
+    }),
     on(orderActions.customerOrderInfoConfirmedSuccess, (state, action) => {
         return {
             ...state,
-            trackingOrder: action.trackingOrder
+            trackingOrder: action.trackingOrder,
+            isLoadingInOrderState: false
+        }
+    }),
+    on(orderActions.customerOrderInfoConfirmedFailed, (state) => {
+        return {
+            ...state,
+            isLoadingInOrderState: false
+        }
+    }),
+
+    on(orderActions.pickPaymentMethodCOD, (state, action) => {
+        return {
+            ...state,
+            isLoadingInOrderState: true
         }
     }),
     on(orderActions.pickPaymentMethodCODSuccess, (state, action) => {
         return {
             ...state,
-            trackingOrder: action.trackingOrder
+            trackingOrder: action.trackingOrder,
+            isLoadingInOrderState: false
+        }
+    }),
+    on(orderActions.pickPaymentMethodCODFailed, (state) => {
+        return {
+            ...state,
+            isLoadingInOrderState: false
+        }
+    }),
+
+    on(orderActions.loadOrderFitlerdSortedPaginatedList, (state) => {
+        return {
+            ...state,
+            isLoadingInOrderState: true
         }
     }),
     on(orderActions.loadOrderFitlerdSortedPaginatedListSuccess, (state, action) => {
         return {
             ...state,
             orderAggregateCartFilteredSortedPaginatedList: action.orderAggregateCartFilteredSortedPaginatedList,
-            totalOrdersAfterFilteredCount: action.totalOrdersAfterOnlyFilteredCount
+            totalOrdersAfterFilteredCount: action.totalOrdersAfterOnlyFilteredCount,
+            isLoadingInOrderState: false
+        }
+    }),
+    on(orderActions.loadOrderFitlerdSortedPaginatedListFailed, (state) => {
+        return {
+            ...state,
+            isLoadingInOrderState: false
         }
     }),
 

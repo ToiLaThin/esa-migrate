@@ -65,6 +65,12 @@
         <ng-container *ngTemplateOutlet="verticalTabsTemplate">
         </ng-container>
         }
+        @if ((this.isLoadingInOrderState$ | async) === true) {
+        <div class="flex items-center justify-center w-full">
+            <esa-loader-spinner [isLoading]="true" [isFullPage]="false">
+            </esa-loader-spinner>
+        </div>
+        } @else {
         <div class="cards-container bg-lightGray dark:bg-darkGray shadow flex flex-col lg:flex-row flex-wrap gap-1 p-2"
              [ngStyle]="this.currentWindowWidth < lgScreen ? {'align-content': 'stretch'} : {'align-content': 'flex-start'}"
              #cardContainer>
@@ -75,6 +81,7 @@
             </esa-order-list-card>
             }
         </div>
+        }
     </div>
     <div class="my-4 mx-auto w-4/6 rounded-sm shadow py-6">
         <esa-order-list-pagination [currentPageNum]="(currentPageNum$ | async)!" 

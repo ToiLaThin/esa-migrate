@@ -1,3 +1,7 @@
+@if ((isLoadingInOrderState$ | async) === true) {
+<esa-loader-spinner [isLoading]="true" [isFullPage]="true">
+</esa-loader-spinner>
+} @else {
 <div class="flex flex-col gap-4 bg-[#f5f5f5] dark:bg-[#31363F]">
     <div class="min-h-[500px] w-[90%] my-8 mx-auto flex flex-col items-center justify-center bg-white dark:bg-black rounded-l shadow">
         <esa-order-tracking-stepper [trackingOrder]="(trackingOrder$ | async)!">
@@ -8,3 +12,4 @@
         </router-outlet>
     </div>
 </div>
+}

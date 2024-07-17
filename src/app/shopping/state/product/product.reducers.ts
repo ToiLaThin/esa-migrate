@@ -298,6 +298,12 @@ export const productReducer = createReducer(
             isLoadingRecommendedProducts: false
         }
     }),
+    on(productActions.productRecommendationsMetaDataOfUserLoadedFailed, (state) => {
+        return {
+            ...state,
+            isLoadingRecommendedProducts: false
+        }
+    }),
 
     on(productActions.loadCrossSellingProductsMetaDataOfProductsInCart, (state) => {
         return {
@@ -312,6 +318,12 @@ export const productReducer = createReducer(
             crossSellingProducts: action.loadedProducts
         }
     }),
+    on(productActions.loadCrossSellingProductsMetaDataFailed, (state) => {
+        return {
+            ...state,
+            isLoadingCrossSellingProducts: false
+        }
+    }),
 
     on(productActions.loadRelatedProductsMetaDataOfProduct, (state) => {
         return {
@@ -319,6 +331,13 @@ export const productReducer = createReducer(
             isLoadingRelatedProducts: true
         }
     }),
+    on(productActions.loadRelatedProductsMetaDataOfProductFailed, (state) => {
+        return {
+            ...state,
+            isLoadingRelatedProducts: false
+        }
+    }),
+
     on(productActions.relatedProductsLoadedSuccessfully, (state, action) => {
         return {
             ...state,

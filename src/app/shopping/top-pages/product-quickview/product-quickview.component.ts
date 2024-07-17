@@ -295,7 +295,7 @@ export class ProductQuickviewComponent implements OnInit, OnDestroy {
             })
         );
         //can move to effect later
-        this._nzNotificationService.success('Success', `Added ${cartItem.quantity} unit ${cartItem.productName} to cart`);
+        this._nzNotificationService.success(`Added ${cartItem.quantity} ${cartItem.productName} to cart`, '');
         this._analyticsService.addToCart(cartItem);
     }
 

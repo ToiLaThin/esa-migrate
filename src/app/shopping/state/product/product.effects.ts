@@ -117,7 +117,7 @@ export class ProductEffects {
                         })
                     ),
                     catchError((err) =>
-                        of(productActions.productBookmarkMappingsLoadedFailed({ error: err }))
+                        of(productActions.productRecommendationsMetaDataOfUserLoadedFailed({ error: err }))
                     )
                 )
             )

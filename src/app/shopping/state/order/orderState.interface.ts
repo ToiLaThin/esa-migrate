@@ -6,6 +6,7 @@ import { PaymentMethod } from "../../../core/types/payment-method.enum";
 import { OrdersSortBy, OrdersSortType } from "../../../core/ui-models/order-filter-data";
 
 export interface IOrderState {
+    isLoadingInOrderState: boolean; //for all loading in this feature state
     trackingOrder: IOrderAggregateCart | null;
     customerOrderInfo: ICustomerOrderInfo | null;
 
