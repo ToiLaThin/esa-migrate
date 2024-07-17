@@ -31,12 +31,22 @@ export const cartReducer = createReducer(
             };
         }
 
-        item!.quantity = item!.quantity + action.upsertCartItem.quantity;
-        item!.finalPrice = item!.finalPrice + action.upsertCartItem.finalPrice;
-        item!.finalAfterSalePrice =
-            item!.finalAfterSalePrice && action.upsertCartItem.finalAfterSalePrice
-                ? item!.finalAfterSalePrice + action.upsertCartItem.finalAfterSalePrice
-                : undefined;
+        //immutable modify item
+        itemsInCart = itemsInCart.map(
+            (item) =>
+                item.productModelId === action.upsertCartItem.productModelId &&
+                item.productId === action.upsertCartItem.productId
+                    ? {
+                          ...item,
+                          quantity: item.quantity + action.upsertCartItem.quantity,
+                          finalPrice: item.finalPrice + action.upsertCartItem.finalPrice,
+                          finalAfterSalePrice:
+                              item.finalAfterSalePrice && action.upsertCartItem.finalAfterSalePrice
+                                  ? item.finalAfterSalePrice + action.upsertCartItem.finalAfterSalePrice
+                                  : undefined
+                      }
+                    : item
+        );  
         console.log(action.upsertCartItem);
         console.log(itemsInCart);
         return {

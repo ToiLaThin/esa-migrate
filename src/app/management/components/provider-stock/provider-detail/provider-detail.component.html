@@ -1,7 +1,7 @@
 
 <div class="bg-white dark:bg-black px-2 py-4 xl:flex xl:flex-row xl:gap-5">
     <div class="bg-lightGray dark:bg-darkGray rounded-sm px-2 py-2 overflow-auto self-start">
-        <div class="flex flex-col md:flex-row items-stretch md:items-center justify-stretch gap-4">
+        <!-- <div class="flex flex-col md:flex-row items-stretch md:items-center justify-stretch gap-4">
             <div class="tab flex-1 px-8 py-3 bg-primary dark:bg-darkPrimary text-white text-center font-semibold text-[17px] rounded-[4px]">
                 Category
             </div>
@@ -11,7 +11,7 @@
             <div class="tab flex-1 px-8 py-3 bg-primary dark:bg-darkPrimary text-white text-center font-semibold text-[17px] rounded-[4px]">
                 Featured
             </div>
-        </div>
+        </div> -->
         <!-- the parent overflow must also be overflow-auto -->
         <div class="flex flex-row flex-start flex-wrap mt-4" style="min-width: 400px; overflow: auto;">     
             @for (productModelMergeStock of this.selectedProviderRequirementAllProductModelInfosMergeStockItemRequests$ | async; track productModelMergeStock) {
@@ -33,81 +33,91 @@
     </div>
 
     <div class="mt-8 flex flex-col">
-        <div class="flex flex-row md:flex-col justify-start md:justify-between">
-            <div class="mb-6 text-[18px] flex-1 mr-4 md:mr-0">
-                <p class="font-medium font-tailwick" 
-                   style="letter-spacing: 0; word-spacing: -1px">
-                   Provider Id
-                </p>
-                <input type="text" 
-                       value="#{{(selectedProviderRequirement$ | async)?.providerBusinessKey | slice:0:8 | uppercase}}" 
-                       placeholder="Any id" 
-                       class="input-here">
-            </div>
-            <div class="mb-6 text-[18px] flex-1">
-                <p class="font-medium font-tailwick" 
-                   style="letter-spacing: 0; word-spacing: -1px">
-                   Provider Name
-                </p>
-                <input type="text" 
-                       value="{{(selectedProviderRequirement$ | async)?.providerName | titlecase}}" 
-                       placeholder="Name of provider" 
-                       class="input-here">
-            </div>
-        </div>
-        <div class="flex flex-row md:flex-col justify-start md:justify-between">
-            <div class="mb-6 text-[18px] flex-1 mr-4 md:mr-0">
-                <p class="font-medium font-tailwick" 
-                   style="letter-spacing: 0; word-spacing: -1px">
-                   Catalogs
-                </p>
-                <select class="input-here">
-                    <option value="1">Cat 1</option>
-                    <option value="2">Cat 2</option>
-                    <option value="3">Cat 3</option>
-                </select>
-            </div>
-            <div class="mb-6 text-[18px] flex-1">
-                <p class="font-medium font-tailwick" 
-                   style="letter-spacing: 0; word-spacing: -1px">
-                   Qty Change
-                </p>
-                <select class="input-here" [(ngModel)]="qtyChange">
-                    <option value="1" [selected]="this.qtyChange === '1'">1 qty</option>
-                    <option value="50">50 qty</option>
-                    <option value="100">100 qty</option>
-                </select>
-            </div>
-
-        </div>
-
-        <!-- Search input here -->
-        <div class="mb-3 text-[18px]">
-            <p class="font-medium font-tailwick" 
-               style="letter-spacing: 0; word-spacing: -1px">
-               Search product
-            </p>
-            <div class="search-container input-here flex flex-row">
-                <div class="search-btn mr-2">
-                    <svg-icon [iconName]="OutlineSvgNames.ActionSearch"
-                              [size]="24"
-                              [fillColor]="'#ddd'">
-                    </svg-icon>
+        <div [ngClass]="providerInfoToggled !== true ? 'h-0': ''">
+            <div class="flex flex-row md:flex-col justify-start md:justify-between">
+                <div class="mb-6 text-[18px] flex-1 mr-4 md:mr-0">
+                    <p class="font-medium font-tailwick" 
+                       style="letter-spacing: 0; word-spacing: -1px">
+                       Provider Id
+                    </p>
+                    <input type="text" 
+                           value="#{{(selectedProviderRequirement$ | async)?.providerBusinessKey | slice:0:8 | uppercase}}" 
+                           placeholder="Any id" 
+                           [disabled]="true"
+                           class="input-here">
                 </div>
-                <input type="text" 
-                       placeholder="Search product"
-                       class="search-container-input">
+                <div class="mb-6 text-[18px] flex-1">
+                    <p class="font-medium font-tailwick" 
+                       style="letter-spacing: 0; word-spacing: -1px">
+                       Provider Name
+                    </p>
+                    <input type="text" 
+                           value="{{(selectedProviderRequirement$ | async)?.providerName | titlecase}}" 
+                           placeholder="Name of provider" 
+                           [disabled]="true"
+                           class="input-here">
+                </div>
+            </div>
+            <div class="flex flex-row md:flex-col justify-start md:justify-between">
+                <!-- <div class="mb-6 text-[18px] flex-1 mr-4 md:mr-0">
+                    <p class="font-medium font-tailwick" 
+                       style="letter-spacing: 0; word-spacing: -1px">
+                       Catalogs
+                    </p>
+                    <select class="input-here">
+                        <option value="1">Cat 1</option>
+                        <option value="2">Cat 2</option>
+                        <option value="3">Cat 3</option>
+                    </select>
+                </div> -->
+                <div class="mb-6 text-[18px] flex-1">
+                    <p class="font-medium font-tailwick" 
+                       style="letter-spacing: 0; word-spacing: -1px">
+                       Qty Change
+                    </p>
+                    <select class="input-here" [(ngModel)]="qtyChange">
+                        <option value="1" [selected]="this.qtyChange === '1'">1 qty</option>
+                        <option value="50">50 qty</option>
+                        <option value="100">100 qty</option>
+                    </select>
+                </div>
+    
+            </div>
+    
+            <!-- Search input here -->
+            <div class="mb-3 text-[18px]">
+                <p class="font-medium font-tailwick" 
+                   style="letter-spacing: 0; word-spacing: -1px">
+                   Search product
+                </p>
+                <div class="search-container input-here flex flex-row">
+                    <div class="search-btn mr-2">
+                        <svg-icon [iconName]="OutlineSvgNames.ActionSearch"
+                                  [size]="24"
+                                  [fillColor]="'#ddd'">
+                        </svg-icon>
+                    </div>
+                    <input type="text" 
+                           placeholder="Search product"
+                           class="search-container-input">
+                </div>
             </div>
         </div>
 
-        <!-- Selected products -->
+        <!-- Available products -->
         <div class="table-container bg-white dark:bg-black">
             <div class="flex flex-row gap-2">
-                <h2 class="uppercase font-bold text-xl">Selected Products</h2>
+                <h2 class="uppercase font-bold text-xl">Available Products</h2>
                 <app-button (click)="clearAllStockRequests()"
                             [iconName]="OutlineSvgNames.ActionReset"
                             nz-tooltip
-                            nzTooltipTitle="Reset all approved orders"
+                            nzTooltipTitle="Reset all stock requests"
+                            nzTooltipPlacement="right">
+                </app-button>
+                <app-button (click)="toggleProviderInfo()"
+                            [iconName]="providerInfoToggled === true ? OutlineSvgNames.ActionClose : OutlineSvgNames.ActionExpand"
+                            nz-tooltip
+                            nzTooltipTitle="Toggle provider info"
                             nzTooltipPlacement="right">
                 </app-button>
             </div>
@@ -139,7 +149,7 @@
                         {{productModelMergeStock.unitRequestPrice | rcurrency}}
                     </td>                    
                     <td style="text-align: center;">
-                        <div class="qty-container">
+                        <div class="qty-container bg-[#ddd] text-black">
                             <span class="desc-btn"
                                     (click)="decreaseQty(productModelMergeStock.productModelId)">
                                 &lsaquo;
@@ -205,7 +215,7 @@
         </div>
 
         <!-- Confirm -->
-        <div class="confirm bg-primary dark:bg-darkPrimary text-white"
+        <div class="confirm bg-primary dark:bg-darkPrimary text-white hover:opacity-80"
              (click)="confirmStockRequestToProvider()">
             Grand Total : <span class="font-bold text-2xl">{{this.grandTotalPriceStockItemRequests$ | async | rcurrency}}</span>
         </div>

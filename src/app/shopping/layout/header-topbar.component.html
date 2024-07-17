@@ -152,11 +152,11 @@
             <ng-template #verticalNavTemplate>
                 <div class="px-4 py-2 flex flex-col gap-2 bg-white dark:bg-black h-full overflow-auto">
                     <div class="cursor-pointer hover:underline">{{I18NLayoutIds.LayoutNavbarHome | translate}}</div>
-                    <div class="cursor-pointer hover:underline">{{I18NLayoutIds.LayoutNavbarSales | translate}}</div>
+                    <!-- <div class="cursor-pointer hover:underline">{{I18NLayoutIds.LayoutNavbarSales | translate}}</div> -->
                     <div class="cursor-pointer hover:underline">{{I18NLayoutIds.LayoutNavbarNewArrivals | translate}}</div>
-                    <div class="cursor-pointer hover:underline">{{I18NLayoutIds.LayoutNavbarAllBrands | translate}}</div>
+                    <!-- <div class="cursor-pointer hover:underline">{{I18NLayoutIds.LayoutNavbarAllBrands | translate}}</div>
                     <div class="cursor-pointer hover:underline">{{I18NLayoutIds.LayoutNavbarAbout | translate}}</div>
-                    <div class="cursor-pointer hover:underline">{{I18NLayoutIds.LayoutNavbarMore | translate}}</div>
+                    <div class="cursor-pointer hover:underline">{{I18NLayoutIds.LayoutNavbarMore | translate}}</div> -->
                     <div class="flex flex-row">
                         <div class="flex-auto"></div>
                         <svg-icon [iconName]="OutlineSvgNames.CircleRightArrow" 
@@ -315,7 +315,7 @@
     <div class="flex flex-row justify-between items-center font-medium">
         <p class="uppercase flex flex-row items-center gap-2 hover:bg-lightGray dark:hover:bg-darkGray cursor-pointer"
            [ngClass]="{'bg-lightGray dark:bg-darkGray': megaMenuRendered === true}"
-           (mouseover)="renderMegaMenu(true)">
+           (click)="renderMegaMenu(true)">
             <svg-icon [iconName]="OutlineSvgNames.Burger" 
                       [size]="24">
             </svg-icon>

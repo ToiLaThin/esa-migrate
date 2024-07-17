@@ -30,6 +30,7 @@ export class ProviderDetailManagementComponent implements OnInit, OnDestroy {
     selectedProviderRequirementId!: string;
     qtyChange: string = '1'; //can only be 1, 50, 100
 
+    providerInfoToggled: boolean = true;
     get OutlineSvgNames() {
         return OutlineSvgNames;
     }
@@ -95,5 +96,9 @@ export class ProviderDetailManagementComponent implements OnInit, OnDestroy {
 
     clearAllStockRequests() {
         this._store.dispatch(providerStockManagementActions.clearAllStockRequestsToProvider({selectingProviderRequirementId: this.selectedProviderRequirementId}));
+    }
+
+    toggleProviderInfo() {
+        this.providerInfoToggled = !this.providerInfoToggled;
     }
 }

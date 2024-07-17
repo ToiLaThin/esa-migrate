@@ -4,7 +4,7 @@
     font-family: Inter, sans-serif !important;
 }
 .input-here {       
-    @apply w-full px-4 py-5 mt-[5px] bg-[#fff];
+    @apply w-full px-4 py-5 mt-[5px] bg-[#fff] shadow-md;
     border-radius: 5px;
     color: #333;
     transition: all 0.3s ease;
@@ -73,14 +73,13 @@ table {
 
     .qty-container {        
         @apply flex flex-row w-fit m-auto py-1 px-1;
-        @apply bg-[#ddd];
     }
     input[type="number"]::-webkit-inner-spin-button,
     input[type="number"]::-webkit-outer-spin-button {
         -webkit-appearance: none;
     }
     input[type="number"] {
-        @apply w-[60px] bg-[#ddd] text-[#121212];
+        @apply w-[60px] bg-[#ddd];
         outline: none;
         text-align: center;
     }
