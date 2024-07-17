@@ -30,6 +30,7 @@ import { ProductClassName } from '../../class/product-class';
 import { GgAnalyticsService } from '../../../core/services/gg-analytics.service';
 import { ICartItem } from '../../../core/models/cart-item.interface';
 import { cartActions } from '../../state/cart/cart.actions';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
 
 @Component({
     selector: 'esa-product-detail',
@@ -66,6 +67,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
         private _route: ActivatedRoute,
         private _router: Router,
         private _store: Store,
+        private _nzNotificationService: NzNotificationService,
         private _analyticsService: GgAnalyticsService
     ) {}
 
@@ -289,11 +291,22 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
     }
 
     addToCart(cartItem: ICartItem) {
+        let authStatus!: AuthStatus;
+        let tempSubscription = this.authStatus$.subscribe((status) => {
+            authStatus = status;
+        });
+        tempSubscription.unsubscribe();
+        if (authStatus === AuthStatus.Anonymous) {
+            this._store.dispatch(authActions.loginAttempted());
+            return;
+        }
         this._store.dispatch(
             cartActions.cartItemUpsert({
                 upsertCartItem: cartItem
             })
         );
+        //can move to effect later
+        this._nzNotificationService.success('Success', `Added ${cartItem.quantity} ${cartItem.productName} to cart`);
         this._analyticsService.addToCart(cartItem);
     }
 

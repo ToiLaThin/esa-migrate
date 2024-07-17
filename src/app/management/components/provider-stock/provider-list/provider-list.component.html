@@ -27,14 +27,14 @@
             </div>
         </div>
         <div class="flex flex-row gap-2">
-            <div class="flex-row-center justify-start outline-btn-green">
+            <!-- <div class="flex-row-center justify-start outline-btn-green">
                 <span>Excel</span>                
-            </div>
+            </div> -->
             <div class="flex-row-center justify-start outline-btn-red">
                 <span>Pdf</span>                
             </div>
             <div class="flex-row-center justify-start fill-btn-green">
-                <span>Import</span>
+                <span>Excel</span>
                 <span class="ml-2">
                     <svg-icon [iconName]="OutlineSvgNames.ActionDownload"
                               [size]="24"
@@ -43,7 +43,7 @@
                 </span>
             </div>
             <div class="flex-row-center justify-start fill-btn-red">
-                <span>Create Adjustment</span>
+                <span>Create new provider</span>
                 <span class="ml-2">
                     <svg-icon [iconName]="OutlineSvgNames.ActionAdd"
                               [size]="24"
@@ -168,21 +168,22 @@
     <!-- Pagination -->
     <div class="mt-5 flex flex-row justify-between">
         <div>
-            <span class="mr-2">Showing 1 to 10 of 57 entries</span>
+            <span class="mr-2">Showing all entries</span>
+            <!-- <span class="mr-2">Showing 1 to 10 of 57 entries</span>
             <select name="" id="">
                 <option value="">10</option>
                 <option value="">20</option>
                 <option value="">30</option>
                 <option value="">40</option>
                 <option value="">50</option>
-            </select>
+            </select> -->
         </div>
-        <div class="pagination-container">
+        <!-- <div class="pagination-container">
             <span class="prev-btn">&laquo;</span>
             <ng-container *ngFor="let pageNum of [1, 2, 3]">
                 <span class="page-btn">{{ pageNum }}</span>
             </ng-container>
             <span class="next-btn">&raquo;</span>
-        </div>
+        </div> -->
     </div>
 </div>

@@ -23,14 +23,14 @@
                     }
                     <button class="py-2 px-4 bg-gray-300 self-stretch text-lg" style="transform: rotate(180deg);">&#94;</button>
                 </div>
-                <div class="border border-solid border-gray-50 rounded self-start  overflow-hidden
+                <div class="border border-solid border-gray-50 rounded self-start overflow-hidden
                     bg-[url('{{ (product$ | async)?.productCoverImage }}')] bg-no-repeat w-full h-[520px] bg-[length:300px_200px] bg-center
                     lg:bg-[length:500px_400px] xl:min-w-[300px] xl:min-h-[680px] xl:bg-[length:580px_500px]"
                 >
                     <img class="fluid-img" src="{{ (product$ | async)?.productCoverImage }}">
-                </div>
+                </div>                
             </div>
-            <div>
+            <div class="lg:w-[850px]">
                 <esa-product-info-rating [product]="(product$ | async)!"
                                          [isProductRated]="isProductRated$ | async"
                                          [productRating]="productRating$ | async"
