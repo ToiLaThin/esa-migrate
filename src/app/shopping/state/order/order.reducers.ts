@@ -88,13 +88,13 @@ export const orderReducer = createReducer(
         }
     }),
 
-    on(orderActions.loadOrderFitlerdSortedPaginatedList, (state) => {
+    on(orderActions.loadOrderFitlerdSortedPaginatedListOfUser, (state) => {
         return {
             ...state,
             isLoadingInOrderState: true
         }
     }),
-    on(orderActions.loadOrderFitlerdSortedPaginatedListSuccess, (state, action) => {
+    on(orderActions.loadOrderFitlerdSortedPaginatedListOfUserSuccess, (state, action) => {
         return {
             ...state,
             orderAggregateCartFilteredSortedPaginatedList: action.orderAggregateCartFilteredSortedPaginatedList,
@@ -102,7 +102,7 @@ export const orderReducer = createReducer(
             isLoadingInOrderState: false
         }
     }),
-    on(orderActions.loadOrderFitlerdSortedPaginatedListFailed, (state) => {
+    on(orderActions.loadOrderFitlerdSortedPaginatedListOfUserFailed, (state) => {
         return {
             ...state,
             isLoadingInOrderState: false

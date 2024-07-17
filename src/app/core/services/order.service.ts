@@ -106,19 +106,21 @@ export class OrderService {
         );
     }
 
-    loadOrderFitlerdSortedPaginatedList(
+    loadOrderFitlerdSortedPaginatedListOfUser(
         orderListFilterOrderStatus: OrderStatus | null,
         orderListFilterPaymentMethod: PaymentMethod | null,
         orderListPageNum: number,
         orderListPageSize: number,
         orderListSortBy: OrdersSortBy,
-        orderListSortType: OrdersSortType
+        orderListSortType: OrdersSortType,
+        uId: string
     ) {
         let httpParams = new HttpParams().appendAll({
             sortBy: orderListSortBy,
             page: orderListPageNum,
             pageSize: orderListPageSize,
-            sortType: orderListSortType
+            sortType: orderListSortType,
+            userId: uId
         });
         if (orderListFilterOrderStatus !== null) {
             httpParams = httpParams.append('filterOrderStatus', orderListFilterOrderStatus);
@@ -132,7 +134,7 @@ export class OrderService {
         return this._http.get<{
             orderAggregateCartViewModels: IOrderAggregateCart[];
             totalOrdersCount: number;
-        }>(`${env.BASEURL}/api/OrderCart/OrderAPI/GetOrdersAggregateCartFilterSortPagination`, {
+        }>(`${env.BASEURL}/api/OrderCart/OrderAPI/GetOrdersAggregateCartFilterSortPaginationOfUser`, {
             params: httpParams
         });
     }

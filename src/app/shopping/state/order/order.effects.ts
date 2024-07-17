@@ -321,13 +321,14 @@ export class OrderEffects {
         )
     );
 
-    loadOrderFilteredSortedPaginatedListEffect = createEffect(() =>
+    loadOrderFilteredSortedPaginatedListOfUserEffect = createEffect(() =>
         this.actions$.pipe(
-            ofType(orderActions.loadOrderFitlerdSortedPaginatedList),
+            ofType(orderActions.loadOrderFitlerdSortedPaginatedListOfUser),
             switchMap((_) => {
                 //instead of multiple selector for one scalar value => make a big obj => only have to subscribe one to get value
                 let orderListFilterSortPaginateAggregateState: IOrderListFilterSortPaginateAggregateState | null =
                     null;
+                let userId!: string;
                 let orderListFilterSortPaginateAggregateStateSubscription = this._store
                     .select((state) =>
                         selectorOrderListFilterSortPaginateAggregateState(
@@ -343,28 +344,35 @@ export class OrderEffects {
                     )
                     .subscribe();
                 orderListFilterSortPaginateAggregateStateSubscription.unsubscribe();
+
+                let userIdSubscription = this._store
+                    .select((state) => selectorUserId(state as { [authFeatureKey]: IAuthState }))
+                    .pipe(tap((userIdValue) => (userId = userIdValue)))
+                    .subscribe();
+                userIdSubscription.unsubscribe();
                 return this._orderService
-                    .loadOrderFitlerdSortedPaginatedList(
+                    .loadOrderFitlerdSortedPaginatedListOfUser(
                         orderListFilterSortPaginateAggregateState!.orderListFilterOrderStatus,
                         orderListFilterSortPaginateAggregateState!.orderListFilterPaymentMethod,
                         orderListFilterSortPaginateAggregateState!.orderListPageNum,
                         orderListFilterSortPaginateAggregateState!.orderListPageSize,
                         orderListFilterSortPaginateAggregateState!.orderListSortBy,
-                        orderListFilterSortPaginateAggregateState!.orderListSortType
+                        orderListFilterSortPaginateAggregateState!.orderListSortType,
+                        userId
                     )
                     .pipe(
                         tap((returnedResult) =>
                             console.log('OrderFitlerdSortedPaginatedList', returnedResult)
                         ),
                         map((returnedResult) =>
-                            orderActions.loadOrderFitlerdSortedPaginatedListSuccess({
+                            orderActions.loadOrderFitlerdSortedPaginatedListOfUserSuccess({
                                 orderAggregateCartFilteredSortedPaginatedList:
                                     returnedResult.orderAggregateCartViewModels,
                                 totalOrdersAfterOnlyFilteredCount: returnedResult.totalOrdersCount
                             })
                         ),
                         catchError((error) =>
-                            of(orderActions.loadOrderFitlerdSortedPaginatedListFailed({ error }))
+                            of(orderActions.loadOrderFitlerdSortedPaginatedListOfUserFailed({ error }))
                         )
                     );
             })
@@ -383,7 +391,7 @@ export class OrderEffects {
                 orderActions.selectPageNumber
             ),
             switchMap((_) => {
-                return of(orderActions.loadOrderFitlerdSortedPaginatedList());
+                return of(orderActions.loadOrderFitlerdSortedPaginatedListOfUser());
             })
         )
     );

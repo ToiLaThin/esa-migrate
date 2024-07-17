@@ -44,12 +44,12 @@ export const orderActions = createActionGroup({
         'Pick Payment Method Credit Card Success': emptyProps(),
         'Pick Payment Method Credit Card Failed': props<{ error: any }>(),
 
-        'Load Order Fitlerd Sorted Paginated List': emptyProps(),
-        'Load Order Fitlerd Sorted Paginated List Success': props<{
+        'Load Order Fitlerd Sorted Paginated List Of User': emptyProps(),
+        'Load Order Fitlerd Sorted Paginated List Of User Success': props<{
             orderAggregateCartFilteredSortedPaginatedList: IOrderAggregateCart[];
             totalOrdersAfterOnlyFilteredCount: number;
         }>(),
-        'Load Order Fitlerd Sorted Paginated List Failed': props<{ error: any }>(),
+        'Load Order Fitlerd Sorted Paginated List Of User Failed': props<{ error: any }>(),
 
         'Filter Order Status By': props<{ newOrderListFilterByOrderStatus: OrderStatus }>(),
         'Filter Order Sort By': props<{ newOrderListFilterBySortBy: OrdersSortBy }>(),

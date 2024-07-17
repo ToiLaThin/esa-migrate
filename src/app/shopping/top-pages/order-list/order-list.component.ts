@@ -175,7 +175,7 @@ export class OrderListComponent implements OnInit, OnDestroy {
         );
 
         //for each 1 in the array len totalPage, map 1 => idx + 1
-        this._store.dispatch(orderActions.loadOrderFitlerdSortedPaginatedList());
+        this._store.dispatch(orderActions.loadOrderFitlerdSortedPaginatedListOfUser());
     }
 
     selectTab(event: MouseEvent, orderStatusToFilter: OrderStatus) {
