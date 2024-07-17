@@ -21,8 +21,8 @@ export class ProductFilterByComponent implements OnInit {
     allCatalogs$!: Observable<ICatalog[]>;
     subCatalogsOfSelectedCatalog$!: Observable<ISubCatalog[]>;
 
-    fromPrice: number = 0;
-    toPrice: number = 10000000;
+    fromPrice: number = 1000;
+    toPrice: number = 1000000;
 
     get I18NProductIds() {
         return I18NProductIdSelector;

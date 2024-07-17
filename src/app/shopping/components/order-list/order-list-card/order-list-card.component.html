@@ -32,12 +32,12 @@
                 Order<span class="font-semibold text-sm italic">#{{orderAggregateCart.orderId| slice:0:8 | uppercase}}</span>
             </div>            
             <div class="flex flex-row mt-2 gap-2">
-                @if (orderAggregateCart.cart.totalSaleDiscountAmount !== 0) {
+                @if (orderAggregateCart.cart.totalSaleDiscountAmount !== -1 && orderAggregateCart.cart.totalSaleDiscountAmount !== 0) {
                 <svg-icon [iconName]="ColorSvgNames.SaleTag"
                           [size]="28">
                 </svg-icon>
                 <div class="pill-container pill-danger text-xs">
-                    <p>-{{orderAggregateCart.cart.totalSaleDiscountAmount | rcurrency}}</p>
+                    <p>{{orderAggregateCart.cart.totalSaleDiscountAmount | rcurrency}}</p>
                 </div>
                 }
                 @else {
@@ -61,14 +61,14 @@
             {{orderAggregateCart.cart.totalPriceFinal| rcurrency}}
         </div>
         <div class="flex flex-col ml-2 gap-3 border-l-2 border-solid pl-2">
-            <div class="hover:rotate-[-15deg] transition">
+            <!-- <div class="hover:rotate-[-15deg] transition">
                 <svg-icon [iconName]="ColorSvgNames.Lookup"
                           [size]="35"
                           class="cursor-pointer"
                           nz-tooltip
                           nzTooltipTitle="Tracking Order">
                 </svg-icon>
-            </div>
+            </div> -->
             <div class="hover:scale-50 transition">
                 <svg-icon [iconName]="ColorSvgNames.ViewDetail"
                           [size]="35"

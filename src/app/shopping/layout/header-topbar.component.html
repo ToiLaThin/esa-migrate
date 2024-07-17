@@ -326,11 +326,13 @@
             <p class="2xl:p-4 xl:p-1 min-w-[100px] cursor-pointer hover:underline">
                 <a routerLink="/shopping/index">{{I18NLayoutIds.LayoutNavbarHome | translate}}</a>
             </p> 
-            <p class="2xl:p-4 xl:p-1 min-w-[100px] cursor-pointer hover:underline">{{I18NLayoutIds.LayoutNavbarSales | translate}}</p>
-            <p class="2xl:p-4 xl:p-1 min-w-[130px] cursor-pointer hover:underline">{{I18NLayoutIds.LayoutNavbarNewArrivals | translate}}</p>
-            <p class="2xl:p-4 xl:p-1 min-w-[110px] cursor-pointer hover:underline">{{I18NLayoutIds.LayoutNavbarAllBrands | translate}}</p>
+            <!-- <p class="2xl:p-4 xl:p-1 min-w-[100px] cursor-pointer hover:underline">{{I18NLayoutIds.LayoutNavbarSales | translate}}</p> -->
+            <p class="2xl:p-4 xl:p-1 min-w-[130px] cursor-pointer hover:underline">
+                <a routerLink="/shopping/product-list">{{I18NLayoutIds.LayoutNavbarNewArrivals | translate}}</a>
+            </p>
+            <!-- <p class="2xl:p-4 xl:p-1 min-w-[110px] cursor-pointer hover:underline">{{I18NLayoutIds.LayoutNavbarAllBrands | translate}}</p>
             <p class="2xl:p-4 xl:p-1 min-w-[110px] cursor-pointer hover:underline">{{I18NLayoutIds.LayoutNavbarAbout | translate}}</p>
-            <p class="2xl:p-4 xl:p-1 min-w-[100px] cursor-pointer">{{I18NLayoutIds.LayoutNavbarMore | translate}}</p>
+            <p class="2xl:p-4 xl:p-1 min-w-[100px] cursor-pointer">{{I18NLayoutIds.LayoutNavbarMore | translate}}</p> -->
         </div>
     
         <p class="flex flex-row gap-2">
@@ -351,10 +353,17 @@
             <!-- 16px is the gap-4 width -->
             @for (catalog of (allCatalog$ | async); track catalog) {
             <div class="flex flex-col text-center" style="width: calc(20% - 32px);">
-                <div class="font-semibold text-primary dark:text-darkPrimary">{{catalog.catalogName}}</div>
+                <div class="font-semibold text-primary dark:text-darkPrimary">
+                    <a routerLink="/shopping/product-list">
+                        {{catalog.catalogName}}
+                    </a>
+                </div>
                 <div class="text-left mt-4">
                     @for (subcatalog of catalog.subCatalogs; track subcatalog) {
-                    <p class="text-md">{{subcatalog.subCatalogName | titlecase}}</p>
+                    <a routerLink="/shopping/product-list"
+                       class="text-md">
+                       {{subcatalog.subCatalogName | titlecase}}
+                    </a>
                     }
                 </div>
             </div>

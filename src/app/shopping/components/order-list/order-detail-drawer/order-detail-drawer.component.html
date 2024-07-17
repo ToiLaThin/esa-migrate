@@ -53,11 +53,20 @@
             </div>
             <div class="flex flex-row justify-between items-center">
                 <span>Discount (coupon):</span>
+                @if (orderDetail.cart.couponDiscountAmount == -1) {
+                <span>0</span>
+                } @else {
                 <span>{{orderDetail.cart.couponDiscountAmount | rcurrency}}</span>
+                }
             </div>
             <div class="flex flex-row justify-between items-center">
                 <span>Discount (sales):</span>
+                @if (orderDetail.cart.totalSaleDiscountAmount == -1) {
+                <span>0</span>
+                } @else {
                 <span>{{orderDetail.cart.totalSaleDiscountAmount | rcurrency}}</span>
+                }
+                 
             </div>
             <div class="flex flex-row justify-between items-center">
                 <span class="font-semibold text-lg text-[red]">Grandtotal:</span>
