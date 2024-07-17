@@ -20,6 +20,9 @@ export const orderActions = createActionGroup({
             loadedTrackingOrder: IOrderAggregateCart | null;
         }>(),
 
+        'Clear Tracking Order': emptyProps(),
+        //effect of clear tracking order also clear in storage
+        
         'Load Address From Storage': emptyProps(),
         'Customer Order Info Setted': props<{ customerOrderInfo: ICustomerOrderInfo }>(),
 

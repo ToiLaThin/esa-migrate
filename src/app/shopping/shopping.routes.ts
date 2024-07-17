@@ -15,10 +15,12 @@ import { ProductCompareComponent } from "./top-pages/product-compare/product-com
 import { AccountComponent } from "./top-pages/account/account.component";
 import { RoleAdminGuard } from "../core/guards/role-admin.guard";
 import { ProductWishListComponent } from "./top-pages/product-wishlist/product-wishlist.component";
+import { RoleInitRedirectGuard } from "../core/guards/role-init-redirect.guard";
+import { CheckoutCreditRedirectComponent } from "./components/order-process/checkout-credit-redirect/checkout-credit-redirect.component";
 
 export const shoppingRoutes: Routes = [
     {
-        path: '',
+        path: '',        
         component: ShoppingComponent,
         children: [
             {
@@ -28,6 +30,7 @@ export const shoppingRoutes: Routes = [
             },
             {
                 path: 'index',
+                canActivate: [RoleInitRedirectGuard],
                 component: IndexComponent
             },
             {                
@@ -71,6 +74,10 @@ export const shoppingRoutes: Routes = [
                 path: 'order-process',
                 component: OrderProcessComponent,
                 children: [
+                    {
+                        path: 'checkout-credit-redirect',
+                        component: CheckoutCreditRedirectComponent
+                    },
                     {
                         path: 'customer-info',
                         component: OrderTrackingCustomerInfoComponent

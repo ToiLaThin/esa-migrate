@@ -56,6 +56,7 @@ import { OptionVerticalComponent } from "./layout/option-vertical.component";
 import { ProductCompareComponent } from "./top-pages/product-compare/product-compare.component";
 import { AccountComponent } from "./top-pages/account/account.component";
 import { ProductWishListComponent } from "./top-pages/product-wishlist/product-wishlist.component";
+import { CheckoutCreditRedirectComponent } from "./components/order-process/checkout-credit-redirect/checkout-credit-redirect.component";
 
 @NgModule({
     //https://github.com/ngx-translate/core/issues/1193
@@ -149,6 +150,7 @@ import { ProductWishListComponent } from "./top-pages/product-wishlist/product-w
         ProductWishListComponent,
 
         CartComponent,
+        CheckoutCreditRedirectComponent,
         OrderProcessComponent,
         OrderTrackingCustomerInfoComponent,
         OrderTrackingNotifyCustomerComponent,

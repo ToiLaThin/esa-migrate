@@ -181,9 +181,9 @@ export class HeaderTopbarComponent implements OnInit, OnDestroy, AfterViewInit {
         this.allCatalog$ = this._store.select((state) =>
             selectorAllCatalogs(state as { [productFeatureKey]: IProductState })
         );
-        this.userName$ = this._store.select((state) =>
-            selectorUserName(state as { [authFeatureKey]: IAuthState })
-        );
+        // this.userName$ = this._store.select((state) =>
+        //     selectorUserName(state as { [authFeatureKey]: IAuthState })
+        // );
         this.userRole$ = this._store.select((state) =>
             selectorUserRole(state as { [authFeatureKey]: IAuthState })
         );

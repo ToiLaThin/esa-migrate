@@ -11,6 +11,7 @@ import { orderActions } from '../../state/order/order.actions';
 import { Observable, Subscription, map } from 'rxjs';
 import {
     selectorCurrentPageNumOrderAggregateCartFilteredSortedPaginated,
+    selectorIsLoadingInOrderState,
     selectorOrderAggregateCartFilteredSortedPaginatedList,
     selectorPageCountOrderAggregateCartFilteredSortedPaginated,
     selectorProductsForReorder
@@ -34,6 +35,7 @@ export class OrderListComponent implements OnInit, OnDestroy {
     @ViewChild('cardContainer', { read: ElementRef<HTMLDivElement> })
     cardContainer!: ElementRef<HTMLDivElement>;
     isCardContainerOverflowing = false;
+    isLoadingInOrderState$!: Observable<boolean>;
 
     orderFilterDatas: OrderFilterData[] = [
         new OrderFilterData(
@@ -115,6 +117,9 @@ export class OrderListComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this.currentWindowWidth = window.innerWidth;
+        this.isLoadingInOrderState$ = this._store.select((state) =>
+            selectorIsLoadingInOrderState(state as { [orderFeatureKey]: IOrderState })
+        );
         this.orderAggregateCartsFilteredSortedPaginated$ = this._store.select((state) =>
             selectorOrderAggregateCartFilteredSortedPaginatedList(
                 state as { [orderFeatureKey]: IOrderState }

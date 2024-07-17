@@ -6,6 +6,11 @@ import { createSelector } from '@ngrx/store';
 export const selectOrderState = (state: { [orderFeatureKey]: IOrderState }) =>
     state[orderFeatureKey];
 
+export const selectorIsLoadingInOrderState = createSelector(
+    selectOrderState,
+    (state) => state.isLoadingInOrderState
+);
+
 export const selectorTrackingOrder = createSelector(
     selectOrderState,
     (state) => state.trackingOrder

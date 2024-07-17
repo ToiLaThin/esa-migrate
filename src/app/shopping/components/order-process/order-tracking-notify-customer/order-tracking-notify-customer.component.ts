@@ -7,6 +7,7 @@ import { IOrderState } from '../../../state/order/orderState.interface';
 import { tap } from 'rxjs';
 import { ColorSvgNames } from '../../../../share-components/svg-definitions/color-svg-names.enum';
 import { Router } from '@angular/router';
+import { orderActions } from '../../../state/order/order.actions';
 
 @Component({
     selector: 'esa-order-tracking-notify-customer',
@@ -37,9 +38,12 @@ export class OrderTrackingNotifyCustomerComponent implements OnInit {
             )
             .subscribe();
         tempSubscription.unsubscribe();
+
+        //clear tracking order because it is done
+        this._store.dispatch(orderActions.clearTrackingOrder());
     }
 
-    returnProductListPage() {
+    returnProductListPage() {        
         this._router.navigate(['/shopping/product-list']);
     }
 }

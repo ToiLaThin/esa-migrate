@@ -36,13 +36,19 @@ export const selectorAccessToken = createSelector(selectorAuthFeature, (authStat
     const accessToken = user?.access_token;
     return accessToken;
 });
-export const selectorUserName = createSelector(selectorAuthFeature, (authState) => {
-    const user = authState.user;
-    if (!user) {
-        return '';
-    }
-    return user?.profile.sub;
-});
+
+// export const selectorUserName = createSelector(selectorAuthFeature, (authState) => {
+//     const user = authState.user;
+//     if (!user) {
+//         return '';
+//     }
+//     return user?.profile.sub;
+// });
+
+export const selectorUserName = createSelector(
+    selectorAuthFeature,
+    (authState) => authState.userInfo?.username
+);
 
 export const selectorUserId = createSelector(selectorAuthFeature, (authState) => {
     const user = authState.user;

@@ -68,6 +68,17 @@ export class OrderEffects {
         { dispatch: false }
     );
 
+    clearTrackingOrderEffect = createEffect(
+        () =>
+            this.actions$.pipe(
+                ofType(orderActions.clearTrackingOrder),
+                tap((_) => {
+                    this._orderService.clearTrackingOrderInStorage();
+                })
+            ),
+        { dispatch: false }
+    );
+
     loadTrackingOrderFromStorageEffect = createEffect(() =>
         this.actions$.pipe(
             ofType(orderActions.loadTrackingOrderFromStorage),
