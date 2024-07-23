@@ -60,7 +60,7 @@ export const shoppingRoutes: Routes = [
                 component: CartComponent
             },
             {
-                canActivate: [AuthenticatedRequiredGuard, RoleAdminGuard],
+                canActivate: [AuthenticatedRequiredGuard],
                 path: 'order-list',
                 component: OrderListComponent
             },
